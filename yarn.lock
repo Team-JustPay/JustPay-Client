@@ -150,8 +150,8 @@ __metadata:
   linkType: hard
 
 "@babel/traverse@npm:^7.4.5":
-  version: 7.20.8
-  resolution: "@babel/traverse@npm:7.20.8"
+  version: 7.20.10
+  resolution: "@babel/traverse@npm:7.20.10"
   dependencies:
     "@babel/code-frame": ^7.18.6
     "@babel/generator": ^7.20.7
@@ -163,7 +163,7 @@ __metadata:
     "@babel/types": ^7.20.7
     debug: ^4.1.0
     globals: ^11.1.0
-  checksum: d169d14e2db7f0746c1c03de2be770f158a230ad3ac9e32e922dda808b7d717a370b13660adf707a4f0477c8f1fb546b420c4bc301d762e07ad628bbb57b16e4
+  checksum: 8e36dfc76b8f7aafa01b98130c0257e3148eb7132e4b599be565bddae5faec7e20a0f92786a829a8d962a0bf5652fe0019cadd85716d70d140785dec640ff6f7
   languageName: node
   linkType: hard
 
@@ -552,18 +552,18 @@ __metadata:
   linkType: hard
 
 "@testing-library/dom@npm:^8.5.0":
-  version: 8.19.0
-  resolution: "@testing-library/dom@npm:8.19.0"
+  version: 8.19.1
+  resolution: "@testing-library/dom@npm:8.19.1"
   dependencies:
     "@babel/code-frame": ^7.10.4
     "@babel/runtime": ^7.12.5
-    "@types/aria-query": ^4.2.0
+    "@types/aria-query": ^5.0.1
     aria-query: ^5.0.0
     chalk: ^4.1.0
     dom-accessibility-api: ^0.5.9
     lz-string: ^1.4.4
     pretty-format: ^27.0.2
-  checksum: 6bb93fef96703b6c47cf1b7cc8f71d402a9576084a94ba4e9926f51bd7bb1287fbb4f6942d82bd03fc6f3d998ae97e60f6aea4618f3a1ce6139597d2a4ecb7b9
+  checksum: 0fb1f05fa199491795063eae5e892922851570717c85131776de6edd5477b1bfa528790401120a616ce4846584570d1436b0bce4649652ddb6ea9d67a1f00b19
   languageName: node
   linkType: hard
 
@@ -616,10 +616,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/aria-query@npm:^4.2.0":
-  version: 4.2.2
-  resolution: "@types/aria-query@npm:4.2.2"
-  checksum: 6f2ce11d91e2d665f3873258db19da752d91d85d3679eb5efcdf9c711d14492287e1e4eb52613b28e60375841a9e428594e745b68436c963d8bad4bf72188df3
+"@types/aria-query@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "@types/aria-query@npm:5.0.1"
+  checksum: 69fd7cceb6113ed370591aef04b3fd0742e9a1b06dd045c43531448847b85de181495e4566f98e776b37c422a12fd71866e0a1dfd904c5ec3f84d271682901de
   languageName: node
   linkType: hard
 
@@ -751,11 +751,11 @@ __metadata:
   linkType: hard
 
 "@types/react-dom@npm:^18.0.0, @types/react-dom@npm:^18.0.9":
-  version: 18.0.9
-  resolution: "@types/react-dom@npm:18.0.9"
+  version: 18.0.10
+  resolution: "@types/react-dom@npm:18.0.10"
   dependencies:
     "@types/react": "*"
-  checksum: e744e3feba25fc43733289d4df4d9c0e59fcca7f34e8c89d75f81a339accb2bd70236d69382d47d2c0ad06a1529b2e56aa6171fe175854d60e07156ddceedfcb
+  checksum: ff8282d5005a0b1cd95fb65bf79d3d8485e4cfe2aaf052129033a178684b940014a3f4536bc20d573f8a01cf4c6f4770c74988cef7c2b5cac3041d9f172647e3
   languageName: node
   linkType: hard
 
@@ -1584,9 +1584,9 @@ __metadata:
   linkType: hard
 
 "core-js-pure@npm:^3.25.1":
-  version: 3.26.1
-  resolution: "core-js-pure@npm:3.26.1"
-  checksum: d88c40e5e29e413c11d1ef991a8d5b6a63f00bd94707af0f649d3fc18b3524108b202f4ae75ce77620a1557d1ba340bc3362b4f25d590eccc37cf80fc75f7cd4
+  version: 3.27.0
+  resolution: "core-js-pure@npm:3.27.0"
+  checksum: 83e1aa7eab3335dfcfc7f7bb4eca5c2420124c75765ff7d3ff8fbbdbe070f4ffbd8c0b0a82e2f48107140c1fbd70897b9afb0d96f483e6f45bf2df51d02374b6
   languageName: node
   linkType: hard
 
