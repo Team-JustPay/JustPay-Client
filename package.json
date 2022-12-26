@@ -52,7 +52,7 @@
     "@types/node": "^18.11.17",
     "@types/prettier": "^2",
     "@types/react": "^18",
-    "@types/styled-components": "^5",
+    "@types/styled-components": "^5.1.26",
     "@typescript-eslint/eslint-plugin": "^5.47.0",
     "@typescript-eslint/parser": "^5.47.0",
     "babel-plugin-styled-components": "^2.0.7",

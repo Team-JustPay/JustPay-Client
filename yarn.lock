@@ -800,7 +800,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/styled-components@npm:^5":
+"@types/styled-components@npm:^5.1.26":
   version: 5.1.26
   resolution: "@types/styled-components@npm:5.1.26"
   dependencies:
@@ -3959,7 +3959,7 @@ __metadata:
     "@types/prettier": ^2
     "@types/react": ^18
     "@types/react-dom": ^18.0.9
-    "@types/styled-components": ^5
+    "@types/styled-components": ^5.1.26
     "@typescript-eslint/eslint-plugin": ^5.47.0
     "@typescript-eslint/parser": ^5.47.0
     axios: ^1.2.1
