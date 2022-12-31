@@ -42,6 +42,10 @@ const GlobalStyle = createGlobalStyle`
     background-color: transparent;
     -webkit-tap-highlight-color : transparent;
   }
+
+  input {
+    outline: none;
+  }
   
   a, a:visited {
     text-decoration: none;
