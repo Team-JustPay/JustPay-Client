@@ -1980,7 +1980,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],\
       [\
         "supports-color",\
-        "npm:7.2.0"\
+        "npm:9.3.1"\
       ],\
       [\
         "supports-preserve-symlinks-flag",\
@@ -2192,6 +2192,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["recoil", "virtual:935a7a25b700a38019c3af32212805aa1365027a8f450e6c747d224a0624dcacc1f5ca64f5feda8e8fa84bc26f41e916c9f19b16c565c7651dd9f1f2d29e56d3#npm:0.7.6"],\
             ["styled-components", "virtual:935a7a25b700a38019c3af32212805aa1365027a8f450e6c747d224a0624dcacc1f5ca64f5feda8e8fa84bc26f41e916c9f19b16c565c7651dd9f1f2d29e56d3#npm:5.3.6"],\
             ["styled-reset", "virtual:935a7a25b700a38019c3af32212805aa1365027a8f450e6c747d224a0624dcacc1f5ca64f5feda8e8fa84bc26f41e916c9f19b16c565c7651dd9f1f2d29e56d3#npm:4.4.4"],\
+            ["supports-color", "npm:9.3.1"],\
             ["typescript", "patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=ad5954"],\
             ["web-vitals", "npm:2.1.4"]\
           ],\
@@ -7490,6 +7491,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["recoil", "virtual:935a7a25b700a38019c3af32212805aa1365027a8f450e6c747d224a0624dcacc1f5ca64f5feda8e8fa84bc26f41e916c9f19b16c565c7651dd9f1f2d29e56d3#npm:0.7.6"],\
             ["styled-components", "virtual:935a7a25b700a38019c3af32212805aa1365027a8f450e6c747d224a0624dcacc1f5ca64f5feda8e8fa84bc26f41e916c9f19b16c565c7651dd9f1f2d29e56d3#npm:5.3.6"],\
             ["styled-reset", "virtual:935a7a25b700a38019c3af32212805aa1365027a8f450e6c747d224a0624dcacc1f5ca64f5feda8e8fa84bc26f41e916c9f19b16c565c7651dd9f1f2d29e56d3#npm:4.4.4"],\
+            ["supports-color", "npm:9.3.1"],\
             ["typescript", "patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=ad5954"],\
             ["web-vitals", "npm:2.1.4"]\
           ],\
@@ -8366,6 +8368,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["supports-color", "npm:7.2.0"],\
             ["has-flag", "npm:4.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:9.3.1", {\
+          "packageLocation": "./.yarn/cache/supports-color-npm-9.3.1-08866b3304-00c4d1082a.zip/node_modules/supports-color/",\
+          "packageDependencies": [\
+            ["supports-color", "npm:9.3.1"]\
           ],\
           "linkType": "HARD"\
         }]\
