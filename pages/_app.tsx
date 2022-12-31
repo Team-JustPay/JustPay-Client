@@ -6,6 +6,10 @@ import GlobalStyle from '../styles/globalStyle';
 import { ThemeProvider } from 'styled-components';
 import theme from '../styles/theme';
 
+if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
+  require('../mocks');
+}
+
 function MyApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
 

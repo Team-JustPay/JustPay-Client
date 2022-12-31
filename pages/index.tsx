@@ -5,7 +5,6 @@ function Home() {
     <div>
       <Head>
         <title>JustPay-dev</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
     </div>
   );
