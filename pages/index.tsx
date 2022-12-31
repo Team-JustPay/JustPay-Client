@@ -4,10 +4,9 @@ function Home() {
   return (
     <div>
       <Head>
-        <title>setting-practice</title>
+        <title>JustPay-dev</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div>Home</div>
     </div>
   );
 }
