@@ -8,22 +8,34 @@ interface TitleBoxProps {
   leftButtonText?: string;
   rightButtonText?: string;
   isHavingBackButton?: boolean;
-  onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
+  onClickLeftButton?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
+  onClickRightButton?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export default function Header({ title, rightButtonText, isHavingBackButton, leftButtonText, onClick }: TitleBoxProps) {
+export default function Header({
+  title,
+  rightButtonText,
+  isHavingBackButton,
+  leftButtonText,
+  onClickLeftButton,
+  onClickRightButton,
+}: TitleBoxProps) {
   return (
     <Root>
       {isHavingBackButton ? (
-        <StyledBackButtonWrapper>
-          <Back onClick={onClick} />
+        <StyledBackButtonWrapper type="button" onClick={onClickLeftButton}>
+          <Back />
         </StyledBackButtonWrapper>
       ) : (
-        <StyledLeftButton onClick={onClick}>{leftButtonText}</StyledLeftButton>
+        <StyledLeftButton type="button" onClick={onClickLeftButton}>
+          {leftButtonText}
+        </StyledLeftButton>
       )}
 
       <StyledTitle>{title}</StyledTitle>
-      <StyledRightButton onClick={onClick}>{rightButtonText}</StyledRightButton>
+      <StyledRightButton type="button" onClick={onClickRightButton}>
+        {rightButtonText}
+      </StyledRightButton>
     </Root>
   );
 }
