@@ -11,6 +11,7 @@ const TITLE = Object.freeze({
   PAY: '결제하기',
   ACCEPT_OFFER: '제시 수락하기',
   LOGIN_TWITTER: '트위터 로그인하기',
+  SELLER_PROFILE: '판매자 프로필',
 });
 
 const MENU = Object.freeze({
