@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import CheckRadio from 'components/common/CheckRadio';
 
 function Home() {
   return (
@@ -6,6 +7,7 @@ function Home() {
       <Head>
         <title>JustPay-dev</title>
       </Head>
+      <CheckRadio />
     </div>
   );
 }
