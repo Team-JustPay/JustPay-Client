@@ -6,6 +6,8 @@ import GlobalStyle from '../styles/globalStyle';
 import { ThemeProvider } from 'styled-components';
 import theme from '../styles/theme';
 
+import AppLayout from 'components/layout/AppLayout';
+
 if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
   require('../mocks');
 }
@@ -17,8 +19,10 @@ function MyApp({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <RecoilRoot>
-          <GlobalStyle />
-          <Component {...pageProps} />
+          <AppLayout>
+            <GlobalStyle />
+            <Component {...pageProps} />
+          </AppLayout>
         </RecoilRoot>
       </ThemeProvider>
     </QueryClientProvider>
