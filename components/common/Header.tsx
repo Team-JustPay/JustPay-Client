@@ -8,9 +8,10 @@ interface TitleBoxProps {
   leftButtonText?: string;
   rightButtonText?: string;
   isHavingBackButton?: boolean;
+  onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export default function Header({ title, rightButtonText, isHavingBackButton, leftButtonText }: TitleBoxProps) {
+export default function Header({ title, rightButtonText, isHavingBackButton, leftButtonText, onClick }: TitleBoxProps) {
   return (
     <Root>
       {isHavingBackButton ? (
