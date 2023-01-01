@@ -7,7 +7,7 @@ interface InputProps {
 }
 
 interface InputTextProps {
-  inputText: boolean;
+  inputText: string;
 }
 
 export default function UserInput({ placeholder, inputTextGuide }: InputProps) {
@@ -19,7 +19,7 @@ export default function UserInput({ placeholder, inputTextGuide }: InputProps) {
   return (
     <InputContainer>
       <GlobalStyledInput placeholder={placeholder} onChange={handleInputText} />
-      <InputText inputText={!!inputText}>{inputTextGuide}</InputText>
+      <InputText inputText={inputText}>{inputTextGuide}</InputText>
     </InputContainer>
   );
 }
@@ -64,5 +64,5 @@ const InputText = styled.strong<InputTextProps>`
   font-size: 1.6rem;
   line-height: 1.9rem;
 
-  color: ${(props) => (props.inputText ? ({ theme }) => theme.colors.main : ({ theme }) => theme.colors.gray1)};
+  color: ${({ inputText }) => (inputText ? ({ theme }) => theme.colors.main : ({ theme }) => theme.colors.gray1)};
 `;
