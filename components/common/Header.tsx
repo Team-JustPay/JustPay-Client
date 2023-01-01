@@ -51,7 +51,7 @@ const Root = styled.div`
 const StyledBackButtonWrapper = styled.button`
   position: absolute;
   top: 1.9rem;
-  left: 2.3rem;
+  left: 0.7rem;
 
   width: 1rem;
   height: 2rem;
@@ -60,7 +60,7 @@ const StyledBackButtonWrapper = styled.button`
 const StyledLeftButton = styled.button`
   position: absolute;
   top: 1.9rem;
-  left: 2.3rem;
+  left: 0.7rem;
 
   ${theme.fonts.regular16pt};
   color: ${theme.colors.white};
@@ -80,7 +80,7 @@ const StyledTitle = styled.h1`
 const StyledRightButton = styled.button`
   position: absolute;
   top: 2rem;
-  right: 2.4rem;
+  right: 0.8rem;
 
   ${theme.fonts.regular16pt}
   color: ${theme.colors.white};
