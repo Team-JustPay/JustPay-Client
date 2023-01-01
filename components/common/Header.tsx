@@ -1,23 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
-import Image from 'next/image';
 import theme from 'styles/theme';
 import Back from 'public/assets/icons/back.svg';
 
 interface TitleBoxProps {
   title?: string;
-  leftButton?: string;
-  rightButton?: string;
+  leftButtonText?: string;
+  rightButtonText?: string;
+  isHavingBackButton?: boolean;
 }
 
-export default function Header({ title, leftButton, rightButton }: TitleBoxProps) {
+export default function Header({ title, rightButtonText, isHavingBackButton, leftButtonText }: TitleBoxProps) {
   return (
     <Root>
-      <StyledBackButtonWrapper>
-        <Back />
-      </StyledBackButtonWrapper>
+      {isHavingBackButton ? (
+        <StyledBackButtonWrapper>
+          <Back />
+        </StyledBackButtonWrapper>
+      ) : (
+        <StyledLeftButton>{leftButtonText}</StyledLeftButton>
+      )}
+
       <StyledTitle>{title}</StyledTitle>
-      {rightButton && <StyledCancelButton>{rightButton}</StyledCancelButton>}
+      <StyledRightButton>{rightButtonText}</StyledRightButton>
     </Root>
   );
 }
@@ -25,8 +30,27 @@ export default function Header({ title, leftButton, rightButton }: TitleBoxProps
 const Root = styled.div`
   position: relative;
   max-width: 43rem;
-
   margin: 0 auto;
+`;
+
+const StyledBackButtonWrapper = styled.div`
+  position: absolute;
+  top: 1.9rem;
+  left: 2.3rem;
+
+  width: 1rem;
+  height: 2rem;
+
+  cursor: pointer;
+`;
+
+const StyledLeftButton = styled.button`
+  position: absolute;
+  top: 1.9rem;
+  left: 2.3rem;
+
+  ${theme.fonts.regular16pt};
+  color: ${theme.colors.white};
 `;
 
 const StyledTitle = styled.h1`
@@ -41,22 +65,11 @@ const StyledTitle = styled.h1`
   color: ${theme.colors.white};
 `;
 
-const StyledCancelButton = styled.button`
+const StyledRightButton = styled.button`
   position: absolute;
   top: 2rem;
   right: 2.4rem;
 
   ${theme.fonts.regular16pt};
   color: ${theme.colors.white};
-`;
-
-const StyledBackButtonWrapper = styled.div`
-  position: absolute;
-  top: 1.9rem;
-  left: 2.3rem;
-
-  width: 1rem;
-  height: 2rem;
-
-  cursor: pointer;
 `;

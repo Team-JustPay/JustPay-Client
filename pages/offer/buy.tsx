@@ -5,7 +5,7 @@ import Header from 'components/common/Header';
 export default function buy() {
   return (
     <Root>
-      <Header title="구매글 작성하기" rightButton="취소" />
+      <Header title="다들 힘냅시다" rightButtonText="하이" isHavingBackButton={true} />
     </Root>
   );
 }
