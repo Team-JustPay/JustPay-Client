@@ -2,7 +2,7 @@ const TITLE = Object.freeze({
   ADD_SELLPOST: '판매글 작성하기',
   ADD_BUYPOST: '구매글 작성하기',
   VIEWOFFER: '구매 제시한 내용',
-  OFFER_TO_SELLER: '구메 제시하기',
+  OFFER_TO_SELLER: '구매 제시하기',
   VIEW_SALEPOST: '판매글 본문 보기',
   APPEND_ADDRESS: '배송지 등록',
   APPEND_CALL: '전화번호 등록',

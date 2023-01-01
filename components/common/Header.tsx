@@ -43,9 +43,7 @@ export default function Header({
 const Root = styled.div`
   position: relative;
 
-  max-width: 43rem;
   height: 5.7rem;
-  margin: 0 auto;
 `;
 
 const StyledBackButtonWrapper = styled.button`

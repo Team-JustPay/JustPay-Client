@@ -6,7 +6,7 @@ import { TITLE, MENU } from 'constants/headerMessage';
 export default function buy() {
   return (
     <Root>
-      <Header title={TITLE.ADD_BUYPOST} rightButtonText={MENU.BACK} isHavingBackButton />
+      <Header title={TITLE.OFFER_TO_SELLER} rightButtonText={MENU.BACK} isHavingBackButton />
     </Root>
   );
 }
