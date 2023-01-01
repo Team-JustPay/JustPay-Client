@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import CheckRadio from 'components/common/CheckRadio';
+import ImagePostButton from 'components/common/ImagePostButton';
 
 function Home() {
   return (
@@ -7,7 +7,8 @@ function Home() {
       <Head>
         <title>JustPay-dev</title>
       </Head>
-      <CheckRadio />
+      <ImagePostButton buttonSize="big" />
+      <ImagePostButton buttonSize="small" />
     </div>
   );
 }
