@@ -12,6 +12,6 @@ export default function buy() {
 }
 
 const Root = styled.div`
-  max-width: 43rem;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
 `;
