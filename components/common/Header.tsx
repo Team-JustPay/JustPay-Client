@@ -16,33 +16,33 @@ export default function Header({ title, rightButtonText, isHavingBackButton, lef
     <Root>
       {isHavingBackButton ? (
         <StyledBackButtonWrapper>
-          <Back />
+          <Back onClick={onClick} />
         </StyledBackButtonWrapper>
       ) : (
-        <StyledLeftButton>{leftButtonText}</StyledLeftButton>
+        <StyledLeftButton onClick={onClick}>{leftButtonText}</StyledLeftButton>
       )}
 
       <StyledTitle>{title}</StyledTitle>
-      <StyledRightButton>{rightButtonText}</StyledRightButton>
+      <StyledRightButton onClick={onClick}>{rightButtonText}</StyledRightButton>
     </Root>
   );
 }
 
 const Root = styled.div`
   position: relative;
+
   max-width: 43rem;
+  height: 5.7rem;
   margin: 0 auto;
 `;
 
-const StyledBackButtonWrapper = styled.div`
+const StyledBackButtonWrapper = styled.button`
   position: absolute;
   top: 1.9rem;
   left: 2.3rem;
 
   width: 1rem;
   height: 2rem;
-
-  cursor: pointer;
 `;
 
 const StyledLeftButton = styled.button`
@@ -59,8 +59,7 @@ const StyledTitle = styled.h1`
   justify-content: center;
   align-items: center;
 
-  width: 100%;
-  height: 5.7rem;
+  height: 100%;
 
   ${theme.fonts.title16pt};
   color: ${theme.colors.white};
@@ -71,6 +70,6 @@ const StyledRightButton = styled.button`
   top: 2rem;
   right: 2.4rem;
 
-  ${theme.fonts.regular16pt};
+  ${theme.fonts.regular16pt}
   color: ${theme.colors.white};
 `;
