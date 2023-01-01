@@ -12,7 +12,7 @@ function Home() {
       <BigButton text="다음" disabled={false} onClick={() => console.log('hi')} />
       <SmallButton text="버튼" disabled={true} />
       <SmallButton text="버튼" disabled={false} />
-      <UserInput placeholder="정확한 상품 개수를 입력해주세요" />
+      <UserInput placeholder="정확한 상품 개수를 입력해주세요" inputTextGuide="개" />
     </div>
   );
 }

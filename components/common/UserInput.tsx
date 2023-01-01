@@ -1,15 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 interface InputProps {
   placeholder: string;
+  inputTextGuide: string;
 }
 
-export default function UserInput({ placeholder }: InputProps) {
+interface InputTextProps {
+  inputText: boolean;
+}
+
+export default function UserInput({ placeholder, inputTextGuide }: InputProps) {
+  const [inputText, setInputText] = useState('');
+  const handleInputText = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputText(e.target.value);
+  };
+
   return (
     <InputContainer>
-      <GlobalStyledInput placeholder={placeholder} />
-      <InputText>개</InputText>
+      <GlobalStyledInput placeholder={placeholder} onChange={handleInputText} />
+      <InputText inputText={!!inputText}>{inputTextGuide}</InputText>
     </InputContainer>
   );
 }
@@ -45,7 +55,7 @@ const GlobalStyledInput = styled.input`
   }
 `;
 
-const InputText = styled.strong`
+const InputText = styled.strong<InputTextProps>`
   position: absolute;
   top: 2rem;
   right: 2rem;
@@ -54,5 +64,5 @@ const InputText = styled.strong`
   font-size: 1.6rem;
   line-height: 1.9rem;
 
-  color: ${({ theme }) => theme.colors.gray1};
+  color: ${(props) => (props.inputText ? ({ theme }) => theme.colors.main : ({ theme }) => theme.colors.gray1)};
 `;
