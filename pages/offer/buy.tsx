@@ -79,6 +79,7 @@ export default function buy() {
 const Root = styled.div`
   display: flex;
   flex-direction: column;
+  /* height: calc(var(--vh, 1vh) * 100); */
 `;
 
 const SmallButtonContainer = styled.div`
