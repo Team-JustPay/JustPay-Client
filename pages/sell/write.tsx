@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Header from 'components/common/Header';
 import BigButton from 'components/common/BigButton';
+import layout from './layout';
 interface TextLengthProps {
   currentTextLength: number;
 }
@@ -12,33 +13,27 @@ export default function write() {
     setCurrentTextLength(e.target.value.length);
   };
   return (
-    <Root>
-      <Header title="판매글 작성하기" isHavingBackButton={true} rightButtonText="취소" />
-      <StyledImagePopUpConatiner>
-        <img alt="판매사진" />
-      </StyledImagePopUpConatiner>
-      <StyledWriteContainer
-        placeholder="판매하는 상품에 대해서 설명해주세요 자세한 설명을 통해 빠르게 매칭될 수 있어요"
-        maxLength={500}
-        onChange={handlecurrentTextLength}></StyledWriteContainer>
-      <StyledTextLength currentTextLength={currentTextLength}>
-        <strong>{currentTextLength}</strong>
-        /500
-      </StyledTextLength>
+    <>
+      <div>
+        <Header title="판매글 작성하기" isHavingBackButton={true} rightButtonText="취소" />
+        <StyledImagePopUpConatiner>
+          <img alt="판매사진" />
+        </StyledImagePopUpConatiner>
+        <StyledWriteContainer
+          placeholder="판매하는 상품에 대해서 설명해주세요 자세한 설명을 통해 빠르게 매칭될 수 있어요"
+          maxLength={500}
+          onChange={handlecurrentTextLength}></StyledWriteContainer>
+        <StyledTextLength currentTextLength={currentTextLength}>
+          <strong>{currentTextLength}</strong>
+          /500
+        </StyledTextLength>
+      </div>
       <BigButton text="등록하기" isDisabled={false} onClick={() => {}} />
-    </Root>
+    </>
   );
 }
 
-const Root = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
 const StyledImagePopUpConatiner = styled.section`
-  width: 35.8rem;
   height: 24.2rem;
   margin-top: 1.8rem;
 
@@ -46,13 +41,13 @@ const StyledImagePopUpConatiner = styled.section`
   background: ${({ theme }) => theme.colors.grey_popup};
 
   & > img {
-    width: 35.8rem;
+    width: 100%;
     height: 20.2rem;
   }
 `;
 
 const StyledWriteContainer = styled.textarea`
-  width: 34.2rem;
+  width: 100%;
   height: 28rem;
   margin-top: 2rem;
 
@@ -78,3 +73,5 @@ const StyledTextLength = styled.section<TextLengthProps>`
       currentTextLength === 0 ? ({ theme }) => theme.colors.gray3 : ({ theme }) => theme.colors.main};
   }
 `;
+
+write.Layout = layout;
