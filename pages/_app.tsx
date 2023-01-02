@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import type { AppProps } from 'next/app';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RecoilRoot } from 'recoil';
@@ -20,6 +20,14 @@ type Props = AppProps & {
 export default function MyApp({ Component, pageProps }: Props) {
   const queryClient = new QueryClient();
   const Layout = Component.Layout || AppLayout;
+
+  function setScreenSize() {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  }
+  useEffect(() => {
+    setScreenSize();
+  });
 
   return (
     <QueryClientProvider client={queryClient}>

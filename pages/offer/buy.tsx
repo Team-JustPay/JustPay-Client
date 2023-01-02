@@ -19,9 +19,14 @@ export default function buy() {
       <MainText text="구매하는 가격을 확인하세요" />
       <UserInput placeholder="500원 단위로 입력해주세요" inputTextGuide="원" />
       <MainText text="배송가능 옵션 을 1가지만 선택하세요" />
+      <UserInput placeholder="500원 단위로 입력해주세요" inputTextGuide="원" />
+      <UserInput placeholder="500원 단위로 입력해주세요" inputTextGuide="원" />
+      <UserInput placeholder="500원 단위로 입력해주세요" inputTextGuide="원" />
+      <UserInput placeholder="500원 단위로 입력해주세요" inputTextGuide="원" />
+      <UserInput placeholder="500원 단위로 입력해주세요" inputTextGuide="원" />
 
       {/* 제시가능 + 일괄 */}
-      <TitleText>
+      {/* <TitleText>
         <MainText text="구매 희망 상품을 표시한 사진을 등록해주세요" />
         <SubText text="일괄 구매하는 경우에는 표시하지 않아도 돼요" />
       </TitleText>
@@ -35,11 +40,11 @@ export default function buy() {
 
       <MainText text="구매 희망가격을 제시하세요"></MainText>
       <UserInput placeholder="500원 단위로 입력해주세요" inputTextGuide="원" />
-      <MainText text="배송가능 옵션 을 1가지만 선택하세요" />
+      <MainText text="배송가능 옵션 을 1가지만 선택하세요" /> */}
 
       {/* 제시가능 + 일부 */}
 
-      <TitleText>
+      {/* <TitleText>
         <MainText text="구매 희망 상품을 표시한 사진을 등록해주세요" />
         <SubText text="일괄 구매하는 경우에는 표시하지 않아도 돼요" />
       </TitleText>
@@ -64,7 +69,7 @@ export default function buy() {
 
       <MainText text="구매 희망가격을 제시하세요"></MainText>
       <UserInput placeholder="500원 단위로 입력해주세요" inputTextGuide="원" />
-      <MainText text="배송가능 옵션 을 1가지만 선택하세요" />
+      <MainText text="배송가능 옵션 을 1가지만 선택하세요" /> */}
 
       <BigButton text="다음" isDisabled={true} onClick={() => {}} />
     </Root>
