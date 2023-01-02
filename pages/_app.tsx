@@ -5,6 +5,7 @@ import { RecoilRoot } from 'recoil';
 import GlobalStyle from '../styles/globalStyle';
 import { ThemeProvider } from 'styled-components';
 import theme from '../styles/theme';
+import { Page } from 'types/page';
 
 import AppLayout from 'components/layout/AppLayout';
 
@@ -12,8 +13,13 @@ if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
   require('../mocks');
 }
 
-function MyApp({ Component, pageProps }: AppProps) {
+type Props = AppProps & {
+  Component: Page;
+};
+
+export default function MyApp({ Component, pageProps }: Props) {
   const queryClient = new QueryClient();
+  const Layout = Component.Layout || AppLayout;
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -21,12 +27,12 @@ function MyApp({ Component, pageProps }: AppProps) {
         <RecoilRoot>
           <AppLayout>
             <GlobalStyle />
-            <Component {...pageProps} />
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
           </AppLayout>
         </RecoilRoot>
       </ThemeProvider>
     </QueryClientProvider>
   );
 }
-
-export default MyApp;

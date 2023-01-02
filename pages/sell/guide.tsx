@@ -2,6 +2,7 @@ import React from 'react';
 
 import FirstGuidePic from '../../public/assets/icons/guide1.svg';
 
+import layout from './layout';
 import Header from 'components/common/Header';
 import TitleText from 'components/common/TitleText';
 import MainText from 'components/common/MainText';
@@ -31,3 +32,5 @@ export default function guide() {
     </>
   );
 }
+
+// guide.Layout = layout;
