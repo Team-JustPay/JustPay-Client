@@ -43,6 +43,7 @@ export default function Header({
 const Root = styled.div`
   position: relative;
 
+  width: 100%;
   height: 5.7rem;
 `;
 
