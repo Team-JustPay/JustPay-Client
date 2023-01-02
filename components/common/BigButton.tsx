@@ -35,5 +35,10 @@ const GlobalStyledButton = styled.button`
   font-size: 1.6rem;
   line-height: 1.9rem;
 
+  margin-bottom: 3.2rem;
+
+  /* position: relative;
+  transform: translateY(-100%); */
+
   text-align: center;
 `;
