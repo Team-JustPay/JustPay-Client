@@ -11,6 +11,8 @@ export default function AppLayout({ children }: LayoutProps) {
 
 const Root = styled.section`
   width: 43rem;
+  min-height: 100vh;
+  min-height: calc(var(--vh) * 100);
   margin: 0 auto;
   padding: 0 1.6rem 3.2rem;
 
