@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 interface ButtonProps {
   text: string;
   isDisabled: boolean;
-  onClick: (e?: React.MouseEvent<HTMLButtonElement>) => void;
+  onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export default function BigButton({ text, isDisabled, onClick }: ButtonProps) {
