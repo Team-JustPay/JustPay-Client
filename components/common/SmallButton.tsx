@@ -24,7 +24,7 @@ const GlobalStyledButton = styled.button`
       ? css`
           border: 0.1rem solid;
           border-color: ${({ theme }) => theme.colors.gray3};
-          background-color: ${({ theme }) => theme.colors.gray0};
+          background-color: ${({ theme }) => theme.colors.gray_background};
           color: ${({ theme }) => theme.colors.white};
         `
       : css`
