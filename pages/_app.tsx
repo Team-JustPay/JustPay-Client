@@ -25,12 +25,10 @@ export default function MyApp({ Component, pageProps }: Props) {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <RecoilRoot>
-          <AppLayout>
-            <GlobalStyle />
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </AppLayout>
+          <GlobalStyle />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         </RecoilRoot>
       </ThemeProvider>
     </QueryClientProvider>

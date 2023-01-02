@@ -74,12 +74,6 @@ export default function buy() {
 const Root = styled.div`
   display: flex;
   flex-direction: column;
-
-  //TODO: 전역 스타일에 적용 예정이므로 최종 커밋시 제거
-  max-width: 43rem;
-  margin: 0 auto;
-  padding-left: 1.6rem;
-  padding-right: 1.6rem;
 `;
 
 const SmallButtonContainer = styled.div`
