@@ -24,14 +24,20 @@ const StyledButton = styled.button<ButtonProps>`
   justify-content: center;
   align-items: center;
 
+  width: 100%;
+  height: 24.2rem;
+
   ${({ buttonSize }) =>
     buttonSize === 'big'
       ? css`
-          padding: 9.5rem 14rem;
+          width: 100%;
+          height: 24.2rem;
           font-size: 1.4rem;
           line-height: 1.7rem;
         `
       : css`
+          width: 11rem;
+          height: 11rem;
           padding: 3.3rem 2.2rem;
           font-size: 1.2rem;
           line-height: 1.4rem;
@@ -47,6 +53,7 @@ const ButtonContent = styled.section`
   flex-direction: column;
   align-items: center;
   gap: 1.2rem;
+  width: 100%;
 `;
 
 const ButtonText = styled.p``;

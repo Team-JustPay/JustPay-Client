@@ -34,7 +34,7 @@ function FONT({ weight, size, lineHeight }: Font): string {
 const fonts = {
   title20pt: FONT({ weight: 700, size: 2.0, lineHeight: 24 }),
   title18pt: FONT({ weight: 700, size: 1.8, lineHeight: 21 }),
-  title16pt: FONT({ weight: 700, size: 1.7, lineHeight: 19 }),
+  title16pt: FONT({ weight: 700, size: 1.6, lineHeight: 19 }),
 
   medium16pt: FONT({ weight: 500, size: 1.6, lineHeight: 19 }),
   regular16pt: FONT({ weight: 400, size: 1.6, lineHeight: 19 }),

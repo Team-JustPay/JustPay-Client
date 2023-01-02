@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 interface ButtonProps {
   text: string;
   isDisabled: boolean;
-  onClick: (e?: React.MouseEvent<HTMLButtonElement>) => void;
+  onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export default function BigButton({ text, isDisabled, onClick }: ButtonProps) {
@@ -34,6 +34,11 @@ const GlobalStyledButton = styled.button`
   font-weight: 700;
   font-size: 1.6rem;
   line-height: 1.9rem;
+
+  margin-bottom: 3.2rem;
+
+  /* position: relative;
+  transform: translateY(-100%); */
 
   text-align: center;
 `;

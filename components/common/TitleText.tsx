@@ -14,4 +14,6 @@ const StyledTitleText = styled.section`
   flex-direction: column;
   flex-wrap: wrap;
   gap: 0.8rem 0;
+
+  padding: 1.8rem 0 2.4rem;
 `;

@@ -17,6 +17,11 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
     background-color: ${theme.colors.gray_background};
   }
+
+  :root{
+    --vh: 100%;
+
+  }
   
   #root {
     margin: 0 auto;
