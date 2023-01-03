@@ -39,6 +39,7 @@ export default function qcImageUpload() {
 qcImageUpload.Layout = layout;
 
 const StyledCertigfyInfoConatiner = styled.section`
+  margin-top: 2rem;
   & :first-child {
     margin-bottom: 0.8rem;
   }
