@@ -34,6 +34,9 @@ export default function write() {
 }
 
 const StyledImagePopUpConatiner = styled.section`
+  display: flex;
+  align-items: center;
+
   height: 24.2rem;
   margin-top: 1.8rem;
 
