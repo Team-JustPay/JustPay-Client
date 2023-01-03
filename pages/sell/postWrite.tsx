@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import layout from './layout';
 import Header from 'components/common/Header';
 import LinkIcon from '../../public/assets/icons/linkIcon.svg';
+import LinkIconColor from '../../public/assets/icons/linkIcon=color.svg';
 import TwitterIcon from '../../public/assets/icons/twitterIcon.svg';
 import CompletePostWrite from '../../public/assets/icons/completePostWrite.svg';
 export default function postWrite() {
@@ -27,7 +28,7 @@ export default function postWrite() {
           <SubText text="트위터로 공유하여 판매글을 홍보하세요" />
         </StyledCertigfyInfoConatiner>
         <StyledIconContainer>
-          <LinkIcon onClick={copyLink} />
+          {isCopyLink ? <LinkIconColor /> : <LinkIcon onClick={copyLink} />}
           <TwitterIcon onClick={uploadOnTwitter} />
         </StyledIconContainer>
         <StyledCompleteIcon>
