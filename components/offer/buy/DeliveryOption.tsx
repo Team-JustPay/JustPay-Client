@@ -11,14 +11,32 @@ interface DeliveryOptionProps {
   name: string;
   price: string;
   contents: string[];
+  isAllowedSinglePick?: boolean;
+  isPicked?: boolean;
+  currentUserChoice: number;
+  onClick: () => void;
 }
 
-export default function DeliveryOption({ id, name, price, contents }: DeliveryOptionProps) {
+export default function DeliveryOption({
+  id,
+  name,
+  price,
+  contents,
+  isAllowedSinglePick,
+  currentUserChoice,
+  onClick,
+}: DeliveryOptionProps) {
+  //TODO: 서버 나온후 로직 변경해야함
+
   const [isSelected, setIsSelected] = useState(false);
 
-  //TODO: 서버 나온후 로직 변경해야함
   const handleDeliveryOption = () => {
-    setIsSelected(!isSelected);
+    onClick();
+
+    if (isAllowedSinglePick && isSelected === false) {
+      setIsSelected(!isSelected);
+      console.log(currentUserChoice);
+    }
   };
 
   const Icon = () => {
@@ -40,7 +58,7 @@ export default function DeliveryOption({ id, name, price, contents }: DeliveryOp
   };
 
   return (
-    <Root isSelected={isSelected} onClick={handleDeliveryOption}>
+    <Root isSelected={isSelected} currentUserChoice={currentUserChoice} Id={id} onClick={handleDeliveryOption}>
       <NonStyledContentContainer>
         <StyledTitleContainer>
           <StyledOptionTitle>{name}&nbsp;</StyledOptionTitle>
@@ -51,13 +69,15 @@ export default function DeliveryOption({ id, name, price, contents }: DeliveryOp
             <StyledContent>· &nbsp;{content}</StyledContent>
           ))}
         </StyledDescriptionContainer>
-        <StyledIconContainer isSelected={isSelected}>{Icon()}</StyledIconContainer>
+        <StyledIconContainer isSelected={isSelected} currentUserChoice={currentUserChoice} Id={id}>
+          {Icon()}
+        </StyledIconContainer>
       </NonStyledContentContainer>
     </Root>
   );
 }
 
-const Root = styled.div<{ isSelected: boolean }>`
+const Root = styled.div<{ isSelected: boolean; currentUserChoice: number; Id: number }>`
   position: relative;
 
   width: calc(50% - 0.6rem);
@@ -68,8 +88,8 @@ const Root = styled.div<{ isSelected: boolean }>`
 
   cursor: pointer;
 
-  ${({ isSelected }) =>
-    isSelected
+  ${({ isSelected, currentUserChoice, Id }) =>
+    Id === currentUserChoice && isSelected
       ? css`
           border: 0.2rem solid;
           border-color: ${({ theme }) => theme.colors.main};
@@ -114,11 +134,11 @@ const StyledContent = styled.p`
   margin-bottom: 0.5rem;
 `;
 
-const StyledIconContainer = styled.div<{ isSelected: boolean }>`
+const StyledIconContainer = styled.div<{ isSelected: boolean; currentUserChoice: number; Id: number }>`
   position: absolute;
 
-  ${({ isSelected }) =>
-    isSelected
+  ${({ isSelected, currentUserChoice, Id }) =>
+    Id === currentUserChoice && isSelected
       ? css`
           bottom: 0.66rem;
           right: 0.66rem;

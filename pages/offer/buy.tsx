@@ -9,7 +9,7 @@ import TitleText from 'components/common/TitleText';
 import MainText from 'components/common/MainText';
 import SubText from 'components/common/SubText';
 import SmallButton from 'components/common/SmallButton';
-import DeliveryOption from 'components/common/DeliveryOption';
+import DeliveryOptionContainer from 'components/offer/buy/DeliveryOptionContainer';
 
 export default function buy() {
   return (
@@ -19,8 +19,7 @@ export default function buy() {
       <MainText text="구매하는 가격을 확인하세요" />
       <UserInput placeholder="500원 단위로 입력해주세요" inputTextGuide="원" />
       <MainText text="배송가능 옵션 을 1가지만 선택하세요" />
-      <DeliveryOption isSelected={true} />
-      <DeliveryOption isSelected={false} />
+
       <UserInput placeholder="500원 단위로 입력해주세요" inputTextGuide="원" />
       <UserInput placeholder="500원 단위로 입력해주세요" inputTextGuide="원" />
       <UserInput placeholder="500원 단위로 입력해주세요" inputTextGuide="원" />
