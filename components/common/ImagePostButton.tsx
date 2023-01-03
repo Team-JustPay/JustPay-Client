@@ -32,14 +32,14 @@ const StyledButton = styled.button<ButtonProps>`
       ? css`
           width: 100%;
           height: 24.2rem;
-          font-size: 1.4rem;
+          ${({ theme }) => theme.fonts.regular14pt};
           line-height: 1.7rem;
         `
       : css`
           width: 11rem;
           height: 11rem;
           padding: 3.3rem 2.2rem;
-          font-size: 1.2rem;
+          ${({ theme }) => theme.fonts.regular12pt};
           line-height: 1.4rem;
         `}
   border: none;

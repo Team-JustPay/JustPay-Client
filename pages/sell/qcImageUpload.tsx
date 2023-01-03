@@ -5,7 +5,7 @@ import BigButton from 'components/common/BigButton';
 import styled from 'styled-components';
 import layout from './layout';
 import Header from 'components/common/Header';
-
+import ImagePostButton from 'components/common/ImagePostButton';
 export default function qcImageUpload() {
   return (
     <>
@@ -23,6 +23,13 @@ export default function qcImageUpload() {
           <p>|</p>
           <strong>검은 토끼 1214</strong>
         </StyledCertigfyWordConatiner>
+        <StyledUploadImageConatiner>
+          <ImagePostButton buttonSize="small" />
+          <StyledUploadImage></StyledUploadImage>
+          <StyledUploadImage></StyledUploadImage>
+          <StyledUploadImage></StyledUploadImage>
+          <StyledUploadImage></StyledUploadImage>
+        </StyledUploadImageConatiner>
       </div>
       <BigButton text="다음" isDisabled={false} onClick={() => {}} />
     </>
@@ -46,6 +53,8 @@ const StyledCertigfyWordConatiner = styled.section`
   flex-direction: row;
   align-items: center;
 
+  margin-bottom: 2.4rem;
+
   color: ${({ theme }) => theme.colors.gray4};
   ${({ theme }) => theme.fonts.medium14pt};
   h1 {
@@ -58,4 +67,18 @@ const StyledCertigfyWordConatiner = styled.section`
     color: ${({ theme }) => theme.colors.sub1};
     ${({ theme }) => theme.fonts.title16pt};
   }
+`;
+
+const StyledUploadImageConatiner = styled.section`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+`;
+
+const StyledUploadImage = styled.article`
+  width: 11rem;
+  height: 11rem;
+
+  background-color: ${({ theme }) => theme.colors.grey_popup};
+  border-radius: 0.8rem;
 `;
