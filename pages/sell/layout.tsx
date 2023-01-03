@@ -15,8 +15,8 @@ const SellLayout = styled.section`
   justify-content: space-between;
 
   width: 43rem;
-  min-height: calc(100vh - 5.7rem);
-  min-height: calc(var(--vh) * 100 - 5.7rem);
+  min-height: calc(100vh);
+  min-height: calc(var(--vh) * 100);
 
   margin: 0 auto;
   padding: 0 1.6rem;

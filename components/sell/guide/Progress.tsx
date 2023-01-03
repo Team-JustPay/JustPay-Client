@@ -3,12 +3,13 @@ import styled from 'styled-components';
 
 interface ProgressProps {
   stage: number;
+  final: number;
 }
 
-export default function Progress({ stage }: ProgressProps) {
+export default function Progress({ stage, final }: ProgressProps) {
   return (
     <StyledProgress>
-      <strong>{stage}</strong>/3
+      <strong>{stage}</strong>/{final}
     </StyledProgress>
   );
 }

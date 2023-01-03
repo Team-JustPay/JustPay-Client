@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Router from 'next/router';
 
 import FirstGuidePic from '../../public/assets/icons/guide1.svg';
 import SecondGuidePic from '../../public/assets/icons/guide2.svg';
@@ -14,11 +15,16 @@ import Progress from 'components/sell/guide/Progress';
 import ContentsContainer from 'components/sell/guide/ContentsContainer';
 import { GuideText } from 'components/sell/guide/GuideText';
 import BigButton from 'components/common/BigButton';
+import TextContainer from 'components/sell/guide/TextContainer';
 
 export default function guide() {
   const [stage, setStage] = useState(1);
   const handleClickNextButton = () => {
-    setStage((prev) => prev + 1);
+    if (stage !== 3) {
+      setStage((prev) => prev + 1);
+    } else {
+      Router.push('/sell/option');
+    }
   };
 
   const stageRender = () => {
@@ -27,23 +33,30 @@ export default function guide() {
         return (
           <ContentsContainer>
             <FirstGuidePic />
-            <GuideText>여러 상품을 한 번에 업로드하는 경우, 모든 상품이 최대한 잘 구분되도록 촬영해주세요</GuideText>
+            <TextContainer>
+              <GuideText>여러 상품을 한 번에 업로드하는 경우,</GuideText>
+              <GuideText>모든 상품이 최대한 잘 구분되도록 촬영해주세요</GuideText>
+            </TextContainer>
           </ContentsContainer>
         );
       case 2:
         return (
           <ContentsContainer>
             <SecondGuidePic />
-            <GuideText>원하는 가격이 있다면 판매하는 상품의 가격을 사진 위에 표시해주세요 (없어도 OK!)</GuideText>
+            <TextContainer>
+              <GuideText>원하는 가격이 있다면 판매하는 상품의 가격을 </GuideText>
+              <GuideText>사진 위에 표시해주세요 (없어도 OK!)</GuideText>
+            </TextContainer>
           </ContentsContainer>
         );
       case 3:
         return (
           <ContentsContainer>
             <ThirdGuidePic />
-            <GuideText>
-              판매하지 않을 포카를 제외하고 사진을 촬영하거나, 알아볼 수 있도록 사진 위에 표시를 해주세요!
-            </GuideText>
+            <TextContainer>
+              <GuideText>판매하지 않을 포카를 제외하고 사진을 촬영하거나,</GuideText>
+              <GuideText>알아볼 수 있도록 사진 위에 표시를 해주세요!</GuideText>
+            </TextContainer>
           </ContentsContainer>
         );
       default:
@@ -60,7 +73,7 @@ export default function guide() {
           <SubText text="판매하는 상품이 전부 보이는 1장의 사진을 등록해주세요" />
         </TitleText>
         <GuideContainer>
-          <Progress stage={stage} />
+          <Progress stage={stage} final={3} />
           {stageRender()}
         </GuideContainer>
       </div>
