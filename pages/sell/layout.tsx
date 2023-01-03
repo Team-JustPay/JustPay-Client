@@ -1,19 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Header from 'components/common/Header';
-
 interface layoutProps {
   children: React.ReactNode;
 }
 
 export default function layout({ children }: layoutProps) {
-  return (
-    <>
-      <Header title="판매글 작성하기" isHavingBackButton={true} rightButtonText="취소" />
-      <SellLayout>{children}</SellLayout>
-    </>
-  );
+  return <SellLayout>{children}</SellLayout>;
 }
 
 const SellLayout = styled.section`

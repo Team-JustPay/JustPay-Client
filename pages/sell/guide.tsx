@@ -5,6 +5,7 @@ import SecondGuidePic from '../../public/assets/icons/guide2.svg';
 import ThirdGuidePic from '../../public/assets/icons/guide3.svg';
 
 import layout from './layout';
+import Header from 'components/common/Header';
 import TitleText from 'components/common/TitleText';
 import MainText from 'components/common/MainText';
 import SubText from 'components/common/SubText';
@@ -53,6 +54,7 @@ export default function guide() {
   return (
     <>
       <div>
+        <Header title="판매글 작성하기" isHavingBackButton={true} rightButtonText="취소" />
         <TitleText>
           <MainText text="판매글에 보일 대표 사진을 등록해주세요" />
           <SubText text="판매하는 상품이 전부 보이는 1장의 사진을 등록해주세요" />
