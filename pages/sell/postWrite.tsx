@@ -10,11 +10,13 @@ import LinkIconColor from '../../public/assets/icons/linkIcon=color.svg';
 import TwitterIcon from '../../public/assets/icons/twitterIcon.svg';
 import CompletePostWrite from '../../public/assets/icons/completePostWrite.svg';
 export default function postWrite() {
-  const [isCopyLink, setIsCopyLink] = useState(false);
+  const [openCopyLinkModal, setOpenCopyLinkModal] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
   const copyLink = () => {
-    setIsCopyLink(true);
+    setOpenCopyLinkModal(true);
+    setIsCopied(true);
     setTimeout(() => {
-      setIsCopyLink(false);
+      setOpenCopyLinkModal(false);
     }, 2000);
   };
 
@@ -28,7 +30,7 @@ export default function postWrite() {
           <SubText text="트위터로 공유하여 판매글을 홍보하세요" />
         </StyledCertigfyInfoConatiner>
         <StyledIconContainer>
-          {isCopyLink ? <LinkIconColor /> : <LinkIcon onClick={copyLink} />}
+          {isCopied ? <LinkIconColor /> : <LinkIcon onClick={copyLink} />}
           <TwitterIcon onClick={uploadOnTwitter} />
         </StyledIconContainer>
         <StyledCompleteIcon>
@@ -36,7 +38,7 @@ export default function postWrite() {
         </StyledCompleteIcon>
       </div>
       <StyledButtomConatiner>
-        {isCopyLink && <StyledCopyLinkToastMessage>클립보드에 복사되었어요</StyledCopyLinkToastMessage>}
+        {openCopyLinkModal && <StyledCopyLinkToastMessage>클립보드에 복사되었어요</StyledCopyLinkToastMessage>}
         <BigButton text="판매글 본문 보기" isDisabled={false} onClick={() => {}} />
       </StyledButtomConatiner>
     </>
