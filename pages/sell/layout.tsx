@@ -1,12 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import Header from 'components/common/Header';
+
 interface layoutProps {
   children: React.ReactNode;
 }
 
 export default function layout({ children }: layoutProps) {
-  return <SellLayout>{children}</SellLayout>;
+  return (
+    <>
+      <Header title="판매글 작성하기" isHavingBackButton={true} rightButtonText="취소" />
+      <SellLayout>{children}</SellLayout>
+    </>
+  );
 }
 
 const SellLayout = styled.section`
@@ -15,8 +22,8 @@ const SellLayout = styled.section`
   justify-content: space-between;
 
   width: 43rem;
-  min-height: 100vh;
-  min-height: calc(var(--vh) * 100);
+  min-height: calc(100vh - 5.7rem);
+  min-height: calc(var(--vh) * 100 - 5.7rem);
 
   margin: 0 auto;
   padding: 0 1.6rem;

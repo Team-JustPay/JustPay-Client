@@ -18,6 +18,7 @@ export default function BigButton({ text, isDisabled, onClick }: ButtonProps) {
 const GlobalStyledButton = styled.button`
   width: 100%;
   padding: 1.5rem 0 1.4rem;
+  margin-bottom: 3.2rem;
 
   border: none;
   border-radius: 0.8rem;
@@ -34,11 +35,6 @@ const GlobalStyledButton = styled.button`
   font-weight: 700;
   font-size: 1.6rem;
   line-height: 1.9rem;
-
-  margin-bottom: 3.2rem;
-
-  /* position: relative;
-  transform: translateY(-100%); */
 
   text-align: center;
 `;
