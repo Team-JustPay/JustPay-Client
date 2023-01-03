@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import DeliveryOption from 'components/offer/buy/DeliveryOption';
+import DeliveryOption from 'components/offer/buy/common/DeliveryOption';
 
 export default function DeliveryOptionContainer() {
   //TODO: 서버 나온후 로직 변경해야함
@@ -38,4 +38,5 @@ const Root = styled.div`
   justify-content: space-between;
 
   width: 100%;
+  margin-bottom: 5.8rem;
 `;
