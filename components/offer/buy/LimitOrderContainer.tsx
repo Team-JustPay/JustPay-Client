@@ -12,7 +12,8 @@ export default function LimitOrderContainer() {
         <MainText text="구매하는 가격을 확인하세요" />
       </StyledTextContainer>
       <StyledInputContainer>
-        <UserInput placeholder="500원 단위로 입력해주세요" inputTextGuide="원" />
+        //TODO: API 명세의 프로퍼티의 값을 받아와서 placeholder에 넣어주기
+        <UserInput placeholder="100,000" inputTextGuide="원" />
       </StyledInputContainer>
     </Root>
   );
