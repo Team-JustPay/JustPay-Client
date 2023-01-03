@@ -66,7 +66,6 @@ const StyledWriteContainer = styled.textarea`
 `;
 
 const StyledTextLength = styled.section<TextLengthProps>`
-  width: 34.2rem;
   margin-top: 2rem;
   margin-bottom: 1.6rem;
 
