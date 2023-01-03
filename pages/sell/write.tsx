@@ -61,8 +61,8 @@ const StyledWriteContainer = styled.textarea`
   border: none;
   color: ${({ theme }) => theme.colors.white};
   background-color: ${({ theme }) => theme.colors.gray_background};
-  ${({ theme }) => theme.fonts.regular14pt};
-  line-height: 2rem;
+  ${({ theme }) => theme.fonts.regular16pt};
+  line-height: 2.4rem;
 `;
 
 const StyledTextLength = styled.section<TextLengthProps>`
