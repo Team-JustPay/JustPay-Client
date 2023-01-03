@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Header from 'components/common/Header';
 import BigButton from 'components/common/BigButton';
@@ -9,9 +9,13 @@ interface TextLengthProps {
 
 export default function write() {
   const [currentTextLength, setCurrentTextLength] = useState(0);
+  const [isEmptyTextArea, setIsEmptyTextArea] = useState(true);
   const handlecurrentTextLength = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setCurrentTextLength(e.target.value.length);
   };
+  useEffect(() => {
+    currentTextLength !== 0 ? setIsEmptyTextArea(false) : setIsEmptyTextArea(true);
+  }, [currentTextLength]);
   return (
     <>
       <div>
@@ -28,7 +32,7 @@ export default function write() {
           /500
         </StyledTextLength>
       </div>
-      <BigButton text="등록하기" isDisabled={false} onClick={() => {}} />
+      <BigButton text="등록하기" isDisabled={isEmptyTextArea} onClick={() => {}} />
     </>
   );
 }
