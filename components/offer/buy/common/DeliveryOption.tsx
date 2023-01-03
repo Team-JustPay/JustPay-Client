@@ -35,7 +35,6 @@ export default function DeliveryOption({
 
     if (isAllowedSinglePick && isSelected === false) {
       setIsSelected(!isSelected);
-      console.log(currentUserChoice);
     }
   };
 
