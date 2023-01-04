@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
+import Router from 'next/router';
 import styled, { css } from 'styled-components';
+import { salesPostState } from '../../recoil/salespost';
 import MainText from 'components/common/MainText';
 import SubText from 'components/common/SubText';
 import TitleText from 'components/common/TitleText';
 import Header from 'components/common/Header';
 import { TITLE, MENU } from 'constants/headerMessage';
-import SmallButton from 'components/common/SmallButton';
-import UserInput from 'components/common/UserInput';
+import UserNumberInput from 'components/common/UserNumberInput';
 import CheckRadio from 'components/common/CheckRadio';
 import BigButton from 'components/common/BigButton';
 import layout from './layout';
+import TwoOptionContainer from 'components/common/TwoOptionContainer';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 interface PriceOptionProps {
   info: string;
@@ -21,7 +24,14 @@ interface PriceOptionButtonProps {
 }
 
 export default function selectPrice() {
-  const priceOption: PriceOptionProps[] = [
+  const setSalesPostState = useSetRecoilState(salesPostState);
+  const salesPostRecoil = useRecoilValue(salesPostState);
+
+  const [inputText, setInputText] = useState('');
+  const [isOpenInput, setIsOpenInput] = useState(false);
+
+  let mainTextContent = '원하는 가격 옵션을 설정하세요';
+  let priceOption: PriceOptionProps[] = [
     {
       info: '가격을 제시한 구매자들 중에서 거래할 사람을 직접 선택해요!',
       inputTitle: '최소 판매 가격을 입력하세요',
@@ -31,68 +41,81 @@ export default function selectPrice() {
       inputTitle: '판매 가격을 입력하세요',
     },
   ];
-
-  const [isOfferPrice, setIsOfferPrice] = useState(true);
-  const [isLimitPrice, setIsLimitPrice] = useState(false);
   const [currentPriceOption, setCurrentPriceOption] = useState(priceOption[0]);
-  const handlePriceOption = (id: number) => {
-    setIsOfferPrice(!isOfferPrice);
-    setIsLimitPrice(!isLimitPrice);
-    id === 0 ? setCurrentPriceOption(priceOption[0]) : setCurrentPriceOption(priceOption[1]);
+
+  const handleInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputText(e.target.value.replace(/[^0-9]/g, ''));
+    setSalesPostState((prev) => ({ ...prev, price: Number(e.target.value) }));
+  }, []);
+
+  const handleOption = (e: React.MouseEvent) => {
+    setIsOpenInput(true);
+    if (e.target instanceof HTMLButtonElement) {
+      if (e.target.innerText === '가격 제시받기') {
+        setCurrentPriceOption(priceOption[0]);
+        setSalesPostState((prev) => ({ ...prev, priceOption: 'PRICE_OFFER' }));
+      } else {
+        setCurrentPriceOption(priceOption[1]);
+        setSalesPostState((prev) => ({ ...prev, priceOption: 'DESIGNATED_PRICE' }));
+      }
+    }
+  };
+
+  const handleClickNextButton = () => {
+    console.log(salesPostRecoil);
+    Router.push('/sell/deliveryInfo');
   };
 
   useEffect(() => {
-    let priceOption: PriceOptionProps[] = [];
-    //if 판매 상품이 1개나 일괄 판매일 경우
-    priceOption = [
-      {
-        info: '가격을 제시한 구매자들 중에서 거래할 사람을 직접 선택해요!',
-        inputTitle: '최소 판매 가격을 입력하세요',
-      },
-      {
-        info: '지정가격을 제시한 구매자가 나타나면 자동으로 매칭돼요!',
-        inputTitle: '판매 가격을 입력하세요',
-      },
-    ];
-    // if 판매 상품이 2개 이상인데 일부 판매일 경우
-    // priceOption = [
-    //   {
-    //     info: '가격을 제시한 구매자들 중에서 거래할 사람을 직접 선택해요!',
-    //     inputTitle: '‘일괄 판매’ 최소 가격을 입력하세요',
-    //   },
-    //   {
-    //     info: '지정가격을 제시한 구매자가 나타나면 자동으로 매칭돼요!',
-    //     inputTitle: '‘일괄 판매’ 가격을 입력하세요',
-    //   },
-    // ];
+    console.log(salesPostRecoil);
+    if (salesPostRecoil.salesOption === 'BULK_PARTIAL_SALE') {
+      mainTextContent = '‘일괄 판매’에 대한 가격 옵션을 설정하세요';
+      priceOption = [
+        {
+          info: '가격을 제시한 구매자들 중에서 거래할 사람을 직접 선택해요!',
+          inputTitle: '‘일괄 판매’ 최소 가격을 입력하세요',
+        },
+        {
+          info: '지정가격을 제시한 구매자가 나타나면 자동으로 매칭돼요!',
+          inputTitle: '‘일괄 판매’ 가격을 입력하세요',
+        },
+      ];
+    }
   }, []);
+
   return (
     <>
       <div>
         <Header title={TITLE.ADD_SELLPOST} rightButtonText={MENU.BACK} isHavingBackButton />
         <TitleText>
-          <MainText text="n개의 상품을 판매하시는군요!"></MainText>
-          <SubText text="원하는 가격 옵션을 설정하세요" isMainColor={false}></SubText>
+          <SubText text="n개의 상품을 판매하시는군요!" isMainColor={false}></SubText>
+          <MainText text={mainTextContent}></MainText>
         </TitleText>
-        <StyledPriceOptionButtonContainer>
-          <StyledPriceOptionButton isClicked={isOfferPrice} onClick={() => handlePriceOption(0)}>
-            가격 제시받기
-          </StyledPriceOptionButton>
-          <StyledPriceOptionButton isClicked={isLimitPrice} onClick={() => handlePriceOption(1)}>
-            지정가격에만 팔기
-          </StyledPriceOptionButton>
-        </StyledPriceOptionButtonContainer>
-        <SubText text={currentPriceOption.info} isMainColor={true}></SubText>
-        <StyledPriceInputnContainer>
-          <MainText text={currentPriceOption.inputTitle}></MainText>
-          <UserInput placeholder="500원 단위로 입력해주세요" inputTextGuide="원" />
-          <StyledCheckBox>
-            <CheckRadio />
-            <SubText text="판매 가격은 수정할 수 없어요" isMainColor={false}></SubText>
-          </StyledCheckBox>
-        </StyledPriceInputnContainer>
+        <div onClick={handleOption}>
+          <TwoOptionContainer
+            firstOption="가격 제시받기"
+            secondOption="지정가격에만 팔기"
+            firstOptionGuide="가격을 제시한 구매자들 중에서 거래할 사람을 직접 선택해요!"
+            secondOptionGuide="지정가격을 제시한 구매자가 나타나면 자동으로 매칭돼요!"
+          />
+        </div>
+        {isOpenInput && (
+          <StyledPriceInputnContainer>
+            <MainText text={currentPriceOption.inputTitle}></MainText>
+            <UserNumberInput
+              placeholder="500원 단위로 입력해주세요"
+              inputTextGuide="원"
+              onChangeFunc={handleInput}
+              inputText={inputText}
+            />
+            <StyledCheckBox>
+              <CheckRadio />
+              <SubText text="판매 가격은 수정할 수 없어요" isMainColor={false}></SubText>
+            </StyledCheckBox>
+          </StyledPriceInputnContainer>
+        )}
       </div>
-      <BigButton text="다음" isDisabled={true} onClick={() => {}}></BigButton>
+      <BigButton text="다음" isDisabled={false} onClick={handleClickNextButton}></BigButton>
     </>
   );
 }
