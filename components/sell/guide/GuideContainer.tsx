@@ -1,11 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ContainerProps } from 'types/container';
 
-interface GuideContainerProps {
-  children: React.ReactNode;
-}
-
-export default function GuideContainer({ children }: GuideContainerProps) {
+export default function GuideContainer({ children }: ContainerProps) {
   return <StyledContainer>{children}</StyledContainer>;
 }
 

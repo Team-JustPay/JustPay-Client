@@ -8,10 +8,15 @@ interface InputProps {
   inputText: string;
 }
 
-export default function UserInput({ placeholder, onChangeFunc, inputText }: InputProps) {
+interface InputTextProps {
+  inputText: string;
+}
+
+export default function UserCountInput({ placeholder, inputTextGuide, onChangeFunc, inputText }: InputProps) {
   return (
     <InputContainer>
-      <GlobalStyledInput placeholder={placeholder} onChange={onChangeFunc} value={inputText} type="text" />
+      <GlobalStyledInput placeholder={placeholder} onChange={onChangeFunc} value={inputText} type="number" />
+      <InputText inputText={inputText}>{inputTextGuide}</InputText>
     </InputContainer>
   );
 }
@@ -43,4 +48,16 @@ const GlobalStyledInput = styled.input`
   &::placeholder {
     font-weight: 400;
   }
+`;
+
+const InputText = styled.strong<InputTextProps>`
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+
+  color: ${({ inputText }) => (inputText ? ({ theme }) => theme.colors.main : ({ theme }) => theme.colors.gray1)};
+
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 1.9rem;
 `;
