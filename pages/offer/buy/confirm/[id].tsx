@@ -92,6 +92,7 @@ const StyledContentContainer = styled.div`
   width: 100%;
   margin: 0.8rem 0;
 `;
+
 const StyledCostInfoContainer = styled(StyledInfoContainer)`
   & div:last-child > p {
     color: ${theme.colors.main};
