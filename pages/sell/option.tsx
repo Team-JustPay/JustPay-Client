@@ -16,8 +16,8 @@ import UserCountInput from 'components/common/UserCountInput';
 
 export default function option() {
   const [isPosted, setIsPosted] = useState(true);
+  const [isOptionClicked, setIsOptionClicked] = useState(false);
   const [inputText, setInputText] = useState('');
-
   const setSalesPostState = useSetRecoilState(salesPostState);
 
   const handleInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,14 +25,21 @@ export default function option() {
     setInputText(e.target.value);
   }, []);
 
+  const inputHandler = (e: React.FormEvent) => {
+    if ((e.target as HTMLInputElement).value === '1' || !(e.target as HTMLInputElement).value) {
+      setIsOptionClicked(false);
+    }
+    setSalesPostState((prev) => ({ ...prev, productCount: Number((e.target as HTMLInputElement).value) }));
+  };
+
   const optionHandler = (e: React.MouseEvent) => {
     // console.log(e.target);
     if (e.target instanceof HTMLButtonElement) {
+      setIsOptionClicked(true);
       if (e.target.innerText === '일괄 판매만') {
-        console.log('hi');
         setSalesPostState((prev) => ({ ...prev, salesOption: 'BULK_SALE' }));
       } else {
-        console.log('bye');
+        setSalesPostState((prev) => ({ ...prev, salesOption: 'BULK_PARTIAL_SALE' }));
       }
     }
   };
@@ -53,7 +60,7 @@ export default function option() {
         {isPosted && (
           <OptionContainer>
             <MainText text="이 사진 중에서 몇 개를 파실 건가요?" />
-            <InputContainer>
+            <InputContainer onChange={inputHandler}>
               <UserCountInput
                 placeholder="정확한 상품의 개수를 입력해주세요"
                 inputTextGuide="개"
@@ -74,7 +81,7 @@ export default function option() {
           </OptionContainer>
         )}
       </div>
-      <BigButton text="다음" isDisabled={false} onClick={handleClickNextButton} />
+      <BigButton text="다음" isDisabled={inputText !== '1' && !isOptionClicked} onClick={handleClickNextButton} />
     </>
   );
 }
