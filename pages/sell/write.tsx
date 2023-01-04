@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Header from 'components/common/Header';
 import BigButton from 'components/common/BigButton';
 import layout from './layout';
+import Router from 'next/router';
 interface TextLengthProps {
   currentTextLength: number;
 }
@@ -13,6 +14,10 @@ export default function write() {
   const handlecurrentTextLength = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setCurrentTextLength(e.target.value.length);
   };
+  const handleClickPostWritingButton = () => {
+    Router.push('/sell/postWrite');
+  };
+
   useEffect(() => {
     currentTextLength !== 0 ? setIsEmptyTextArea(false) : setIsEmptyTextArea(true);
   }, [currentTextLength]);
@@ -32,7 +37,7 @@ export default function write() {
           /500
         </StyledTextLength>
       </div>
-      <BigButton text="등록하기" isDisabled={isEmptyTextArea} onClick={() => {}} />
+      <BigButton text="등록하기" isDisabled={isEmptyTextArea} onClick={handleClickPostWritingButton} />
     </>
   );
 }
