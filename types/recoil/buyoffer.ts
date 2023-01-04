@@ -1,5 +1,5 @@
 export interface BuyOfferType {
-  id: number;
+  id: number | null;
   imageUrl: string;
   price: number | null;
   salesOption: number | null;

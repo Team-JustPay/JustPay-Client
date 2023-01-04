@@ -1,10 +1,10 @@
 import { atom } from 'recoil';
 import { BuyOfferType } from 'types/recoil/buyoffer';
 
-export const salesPostState = atom<BuyOfferType>({
+export const buyoffer = atom<BuyOfferType>({
   key: 'salesPost',
   default: {
-    id: 3,
+    id: 0,
     imageUrl: '',
     price: 0,
     salesOption: 0,

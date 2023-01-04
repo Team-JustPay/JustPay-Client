@@ -7,8 +7,11 @@ import LimitOrderContainer from 'components/offer/buy/LimitOrderContainer';
 import AllowOfferContainer from 'components/offer/buy/AllowOfferContainer';
 import DeliveryChoice from 'components/offer/buy/DeliveryChoice';
 import { useRouter } from 'next/router';
+import { useRecoilValue } from 'recoil';
+import { buyoffer } from '../../../recoil/buyoffer';
 
 export default function buy() {
+  const postData = useRecoilValue(buyoffer);
   const router = useRouter();
   const { id } = router.query;
 
@@ -20,7 +23,7 @@ export default function buy() {
   const handleNextStep = () => {
     if (isValidOffer) {
       router.push(`/offer/buy/confirm/${id}`);
-      console.log('hi');
+      console.log(postData);
     }
   };
 
