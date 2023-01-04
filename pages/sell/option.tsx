@@ -1,6 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import Router from 'next/router';
 import styled from 'styled-components';
+import { useSetRecoilState } from 'recoil';
+import { salesPostState } from '../../recoil/salespost';
 
 import layout from './layout';
 import Header from 'components/common/Header';
@@ -16,10 +18,24 @@ export default function option() {
   const [isPosted, setIsPosted] = useState(true);
   const [inputText, setInputText] = useState('');
 
+  const setSalesPostState = useSetRecoilState(salesPostState);
+
   const handleInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     // setInputText(e.target.value.replace(/[^0-9]/g, ''));
     setInputText(e.target.value);
   }, []);
+
+  const optionHandler = (e: React.MouseEvent) => {
+    // console.log(e.target);
+    if (e.target instanceof HTMLButtonElement) {
+      if (e.target.innerText === '일괄 판매만') {
+        console.log('hi');
+        setSalesPostState((prev) => ({ ...prev, salesOption: 'BULK_SALE' }));
+      } else {
+        console.log('bye');
+      }
+    }
+  };
 
   const handleClickNextButton = () => {
     Router.push('/sell/qcGuide');
@@ -46,20 +62,24 @@ export default function option() {
               />
             </InputContainer>
             {inputText !== '1' && inputText && (
-              <TwoOptionContainer
-                firstOption="일괄 판매만"
-                secondOption="일괄 + 일부"
-                firstOptionGuide="1명만 구매할 수 있어요"
-                secondOptionGuide="1명이 일괄 구매 하거나, 여러 명이 구매할 수 있어요"
-              />
+              <OptionHandleContainer onClick={optionHandler}>
+                <TwoOptionContainer
+                  firstOption="일괄 판매만"
+                  secondOption="일괄 + 일부"
+                  firstOptionGuide="1명만 구매할 수 있어요"
+                  secondOptionGuide="1명이 일괄 구매 하거나, 여러 명이 구매할 수 있어요"
+                />
+              </OptionHandleContainer>
             )}
           </OptionContainer>
         )}
       </div>
-      <BigButton text="다음" isDisabled={inputText !== '1'} onClick={handleClickNextButton} />
+      <BigButton text="다음" isDisabled={false} onClick={handleClickNextButton} />
     </>
   );
 }
+
+const OptionHandleContainer = styled.section``;
 
 const OptionContainer = styled.section`
   margin-top: 4rem;

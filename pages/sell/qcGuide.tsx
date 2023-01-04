@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Router from 'next/router';
+import { useRecoilValue } from 'recoil';
+import { salesPostState } from '../../recoil/salespost';
 
 import FirstQCGuidePic from '../../public/assets/icons/qcGuide1.svg';
 import SecondQCGuidePic from '../../public/assets/icons/qcGuide2.svg';
@@ -18,6 +20,8 @@ import TitleText from 'components/common/TitleText';
 import TextContainer from 'components/sell/guide/TextContainer';
 
 export default function qcGuide() {
+  const salesPostValue = useRecoilValue(salesPostState);
+  console.log(salesPostValue);
   const [stage, setStage] = useState(1);
   const handleClickNextButton = () => {
     if (stage !== 2) {
