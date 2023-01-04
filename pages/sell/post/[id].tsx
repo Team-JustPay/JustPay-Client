@@ -5,12 +5,13 @@ import Header from 'components/common/Header';
 import ImageDownloadIcon from 'public/assets/icons/imageDownloadIcon.svg';
 import ShareTwitterIcon from 'public/assets/icons/shareTwitterIcon.svg';
 import BigButton from 'components/common/BigButton';
+import ToastMessage from 'components/common/ToastMessage';
 import SaleOption from 'components/sell/post/SaleOption';
 import layout from '../layout';
-
 export default function post() {
   const [isSeller, setIsSeller] = useState<boolean>(true);
   const [openImageDownloadModal, setOpenImageDownloadModal] = useState<boolean>(false);
+  const [openCopyLinkModal, setOpenCopyLinkModal] = useState(false);
 
   const handleImageDownload = () => {
     setOpenImageDownloadModal(true);
@@ -18,6 +19,14 @@ export default function post() {
       setOpenImageDownloadModal(false);
     }, 2000);
   };
+
+  const handleCopyLink = () => {
+    setOpenCopyLinkModal(true);
+    setTimeout(() => {
+      setOpenCopyLinkModal(false);
+    }, 2000);
+  };
+
   return (
     <>
       <div>
@@ -45,13 +54,14 @@ export default function post() {
           <StyledPostDate>2022.12.22 (목) 판매등록</StyledPostDate>
           {isSeller && (
             <NonStyledShareTwitterButton type="button">
-              <ShareTwitterIcon />
+              <ShareTwitterIcon onClick={handleCopyLink} />
             </NonStyledShareTwitterButton>
           )}
         </StyledExportConatiner>
       </div>
       <StyledButtomConatiner>
-        {openImageDownloadModal && <StyledCopyLinkToastMessage>대표사진을 다운로드했어요</StyledCopyLinkToastMessage>}
+        {openImageDownloadModal && <ToastMessage text="대표사진을 다운로드했어요" />}
+        {openCopyLinkModal && <ToastMessage text="클립보드에 복사되었어요" />}
         <BigButton text="구매 제시 현황보기" isDisabled={false} onClick={() => {}} />
       </StyledButtomConatiner>
     </>
@@ -150,60 +160,4 @@ const StyledButtomConatiner = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const StyledCopyLinkToastMessage = styled.article`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 17.7rem;
-  height: 3.8rem;
-  margin-bottom: 2rem;
-
-  color: ${({ theme }) => theme.colors.white};
-  background-color: ${({ theme }) => theme.colors.gray1};
-  border-radius: 0.8rem;
-  ${({ theme }) => theme.fonts.medium14pt};
-
-  animation: fadein 3s;
-  -moz-animation: fadein 3s; /* Firefox */
-  -webkit-animation: fadein 3s; /* Safari and Chrome */
-  -o-animation: fadein 3s; /* Opera */
-
-  @keyframes fadein {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  @-moz-keyframes fadein {
-    /* Firefox */
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  @-webkit-keyframes fadein {
-    /* Safari and Chrome */
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  @-o-keyframes fadein {
-    /* Opera */
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
 `;
