@@ -1,4 +1,5 @@
 import React from 'react';
+import Router from 'next/router';
 import MainText from 'components/common/MainText';
 import SubText from 'components/common/SubText';
 import BigButton from 'components/common/BigButton';
@@ -7,6 +8,10 @@ import layout from './layout';
 import Header from 'components/common/Header';
 import ImagePostButton from 'components/common/ImagePostButton';
 export default function qcImageUpload() {
+  const handleClickNextButton = () => {
+    Router.push('/sell/selectPrice');
+  };
+
   return (
     <>
       <div>
@@ -31,7 +36,7 @@ export default function qcImageUpload() {
           <StyledUploadImage></StyledUploadImage>
         </StyledUploadImageConatiner>
       </div>
-      <BigButton text="다음" isDisabled={false} onClick={() => {}} />
+      <BigButton text="다음" isDisabled={false} onClick={handleClickNextButton} />
     </>
   );
 }
