@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import theme from 'styles/theme';
 import Header from 'components/common/Header';
 import BigButton from 'components/common/BigButton';
+import ToolTip from 'public/assets/images/offer/tooltip.svg';
 
 export default function confirm() {
   const deliveryInfo = [
@@ -14,14 +15,15 @@ export default function confirm() {
   ];
 
   const cost = [
-    { name: '상품금액', value: '170,000원', isSpecial: false },
-    { name: '배송 옵션', value: '반값택배', isSpecial: false },
-    { name: '배송 금액', value: '1,800원', isSpecial: false },
-    { name: '총 금액', value: '171,800원', isSpecial: true },
+    { name: '상품금액', value: '170,000원' },
+    { name: '배송 옵션', value: '반값택배' },
+    { name: '배송 금액', value: '1,800원' },
+    { name: '총 금액', value: '171,800원' },
   ];
 
   return (
     <Root>
+      {/* TODO:추후 리코일 데이터로 변경하기 */}
       <HeaderWrapper>
         <Header title="구매 제시하기" rightButtonText="취소" isHavingBackButton />
       </HeaderWrapper>
@@ -35,20 +37,24 @@ export default function confirm() {
         ))}
       </StyledInfoContainer>
       <StyledTitle>결제 금액</StyledTitle>
-      <StyledInfoContainer>
+      <StyledCostInfoContainer>
         {cost.map((info, idx) => (
-          <StyledCostContainer key={idx.toString()} isSpecial={info.isSpecial}>
+          <StyledCostContainer key={idx.toString()}>
             <StyledKey>{info.name}</StyledKey>
             <StyledValue>{info.value}</StyledValue>
           </StyledCostContainer>
         ))}
-      </StyledInfoContainer>
+      </StyledCostInfoContainer>
       <StyledTitle>결제 수단</StyledTitle>
       <StyledInfoContainer>
         <StyledContentContainer>
           <StyledKey>계좌입금</StyledKey>
         </StyledContentContainer>
       </StyledInfoContainer>
+
+      <StyledImageWrapper>
+        <ToolTip />
+      </StyledImageWrapper>
       <BigButton text="확인" isDisabled={false} />
     </Root>
   );
@@ -86,6 +92,12 @@ const StyledContentContainer = styled.div`
   width: 100%;
   margin: 0.8rem 0;
 `;
+const StyledCostContainer = styled(StyledContentContainer)``;
+const StyledCostInfoContainer = styled(StyledInfoContainer)`
+  & div:last-child > p {
+    color: ${theme.colors.main};
+  }
+`;
 
 const StyledKey = styled.p`
   ${theme.fonts.title14pt};
@@ -97,6 +109,10 @@ const StyledValue = styled.p`
   color: ${theme.colors.gray3};
 `;
 
-const StyledCostContainer = styled(StyledContentContainer)<{ isSpecial: boolean }>`
-  color: ${({ isSpecial }) => isSpecial && theme.colors.main};
+const StyledImageWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-bottom: 19.7rem;
 `;
