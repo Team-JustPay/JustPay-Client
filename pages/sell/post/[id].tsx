@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import Header from 'components/common/Header';
 import ImageDownloadIcon from 'public/assets/icons/imageDownloadIcon.svg';
 import ShareTwitterIcon from 'public/assets/icons/shareTwitterIcon.svg';
+
+import Header from 'components/common/Header';
 import BigButton from 'components/common/BigButton';
 import ToastMessage from 'components/common/ToastMessage';
 import SaleOption from 'components/sell/post/SaleOption';
 import layout from '../layout';
 export default function post() {
-  const [isSeller, setIsSeller] = useState<boolean>(true);
+  const [isMine, setIsMine] = useState<boolean>(true);
   const [openImageDownloadModal, setOpenImageDownloadModal] = useState<boolean>(false);
-  const [openCopyLinkModal, setOpenCopyLinkModal] = useState(false);
+  const [openCopyLinkModal, setOpenCopyLinkModal] = useState<boolean>(false);
 
   const handleImageDownload = () => {
     setOpenImageDownloadModal(true);
@@ -52,7 +53,7 @@ export default function post() {
         </StyledImageContainer>
         <StyledExportConatiner>
           <StyledPostDate>2022.12.22 (목) 판매등록</StyledPostDate>
-          {isSeller && (
+          {isMine && (
             <NonStyledShareTwitterButton type="button">
               <ShareTwitterIcon onClick={handleCopyLink} />
             </NonStyledShareTwitterButton>
