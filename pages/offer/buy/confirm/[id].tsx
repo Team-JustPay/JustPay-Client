@@ -39,10 +39,10 @@ export default function confirm() {
       <StyledTitle>결제 금액</StyledTitle>
       <StyledCostInfoContainer>
         {cost.map((info, idx) => (
-          <StyledCostContainer key={idx.toString()}>
+          <StyledContentContainer key={idx.toString()}>
             <StyledKey>{info.name}</StyledKey>
             <StyledValue>{info.value}</StyledValue>
-          </StyledCostContainer>
+          </StyledContentContainer>
         ))}
       </StyledCostInfoContainer>
       <StyledTitle>결제 수단</StyledTitle>
@@ -92,7 +92,6 @@ const StyledContentContainer = styled.div`
   width: 100%;
   margin: 0.8rem 0;
 `;
-const StyledCostContainer = styled(StyledContentContainer)``;
 const StyledCostInfoContainer = styled(StyledInfoContainer)`
   & div:last-child > p {
     color: ${theme.colors.main};
