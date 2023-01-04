@@ -11,7 +11,7 @@ export default function checkInfomation() {
   return (
     <Root>
       <Header isHavingBackButton title={TITLE.ADD_SELLPOST} rightButtonText={MENU.CANCEL} />
-      {/* 유저가 선택한 옵션을 여기서 작업 */}
+
       <StyledUserChoiceContainer>
         <CheckInfoBox infoTitle="상품 개수" infoText=" 2개" />
         <CheckInfoBox infoTitle="상품 개수" infoText=" 2개" />
@@ -20,7 +20,6 @@ export default function checkInfomation() {
         <CheckInfoBox infoTitle="상품 개수" infoText=" 2개" />
       </StyledUserChoiceContainer>
 
-      {/* 유저가 체크할 수 있는 버튼이 담긴 컨테이너 */}
       <StyledCheckboxContainer>
         <CheckBoxContents noticeContent="사기 방지를 위해서 판매자가 설정한 기간 내에 송장번호를 입력해야만 구매자가 미리 결제한 돈이 자동입금 됩니다" />
         <CheckBoxContents noticeContent="나중에 적도록 하겠습니다. 은비 올림. 나중에 적도록 하겠습니다. 은비 올림. " />
@@ -58,8 +57,3 @@ const StyledCheckboxContainer = styled.div`
   padding: 2.4rem 1.6rem;
   margin-bottom: 2.4rem;
 `;
-
-// const Text = styled.div`
-//   color: ${theme.colors.gray2};
-//   ${theme.fonts.regular14pt};
-// `;

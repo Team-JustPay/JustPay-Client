@@ -9,6 +9,7 @@ import TitleText from 'components/common/TitleText';
 import MainText from 'components/common/MainText';
 import SubText from 'components/common/SubText';
 import SmallButton from 'components/common/SmallButton';
+import DeliveryOptionContainer from 'components/offer/buy/DeliveryOptionContainer';
 
 export default function buy() {
   return (
