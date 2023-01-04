@@ -9,6 +9,7 @@ import BigButton from 'components/common/BigButton';
 import ToastMessage from 'components/common/ToastMessage';
 import SaleOption from 'components/sell/post/SaleOption';
 import layout from '../layout';
+import Router from 'next/router';
 export default function post() {
   const [isMine, setIsMine] = useState<boolean>(true);
   const [openImageDownloadModal, setOpenImageDownloadModal] = useState<boolean>(false);
@@ -31,7 +32,13 @@ export default function post() {
   return (
     <>
       <div>
-        <Header title="판매글 상세" leftButtonText="제시 현황" rightButtonText="인증 사진"></Header>
+        <Header
+          title="판매글 상세"
+          leftButtonText="제시 현황"
+          rightButtonText="인증 사진"
+          handleRightButton={() => {
+            Router.push(`/sell/post/${1}/certification`);
+          }}></Header>
         <StyledProfileContainer>
           <img></img>
           <StyledProfileAccount>
