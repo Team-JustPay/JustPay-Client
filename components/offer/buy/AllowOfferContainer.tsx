@@ -71,6 +71,8 @@ export default function AllowOfferContainer() {
           <MainText text="구매 희망가격을 제시하세요" />
         </StyledTextContainer>
         <UserInput placeholder="500원 단위로 입력해주세요" inputTextGuide="원" />
+        {/* //TODO: 차후에는 현재 최고가를 받아와서 렌더링해야함 */}
+        <SubtitleContainer>{selectedButton === ButtonName.ALL && '현재 최고가 110,000원'}</SubtitleContainer>
       </StyledInputContainer>
     </Root>
   );
