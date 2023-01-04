@@ -7,8 +7,12 @@ import First from 'public/assets/images/offer/guide/first.svg';
 import Second from 'public/assets/images/offer/guide/second.svg';
 import Third from 'public/assets/images/offer/guide/third.svg';
 import Fourth from 'public/assets/images/offer/guide/fourth.svg';
+import { useRouter } from 'next/router';
 
 export default function offerGuide() {
+  const router = useRouter();
+  const { id } = router.query;
+
   return (
     // TODO: 디자인한테 이미지 에셋으로 만들어달라고 부탁하기
     <Root>
@@ -45,7 +49,7 @@ export default function offerGuide() {
         <Fourth />
       </StyledContentContainer>
 
-      <BigButton text="다음" isDisabled={false} />
+      <BigButton text="다음" isDisabled={false} onClick={() => router.push(`/offer/buy/${id}`)} />
     </Root>
   );
 }
