@@ -4,7 +4,7 @@ import Header from 'components/common/Header';
 import { TITLE, MENU } from 'constants/headerMessage';
 import BigButton from 'components/common/BigButton';
 import ImagePostButton from 'components/common/ImagePostButton';
-import UserInput from 'components/common/UserInput';
+import UserNumerInput from 'components/common/UserNumberInput';
 import TitleText from 'components/common/TitleText';
 import MainText from 'components/common/MainText';
 import SubText from 'components/common/SubText';
@@ -16,13 +16,13 @@ export default function buy() {
       <Header title={TITLE.OFFER_TO_SELLER} rightButtonText={MENU.BACK} isHavingBackButton />
       <ImagePostButton buttonSize="small" />
       <MainText text="구매하는 가격을 확인하세요" />
-      <UserInput placeholder="500원 단위로 입력해주세요" inputTextGuide="원" />
+      <UserNumerInput placeholder="500원 단위로 입력해주세요" inputTextGuide="원" />
       <MainText text="배송가능 옵션 을 1가지만 선택하세요" />
-      <UserInput placeholder="500원 단위로 입력해주세요" inputTextGuide="원" />
-      <UserInput placeholder="500원 단위로 입력해주세요" inputTextGuide="원" />
-      <UserInput placeholder="500원 단위로 입력해주세요" inputTextGuide="원" />
-      <UserInput placeholder="500원 단위로 입력해주세요" inputTextGuide="원" />
-      <UserInput placeholder="500원 단위로 입력해주세요" inputTextGuide="원" />
+      <UserNumerInput placeholder="500원 단위로 입력해주세요" inputTextGuide="원" />
+      <UserNumerInput placeholder="500원 단위로 입력해주세요" inputTextGuide="원" />
+      <UserNumerInput placeholder="500원 단위로 입력해주세요" inputTextGuide="원" />
+      <UserNumerInput placeholder="500원 단위로 입력해주세요" inputTextGuide="원" />
+      <UserNumerInput placeholder="500원 단위로 입력해주세요" inputTextGuide="원" />
 
       <TitleText>
         <MainText text="구매 희망 상품을 표시한 사진을 등록해주세요" />
@@ -37,7 +37,7 @@ export default function buy() {
       </SmallButtonContainer>
 
       <MainText text="구매 희망가격을 제시하세요"></MainText>
-      <UserInput placeholder="500원 단위로 입력해주세요" inputTextGuide="원" />
+      <UserNumerInput placeholder="500원 단위로 입력해주세요" inputTextGuide="원" />
       <MainText text="배송가능 옵션 을 1가지만 선택하세요" />
 
       <TitleText>
@@ -53,7 +53,7 @@ export default function buy() {
       </SmallButtonContainer>
 
       <MainText text="구매 희망 상품의 개수를 입력하세요"></MainText>
-      <UserInput placeholder="정확한 상품의 개수를 입력해주세요" inputTextGuide="개" />
+      <UserNumerInput placeholder="정확한 상품의 개수를 입력해주세요" inputTextGuide="개" />
 
       <TitleText>
         <MainText text="판매자에게 제시 옵션을 한줄로 설명해주세요" />
@@ -61,10 +61,10 @@ export default function buy() {
       </TitleText>
       <SubText text="핑크색머리 천러 중복 3장 등 이해하기 쉽게 설명해주세요" />
 
-      <UserInput placeholder="500원 단위로 입력해주세요" inputTextGuide="원" />
+      <UserNumerInput placeholder="500원 단위로 입력해주세요" inputTextGuide="원" />
 
       <MainText text="구매 희망가격을 제시하세요"></MainText>
-      <UserInput placeholder="500원 단위로 입력해주세요" inputTextGuide="원" />
+      <UserNumerInput placeholder="500원 단위로 입력해주세요" inputTextGuide="원" />
       <MainText text="배송가능 옵션 을 1가지만 선택하세요" />
 
       <BigButton text="다음" isDisabled={true} onClick={() => {}} />

@@ -9,13 +9,14 @@ import SubText from 'components/common/SubText';
 import ImagePostButton from 'components/common/ImagePostButton';
 import TwoOptionContainer from 'components/common/TwoOptionContainer';
 import BigButton from 'components/common/BigButton';
-import UserInput from 'components/common/UserInput';
+import UserCountInput from 'components/common/UserCountInput';
 
 export default function option() {
   const [isPosted, setIsPosted] = useState(true);
   const [inputText, setInputText] = useState('');
 
   const handleInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    // setInputText(e.target.value.replace(/[^0-9]/g, ''));
     setInputText(e.target.value);
   }, []);
 
@@ -32,7 +33,7 @@ export default function option() {
           <OptionContainer>
             <MainText text="이 사진 중에서 몇 개를 파실 건가요?" />
             <InputContainer>
-              <UserInput
+              <UserCountInput
                 placeholder="정확한 상품의 개수를 입력해주세요"
                 inputTextGuide="개"
                 onChangeFunc={handleInput}
