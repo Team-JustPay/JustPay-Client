@@ -9,6 +9,7 @@ import DeliveryChoice from 'components/offer/buy/DeliveryChoice';
 
 export default function buy() {
   const [isLimitOrder, setIsLimitOrder] = useState(false);
+  const [isValidOffer, setIsVaildOffer] = useState(false);
 
   return (
     <Root>
@@ -16,7 +17,11 @@ export default function buy() {
       {isLimitOrder ? <LimitOrderContainer /> : <AllowOfferContainer />}
       <DeliveryChoice />
       {/* //TODO: 해당 버튼 온클릭시 리코일 전역 상태에 데이터 전달 */}
-      <BigButton text="다음" isDisabled={false} />
+      {isValidOffer ? (
+        <BigButton text="다음" isDisabled={false} onClick={() => {}} />
+      ) : (
+        <BigButton text="다음" isDisabled={true} />
+      )}
     </Root>
   );
 }
