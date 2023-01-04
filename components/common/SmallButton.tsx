@@ -3,24 +3,28 @@ import styled, { css } from 'styled-components';
 
 interface ButtonProps {
   text: string;
-  isDisabled: boolean;
+  isClicked: boolean;
   onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export default function SmallButton({ text, isDisabled, onClick }: ButtonProps) {
+interface StyledProps {
+  isClicked: boolean;
+}
+
+export default function SmallButton({ text, isClicked, onClick }: ButtonProps) {
   return (
-    <GlobalStyledButton disabled={isDisabled} onClick={onClick}>
+    <GlobalStyledButton isClicked={isClicked} onClick={onClick}>
       {text}
     </GlobalStyledButton>
   );
 }
 
-const GlobalStyledButton = styled.button`
+const GlobalStyledButton = styled.button<StyledProps>`
   width: calc(50% - 0.6rem);
   padding: 1.5rem 0 1.4rem;
 
-  ${({ disabled }) =>
-    disabled
+  ${({ isClicked }) =>
+    !isClicked
       ? css`
           border: 0.1rem solid;
           border-color: ${({ theme }) => theme.colors.gray3};
