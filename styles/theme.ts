@@ -13,7 +13,7 @@ const colors = {
   main_opacity20: 'rgba(54, 221, 171, 0.2);',
   sub1: '#FF70FE',
   sub1_opacity20: 'rgba(255, 112, 254, 0.2);',
-  sub2: '##FF5050',
+  sub2: '#FF5050',
 } as const;
 
 interface Font {
