@@ -21,6 +21,7 @@ export default function qcImageUpload() {
           <SubText
             text="포스트잇에 계정 아이디와 인증단어를 적어주세요
   사진은 5장까지 등록할 수 있어요"
+            isMainColor={false}
           />
         </StyledCertigfyInfoConatiner>
         <StyledCertigfyWordConatiner>

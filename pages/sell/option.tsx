@@ -31,7 +31,7 @@ export default function option() {
         <Header title="판매글 작성하기" isHavingBackButton={true} rightButtonText="취소" />
         <TitleText>
           <MainText text="판매글에 보일 대표 사진을 등록해주세요" />
-          <SubText text="판매하는 상품이 전부 보이는 1장의 사진을 등록해주세요" />
+          <SubText text="판매하는 상품이 전부 보이는 1장의 사진을 등록해주세요" isMainColor={false} />
         </TitleText>
         <ImagePostButton buttonSize="big" />
         {isPosted && (
