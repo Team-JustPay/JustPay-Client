@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import Header from 'components/common/Header';
-import BigButton from 'components/common/BigButton';
-import { TITLE, MENU } from 'constants/headerMessage';
-import theme from 'styles/theme';
-import CheckInfoBox from 'components/sell/sellInfo/CheckInfoBox';
-import CheckBoxContents from 'components/sell/sellInfo/CheckBoxContents';
+import Header from '../../components/common/Header';
+import BigButton from '../../components/common/BigButton';
+import { TITLE, MENU } from '../../constants/headerMessage';
+import CheckInfoBox from '../../components/sell/sellInfo/CheckInfoBox';
+import CheckBoxContents from '../../components/sell/sellInfo/CheckBoxContents';
 
 export default function checkInfomation() {
   return (
@@ -49,7 +48,7 @@ const StyledCheckboxContainer = styled.div`
   justify-content: space-between;
   flex-direction: column;
 
-  background-color: ${theme.colors.grey_popup};
+  background-color: ${({ theme }) => theme.colors.grey_popup};
   border-radius: 0.8rem;
   width: 35.8rem;
   height: 24.8rem;

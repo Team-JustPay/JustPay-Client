@@ -9,7 +9,12 @@ import TitleText from 'components/common/TitleText';
 import MainText from 'components/common/MainText';
 import SubText from 'components/common/SubText';
 import DeliveryOptionContainer from 'components/common/DeliveryOptionContainer';
+import Router from 'next/router';
 export default function deliveryInfo() {
+  const handleClickNextButton = () => {
+    Router.push('/sell/checkInfo');
+  };
+
   return (
     <>
       <div>
@@ -21,7 +26,7 @@ export default function deliveryInfo() {
         <DeliveryOptionContainer />
       </div>
 
-      <BigButton isDisabled text="다음" onClick={() => {}} />
+      <BigButton isDisabled={false} text="다음" onClick={handleClickNextButton} />
     </>
   );
 }
