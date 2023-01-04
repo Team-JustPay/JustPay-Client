@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import Router from 'next/router';
 import styled from 'styled-components';
 
 import layout from './layout';
@@ -19,6 +20,10 @@ export default function option() {
     // setInputText(e.target.value.replace(/[^0-9]/g, ''));
     setInputText(e.target.value);
   }, []);
+
+  const handleClickNextButton = () => {
+    Router.push('/sell/qcGuide');
+  };
 
   return (
     <>
@@ -51,7 +56,7 @@ export default function option() {
           </OptionContainer>
         )}
       </div>
-      <BigButton text="다음" isDisabled={inputText !== '1'} onClick={() => console.log('hi')} />
+      <BigButton text="다음" isDisabled={inputText !== '1'} onClick={handleClickNextButton} />
     </>
   );
 }
