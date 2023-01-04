@@ -23,7 +23,7 @@ export default function qcGuide() {
     if (stage !== 2) {
       setStage((prev) => prev + 1);
     } else {
-      Router.push('/sell/selectPrice');
+      Router.push('/sell/qcImageUpload');
     }
   };
 
