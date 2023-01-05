@@ -14,51 +14,22 @@ const StyledToastMessage = styled.article`
 
   width: 17.7rem;
   height: 3.8rem;
-  margin-bottom: 2rem;
+  margin-bottom: 4rem;
 
   color: ${({ theme }) => theme.colors.white};
   background-color: ${({ theme }) => theme.colors.gray1};
   border-radius: 0.8rem;
   ${({ theme }) => theme.fonts.medium14pt};
 
-  animation: fadein 3s;
-  -moz-animation: fadein 3s; /* Firefox */
-  -webkit-animation: fadein 3s; /* Safari and Chrome */
-  -o-animation: fadein 3s; /* Opera */
-
-  @keyframes fadein {
-    from {
+  animation: fadeInUp 1s;
+  @keyframes fadeInUp {
+    0% {
       opacity: 0;
+      transform: translate3d(0, 100%, 0);
     }
     to {
       opacity: 1;
-    }
-  }
-  @-moz-keyframes fadein {
-    /* Firefox */
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  @-webkit-keyframes fadein {
-    /* Safari and Chrome */
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  @-o-keyframes fadein {
-    /* Opera */
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
+      transform: translateZ(0);
     }
   }
 `;
