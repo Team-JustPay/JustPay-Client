@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import theme from 'styles/theme';
 import Header from 'components/common/Header';
@@ -6,6 +7,9 @@ import BigButton from 'components/common/BigButton';
 import ToolTip from 'public/assets/images/offer/tooltip.svg';
 
 export default function confirm() {
+  const router = useRouter();
+  const { id } = router.query;
+
   const deliveryInfo = [
     { name: '전화번호', value: '01045807180' },
     { name: '주소', value: '서울시 강남구' },
@@ -20,12 +24,16 @@ export default function confirm() {
     { name: '배송 금액', value: '1,800원' },
     { name: '총 금액', value: '171,800원' },
   ];
+  // TODO:추후 뒤로가기 이동과 동시에 전역 데이터 객체에 빈값 넣는 동작 추가
+  const MoveToPrevPage = () => {
+    router.push(`/offer/buy/${id}`);
+  };
 
   return (
     <Root>
-      {/* TODO:추후 리코일 데이터로 변경하기 */}
+      {/* TODO:추후 서버, 리코일 데이터로 변경하기 */}
       <HeaderWrapper>
-        <Header title="구매 제시하기" rightButtonText="취소" isHavingBackButton />
+        <Header title="구매 제시하기" rightButtonText="취소" isHavingBackButton handleLeftButton={MoveToPrevPage} />
       </HeaderWrapper>
       <StyledTitle>배송정보</StyledTitle>
       <StyledInfoContainer>

@@ -42,7 +42,7 @@ const GlobalStyledButton = styled.button<{ isPicked: boolean; selectedButton: st
           border-color: ${({ theme }) => theme.colors.gray3};
           background-color: ${({ theme }) => theme.colors.gray_background};
           color: ${({ theme }) => theme.colors.white};
-          padding: 1.5rem 0 1.4rem;
+          padding: 1.4rem 0 1.3rem;
         `}
 
   border-radius: 0.8rem;

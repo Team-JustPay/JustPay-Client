@@ -18,7 +18,7 @@ export default function UserInput({ placeholder, inputTextGuide }: InputProps) {
 
   return (
     <InputContainer>
-      <GlobalStyledInput placeholder={placeholder} onChange={handleInputText} />
+      <GlobalStyledInput required placeholder={placeholder} type="text" onChange={handleInputText} maxLength={50} />
       <InputText inputText={inputText}>{inputTextGuide}</InputText>
     </InputContainer>
   );
@@ -43,6 +43,7 @@ const GlobalStyledInput = styled.input`
 
   &:focus {
     border-color: ${({ theme }) => theme.colors.main};
+    border: 0.2rem solid;
 
     & + strong {
       color: ${({ theme }) => theme.colors.main};

@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import DeliveryOption from 'components/offer/buy/common/DeliveryOption';
 
 export default function DeliveryOptionContainer() {
-  //TODO: 서버 나온후 로직 변경해야함
-
   const [deliveryOptions, setDeliveryOptions] = useState([
     { id: 1, name: '반값택배', price: '1,600원', contents: ['3-5일 소요', 'GS25 택배'] },
     { id: 2, name: '끼리택배', price: '1,600원', contents: ['4-6일 소요', 'CU 택배'] },
@@ -14,6 +12,8 @@ export default function DeliveryOptionContainer() {
   ]);
 
   const [currentUserChoice, setCurrentUserChoice] = useState(0);
+
+  //TODO: 판매글 정보 조회 API에서 배송옵션 받아서 가공해야함
   const SelectedDeliveryOptions = [...deliveryOptions];
 
   const DeliveryOptionList = deliveryOptions.map((option) => (
