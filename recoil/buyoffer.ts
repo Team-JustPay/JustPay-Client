@@ -2,7 +2,7 @@ import { atom } from 'recoil';
 import { BuyOfferType } from 'types/recoil/buyoffer';
 
 export const buyoffer = atom<BuyOfferType>({
-  key: 'salesPost',
+  key: 'buyoffer',
   default: {
     id: 0,
     imageUrl: '',

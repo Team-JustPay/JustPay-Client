@@ -9,8 +9,11 @@ import SmallButton from 'components/offer/buy/common/SmallButton';
 import UserCountInput from 'components/offer/buy/common/UserCountInput';
 import UserOfferNumberInput from 'components/offer/buy/common/UserOfferNumberInput';
 import { getLocalNumber } from 'utils/price';
+import { useRecoilState } from 'recoil';
+import { buyoffer } from '../../../recoil/buyoffer';
 
 export default function SelectedSaleContainer({ isLimitOrder }: { isLimitOrder: boolean }) {
+  const [offerData, setOfferData] = useRecoilState(buyoffer);
   const [selectedButton, setSelectedButton] = useState('미선택');
   const [inputNumber, setInputNumber] = useState('');
   const [inputCount, setInputCount] = useState('');

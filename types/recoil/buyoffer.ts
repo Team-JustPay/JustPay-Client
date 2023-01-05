@@ -1,6 +1,6 @@
 export interface BuyOfferType {
   id: number | null;
-  imageUrl: string;
+  imageUrl: string | null;
   price: number | null;
   salesOption: number | null;
   productCount: string;

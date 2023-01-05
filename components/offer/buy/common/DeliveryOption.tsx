@@ -5,6 +5,8 @@ import Gspost from 'public/assets/icons/gspost.svg';
 import Cupost from 'public/assets/icons/cupost.svg';
 import Mail from 'public/assets/icons/mail.svg';
 import QuasiRegistration from 'public/assets/icons/quasi-registration.svg';
+import { useRecoilState } from 'recoil';
+import { buyoffer } from '../../../../recoil/buyoffer';
 
 interface DeliveryOptionProps {
   id: number;
@@ -27,15 +29,22 @@ export default function DeliveryOption({
   onClick,
 }: DeliveryOptionProps) {
   //TODO: 서버 나온후 로직 변경해야함
-
+  const [offerData, setOfferData] = useRecoilState(buyoffer);
   const [isSelected, setIsSelected] = useState(false);
 
   const handleDeliveryOption = () => {
+    setOfferData((prev) => ({
+      ...prev,
+      shippingOption: { name: name, price: Number(price.replace(/[^0-9]/g, '')) },
+    }));
+
     onClick();
 
     if (isAllowedSinglePick && isSelected === false) {
       setIsSelected(!isSelected);
     }
+
+    console.log(offerData.shippingOption);
   };
 
   const Icon = () => {
