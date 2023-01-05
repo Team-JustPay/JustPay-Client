@@ -85,12 +85,11 @@ const StyledProfileContainer = styled.section`
   margin-top: 1.8rem;
   margin-bottom: 2rem;
   img {
-    margin-right: 0.8rem;
     width: 4.2rem;
     height: 4.2rem;
+    margin-right: 0.8rem;
 
     border-radius: 50%;
-
     background-color: ${({ theme }) => theme.colors.gray2};
   }
 `;
@@ -98,7 +97,6 @@ const StyledProfileContainer = styled.section`
 const StyledProfileAccount = styled.section`
   h1 {
     ${({ theme }) => theme.fonts.medium14pt};
-
     color: ${({ theme }) => theme.colors.gray3};
   }
   p {
@@ -115,15 +113,15 @@ const StyledSalePost = styled.span`
 
 const StyledSaleOptionContainer = styled.section`
   display: flex;
+
   width: 100%;
   height: 6.4rem;
-
+  padding: 1.2rem;
   margin-top: 2rem;
   margin-bottom: 1.2rem;
-  padding: 1.2rem;
 
-  background-color: ${({ theme }) => theme.colors.grey_popup};
   border-radius: 0.8rem;
+  background-color: ${({ theme }) => theme.colors.grey_popup};
 
   & :last-child {
     border: none;

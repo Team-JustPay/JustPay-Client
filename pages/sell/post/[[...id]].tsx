@@ -39,14 +39,14 @@ export default function certification() {
 const StyledHelpModalBackground = styled.div`
   display: flex;
   align-items: center;
+  position: fixed;
+  top: 0;
 
   width: 43rem;
   min-height: calc(var(--vh) * 100);
 
-  position: fixed;
-  top: 0;
-  margin-left: -16px;
   padding: 0 1.6rem 3.2rem;
+  margin-left: -16px;
 
   background: rgba(0, 0, 0, 0.7);
 `;
@@ -60,8 +60,9 @@ const StyledHelpModal = styled.section`
   width: 100%;
   height: 24rem;
   padding: 3.2rem 4rem;
-  background: ${({ theme }) => theme.colors.grey_popup};
+
   border-radius: 0.8rem;
+  background: ${({ theme }) => theme.colors.grey_popup};
 
   h1 {
     margin-bottom: 2.4rem;
@@ -84,6 +85,6 @@ const StyledClosedHelpModal = styled.button`
   width: 12rem;
   height: 4.3rem;
 
-  background: ${({ theme }) => theme.colors.main};
   border-radius: 0.8rem;
+  background: ${({ theme }) => theme.colors.main};
 `;
