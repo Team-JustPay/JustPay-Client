@@ -11,7 +11,7 @@ import SaleOption from 'components/sell/post/SaleOption';
 import layout from '../layout';
 import Router from 'next/router';
 export default function post() {
-  const [isMine, setIsMine] = useState<boolean>(true);
+  const [isMine, setIsMine] = useState<boolean>(false);
   const [openImageDownloadModal, setOpenImageDownloadModal] = useState<boolean>(false);
   const [openCopyLinkModal, setOpenCopyLinkModal] = useState<boolean>(false);
 
@@ -67,11 +67,18 @@ export default function post() {
           )}
         </StyledExportConatiner>
       </div>
-      <StyledButtomConatiner>
+      <StyledBottomConatiner>
         {openImageDownloadModal && <ToastMessage text="대표사진을 다운로드했어요" />}
         {openCopyLinkModal && <ToastMessage text="클립보드에 복사되었어요" />}
-        <BigButton text="구매 제시 현황보기" isDisabled={false} onClick={() => {}} />
-      </StyledButtomConatiner>
+        {isMine ? (
+          <BigButton text="구매 제시 현황보기" isDisabled={false} onClick={() => {}} />
+        ) : (
+          <StyledBuyerButtonContainer>
+            <StyledShowBuyerListButton type="button">구매 제시 현황보기</StyledShowBuyerListButton>
+            <StyledBuySuggestButton type="button">구매 제시하기</StyledBuySuggestButton>
+          </StyledBuyerButtonContainer>
+        )}
+      </StyledBottomConatiner>
     </>
   );
 }
@@ -162,8 +169,38 @@ const StyledPostDate = styled.article`
 
 const NonStyledShareTwitterButton = styled.button``;
 
-const StyledButtomConatiner = styled.div`
+const StyledBottomConatiner = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const StyledBuyerButtonContainer = styled.section`
+  display: flex;
+  flex-direction: row;
+
+  width: 100%;
+  height: 4.8rem;
+
+  margin: 0 1.6rem 1.2rem 1.6rem;
+
+  button {
+    width: 100%;
+
+    border-radius: 0.8rem;
+
+    ${({ theme }) => theme.fonts.title16pt};
+  }
+`;
+
+const StyledShowBuyerListButton = styled.button`
+  margin-right: 1.2rem;
+
+  background: ${({ theme }) => theme.colors.main_opacity20};
+  color: ${({ theme }) => theme.colors.main};
+`;
+
+const StyledBuySuggestButton = styled.button`
+  background: ${({ theme }) => theme.colors.main};
+  color: ${({ theme }) => theme.colors.white};
 `;
