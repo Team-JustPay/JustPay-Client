@@ -54,7 +54,6 @@ export default function certification() {
             '필요한 인증 사진을 판매자가 올려 놓지 않은 경우, <br/> 트위터를 통해 추가 인증사진을 요청하세요 <br/> 인증 사진이 없다면 안전한 거래를 보장할 수 없어요'
           }
           buttonFirstTitle={'확인'}
-          buttonSecondTitle={'종료'}
           buttonFirstFunction={handleOpenHelpModal}
         />
       )}
