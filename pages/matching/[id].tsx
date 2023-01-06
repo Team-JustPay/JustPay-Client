@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 
+import UserProfile from 'components/common/UserProfile';
+import SaleInfoContainer from 'components/common/SaleInfoContainer';
 import SuggestContainer from 'components/matching/SuggestContainer';
 import SuggestTab from 'components/matching/SuggestTab';
 import SortOption from 'components/matching/SortOption';
 import ItemContainer from 'components/matching/ItemContainer';
 import SuggestItem from 'components/matching/SuggestItem';
+import Header from 'components/matching/Header';
 
 export default function matching() {
   const [isClicked, setIsClicked] = useState(true);
@@ -15,6 +18,9 @@ export default function matching() {
 
   return (
     <div>
+      <Header isMine={true} />
+      <UserProfile profileImage="" userName="스윙스" userId="@King_swings" />
+      <SaleInfoContainer productCount={3} salesOption="일괄 판매만" priceOption="지정가격" />
       <SuggestContainer>
         <SuggestTab options={['매칭 중인 목록', '매칭 완료 목록']} outerFunc={handleOptionTab} isClicked={isClicked} />
         <SortOption optionText="구매 희망" optionNum={7} />

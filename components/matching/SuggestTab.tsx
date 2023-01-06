@@ -1,5 +1,4 @@
-import { f } from 'msw/lib/SetupApi-b2f0e5ac';
-import React, { useState } from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components';
 
 interface TabProps {
