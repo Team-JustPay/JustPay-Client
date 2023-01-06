@@ -117,7 +117,8 @@ const GlobalStyledInput = styled.input<StyledInputProps>`
   }}
 
   &:focus {
-    border: 0.2rem solid;
+    border: ${({ isLimitOrder }) => (isLimitOrder ? '0.1rem solid' : '0.2rem solid')};
+    border-color: ${({ isLimitOrder, theme }) => isLimitOrder && theme.colors.gray1};
     border-color: ${({ priceCondition, isUnderMaximumPrice, isofferAllItems }) => {
       switch (isofferAllItems) {
         case true:

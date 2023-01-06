@@ -35,7 +35,12 @@ export default function SelectedSaleContainer({ isLimitOrder }: { isLimitOrder: 
   const resetToDefaultValue = () => {
     setInputNumber('');
     setInputCount('');
-    setOfferData((prev) => ({ ...prev, price: null, description: '' }));
+    if (isLimitOrder) {
+      setOfferData((prev) => ({ ...prev, description: '' }));
+    }
+    if (isLimitOrder === false) {
+      setOfferData((prev) => ({ ...prev, description: '', price: null }));
+    }
   };
 
   const handleChoiceBulkButton = () => {
@@ -65,7 +70,9 @@ export default function SelectedSaleContainer({ isLimitOrder }: { isLimitOrder: 
     return false;
   };
 
-  const CheckCorrectCount = (number: number) => {};
+  const CheckCorrectCount = (number: number) => {
+    return maxCount >= number ? true : false;
+  };
 
   const handleNumberInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value.replace(/[^0-9]/g, '').replace(/,/g, '');
@@ -78,7 +85,7 @@ export default function SelectedSaleContainer({ isLimitOrder }: { isLimitOrder: 
   const handleCountInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value.replace(/[^0-9]/g, '');
     setInputCount(value);
-    if (inputCount !== value) {
+    if (inputCount !== value && CheckCorrectCount(Number(value))) {
       setOfferData((prev) => ({ ...prev, productCount: Number(value) }));
     }
   }, []);
@@ -170,7 +177,7 @@ export default function SelectedSaleContainer({ isLimitOrder }: { isLimitOrder: 
             />
             {/* //TODO: 차후에는 현재 최고가를 받아와서 렌더링해야함 */}
             <SubtitleContainer>
-              {selectedButton === ButtonName.ALL &&
+              {selectedButton !== ButtonName.INDIVIDUAL &&
                 isLimitOrder === false &&
                 `현재 최고제시가격 ${getLocalNumber(maximumPrice)}원`}
             </SubtitleContainer>

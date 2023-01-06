@@ -1,21 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import MainText from 'components/common/MainText';
 import theme from 'styles/theme';
 import UserOfferNumberInput from 'components/offer/buy/common/UserOfferNumberInput';
 import { useRecoilState } from 'recoil';
 import { buyoffer } from '../../../recoil/buyoffer';
+import { getLocalNumber } from '../../../utils/price';
 
-export default function BulkSaleContainer({ isLimitOrder }: { isLimitOrder: boolean }) {
+interface BulkContainerProps {
+  isLimitOrder: boolean;
+}
+
+export default function BulkSaleContainer({ isLimitOrder }: BulkContainerProps) {
   const [offerData, setOfferData] = useRecoilState(buyoffer);
-  const [inputText, setInputText] = useState('');
-  const limitOrderPrice = 100000;
+  const [inputNumber, setInputNumber] = useState('');
+  const maximumPrice = 100000;
 
   const priceRegex = /\B(?=(\d{3})+(?!\d))/g;
 
-  setOfferData((prev) => ({ ...prev, price: limitOrderPrice }));
+  const CheckCorrectPrice = (number: number) => {
+    if (number > maximumPrice && number % 500 === 0) {
+      return true;
+    }
+    return false;
+  };
 
-  console.log('리코일에 들어간 데이터:' + offerData.price);
+  const CheckIsVaild = () => {};
+
+  const handleNumberInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value.replace(/[^0-9]/g, '').replace(/,/g, '');
+    setInputNumber(value);
+    if (inputNumber !== value) {
+      setOfferData((prev) => ({ ...prev, price: Number(value) }));
+    }
+  }, []);
 
   return (
     <Root>
@@ -26,12 +44,17 @@ export default function BulkSaleContainer({ isLimitOrder }: { isLimitOrder: bool
       <StyledInputContainer>
         {/* //TODO: API 명세의 프로퍼티의 값을 받아와서 placeholder에 넣어주기 */}
         <UserOfferNumberInput
-          placeholder={limitOrderPrice.toString().replace(priceRegex, ',')}
+          placeholder={isLimitOrder ? maximumPrice.toString().replace(priceRegex, ',') : '500원 단위로 입력해주세요'}
           inputTextGuide="원"
-          inputText={inputText}
+          inputText={inputNumber}
           isLimitOrder={isLimitOrder}
-          maximumPrice={limitOrderPrice}
+          maximumPrice={maximumPrice}
+          onChangeFunc={handleNumberInput}
+          isofferAllItems
         />
+        <SubtitleContainer>
+          {isLimitOrder === false && `현재 최고제시가격 ${getLocalNumber(maximumPrice)}원`}
+        </SubtitleContainer>
       </StyledInputContainer>
     </Root>
   );
@@ -61,4 +84,11 @@ const StyledTextContainer = styled.div`
 
 const StyledInputContainer = styled.div`
   margin-bottom: 4rem;
+`;
+
+const SubtitleContainer = styled.div`
+  margin: 0.8rem 0 4rem 0;
+
+  ${theme.fonts.regular14pt}
+  color: ${theme.colors.main};
 `;

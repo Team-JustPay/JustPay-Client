@@ -5,8 +5,11 @@ import theme from 'styles/theme';
 import Header from 'components/common/Header';
 import BigButton from 'components/common/BigButton';
 import ToolTip from 'public/assets/images/offer/tooltip.svg';
+import { useRecoilValue } from 'recoil';
+import { buyoffer } from '../../../../recoil/buyoffer';
 
 export default function confirm() {
+  const postData = useRecoilValue(buyoffer);
   const router = useRouter();
   const { id } = router.query;
 
@@ -18,11 +21,33 @@ export default function confirm() {
     { name: '자택 주소', value: '서울 서초구 신반포로' },
   ];
 
+  const getDeliveryCost = () => {
+    if (postData.shippingOption !== undefined) {
+    }
+    switch (postData.shippingOption) {
+      case '반값택배':
+        return 1600;
+      case '끼리택배':
+        return 1600;
+      case '일반우편':
+        return 600;
+      case '준등기':
+        return 1800;
+      case '우체국택배':
+        return 4000;
+      default:
+        return 0;
+    }
+  };
+
   const cost = [
-    { name: '상품금액', value: '170,000원' },
-    { name: '배송 옵션', value: '반값택배' },
-    { name: '배송 금액', value: '1,800원' },
-    { name: '총 금액', value: '171,800원' },
+    { name: '상품금액', value: `${postData.price?.toLocaleString()}원` },
+    { name: '배송 옵션', value: `${postData.shippingOption}` },
+    { name: '배송 금액', value: `${getDeliveryCost()}` },
+    {
+      name: '총 금액',
+      value: `${postData.price && (postData.price + getDeliveryCost()).toLocaleString()}원`,
+    },
   ];
   // TODO:추후 뒤로가기 이동과 동시에 전역 데이터 객체에 빈값 넣는 동작 추가
   const MoveToPrevPage = () => {
