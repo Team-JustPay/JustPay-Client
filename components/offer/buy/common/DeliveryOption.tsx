@@ -11,7 +11,7 @@ import { buyoffer } from '../../../../recoil/buyoffer';
 interface DeliveryOptionProps {
   id: number;
   name: string;
-  price: string;
+  price: number;
   contents: string[];
   isAllowedSinglePick?: boolean;
   isPicked?: boolean;
@@ -33,31 +33,26 @@ export default function DeliveryOption({
   const [isSelected, setIsSelected] = useState(false);
 
   const handleDeliveryOption = () => {
-    setOfferData((prev) => ({
-      ...prev,
-      shippingOption: { name: name, price: Number(price.replace(/[^0-9]/g, '')) },
-    }));
+    setOfferData((prev) => ({ ...prev, shippingOption: name }));
 
     onClick();
 
     if (isAllowedSinglePick && isSelected === false) {
       setIsSelected(!isSelected);
     }
-
-    console.log(offerData.shippingOption);
   };
 
   const Icon = () => {
-    switch (id) {
-      case 1:
+    switch (name) {
+      case '반값택배':
         return <Gspost />;
-      case 2:
+      case '끼리택배':
         return <Cupost />;
-      case 3:
+      case '일반우편':
         return <Mail />;
-      case 4:
+      case '준등기':
         return <QuasiRegistration />;
-      case 5:
+      case '우체국택배':
         return <Postoffice />;
 
       default:
@@ -70,7 +65,7 @@ export default function DeliveryOption({
       <NonStyledContentContainer>
         <StyledTitleContainer>
           <StyledOptionTitle>{name}&nbsp;</StyledOptionTitle>
-          <StyledSubtitle>|&nbsp;{price}</StyledSubtitle>
+          <StyledSubtitle>|&nbsp;{`${price.toLocaleString()}원`}</StyledSubtitle>
         </StyledTitleContainer>
         <StyledDescriptionContainer>
           {contents.map((content) => (

@@ -4,16 +4,11 @@ import { BuyOfferType } from 'types/recoil/buyoffer';
 export const buyoffer = atom<BuyOfferType>({
   key: 'buyoffer',
   default: {
-    id: 0,
-    imageUrl: '',
-    price: 0,
-    salesOption: 0,
-    productCount: '',
+    image: null,
+    price: null,
+    purchaseOption: '',
+    productCount: null,
     description: '',
-    status: 0,
-    shippingOption: {
-      name: '',
-      price: 0,
-    },
+    shippingOption: '',
   },
 });

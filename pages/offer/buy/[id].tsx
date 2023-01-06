@@ -19,6 +19,10 @@ export default function buy() {
   const [isLimitOrder, setIsLimitOrder] = useState(false);
   const [isValidOffer, setIsVaildOffer] = useState(true);
 
+  const checkIsValid = () => {
+    return postData.shippingOption.length !== 0 ? true : false;
+  };
+
   const handleNextStep = () => {
     if (isValidOffer) {
       router.push(`/offer/buy/confirm/${id}`);
@@ -45,7 +49,7 @@ export default function buy() {
       )}
       <DeliveryChoice />
       {/* //TODO: 해당 버튼 온클릭시 리코일 전역 상태에 데이터 전달 */}
-      <BigButton text="다음" isDisabled={!isValidOffer} onClick={handleNextStep} />
+      <BigButton text="다음" isDisabled={!checkIsValid()} onClick={handleNextStep} />
     </Root>
   );
 }

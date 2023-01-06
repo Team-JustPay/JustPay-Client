@@ -4,21 +4,18 @@ import styled from 'styled-components';
 interface InputProps {
   placeholder: string;
   inputTextGuide: string;
+  onChangeFunc: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  inputText: string;
 }
 
 interface InputTextProps {
   inputText: string;
 }
 
-export default function UserInput({ placeholder, inputTextGuide }: InputProps) {
-  const [inputText, setInputText] = useState('');
-  const handleInputText = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputText(e.target.value);
-  };
-
+export default function UserInput({ placeholder, inputTextGuide, onChangeFunc, inputText }: InputProps) {
   return (
     <InputContainer>
-      <GlobalStyledInput required placeholder={placeholder} type="text" onChange={handleInputText} maxLength={50} />
+      <GlobalStyledInput required placeholder={placeholder} type="text" onChange={onChangeFunc} maxLength={50} />
       <InputText inputText={inputText}>{inputTextGuide}</InputText>
     </InputContainer>
   );

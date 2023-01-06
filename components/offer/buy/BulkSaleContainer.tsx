@@ -1,19 +1,22 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import MainText from 'components/common/MainText';
 import theme from 'styles/theme';
 import UserOfferNumberInput from 'components/offer/buy/common/UserOfferNumberInput';
+import { useRecoilState } from 'recoil';
+import { buyoffer } from '../../../recoil/buyoffer';
 
 export default function BulkSaleContainer({ isLimitOrder }: { isLimitOrder: boolean }) {
+  const [offerData, setOfferData] = useRecoilState(buyoffer);
   const [inputText, setInputText] = useState('');
-  const [limitOrderPrice, setLimitOrderPrice] = useState(100000);
+  const limitOrderPrice = 100000;
 
   const priceRegex = /\B(?=(\d{3})+(?!\d))/g;
 
-  const handleInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputText(e.target.value.replace(/[^0-9]/g, ''));
-    // setSalesPostState((prev) => ({ ...prev, price: Number(e.target.value) }));
-  }, []);
+  setOfferData((prev) => ({ ...prev, price: limitOrderPrice }));
+
+  console.log('리코일에 들어간 데이터:' + offerData.price);
+
   return (
     <Root>
       <StyledImageWrapper />
@@ -25,9 +28,9 @@ export default function BulkSaleContainer({ isLimitOrder }: { isLimitOrder: bool
         <UserOfferNumberInput
           placeholder={limitOrderPrice.toString().replace(priceRegex, ',')}
           inputTextGuide="원"
-          onChangeFunc={handleInput}
           inputText={inputText}
           isLimitOrder={isLimitOrder}
+          maximumPrice={limitOrderPrice}
         />
       </StyledInputContainer>
     </Root>

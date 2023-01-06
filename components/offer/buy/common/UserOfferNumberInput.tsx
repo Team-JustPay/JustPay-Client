@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 interface InputProps {
   placeholder: string;
   inputTextGuide: string;
-  onChangeFunc: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeFunc?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   inputText: string;
   isLimitOrder: boolean;
   isofferAllItems?: boolean;
@@ -14,6 +14,8 @@ interface InputProps {
 interface StyledInputProps {
   priceCondition: boolean;
   isLimitOrder: boolean;
+  isUnderMaximumPrice: boolean;
+  isofferAllItems?: boolean;
 }
 
 interface InputTextProps {
@@ -63,6 +65,8 @@ export default function UserOfferNumberInput({
         type="text"
         readOnly={isLimitOrder}
         isLimitOrder={isLimitOrder}
+        isUnderMaximumPrice={isUnderMaximumPrice}
+        isofferAllItems={isofferAllItems}
       />
       <InputText
         inputText={inputText}
@@ -88,15 +92,52 @@ const GlobalStyledInput = styled.input<StyledInputProps>`
   border-color: ${({ theme, isLimitOrder }) => (isLimitOrder ? theme.colors.gray1 : theme.colors.gray3)};
   border-radius: 0.8rem;
   background-color: ${({ theme, isLimitOrder }) => (isLimitOrder ? theme.colors.gray0 : theme.colors.gray_background)};
-  color: ${({ theme, priceCondition }) => (priceCondition ? theme.colors.sub2 : theme.colors.main)};
   font-weight: 700;
   font-size: 1.6rem;
   line-height: 1.9rem;
 
+  ${({ priceCondition, isUnderMaximumPrice, isofferAllItems }) => {
+    if (isofferAllItems) {
+      return isUnderMaximumPrice || priceCondition
+        ? css`
+            color: ${({ theme }) => theme.colors.sub2};
+          `
+        : css`
+            color: ${({ theme }) => theme.colors.main};
+          `;
+    } else {
+      return priceCondition
+        ? css`
+            color: ${({ theme }) => theme.colors.sub2};
+          `
+        : css`
+            color: ${({ theme }) => theme.colors.main};
+          `;
+    }
+  }}
+
   &:focus {
     border: 0.2rem solid;
-    border-color: ${({ theme, priceCondition, isLimitOrder }) =>
-      isLimitOrder ? theme.colors.gray1 : priceCondition ? theme.colors.sub2 : theme.colors.main};
+    border-color: ${({ priceCondition, isUnderMaximumPrice, isofferAllItems }) => {
+      switch (isofferAllItems) {
+        case true:
+          return isUnderMaximumPrice || priceCondition
+            ? css`
+                border-color: ${({ theme }) => theme.colors.sub2};
+              `
+            : css`
+                border-color: ${({ theme }) => theme.colors.main};
+              `;
+        case undefined:
+          return priceCondition
+            ? css`
+                border-color: ${({ theme }) => theme.colors.sub2};
+              `
+            : css`
+                border-color: ${({ theme }) => theme.colors.main};
+              `;
+      }
+    }};
 
     & + strong {
       font-weight: 700;
@@ -113,11 +154,11 @@ const InputText = styled.strong<InputTextProps>`
   top: 2rem;
   right: 2rem;
 
-  color: ${({ inputText }) => (inputText ? ({ theme }) => theme.colors.main : ({ theme }) => theme.colors.gray1)};
+  color: ${({ inputText, theme }) => (inputText ? theme.colors.main : theme.colors.gray1)};
 
   font-weight: 400;
 
-  ${({ priceCondition, isUnderMaximumPrice, isofferAllItems, inputText }) => {
+  ${({ priceCondition, isUnderMaximumPrice, isofferAllItems }) => {
     switch (isofferAllItems) {
       case true:
         return isUnderMaximumPrice || priceCondition
