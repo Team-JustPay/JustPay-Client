@@ -27,7 +27,7 @@ export default function postWrite() {
         <Header title="판매글 등록 완료" />
         <StyledCertigfyInfoConatiner>
           <MainText text="판매글 공유하기" />
-          <SubText text="트위터로 공유하여 판매글을 홍보하세요" />
+          <SubText text="트위터로 공유하여 판매글을 홍보하세요" isMainColor={false} />
         </StyledCertigfyInfoConatiner>
         <StyledIconContainer>
           {isCopied ? <LinkIconColor /> : <LinkIcon onClick={copyLink} />}

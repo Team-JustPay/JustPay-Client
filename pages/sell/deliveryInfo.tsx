@@ -16,7 +16,7 @@ export default function deliveryInfo() {
         <Header isHavingBackButton title={TITLE.ADD_SELLPOST} rightButtonText={MENU.CANCEL} />
         <TitleText>
           <MainText text="배송 가능 옵션을 선택하세요" />
-          <SubText text="선택하신 옵션 중 하나를 구매자가 고를거에요" />
+          <SubText text="선택하신 옵션 중 하나를 구매자가 고를거에요" isMainColor={false} />
         </TitleText>
         <DeliveryOptionContainer />
       </div>
