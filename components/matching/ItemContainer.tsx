@@ -10,4 +10,8 @@ const StyledContainer = styled.article`
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+
+  article:last-child {
+    margin-bottom: 8rem;
+  }
 `;

@@ -9,16 +9,30 @@ interface ButtonProps {
 
 export default function BigButton({ text, isDisabled, onClick }: ButtonProps) {
   return (
-    <GlobalStyledButton onClick={onClick} disabled={isDisabled}>
-      {text}
-    </GlobalStyledButton>
+    <ButtonContainer>
+      <GlobalStyledButton onClick={onClick} disabled={isDisabled}>
+        {text}
+      </GlobalStyledButton>
+    </ButtonContainer>
   );
 }
 
-const GlobalStyledButton = styled.button`
+const ButtonContainer = styled.article`
   width: 100%;
+  margin: 0 -1.6rem;
+  padding: 1.2rem 0;
+
+  position: fixed;
+  bottom: 0;
+
+  background-color: ${({ theme }) => theme.colors.gray_background};
+`;
+
+const GlobalStyledButton = styled.button`
+  display: block;
+  width: calc(100% - 3.2rem);
+  margin: 0 auto;
   padding: 1.5rem 0 1.4rem;
-  margin-bottom: 1.2rem;
 
   border: none;
   border-radius: 0.8rem;
