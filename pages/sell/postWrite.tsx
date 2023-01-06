@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import MainText from 'components/common/MainText';
 import SubText from 'components/common/SubText';
 import BigButton from 'components/common/BigButton';
+import ToastMessage from 'components/common/ToastMessage';
 import styled from 'styled-components';
 import layout from './layout';
 import Header from 'components/common/Header';
@@ -12,7 +13,7 @@ import CompletePostWrite from '../../public/assets/icons/completePostWrite.svg';
 export default function postWrite() {
   const [openCopyLinkModal, setOpenCopyLinkModal] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
-  const copyLink = () => {
+  const handleCopyLink = () => {
     setOpenCopyLinkModal(true);
     setIsCopied(true);
     setTimeout(() => {
@@ -30,7 +31,7 @@ export default function postWrite() {
           <SubText text="트위터로 공유하여 판매글을 홍보하세요" isMainColor={false} />
         </StyledCertigfyInfoConatiner>
         <StyledIconContainer>
-          {isCopied ? <LinkIconColor /> : <LinkIcon onClick={copyLink} />}
+          {isCopied ? <LinkIconColor /> : <LinkIcon onClick={handleCopyLink} />}
           <TwitterIcon onClick={uploadOnTwitter} />
         </StyledIconContainer>
         <StyledCompleteIcon>
@@ -38,7 +39,7 @@ export default function postWrite() {
         </StyledCompleteIcon>
       </div>
       <StyledButtomConatiner>
-        {openCopyLinkModal && <StyledCopyLinkToastMessage>클립보드에 복사되었어요</StyledCopyLinkToastMessage>}
+        {openCopyLinkModal && <ToastMessage text="클립보드에 복사되었어요" />}
         <BigButton text="판매글 본문 보기" isDisabled={false} onClick={() => {}} />
       </StyledButtomConatiner>
     </>
@@ -71,62 +72,6 @@ const StyledIconContainer = styled.section`
 const StyledCompleteIcon = styled.section`
   display: flex;
   justify-content: center;
-`;
-
-const StyledCopyLinkToastMessage = styled.article`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 17.7rem;
-  height: 3.8rem;
-  margin-bottom: 2rem;
-
-  color: ${({ theme }) => theme.colors.white};
-  background-color: ${({ theme }) => theme.colors.gray1};
-  border-radius: 0.8rem;
-  ${({ theme }) => theme.fonts.medium14pt};
-
-  animation: fadein 3s;
-  -moz-animation: fadein 3s; /* Firefox */
-  -webkit-animation: fadein 3s; /* Safari and Chrome */
-  -o-animation: fadein 3s; /* Opera */
-
-  @keyframes fadein {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  @-moz-keyframes fadein {
-    /* Firefox */
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  @-webkit-keyframes fadein {
-    /* Safari and Chrome */
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  @-o-keyframes fadein {
-    /* Opera */
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
 `;
 
 const StyledButtomConatiner = styled.div`
