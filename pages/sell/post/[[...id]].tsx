@@ -70,7 +70,7 @@ const StyledHelpModalBackground = styled.div`
   position: fixed;
   top: 0;
 
-  width: 43rem;
+  width: 100%;
   min-height: calc(var(--vh) * 100);
 
   padding: 0 1.6rem 3.2rem;
@@ -184,6 +184,7 @@ const StyledHelpModal = styled.section`
 
     color: ${({ theme }) => theme.colors.gray3};
     ${({ theme }) => theme.fonts.regular14pt};
+    line-height: 2.2rem;
   }
 `;
 
