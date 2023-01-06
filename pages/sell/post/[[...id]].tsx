@@ -7,6 +7,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import SlickPrev from '../../../public/assets/icons/slickPrev.png';
 import SlickNext from '../../../public/assets/icons/slickNext.png';
+import Modal from 'components/common/Modal';
 
 export default function certification() {
   const [openHelpModal, setOpenHelpModal] = useState<boolean>(false);
@@ -47,37 +48,19 @@ export default function certification() {
         </StyledCertificationImageContainer>
       </StyledSlider>
       {openHelpModal && (
-        <StyledHelpModalBackground>
-          <StyledHelpModal>
-            <h1>필요한 인증 사진이 없나요?</h1>
-            <p>
-              필요한 인증 사진을 판매자가 올려 놓지 않은 경우,
-              <br /> 트위터를 통해 추가 인증사진을 요청하세요
-              <br />
-              인증 사진이 없다면 안전한 거래를 보장할 수 없어요
-            </p>
-            <StyledClosedHelpModal onClick={handleOpenHelpModal}>확인</StyledClosedHelpModal>
-          </StyledHelpModal>
-        </StyledHelpModalBackground>
+        <Modal
+          title={'필요한 인증 사진이 없나요?'}
+          content={
+            '필요한 인증 사진을 판매자가 올려 놓지 않은 경우, <br/> 트위터를 통해 추가 인증사진을 요청하세요 <br/> 인증 사진이 없다면 안전한 거래를 보장할 수 없어요'
+          }
+          buttonFirstTitle={'확인'}
+          buttonSecondTitle={'종료'}
+          buttonFirstFunction={handleOpenHelpModal}
+        />
       )}
     </>
   );
 }
-
-const StyledHelpModalBackground = styled.div`
-  display: flex;
-  align-items: center;
-  position: fixed;
-  top: 0;
-
-  width: 100%;
-  min-height: calc(var(--vh) * 100);
-
-  padding: 0 1.6rem 3.2rem;
-  margin-left: -16px;
-
-  background: rgba(0, 0, 0, 0.7);
-`;
 
 const StyledCertificationWord = styled.section`
   display: flex;
@@ -155,43 +138,4 @@ const StyledCertificationImageContainer = styled.section`
 
   background-color: ${({ theme }) => theme.colors.main};
   color: white;
-`;
-
-const StyledHelpModal = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  width: 100%;
-  height: 24rem;
-  padding: 3.2rem 4rem;
-
-  border-radius: 0.8rem;
-  background: ${({ theme }) => theme.colors.grey_popup};
-
-  h1 {
-    margin-bottom: 2.4rem;
-
-    color: ${({ theme }) => theme.colors.white};
-    ${({ theme }) => theme.fonts.title16pt};
-  }
-
-  p {
-    text-align: center;
-
-    margin-bottom: 2.4rem;
-
-    color: ${({ theme }) => theme.colors.gray3};
-    ${({ theme }) => theme.fonts.regular14pt};
-    line-height: 2.2rem;
-  }
-`;
-
-const StyledClosedHelpModal = styled.button`
-  width: 12rem;
-  height: 4.3rem;
-
-  border-radius: 0.8rem;
-  background: ${({ theme }) => theme.colors.main};
 `;
