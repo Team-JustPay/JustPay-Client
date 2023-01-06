@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import Header from 'components/matching/Header';
+import PriceInfo from 'components/matching/PriceInfo';
 import UserProfile from 'components/common/UserProfile';
 import SaleInfoContainer from 'components/common/SaleInfoContainer';
 import SuggestContainer from 'components/matching/SuggestContainer';
@@ -7,7 +9,6 @@ import SuggestTab from 'components/matching/SuggestTab';
 import SortOption from 'components/matching/SortOption';
 import ItemContainer from 'components/matching/ItemContainer';
 import SuggestItem from 'components/matching/SuggestItem';
-import Header from 'components/matching/Header';
 
 export default function matching() {
   const [isClicked, setIsClicked] = useState(true);
@@ -19,6 +20,7 @@ export default function matching() {
   return (
     <div>
       <Header isMine={true} />
+      <PriceInfo highestPrice={100000} />
       <UserProfile profileImage="" userName="스윙스" userId="@King_swings" />
       <SaleInfoContainer productCount={3} salesOption="일괄 판매만" priceOption="지정가격" />
       <SuggestContainer>
