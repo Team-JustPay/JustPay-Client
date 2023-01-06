@@ -6,10 +6,13 @@ import { TITLE, MENU } from '../../constants/headerMessage';
 import CheckInfoBox from '../../components/sell/sellInfo/CheckInfoBox';
 import CheckBoxContents from '../../components/sell/sellInfo/CheckBoxContents';
 import Router from 'next/router';
+import { useRecoilValue } from 'recoil';
+import { salesPostState } from '../../recoil/salespost';
 
 import layout from './layout';
 
 export default function checkInfomation() {
+  const postData = useRecoilValue(salesPostState);
   const [isFirstCheck, setIsFirstCheck] = useState(false);
   const [isSecondCheck, setIsSecondCheck] = useState(false);
   const [isThirdCheck, setIsThirdCheck] = useState(false);
@@ -40,11 +43,21 @@ export default function checkInfomation() {
       <Header isHavingBackButton title={TITLE.ADD_SELLPOST} rightButtonText={MENU.CANCEL} />
 
       <StyledUserChoiceContainer>
-        <CheckInfoBox infoTitle="상품 개수" infoText=" 2개" />
-        <CheckInfoBox infoTitle="상품 개수" infoText=" 2개" />
-        <CheckInfoBox infoTitle="상품 개수" infoText=" 2개" />
-        <CheckInfoBox infoTitle="상품 개수" infoText=" 2개" />
-        <CheckInfoBox infoTitle="상품 개수" infoText=" 2개" />
+        <CheckInfoBox infoTitle="상품 개수" infoText={postData.productCount} />
+
+        <CheckInfoBox
+          infoTitle="가격 옵션"
+          infoText={postData.priceOption === 'BULK' ? '가격 제시받기' : '지정가격에만 팔기'}
+        />
+
+        {postData.productCount >= 2 && (
+          <CheckInfoBox
+            infoTitle="판매 유형"
+            infoText={postData.salesOption === 'BULK' ? '일괄 판매만' : '일괄 + 일부'}
+          />
+        )}
+        <CheckInfoBox infoTitle="배송 가능 옵션" infoText="준등기, 반값 택배, 끼리택배, 일반우편, 우체국 택비" />
+        <CheckInfoBox infoTitle="최소 판매 가격" infoText="100,000" />
       </StyledUserChoiceContainer>
 
       <StyledCheckboxContainer>
