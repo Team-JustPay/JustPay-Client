@@ -4,12 +4,14 @@ import styled from 'styled-components';
 import ImageDownloadIcon from 'public/assets/icons/imageDownloadIcon.svg';
 import ShareTwitterIcon from 'public/assets/icons/shareTwitterIcon.svg';
 
+import UserProfile from 'components/common/UserProfile';
 import Header from 'components/common/Header';
 import BigButton from 'components/common/BigButton';
 import ToastMessage from 'components/common/ToastMessage';
 import SaleOption from 'components/sell/post/SaleOption';
 import layout from '../layout';
 import Router from 'next/router';
+
 export default function post() {
   const [isMine, setIsMine] = useState<boolean>(false);
   const [openImageDownloadModal, setOpenImageDownloadModal] = useState<boolean>(false);
@@ -39,13 +41,7 @@ export default function post() {
           handleRightButton={() => {
             Router.push(`/sell/post/${1}/certification`);
           }}></Header>
-        <StyledProfileContainer>
-          <img></img>
-          <StyledProfileAccount>
-            <h1>거래</h1>
-            <p>@wooyoung</p>
-          </StyledProfileAccount>
-        </StyledProfileContainer>
+        <UserProfile profileImage="img" userName={'거래계'} userId={'@sale_poca'} />
         <StyledSalePost>안녕하세요</StyledSalePost>
         <StyledSaleOptionContainer>
           <SaleOption optionName={'판매 개수'} optionTitle={24}></SaleOption>
@@ -84,33 +80,6 @@ export default function post() {
 }
 
 post.Layout = layout;
-
-const StyledProfileContainer = styled.section`
-  display: flex;
-  align-items: center;
-
-  margin-top: 1.8rem;
-  margin-bottom: 2rem;
-  img {
-    width: 4.2rem;
-    height: 4.2rem;
-    margin-right: 0.8rem;
-
-    border-radius: 50%;
-    background-color: ${({ theme }) => theme.colors.gray2};
-  }
-`;
-
-const StyledProfileAccount = styled.section`
-  h1 {
-    ${({ theme }) => theme.fonts.medium14pt};
-    color: ${({ theme }) => theme.colors.gray3};
-  }
-  p {
-    ${({ theme }) => theme.fonts.regular14pt};
-    color: ${({ theme }) => theme.colors.gray2};
-  }
-`;
 
 const StyledSalePost = styled.span`
   color: ${({ theme }) => theme.colors.gray3};
