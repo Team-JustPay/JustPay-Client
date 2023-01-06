@@ -8,7 +8,7 @@ import UserProfile from 'components/common/UserProfile';
 import Header from 'components/common/Header';
 import BigButton from 'components/common/BigButton';
 import ToastMessage from 'components/common/ToastMessage';
-import SaleOption from 'components/sell/post/SaleOption';
+import SaleInfoContainer from 'components/common/SaleInfoContainer';
 import layout from '../layout';
 import Router from 'next/router';
 
@@ -43,11 +43,7 @@ export default function post() {
           }}></Header>
         <UserProfile profileImage="img" userName={'거래계'} userId={'@sale_poca'} />
         <StyledSalePost>안녕하세요</StyledSalePost>
-        <StyledSaleOptionContainer>
-          <SaleOption optionName={'판매 개수'} optionTitle={24}></SaleOption>
-          <SaleOption optionName={'판매 유형'} optionTitle={'일괄 구매만'}></SaleOption>
-          <SaleOption optionName={'가격 옵션'} optionTitle={'제시가격'}></SaleOption>
-        </StyledSaleOptionContainer>
+        <SaleInfoContainer productCount={2} salesOption={'일괄 또는 일부'} priceOption={'지정 가격'} />
         <StyledImageContainer>
           <img alt="판매글 대표 이미지" />
           <StyledImageDownloadButton type="button" onClick={handleImageDownload}>
@@ -85,23 +81,6 @@ const StyledSalePost = styled.span`
   color: ${({ theme }) => theme.colors.gray3};
   ${({ theme }) => theme.fonts.regular16pt};
   line-height: 2.4rem;
-`;
-
-const StyledSaleOptionContainer = styled.section`
-  display: flex;
-
-  width: 100%;
-  height: 6.4rem;
-  padding: 1.2rem;
-  margin-top: 2rem;
-  margin-bottom: 1.2rem;
-
-  border-radius: 0.8rem;
-  background-color: ${({ theme }) => theme.colors.grey_popup};
-
-  & :last-child {
-    border: none;
-  }
 `;
 
 const StyledImageContainer = styled.section`
