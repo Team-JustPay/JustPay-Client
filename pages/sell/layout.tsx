@@ -1,19 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ContainerProps } from 'types/container';
 
-interface layoutProps {
-  children: React.ReactNode;
-}
-
-export default function layout({ children }: layoutProps) {
+export default function layout({ children }: ContainerProps) {
   return <SellLayout>{children}</SellLayout>;
 }
 
 const SellLayout = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
   width: 43rem;
   min-height: calc(100vh);
   min-height: calc(var(--vh) * 100);

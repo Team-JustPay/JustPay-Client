@@ -50,7 +50,7 @@ export default function option() {
 
   return (
     <>
-      <div>
+      <>
         <Header title="판매글 작성하기" isHavingBackButton={true} rightButtonText="취소" />
         <TitleText>
           <MainText text="판매글에 보일 대표 사진을 등록해주세요" />
@@ -80,13 +80,15 @@ export default function option() {
             )}
           </OptionContainer>
         )}
-      </div>
+      </>
       <BigButton text="다음" isDisabled={inputText !== '1' && !isOptionClicked} onClick={handleClickNextButton} />
     </>
   );
 }
 
-const OptionHandleContainer = styled.section``;
+const OptionHandleContainer = styled.section`
+  margin-bottom: 8rem;
+`;
 
 const OptionContainer = styled.section`
   margin-top: 4rem;
@@ -95,5 +97,3 @@ const OptionContainer = styled.section`
 const InputContainer = styled.section`
   margin: 2.4rem 0 1.2rem;
 `;
-
-option.Layout = layout;

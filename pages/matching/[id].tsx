@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 
 import Header from 'components/matching/Header';
 import PriceInfo from 'components/matching/PriceInfo';
@@ -9,6 +10,7 @@ import SuggestTab from 'components/matching/SuggestTab';
 import SortOption from 'components/matching/SortOption';
 import ItemContainer from 'components/matching/ItemContainer';
 import SuggestItem from 'components/matching/SuggestItem';
+import BigButton from 'components/common/BigButton';
 
 export default function matching() {
   const [isClicked, setIsClicked] = useState(true);
@@ -36,6 +38,7 @@ export default function matching() {
           <SuggestItem itemSize="small" description="매칭 대기중" />
         </ItemContainer>
       </SuggestContainer>
+      <BigButton text="다음" isDisabled={false} />
     </div>
   );
 }
