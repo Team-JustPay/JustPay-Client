@@ -18,6 +18,9 @@ export default function certification() {
         rightButtonText="도움"
         handleLeftButton={() => Router.push(`/sell/post/${1}`)}
         handleRightButton={handleOpenHelpModal}></Header>
+      <StyledCertificationWord>
+        <h1>인증 단어</h1>|<p>맑은 토끼 1214</p>
+      </StyledCertificationWord>
       {openHelpModal && (
         <StyledHelpModalBackground>
           <StyledHelpModal>
@@ -51,6 +54,26 @@ const StyledHelpModalBackground = styled.div`
   background: rgba(0, 0, 0, 0.7);
 `;
 
+const StyledCertificationWord = styled.section`
+  display: flex;
+  flex-direction: row;
+
+  margin-top: 1.8rem;
+
+  color: ${({ theme }) => theme.colors.gray4};
+  ${({ theme }) => theme.fonts.regular14pt};
+
+  h1 {
+    margin-right: 0.8rem;
+  }
+
+  p {
+    margin-left: 0.8rem;
+
+    color: ${({ theme }) => theme.colors.sub1};
+    ${({ theme }) => theme.fonts.title16pt};
+  }
+`;
 const StyledHelpModal = styled.section`
   display: flex;
   flex-direction: column;
