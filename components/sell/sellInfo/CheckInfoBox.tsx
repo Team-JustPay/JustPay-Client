@@ -17,7 +17,7 @@ export default function CheckInfoBox({ infoTitle, infoText }: CheckInfoBoxProps)
 
 const Root = styled.div`
   height: 9.6rem;
-  width: 17.3rem;
+  width: calc(50% - 0.5rem);
   border-top: 1px solid ${({ theme }) => theme.colors.gray0};
 `;
 const StyledInfoTitle = styled.h1`

@@ -5,6 +5,8 @@ import Gspost from 'public/assets/icons/gspost.svg';
 import Cupost from 'public/assets/icons/cupost.svg';
 import Mail from 'public/assets/icons/mail.svg';
 import QuasiRegistration from 'public/assets/icons/quasi-registration.svg';
+import { useRecoilState } from 'recoil';
+import { salesPostState } from '../../recoil/salespost';
 
 interface DeliveryOptionProps {
   id: number;
@@ -15,10 +17,23 @@ interface DeliveryOptionProps {
 
 export default function DeliveryOption({ id, name, price, contents }: DeliveryOptionProps) {
   const [isSelected, setIsSelected] = useState(false);
+  const [salesData, setSalesData] = useRecoilState(salesPostState);
 
   //TODO: 서버 나온후 로직 변경해야함
-  const handleDeliveryOption = () => {
+  const handleDeliveryOption = (e: React.MouseEvent) => {
     setIsSelected(!isSelected);
+    console.log('선택한 데이터는:', name);
+    if (e.target as HTMLParagraphElement) {
+      if (salesData.shippingOptions.includes(name)) {
+        setSalesData((prev) => ({
+          ...prev,
+          shippingOptions: [...prev.shippingOptions.filter((item) => item !== name)],
+        }));
+      }
+      if (!salesData.shippingOptions.includes(name)) {
+        setSalesData((prev) => ({ ...prev, shippingOptions: [...prev.shippingOptions, name] }));
+      }
+    }
   };
 
   const Icon = () => {

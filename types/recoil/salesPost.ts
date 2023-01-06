@@ -7,6 +7,6 @@ export interface salesPostType {
   certificationWord: string;
   description: string;
   status: null | number;
-  shippingOptions: [];
+  shippingOptions: string[];
   certifications: [];
 }
