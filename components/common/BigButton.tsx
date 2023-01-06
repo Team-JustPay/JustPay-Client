@@ -18,7 +18,7 @@ export default function BigButton({ text, isDisabled, onClick }: ButtonProps) {
 const GlobalStyledButton = styled.button`
   width: 100%;
   padding: 1.5rem 0 1.4rem;
-  margin-bottom: 3.2rem;
+  margin-bottom: 1.2rem;
 
   border: none;
   border-radius: 0.8rem;
