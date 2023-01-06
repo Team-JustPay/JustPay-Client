@@ -1,6 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import Router from 'next/router';
 import styled from 'styled-components';
+import { useSetRecoilState } from 'recoil';
+import { salesPostState } from '../../recoil/salespost';
 
 import layout from './layout';
 import Header from 'components/common/Header';
@@ -14,12 +16,33 @@ import UserCountInput from 'components/common/UserCountInput';
 
 export default function option() {
   const [isPosted, setIsPosted] = useState(true);
+  const [isOptionClicked, setIsOptionClicked] = useState(false);
   const [inputText, setInputText] = useState('');
+  const setSalesPostState = useSetRecoilState(salesPostState);
 
   const handleInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     // setInputText(e.target.value.replace(/[^0-9]/g, ''));
     setInputText(e.target.value);
   }, []);
+
+  const inputHandler = (e: React.FormEvent) => {
+    if ((e.target as HTMLInputElement).value === '1' || !(e.target as HTMLInputElement).value) {
+      setIsOptionClicked(false);
+    }
+    setSalesPostState((prev) => ({ ...prev, productCount: Number((e.target as HTMLInputElement).value) }));
+  };
+
+  const optionHandler = (e: React.MouseEvent) => {
+    // console.log(e.target);
+    if (e.target instanceof HTMLButtonElement) {
+      setIsOptionClicked(true);
+      if (e.target.innerText === '일괄 판매만') {
+        setSalesPostState((prev) => ({ ...prev, salesOption: 'BULK_SALE' }));
+      } else {
+        setSalesPostState((prev) => ({ ...prev, salesOption: 'BULK_PARTIAL_SALE' }));
+      }
+    }
+  };
 
   const handleClickNextButton = () => {
     Router.push('/sell/qcGuide');
@@ -31,13 +54,13 @@ export default function option() {
         <Header title="판매글 작성하기" isHavingBackButton={true} rightButtonText="취소" />
         <TitleText>
           <MainText text="판매글에 보일 대표 사진을 등록해주세요" />
-          <SubText text="판매하는 상품이 전부 보이는 1장의 사진을 등록해주세요" />
+          <SubText text="판매하는 상품이 전부 보이는 1장의 사진을 등록해주세요" isMainColor={false} />
         </TitleText>
         <ImagePostButton buttonSize="big" />
         {isPosted && (
           <OptionContainer>
             <MainText text="이 사진 중에서 몇 개를 파실 건가요?" />
-            <InputContainer>
+            <InputContainer onChange={inputHandler}>
               <UserCountInput
                 placeholder="정확한 상품의 개수를 입력해주세요"
                 inputTextGuide="개"
@@ -46,20 +69,24 @@ export default function option() {
               />
             </InputContainer>
             {inputText !== '1' && inputText && (
-              <TwoOptionContainer
-                firstOption="일괄 판매만"
-                secondOption="일괄 + 일부"
-                firstOptionGuide="1명만 구매할 수 있어요"
-                secondOptionGuide="1명이 일괄 구매 하거나, 여러 명이 구매할 수 있어요"
-              />
+              <OptionHandleContainer onClick={optionHandler}>
+                <TwoOptionContainer
+                  firstOption="일괄 판매만"
+                  secondOption="일괄 + 일부"
+                  firstOptionGuide="1명만 구매할 수 있어요"
+                  secondOptionGuide="1명이 일괄 구매 하거나, 여러 명이 구매할 수 있어요"
+                />
+              </OptionHandleContainer>
             )}
           </OptionContainer>
         )}
       </div>
-      <BigButton text="다음" isDisabled={inputText !== '1'} onClick={handleClickNextButton} />
+      <BigButton text="다음" isDisabled={inputText !== '1' && !isOptionClicked} onClick={handleClickNextButton} />
     </>
   );
 }
+
+const OptionHandleContainer = styled.section``;
 
 const OptionContainer = styled.section`
   margin-top: 4rem;

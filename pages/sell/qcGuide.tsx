@@ -3,7 +3,6 @@ import Router from 'next/router';
 
 import FirstQCGuidePic from '../../public/assets/icons/qcGuide1.svg';
 import SecondQCGuidePic from '../../public/assets/icons/qcGuide2.svg';
-
 import { TITLE, MENU } from 'constants/headerMessage';
 import Header from 'components/common/Header';
 import GuideContainer from 'components/sell/guide/GuideContainer';
@@ -19,6 +18,7 @@ import TextContainer from 'components/sell/guide/TextContainer';
 
 export default function qcGuide() {
   const [stage, setStage] = useState(1);
+
   const handleClickNextButton = () => {
     if (stage !== 2) {
       setStage((prev) => prev + 1);
@@ -60,7 +60,7 @@ export default function qcGuide() {
         <Header title={TITLE.ADD_SELLPOST} rightButtonText={MENU.CANCEL} isHavingBackButton />
         <TitleText>
           <MainText text="인증 전용 사진을 추가로 등록해주세요"></MainText>
-          <SubText text="매칭된 구매자에게만 보일 인증 사진을 등록해주세요"></SubText>
+          <SubText text="매칭된 구매자에게만 보일 인증 사진을 등록해주세요" isMainColor={false}></SubText>
         </TitleText>
         <GuideContainer>
           <Progress stage={stage} final={2} />
