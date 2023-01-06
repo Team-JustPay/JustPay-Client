@@ -29,6 +29,8 @@ export default function selectPrice() {
 
   const [inputText, setInputText] = useState('');
   const [isOpenInput, setIsOpenInput] = useState(false);
+  const [isCheckRadio, setIsCheckRadio] = useState(false);
+  const [allowNextButton, setAllowNextButton] = useState(false);
 
   let mainTextContent = '원하는 가격 옵션을 설정하세요';
   let priceOption: PriceOptionProps[] = [
@@ -44,8 +46,7 @@ export default function selectPrice() {
   const [currentPriceOption, setCurrentPriceOption] = useState(priceOption[0]);
 
   const handleInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputText(e.target.value.replace(/[^0-9]/g, ''));
-    setSalesPostState((prev) => ({ ...prev, price: Number(e.target.value) }));
+    setInputText(e.target.value.replace(/[^0-9]/g, '').replace(/(^0+)/g, ''));
   }, []);
 
   const handleOption = (e: React.MouseEvent) => {
@@ -61,13 +62,24 @@ export default function selectPrice() {
     }
   };
 
+  const handleCheckRadio = () => {
+    setIsCheckRadio((prev) => !prev);
+  };
+
   const handleClickNextButton = () => {
-    console.log(salesPostRecoil);
     Router.push('/sell/deliveryInfo');
   };
 
   useEffect(() => {
-    console.log(salesPostRecoil);
+    if (inputText && Number(inputText) % 500 === 0) {
+      setSalesPostState((prev) => ({ ...prev, price: Number(inputText) }));
+      isCheckRadio ? setAllowNextButton(true) : setAllowNextButton(false);
+    } else {
+      setAllowNextButton(false);
+    }
+  }, [inputText, isCheckRadio]);
+
+  useEffect(() => {
     if (salesPostRecoil.salesOption === 'BULK_PARTIAL_SALE') {
       mainTextContent = '‘일괄 판매’에 대한 가격 옵션을 설정하세요';
       priceOption = [
@@ -109,13 +121,13 @@ export default function selectPrice() {
               inputText={inputText}
             />
             <StyledCheckBox>
-              <CheckRadio />
+              <CheckRadio outerFunc={handleCheckRadio} />
               <SubText text="판매 가격은 수정할 수 없어요" isMainColor={false}></SubText>
             </StyledCheckBox>
           </StyledPriceInputnContainer>
         )}
       </div>
-      <BigButton text="다음" isDisabled={false} onClick={handleClickNextButton}></BigButton>
+      <BigButton text="다음" isDisabled={!allowNextButton} onClick={handleClickNextButton}></BigButton>
     </>
   );
 }
