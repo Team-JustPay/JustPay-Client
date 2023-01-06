@@ -9,7 +9,6 @@ import Router from 'next/router';
 import { useRecoilValue } from 'recoil';
 import { salesPostState } from '../../recoil/salespost';
 import { useRouter } from 'next/router';
-
 import layout from './layout';
 
 export default function checkInfomation() {
