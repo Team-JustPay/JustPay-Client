@@ -18,13 +18,22 @@ export default function write() {
     Router.push('/sell/postWrite');
   };
 
+  const moveToPrevPage = () => {
+    Router.push('/sell/checkUserInput');
+  };
+
   useEffect(() => {
     currentTextLength !== 0 ? setIsEmptyTextArea(false) : setIsEmptyTextArea(true);
   }, [currentTextLength]);
   return (
     <>
       <div>
-        <Header title="판매글 작성하기" isHavingBackButton={true} rightButtonText="취소" />
+        <Header
+          title="판매글 작성하기"
+          isHavingBackButton={true}
+          rightButtonText="취소"
+          handleLeftButton={moveToPrevPage}
+        />
         <StyledImagePopUpConatiner>
           <img alt="판매사진" />
         </StyledImagePopUpConatiner>

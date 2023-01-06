@@ -17,7 +17,7 @@ export default function deliveryInfo() {
   const router = useRouter();
   const salesData = useRecoilValue(salesPostState);
   const handleClickNextButton = () => {
-    Router.push('/sell/checkInfo');
+    Router.push('/sell/checkUserInput');
   };
 
   const checkValidDeliveryOption = () => {

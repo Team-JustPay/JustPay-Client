@@ -20,7 +20,7 @@ export default function checkInfomation() {
   const [isThirdCheck, setIsThirdCheck] = useState(false);
 
   const DeliveryOptions = postData.shippingOptions
-    .reduce((acc, cur, idx) => {
+    .reduce((acc, cur) => {
       return (acc = acc + cur + ', ');
     }, '')
     .slice(0, -2);
