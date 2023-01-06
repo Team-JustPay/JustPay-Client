@@ -5,7 +5,7 @@ export const salesPostState = atom<salesPostType>({
   key: 'salesPost',
   default: {
     mainImage: '',
-    productCount: 500,
+    productCount: null,
     salesOption: '',
     priceOption: '',
     price: null,

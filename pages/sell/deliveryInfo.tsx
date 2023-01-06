@@ -9,9 +9,17 @@ import MainText from 'components/common/MainText';
 import SubText from 'components/common/SubText';
 import DeliveryOptionContainer from 'components/common/DeliveryOptionContainer';
 import Router from 'next/router';
+import { useRecoilValue } from 'recoil';
+import { salesPostState } from '../../recoil/salespost';
+
 export default function deliveryInfo() {
+  const salesData = useRecoilValue(salesPostState);
   const handleClickNextButton = () => {
     Router.push('/sell/checkInfo');
+  };
+
+  const checkValidDeliveryOption = () => {
+    return salesData.shippingOptions.length !== 0 ? true : false;
   };
 
   return (
@@ -25,7 +33,7 @@ export default function deliveryInfo() {
         <DeliveryOptionContainer />
       </div>
 
-      <BigButton isDisabled={false} text="다음" onClick={handleClickNextButton} />
+      <BigButton isDisabled={!checkValidDeliveryOption()} text="다음" onClick={handleClickNextButton} />
     </>
   );
 }

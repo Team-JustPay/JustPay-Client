@@ -17,6 +17,14 @@ export default function checkInfomation() {
   const [isSecondCheck, setIsSecondCheck] = useState(false);
   const [isThirdCheck, setIsThirdCheck] = useState(false);
 
+  const DeliveryOptions = postData.shippingOptions
+    .reduce((acc, cur, idx) => {
+      return (acc = acc + cur + ', ');
+    }, '')
+    .slice(0, -2);
+
+  console.log(DeliveryOptions);
+
   const handleClickNextButton = () => {
     Router.push('/sell/write');
   };
@@ -43,21 +51,30 @@ export default function checkInfomation() {
       <Header isHavingBackButton title={TITLE.ADD_SELLPOST} rightButtonText={MENU.CANCEL} />
 
       <StyledUserChoiceContainer>
-        <CheckInfoBox infoTitle="상품 개수" infoText={postData.productCount} />
+        <CheckInfoBox infoTitle="상품 개수" infoText={'' + postData.productCount} />
 
         <CheckInfoBox
           infoTitle="가격 옵션"
-          infoText={postData.priceOption === 'BULK' ? '가격 제시받기' : '지정가격에만 팔기'}
+          infoText={postData.priceOption === 'PRICE_OFFER' ? '가격 제시받기' : '지정가격에만 팔기'}
         />
 
-        {postData.productCount >= 2 && (
+        {postData.productCount && postData.productCount >= 2 && (
           <CheckInfoBox
             infoTitle="판매 유형"
             infoText={postData.salesOption === 'BULK' ? '일괄 판매만' : '일괄 + 일부'}
           />
         )}
-        <CheckInfoBox infoTitle="배송 가능 옵션" infoText="준등기, 반값 택배, 끼리택배, 일반우편, 우체국 택비" />
-        <CheckInfoBox infoTitle="최소 판매 가격" infoText="100,000" />
+        <CheckInfoBox infoTitle="배송 가능 옵션" infoText={DeliveryOptions} />
+        <CheckInfoBox
+          infoTitle={
+            postData.priceOption === 'DESIGNATED_PRICE'
+              ? '판매가격'
+              : postData.salesOption === 'BULK'
+              ? '최소 판매 가격'
+              : '일괄 판매 최소 가격'
+          }
+          infoText={`${postData.price?.toLocaleString()}원`}
+        />
       </StyledUserChoiceContainer>
 
       <StyledCheckboxContainer>
