@@ -18,8 +18,8 @@ export default function Modal({
   buttonSecondFunction,
 }: ModalBackgroundProps) {
   return (
-    <StyledHelpModalBackground>
-      <StyledHelpModal>
+    <StyledModalBackground>
+      <StyledModal>
         <h1>{title}</h1>
         {content.split('<br/>').map((line) => {
           return (
@@ -39,12 +39,12 @@ export default function Modal({
             </button>
           )}
         </StyledModalButtonContainer>
-      </StyledHelpModal>
-    </StyledHelpModalBackground>
+      </StyledModal>
+    </StyledModalBackground>
   );
 }
 
-const StyledHelpModalBackground = styled.div`
+const StyledModalBackground = styled.div`
   display: flex;
   align-items: center;
   position: fixed;
@@ -59,7 +59,7 @@ const StyledHelpModalBackground = styled.div`
   background: rgba(0, 0, 0, 0.7);
 `;
 
-const StyledHelpModal = styled.section`
+const StyledModal = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
