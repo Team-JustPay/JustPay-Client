@@ -11,8 +11,10 @@ import DeliveryOptionContainer from 'components/common/DeliveryOptionContainer';
 import Router from 'next/router';
 import { useRecoilValue } from 'recoil';
 import { salesPostState } from '../../recoil/salespost';
+import { useRouter } from 'next/router';
 
 export default function deliveryInfo() {
+  const router = useRouter();
   const salesData = useRecoilValue(salesPostState);
   const handleClickNextButton = () => {
     Router.push('/sell/checkInfo');
@@ -22,10 +24,19 @@ export default function deliveryInfo() {
     return salesData.shippingOptions.length !== 0 ? true : false;
   };
 
+  const moveToPrevPage = () => {
+    router.push('/sell/selectPrice');
+  };
+
   return (
     <>
       <div>
-        <Header isHavingBackButton title={TITLE.ADD_SELLPOST} rightButtonText={MENU.CANCEL} />
+        <Header
+          handleLeftButton={moveToPrevPage}
+          isHavingBackButton
+          title={TITLE.ADD_SELLPOST}
+          rightButtonText={MENU.CANCEL}
+        />
         <TitleText>
           <MainText text="배송 가능 옵션을 선택하세요" />
           <SubText text="선택하신 옵션 중 하나를 구매자가 고를거에요" isMainColor={false} />

@@ -8,10 +8,13 @@ import CheckBoxContents from '../../components/sell/sellInfo/CheckBoxContents';
 import Router from 'next/router';
 import { useRecoilValue } from 'recoil';
 import { salesPostState } from '../../recoil/salespost';
+import { useRouter } from 'next/router';
 
 import layout from './layout';
 
 export default function checkInfomation() {
+  const router = useRouter();
+
   const postData = useRecoilValue(salesPostState);
   const [isFirstCheck, setIsFirstCheck] = useState(false);
   const [isSecondCheck, setIsSecondCheck] = useState(false);
@@ -46,9 +49,18 @@ export default function checkInfomation() {
     return false;
   };
 
+  const moveToPrevPage = () => {
+    router.push('/sell/deliveryInfo');
+  };
+
   return (
     <Root>
-      <Header isHavingBackButton title={TITLE.ADD_SELLPOST} rightButtonText={MENU.CANCEL} />
+      <Header
+        isHavingBackButton
+        title={TITLE.ADD_SELLPOST}
+        rightButtonText={MENU.CANCEL}
+        handleLeftButton={moveToPrevPage}
+      />
 
       <StyledUserChoiceContainer>
         <CheckInfoBox infoTitle="상품 개수" infoText={'' + postData.productCount} />
