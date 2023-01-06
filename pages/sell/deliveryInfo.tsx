@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import Header from 'components/common/Header';
 import BigButton from 'components/common/BigButton';
-import theme from 'styles/theme';
 import { TITLE, MENU } from 'constants/headerMessage';
 import layout from './layout';
 import TitleText from 'components/common/TitleText';
