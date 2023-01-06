@@ -12,8 +12,10 @@ import SuggestItem from 'components/matching/SuggestItem';
 import BigButton from 'components/common/BigButton';
 import Modal from 'components/common/Modal';
 import ToastMessage from 'components/common/ToastMessage';
+import NoItem from 'components/matching/NoItem';
 
 export default function matching() {
+  const [itemNum, setItemNum] = useState(0);
   const [isClicked, setIsClicked] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMine, setIsMine] = useState(false);
@@ -48,13 +50,14 @@ export default function matching() {
         <SuggestTab options={['매칭 중인 목록', '매칭 완료 목록']} outerFunc={handleOptionTab} isClicked={isClicked} />
         <SortOption optionText="구매 희망" optionNum={7} />
         <ItemContainer>
+          {!itemNum && <NoItem />}
+          {/* <SuggestItem itemSize="small" description="매칭 대기중" />
           <SuggestItem itemSize="small" description="매칭 대기중" />
           <SuggestItem itemSize="small" description="매칭 대기중" />
           <SuggestItem itemSize="small" description="매칭 대기중" />
           <SuggestItem itemSize="small" description="매칭 대기중" />
           <SuggestItem itemSize="small" description="매칭 대기중" />
-          <SuggestItem itemSize="small" description="매칭 대기중" />
-          <SuggestItem itemSize="small" description="매칭 대기중" />
+          <SuggestItem itemSize="small" description="매칭 대기중" /> */}
         </ItemContainer>
       </SuggestContainer>
       {isSuggested && <ToastMessage text="판매글에 구매를 제시했어요!" />}
