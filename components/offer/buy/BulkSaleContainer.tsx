@@ -25,8 +25,6 @@ export default function BulkSaleContainer({ isLimitOrder }: BulkContainerProps) 
     return false;
   };
 
-  const CheckIsVaild = () => {};
-
   const handleNumberInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value.replace(/[^0-9]/g, '').replace(/,/g, '');
     setInputNumber(value);

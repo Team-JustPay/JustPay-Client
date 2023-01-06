@@ -14,7 +14,7 @@ import { buyoffer } from '../../../recoil/buyoffer';
 
 export default function SelectedSaleContainer({ isLimitOrder }: { isLimitOrder: boolean }) {
   const [offerData, setOfferData] = useRecoilState(buyoffer);
-  const [selectedButton, setSelectedButton] = useState('미선택');
+  const [selectedButton, setSelectedButton] = useState('');
   const [inputNumber, setInputNumber] = useState('');
   const [inputCount, setInputCount] = useState('');
   const [inputDescription, setInputDescription] = useState('');
@@ -32,6 +32,15 @@ export default function SelectedSaleContainer({ isLimitOrder }: { isLimitOrder: 
     INDIVIDUAL: '일부 구매',
   });
 
+  useEffect(() => {
+    if (selectedButton === ButtonName.ALL) {
+      setOfferData((prev) => ({ ...prev, productCount: maxCount }));
+    }
+    if (selectedButton === ButtonName.INDIVIDUAL) {
+      setOfferData((prev) => ({ ...prev, productCount: null }));
+    }
+  }, [offerData.purchaseOption]);
+
   const resetToDefaultValue = () => {
     setInputNumber('');
     setInputCount('');
@@ -47,6 +56,7 @@ export default function SelectedSaleContainer({ isLimitOrder }: { isLimitOrder: 
     resetToDefaultValue();
     setSelectedButton(ButtonName.ALL);
   };
+
   const handleChoiceIndividualButton = () => {
     resetToDefaultValue();
     setSelectedButton(ButtonName.INDIVIDUAL);
@@ -77,7 +87,7 @@ export default function SelectedSaleContainer({ isLimitOrder }: { isLimitOrder: 
   const handleNumberInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value.replace(/[^0-9]/g, '').replace(/,/g, '');
     setInputNumber(value);
-    if (inputNumber !== value && CheckCorrectPrice(Number(value))) {
+    if (inputNumber !== value && Number(value)) {
       setOfferData((prev) => ({ ...prev, price: Number(value) }));
     }
   }, []);
@@ -85,7 +95,7 @@ export default function SelectedSaleContainer({ isLimitOrder }: { isLimitOrder: 
   const handleCountInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value.replace(/[^0-9]/g, '');
     setInputCount(value);
-    if (inputCount !== value && CheckCorrectCount(Number(value))) {
+    if (inputCount !== value) {
       setOfferData((prev) => ({ ...prev, productCount: Number(value) }));
     }
   }, []);
@@ -97,7 +107,6 @@ export default function SelectedSaleContainer({ isLimitOrder }: { isLimitOrder: 
     }
   }, []);
 
-  console.log(offerData);
   return (
     <Root>
       <StyledTitleContainer>

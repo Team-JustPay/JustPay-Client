@@ -14,13 +14,12 @@ export default function buy() {
   const [postData, setPostData] = useRecoilState(buyoffer);
   const router = useRouter();
   const { id } = router.query;
-  const [isBulkSale, setIsBulkSale] = useState(true);
+  const [isBulkSale, setIsBulkSale] = useState(false);
   const [isLimitOrder, setIsLimitOrder] = useState(false);
   const [isValidOffer, setIsVaildOffer] = useState(true);
 
   const maximumPrice = 100000;
-  const originItemCount = 10;
-  const vaildInput = postData.price !== null && postData.price % 500 === 0 && postData.price >= maximumPrice;
+  const originItemCount = 20;
 
   useEffect(() => {
     if (isBulkSale) {
@@ -29,13 +28,26 @@ export default function buy() {
     }
   }, []);
 
-  const checkIsValid = (number: number) => {
-    if (number >= maximumPrice && number % 500 === 0) {
-      return true;
+  const checkIsValidPrice = () => {
+    if (postData.purchaseOption === 'BULK') {
+      return postData.price && postData.price >= maximumPrice && postData.price % 500 === 0 ? true : false;
+    }
+    if (postData.purchaseOption === 'PARTIAL') {
+      return postData.price && postData.price % 500 === 0 ? true : false;
     }
   };
+  const checkIsValidCount = () => {
+    return postData.productCount && postData.productCount <= originItemCount ? true : false;
+  };
+  const checkPurchaseOption = () => {
+    return postData.purchaseOption.length !== 0 ? true : false;
+  };
+
+  const checkDeliveryOption = () => {
+    return postData.shippingOption.length !== 0 ? true : false;
+  };
   const approveNextStep = () => {
-    return postData.shippingOption.length !== 0 && postData.price && checkIsValid(postData.price) ? true : false;
+    return checkDeliveryOption() && checkPurchaseOption() && checkIsValidCount() && checkIsValidPrice() ? true : false;
   };
 
   console.log(postData);
