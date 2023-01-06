@@ -10,6 +10,8 @@ import LinkIcon from '../../public/assets/icons/linkIcon.svg';
 import LinkIconColor from '../../public/assets/icons/linkIcon=color.svg';
 import TwitterIcon from '../../public/assets/icons/twitterIcon.svg';
 import CompletePostWrite from '../../public/assets/icons/completePostWrite.svg';
+import Router from 'next/router';
+
 export default function postWrite() {
   const [openCopyLinkModal, setOpenCopyLinkModal] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
@@ -22,6 +24,10 @@ export default function postWrite() {
   };
 
   const uploadOnTwitter = () => {};
+
+  const handleShowPostDetail = () => {
+    Router.push(`/sell/post/${1}`);
+  };
   return (
     <>
       <div>
@@ -40,7 +46,7 @@ export default function postWrite() {
       </div>
       <StyledButtomConatiner>
         {openCopyLinkModal && <ToastMessage text="클립보드에 복사되었어요" />}
-        <BigButton text="판매글 본문 보기" isDisabled={false} onClick={() => {}} />
+        <BigButton text="판매글 본문 보기" isDisabled={false} onClick={handleShowPostDetail} />
       </StyledButtomConatiner>
     </>
   );
