@@ -3,15 +3,20 @@ import styled, { css } from 'styled-components';
 
 import CheckLogo from '../../public/assets/icons/check.svg';
 
+interface CheckRadioProps {
+  outerFunc?: () => void;
+}
+
 interface ButtonProps {
   isChecked: boolean;
 }
 
-export default function CheckRadio() {
+export default function CheckRadio({ outerFunc }: CheckRadioProps) {
   const [isChecked, setIsChecked] = useState(false);
 
   const handleClickCheckButton = () => {
     setIsChecked((prev) => !prev);
+    outerFunc?.();
   };
 
   return (
