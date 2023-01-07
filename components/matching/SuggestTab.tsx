@@ -29,8 +29,12 @@ export default function SuggestTab({ options, outerFunc, isClicked }: TabProps) 
 
 const TabContainer = styled.section`
   display: flex;
+  position: sticky;
+  top: 59px;
 
   width: 100%;
+
+  background-color: ${({ theme }) => theme.colors.gray_background};
 `;
 
 const Option = styled.div<OptionProps>`
