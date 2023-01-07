@@ -1,5 +1,5 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
-import { setSalesPost, getSalesPostList } from 'api/salesPost';
+import { setSalesPost, getSalesPostList, getSalesPostInfo } from 'api/salesPost';
 import { salesPostType } from 'types/recoil/salesPost';
 
 export const useSetSalesPost = (salesPostInfo: salesPostType) => {
@@ -12,6 +12,14 @@ export const useSetSalesPost = (salesPostInfo: salesPostType) => {
 
 export const useGetSalesPostList = (salesPostId: number, isMatched: boolean) => {
   return useQuery(['get/salesposts', salesPostId, isMatched], () => getSalesPostList(salesPostId, isMatched), {
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+};
+
+export const useGetSalesPostInfo = (salesPostId: number) => {
+  return useQuery(['get/salesposts/:salespostId'], () => getSalesPostInfo(salesPostId), {
     onError: (error) => {
       console.error(error);
     },

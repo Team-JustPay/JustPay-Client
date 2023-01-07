@@ -9,11 +9,9 @@ import theme from 'styles/theme';
 interface SuggestItemProps {
   itemSize: 'big' | 'small';
   description: string;
-  purchaseOption?: string;
-  productCount?: number;
-  price?: number;
   status: number;
   isMine: boolean;
+  element: any;
 }
 
 interface ComponentProps {
@@ -25,15 +23,7 @@ interface ButtonProps {
   colorType: string;
 }
 
-export default function SuggestItem({
-  itemSize,
-  description,
-  purchaseOption,
-  productCount,
-  price,
-  status,
-  isMine,
-}: SuggestItemProps) {
+export default function SuggestItem({ itemSize, description, status, isMine, element }: SuggestItemProps) {
   const renderButton = () => {
     if (isMine) {
       switch (status) {
@@ -109,10 +99,10 @@ export default function SuggestItem({
           {itemSize === 'big' && (
             <Option>
               <BuyOption>
-                {purchaseOption}
-                <strong>{productCount}개</strong>
+                {element.purchaseOption === 'BULK' ? '일괄 구매' : '일부 구매'}
+                <strong>{element.productCount}개</strong>
               </BuyOption>
-              <Price>{price} 원 제시</Price>
+              <Price>{element.price} 원 제시</Price>
             </Option>
           )}
         </SuggestInfo>
