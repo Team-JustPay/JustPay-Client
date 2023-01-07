@@ -1,7 +1,7 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react';
 import styled from 'styled-components';
 import theme from 'styles/theme';
-import ImagePostButton from 'components/common/ImagePostButton';
+import ImagePostButton from 'components/offer/buy/common/ImagePostButton';
 import UserInput from 'components/offer/buy/common/UserDescriptionInput';
 import MainText from 'components/common/MainText';
 import SubText from 'components/common/SubText';
@@ -11,13 +11,22 @@ import UserOfferNumberInput from 'components/offer/buy/common/UserOfferNumberInp
 import { getLocalNumber } from 'utils/price';
 import { useRecoilState } from 'recoil';
 import { buyoffer } from '../../../recoil/buyoffer';
+import axios from 'axios';
+
+type UploadImage = {
+  file: File | null;
+  thumbnail: string;
+  type: string;
+};
 
 export default function SelectedSaleContainer({ isLimitOrder }: { isLimitOrder: boolean }) {
   const [offerData, setOfferData] = useRecoilState(buyoffer);
   const [selectedButton, setSelectedButton] = useState('');
   const [inputNumber, setInputNumber] = useState('');
   const [inputCount, setInputCount] = useState('');
+  const [imageFile, setImageFile] = useState<UploadImage | null>(null);
   const [inputDescription, setInputDescription] = useState('');
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // TODO: 서버에서 받은 데이터가 최고가격의 상수로 들어갈 예정
   // TODO: 서버 데이터로 교체
@@ -73,17 +82,6 @@ export default function SelectedSaleContainer({ isLimitOrder }: { isLimitOrder: 
     }
   };
 
-  const CheckCorrectPrice = (number: number) => {
-    if (number > maximumPrice && number % 500 === 0) {
-      return true;
-    }
-    return false;
-  };
-
-  const CheckCorrectCount = (number: number) => {
-    return maxCount >= number ? true : false;
-  };
-
   const handleNumberInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value.replace(/[^0-9]/g, '').replace(/,/g, '');
     setInputNumber(value);
@@ -107,6 +105,37 @@ export default function SelectedSaleContainer({ isLimitOrder }: { isLimitOrder: 
     }
   }, []);
 
+  const handleCheckfileInput = () => {
+    fileInputRef.current?.click();
+  };
+
+  const uploadProfile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const fileList = e.target.files;
+    const length = fileList?.length;
+    if (fileList && fileList[0]) {
+      const url = URL.createObjectURL(fileList[0]);
+
+      setImageFile({
+        file: fileList[0],
+        thumbnail: url,
+        type: fileList[0].type.slice(0, 5),
+      });
+
+      setOfferData((prev) => ({ ...prev, image: url }));
+    }
+  };
+
+  const handleDeleteImage = () => {
+    setImageFile(null);
+  };
+
+  const showImage = useMemo(() => {
+    if (!imageFile && imageFile == null) {
+      return <img src="hi" alt="blankImage" />;
+    }
+    return <ShowFileImage src={imageFile.thumbnail} onClick={handleDeleteImage}></ShowFileImage>;
+  }, [imageFile]);
+
   return (
     <Root>
       <StyledTitleContainer>
@@ -114,7 +143,21 @@ export default function SelectedSaleContainer({ isLimitOrder }: { isLimitOrder: 
         <SubText text="일괄 구매하는 경우에는 표시하지 않아도 돼요" />
       </StyledTitleContainer>
       <StyledImagePostWrapper>
-        <ImagePostButton buttonSize="big" />
+        {imageFile ? (
+          showImage
+        ) : (
+          <>
+            <ImagePostButton buttonSize="big" htmlFor="file" onChange={handleCheckfileInput} />
+            <ImageUploadInput
+              style={{ display: 'none' }}
+              type="file"
+              id="file"
+              accept="image/*"
+              ref={fileInputRef}
+              onChange={uploadProfile}
+            />
+          </>
+        )}
       </StyledImagePostWrapper>
       <SmallButtonContainer>
         <SmallButton text="일괄 구매" selectedButton={selectedButton} onClick={handleChoiceBulkButton} />
@@ -202,6 +245,8 @@ const Root = styled.div`
   flex-direction: column;
 `;
 
+const ImageUploadInput = styled.input``;
+
 const SmallButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -216,6 +261,11 @@ const StyledTitleContainer = styled.div`
 
 const StyledImagePostWrapper = styled.div`
   margin-bottom: 2rem;
+  width: 100%;
+  height: 24.2rem;
+
+  background-color: ${({ theme }) => theme.colors.gray_background};
+  border-radius: 0.8rem;
 `;
 
 const StyledTextContainer = styled.div`
@@ -233,3 +283,12 @@ const SubtitleContainer = styled.div`
   ${theme.fonts.regular14pt}
   color: ${theme.colors.main};
 `;
+
+const ShowFileImage = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 0.8rem;
+  object-fit: fill;
+`;
+
+const StyledImageDeleteButton = styled.button``;

@@ -1,5 +1,5 @@
 export interface BuyOfferType {
-  image: string | null;
+  image: Blob | null | string;
   price: number | null;
   purchaseOption: string;
   productCount: number | null;
