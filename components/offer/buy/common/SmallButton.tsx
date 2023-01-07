@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
-
+import { useRecoilState } from 'recoil';
+import { buyoffer } from '../../../../recoil/buyoffer';
 interface ButtonProps {
   text: string;
   selectedButton: string;
@@ -9,13 +10,23 @@ interface ButtonProps {
 
 export default function SmallButton({ text, selectedButton, onClick }: ButtonProps) {
   const [isPicked, setIsPicked] = useState(false);
+  const [offerData, setOfferData] = useRecoilState(buyoffer);
+
+  const setpurchaseMethodData = () => {
+    if (text === '일괄 구매') {
+      setOfferData((prev) => ({ ...prev, purchaseOption: 'BULK' }));
+    }
+    if (text === '일부 구매') {
+      setOfferData((prev) => ({ ...prev, purchaseOption: 'PARTIAL' }));
+    }
+  };
 
   const handleClick = () => {
     onClick();
-
     if (isPicked === false) {
       setIsPicked(!isPicked);
     }
+    setpurchaseMethodData();
   };
 
   return (
@@ -42,7 +53,7 @@ const GlobalStyledButton = styled.button<{ isPicked: boolean; selectedButton: st
           border-color: ${({ theme }) => theme.colors.gray3};
           background-color: ${({ theme }) => theme.colors.gray_background};
           color: ${({ theme }) => theme.colors.white};
-          padding: 1.5rem 0 1.4rem;
+          padding: 1.4rem 0 1.3rem;
         `}
 
   border-radius: 0.8rem;
