@@ -20,11 +20,13 @@ export default function () {
     setInputCount(Number(value));
   }, []);
 
-  const handleClick = () => {
-    console.log(inputCount);
+  //TODO: 페이지 합치고 라우팅 경로 수정
+  const acceptOffer = () => {
+    router.push(`/`);
   };
-
-  console.log(inputCount);
+  const moveToPrevPage = () => {
+    router.push(`/`);
+  };
 
   const checkVaildInput = () => {
     return inputCount <= 5 && inputCount !== 0 ? true : false;
@@ -32,7 +34,7 @@ export default function () {
 
   return (
     <Root>
-      <Header isHavingBackButton title="제시 수락하기" rightButtonText="취소" />
+      <Header isHavingBackButton title="제시 수락하기" rightButtonText="취소" handleLeftButton={moveToPrevPage} />
       <TitleText>
         <MainText text="운송장 입력 기한을 입력하세요" />
         <SubText text="입력한 날이 지나면 구매자가 구매를 취소할 수 있어요" isMainColor={false} />
@@ -45,7 +47,7 @@ export default function () {
         countOverCheck={countOverCheck}
       />
 
-      <BigButton text="제시 수락하기" isDisabled={!checkVaildInput()} onClick={handleClick} />
+      <BigButton text="제시 수락하기" isDisabled={!checkVaildInput()} onClick={acceptOffer} />
     </Root>
   );
 }
