@@ -8,5 +8,5 @@ export interface salesPostType {
   description: string;
   status: null | number;
   shippingOptions: string[];
-  certifications: [];
+  certifications: string[];
 }
