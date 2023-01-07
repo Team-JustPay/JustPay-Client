@@ -7,23 +7,24 @@ import BigButton from 'components/common/BigButton';
 import layout from './layout';
 import Router from 'next/router';
 import { useSetSalesPost } from 'apiHooks/salesPost';
+import { useRecoilState } from 'recoil';
 
 interface TextLengthProps {
   currentTextLength: number;
 }
 
 export default function write() {
-  const salesPostInfo = useRecoilValue(salesPostState);
+  const [salesPostInfo, setSalesPostState] = useRecoilState(salesPostState);
 
   const { mutate: submitSalesForm, data } = useSetSalesPost(salesPostInfo);
 
   console.log(salesPostInfo);
-  console.log(data);
 
   const [currentTextLength, setCurrentTextLength] = useState(0);
   const [isEmptyTextArea, setIsEmptyTextArea] = useState(true);
   const handlecurrentTextLength = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setCurrentTextLength(e.target.value.length);
+    setSalesPostState((prev) => ({ ...prev, description: e.target.value }));
   };
   const handleClickPostWritingButton = () => {
     submitSalesForm();
