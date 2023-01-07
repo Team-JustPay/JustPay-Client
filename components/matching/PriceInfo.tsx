@@ -3,12 +3,19 @@ import styled from 'styled-components';
 
 interface PriceInfo {
   highestPrice: number;
+  status: number;
 }
 
-export default function PriceInfo({ highestPrice }: PriceInfo) {
+export default function PriceInfo({ highestPrice, status }: PriceInfo) {
   return (
     <PriceInfoText>
-      현재 최고가<strong>{highestPrice}원</strong>
+      {status === 3 ? (
+        '판매종료'
+      ) : (
+        <>
+          현재 최고가<strong>{highestPrice}원</strong>
+        </>
+      )}
     </PriceInfoText>
   );
 }

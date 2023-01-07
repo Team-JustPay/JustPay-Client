@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useGetSalesPostList } from 'apiHooks/salesPost';
 
 import Header from 'components/matching/Header';
 import PriceInfo from 'components/matching/PriceInfo';
@@ -15,6 +16,9 @@ import ToastMessage from 'components/common/ToastMessage';
 import NoItem from 'components/matching/NoItem';
 
 export default function matching() {
+  const { data } = useGetSalesPostList(2, false);
+  console.log(data);
+  const [status, setStatus] = useState(3);
   const [itemNum, setItemNum] = useState(10);
   const [isClicked, setIsClicked] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,7 +48,7 @@ export default function matching() {
     <>
       <Header isMine={isMine} modalOpenFunc={handleClickCancelButton} />
       <UserProfile profileImage="" userName="스윙스" userId="@King_swings" />
-      <PriceInfo highestPrice={100000} />
+      <PriceInfo status={status} highestPrice={100000} />
       <SaleInfoContainer productCount={3} salesOption="일괄 판매만" priceOption="지정가격" />
       <SuggestContainer>
         <SuggestTab options={['매칭 중인 목록', '매칭 완료 목록']} outerFunc={handleOptionTab} isClicked={isClicked} />

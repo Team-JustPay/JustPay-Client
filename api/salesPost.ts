@@ -14,3 +14,7 @@ export const setSalesPost = async (salesPostInfo: salesPostType) => {
     },
   );
 };
+
+export const getSalesPostList = async (salesPostId: number, isMatched: boolean) => {
+  return await salesPostAPI.get(`/${salesPostId}/suggests?isMatched=${isMatched}`);
+};

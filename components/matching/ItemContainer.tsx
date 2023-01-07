@@ -2,8 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { ContainerProps } from 'types/container';
 
-import SuggestItem from './SuggestItem';
-
 export default function ItemContainer({ children }: ContainerProps) {
   return <StyledContainer>{children}</StyledContainer>;
 }
