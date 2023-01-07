@@ -15,24 +15,33 @@ export default function buy() {
   const router = useRouter();
   const { id } = router.query;
   const [isBulkSale, setIsBulkSale] = useState(false);
-  const [isLimitOrder, setIsLimitOrder] = useState(false);
+  const [isLimitOrder, setIsLimitOrder] = useState(true);
   const [isValidOffer, setIsVaildOffer] = useState(true);
 
   const maximumPrice = 100000;
   const originItemCount = 20;
+
+  const data = {
+    price: 100000,
+  };
 
   useEffect(() => {
     if (isBulkSale) {
       setPostData((prev) => ({ ...prev, productCount: originItemCount }));
       setPostData((prev) => ({ ...prev, purchaseOption: 'BULK' }));
     }
+    if (isLimitOrder) {
+      setPostData((prev) => ({ ...prev, price: data.price }));
+    }
   }, []);
 
   const checkIsValidPrice = () => {
     if (postData.purchaseOption === 'BULK') {
+      if (isLimitOrder) true;
       return postData.price && postData.price >= maximumPrice && postData.price % 500 === 0 ? true : false;
     }
     if (postData.purchaseOption === 'PARTIAL') {
+      if (isLimitOrder) true;
       return postData.price && postData.price % 500 === 0 ? true : false;
     }
   };

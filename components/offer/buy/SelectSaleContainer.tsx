@@ -85,24 +85,18 @@ export default function SelectedSaleContainer({ isLimitOrder }: { isLimitOrder: 
   const handleNumberInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value.replace(/[^0-9]/g, '').replace(/,/g, '');
     setInputNumber(value);
-    if (inputNumber !== value && Number(value)) {
-      setOfferData((prev) => ({ ...prev, price: Number(value) }));
-    }
+    setOfferData((prev) => ({ ...prev, price: Number(value) }));
   }, []);
 
   const handleCountInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value.replace(/[^0-9]/g, '');
     setInputCount(value);
-    if (inputCount !== value) {
-      setOfferData((prev) => ({ ...prev, productCount: Number(value) }));
-    }
+    setOfferData((prev) => ({ ...prev, productCount: Number(value) }));
   }, []);
 
   const handleDescriptionInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setInputDescription(e.target.value);
-    if (inputDescription !== e.target.value) {
-      setOfferData((prev) => ({ ...prev, description: e.target.value }));
-    }
+    setOfferData((prev) => ({ ...prev, description: e.target.value }));
   }, []);
 
   const handleCheckfileInput = () => {
