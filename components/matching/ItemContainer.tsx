@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { ContainerProps } from 'types/container';
 
+import SuggestItem from './SuggestItem';
+
 export default function ItemContainer({ children }: ContainerProps) {
   return <StyledContainer>{children}</StyledContainer>;
 }
@@ -11,7 +13,7 @@ const StyledContainer = styled.article`
   flex-direction: column;
   gap: 1.2rem;
 
-  article:last-child {
+  &:last-child {
     margin-bottom: 8rem;
   }
 `;

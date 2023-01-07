@@ -18,7 +18,7 @@ export default function matching() {
   const [itemNum, setItemNum] = useState(10);
   const [isClicked, setIsClicked] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isMine, setIsMine] = useState(false);
+  const [isMine, setIsMine] = useState(true);
   const [isSuggested, setIsSuggested] = useState(false);
 
   const handleOptionTab = () => {
@@ -43,21 +43,21 @@ export default function matching() {
   return (
     <>
       <Header isMine={isMine} modalOpenFunc={handleClickCancelButton} />
-      <PriceInfo highestPrice={100000} />
       <UserProfile profileImage="" userName="스윙스" userId="@King_swings" />
+      <PriceInfo highestPrice={100000} />
       <SaleInfoContainer productCount={3} salesOption="일괄 판매만" priceOption="지정가격" />
       <SuggestContainer>
         <SuggestTab options={['매칭 중인 목록', '매칭 완료 목록']} outerFunc={handleOptionTab} isClicked={isClicked} />
         <SortOption optionText="구매 희망" optionNum={7} />
         <ItemContainer>
           {/* {!itemNum && <NoItem />} */}
-          <SuggestItem itemSize="small" description="매칭 대기중" />
-          <SuggestItem itemSize="small" description="매칭 대기중" />
-          <SuggestItem itemSize="small" description="매칭 대기중" />
-          <SuggestItem itemSize="small" description="매칭 대기중" />
-          <SuggestItem itemSize="small" description="매칭 대기중" />
-          <SuggestItem itemSize="small" description="매칭 대기중" />
-          <SuggestItem itemSize="small" description="매칭 대기중" />
+          <SuggestItem itemSize="small" description="매칭 대기중" status={0} isMine={isMine} />
+          <SuggestItem itemSize="small" description="매칭 대기중" status={0} isMine={isMine} />
+          <SuggestItem itemSize="small" description="매칭 대기중" status={3} isMine={!isMine} />
+          <SuggestItem itemSize="small" description="매칭 대기중" status={2} isMine={!isMine} />
+          <SuggestItem itemSize="small" description="매칭 대기중" status={1} isMine={!isMine} />
+          <SuggestItem itemSize="small" description="매칭 대기중" status={3} isMine={isMine} />
+          <SuggestItem itemSize="small" description="매칭 대기중" status={2} isMine={isMine} />
         </ItemContainer>
       </SuggestContainer>
       {isSuggested && <ToastMessage text="판매글에 구매를 제시했어요!" />}
