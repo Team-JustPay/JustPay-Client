@@ -9,10 +9,6 @@ import { Page } from 'types/page';
 
 import AppLayout from 'components/layout/AppLayout';
 
-if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
-  require('../mocks');
-}
-
 type Props = AppProps & {
   Component: Page;
 };

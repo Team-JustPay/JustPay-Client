@@ -19,6 +19,7 @@ export default function BigButton({ text, isDisabled, onClick }: ButtonProps) {
 
 const ButtonContainer = styled.article`
   width: 100%;
+  max-width: 43rem;
   margin: 0 -1.6rem;
   padding: 1.2rem 0;
 

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 interface ToastMessageProps {
   text: string;
 }
+
 export default function ToastMessage({ text }: ToastMessageProps) {
   return <StyledToastMessage>{text}</StyledToastMessage>;
 }
@@ -12,9 +13,14 @@ const StyledToastMessage = styled.article`
   justify-content: center;
   align-items: center;
 
+  margin: 0 auto;
+
   width: 17.7rem;
   height: 3.8rem;
-  margin-bottom: 4rem;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 8rem;
 
   color: ${({ theme }) => theme.colors.white};
   background-color: ${({ theme }) => theme.colors.gray1};

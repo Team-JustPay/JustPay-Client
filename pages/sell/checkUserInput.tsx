@@ -25,8 +25,6 @@ export default function checkInfomation() {
     }, '')
     .slice(0, -2);
 
-  console.log(DeliveryOptions);
-
   const handleClickNextButton = () => {
     Router.push('/sell/write');
   };
@@ -111,8 +109,6 @@ export default function checkInfomation() {
     </Root>
   );
 }
-
-checkInfomation.Layout = layout;
 
 const Root = styled.div`
   display: flex;

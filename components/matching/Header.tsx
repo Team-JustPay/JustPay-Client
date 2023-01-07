@@ -6,16 +6,21 @@ import HeaderButton from '../../public/assets/icons/HeaderButton.svg';
 
 interface HeaderProps {
   isMine: boolean;
+  modalOpenFunc: () => void;
 }
 
-export default function Header({ isMine }: HeaderProps) {
+interface HeaderTextProps {
+  isMine: boolean;
+}
+
+export default function Header({ isMine, modalOpenFunc }: HeaderProps) {
   return (
     <HeaderContainer>
       <HeaderFunc />
       <HeaderText isMine={isMine}>제시 현황</HeaderText>
       {isMine ? (
         <ButtonContainer>
-          <HeaderButton />
+          <HeaderButton onClick={modalOpenFunc} />
           <HeaderButton />
         </ButtonContainer>
       ) : (
@@ -32,7 +37,7 @@ const HeaderContainer = styled.article`
   padding: 1.5rem 2rem 1.5rem 2.4rem;
 `;
 
-const HeaderText = styled.h1<HeaderProps>`
+const HeaderText = styled.h1<HeaderTextProps>`
   font-weight: 700;
   font-size: 1.6rem;
   line-height: 2.7rem;

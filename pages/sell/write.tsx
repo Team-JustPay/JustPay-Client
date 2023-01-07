@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { salesPostState } from '../../recoil/salespost';
 import styled from 'styled-components';
 import Header from 'components/common/Header';
 import BigButton from 'components/common/BigButton';
 import layout from './layout';
 import Router from 'next/router';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useSetSalesPost } from 'apiHooks/salesPost';
+import { useRecoilState } from 'recoil';
+
 interface TextLengthProps {
   currentTextLength: number;
 }
 
 export default function write() {
-  const setSalesPostState = useSetRecoilState(salesPostState);
+  const [salesPostInfo, setSalesPostState] = useRecoilState(salesPostState);
+
+  const { mutate: submitSalesForm, data } = useSetSalesPost(salesPostInfo);
+
+  console.log(salesPostInfo);
+
   const [currentTextLength, setCurrentTextLength] = useState(0);
   const [isEmptyTextArea, setIsEmptyTextArea] = useState(true);
   const handlecurrentTextLength = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -18,6 +27,7 @@ export default function write() {
     setSalesPostState((prev) => ({ ...prev, description: e.target.value }));
   };
   const handleClickPostWritingButton = () => {
+    submitSalesForm();
     Router.push('/sell/postWrite');
   };
 
