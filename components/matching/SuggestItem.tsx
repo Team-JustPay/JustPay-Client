@@ -12,6 +12,7 @@ interface SuggestItemProps {
   status: number;
   isMine: boolean;
   element: any;
+  outerFunc?: () => void;
 }
 
 interface ComponentProps {

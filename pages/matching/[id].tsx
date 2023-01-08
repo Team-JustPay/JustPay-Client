@@ -15,11 +15,12 @@ import BigButton from 'components/common/BigButton';
 import Modal from 'components/common/Modal';
 import ToastMessage from 'components/common/ToastMessage';
 import NoItem from 'components/matching/NoItem';
+import DeliverInfoModal from 'components/matching/DeliverInfoModal';
 
 export default function matching() {
   const [isClicked, setIsClicked] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isDeliverInfoModalOpen, setIsDeliverInfoModalOpen] = useState(true);
+  const [isDeliverInfoModalOpen, setIsDeliverInfoModalOpen] = useState(false);
   const [isMatched, setIsMatched] = useState(false);
   const [isSuggested, setIsSuggested] = useState(false);
 
@@ -102,7 +103,9 @@ export default function matching() {
           buttonSecondFunction={handleSaleCancelButton}
         />
       )}
-      {isDeliverInfoModalOpen && <div>hi</div>}
+      {isDeliverInfoModalOpen && (
+        <DeliverInfoModal shippingInfo={shippingInfo} closeButtonFunc={setIsDeliverInfoModalOpen} />
+      )}
     </>
   );
 }
