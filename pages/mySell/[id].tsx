@@ -31,15 +31,14 @@ export default function mySell() {
 }
 
 const Root = styled.section`
+  position: relative;
   margin-top: 6rem;
 `;
 
 const StyledHeader = styled.section`
   position: fixed;
-  top: 0px;
-  left: 16px;
-
-  z-index: 10;
+  max-width: 43rem;
+  top: 0;
 
   width: 100%;
   padding: 1.95rem 0;
