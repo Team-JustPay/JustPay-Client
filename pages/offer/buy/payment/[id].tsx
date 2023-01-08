@@ -42,6 +42,16 @@ export default function payment() {
     router.push(`/offer/buy/payment/confirm/${id}`);
   };
 
+  const getShippingAdress = () => {
+    switch (data.shippingOption.name) {
+      case '반값택배':
+        return data.suggester.shippingInfo.gsStoreName;
+      case '끼리택배':
+        return data.suggester.shippingInfo.cuStoreName;
+      default:
+        return data.suggester.shippingInfo.address;
+    }
+  };
   return (
     <Root>
       <Header title="결제하기" rightButtonText="취소" handleRightButton={() => {}} />
@@ -73,7 +83,7 @@ export default function payment() {
         </StyledContentContainer>
         <StyledContentContainer>
           <StyledKey>택배주소</StyledKey>
-          <StyledValue>{data.suggester.shippingInfo.cuStoreName}</StyledValue>
+          <StyledValue>{getShippingAdress()}</StyledValue>
         </StyledContentContainer>
       </StyledShippingInfoContainer>
       <TitleText>
