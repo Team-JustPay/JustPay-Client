@@ -4,41 +4,119 @@ import styled, { css } from 'styled-components';
 
 import FirstPic from '../../public/assets/images/suggestItem.png';
 import ProfilePic from '../../public/assets/icons/profile.svg';
+import theme from 'styles/theme';
 
 interface SuggestItemProps {
   itemSize: 'big' | 'small';
   description: string;
-  purchaseOption?: string;
-  productCount?: number;
-  price?: number;
+  status: number;
+  isMine: boolean;
+  element: any;
 }
 
 interface ComponentProps {
   itemSize: 'big' | 'small';
 }
 
-export default function SuggestItem({ itemSize, description, purchaseOption, productCount, price }: SuggestItemProps) {
+interface ButtonProps {
+  backgroundColorType: string;
+  colorType: string;
+}
+
+export default function SuggestItem({ itemSize, description, status, isMine, element }: SuggestItemProps) {
+  const renderButton = () => {
+    if (isMine) {
+      switch (status) {
+        case 1:
+          return;
+        case 2:
+          return (
+            <TwoButtonContainer>
+              <TwoOptionButton backgroundColorType={theme.colors.main_opacity20} colorType={theme.colors.main}>
+                배송정보 보기
+              </TwoOptionButton>
+              <TwoOptionButton backgroundColorType={theme.colors.main} colorType={theme.colors.white}>
+                운송장 입력하기
+              </TwoOptionButton>
+            </TwoButtonContainer>
+          );
+        case 3:
+          return (
+            <TwoButtonContainer>
+              <TwoOptionButton backgroundColorType={theme.colors.main_opacity20} colorType={theme.colors.main}>
+                배송정보 보기
+              </TwoOptionButton>
+              <TwoOptionButton backgroundColorType={theme.colors.gray0} colorType={theme.colors.gray2}>
+                구매 확정됨
+              </TwoOptionButton>
+            </TwoButtonContainer>
+          );
+      }
+    } else {
+      switch (status) {
+        case 1:
+          return (
+            <OneButtonContainer>
+              <OneOptionButton backgroundColorType={theme.colors.gray0} colorType={theme.colors.gray2}>
+                운송장 입력 전
+              </OneOptionButton>
+            </OneButtonContainer>
+          );
+        case 2:
+          return (
+            <TwoButtonContainer>
+              <TwoOptionButton backgroundColorType={theme.colors.main_opacity20} colorType={theme.colors.main}>
+                운송장 확인하기
+              </TwoOptionButton>
+              <TwoOptionButton backgroundColorType={theme.colors.main} colorType={theme.colors.white}>
+                구매 확정하기
+              </TwoOptionButton>
+            </TwoButtonContainer>
+          );
+        case 3:
+          return (
+            <TwoButtonContainer>
+              <TwoOptionButton backgroundColorType={theme.colors.main_opacity20} colorType={theme.colors.main}>
+                운송장 확인하기
+              </TwoOptionButton>
+              <TwoOptionButton backgroundColorType={theme.colors.gray0} colorType={theme.colors.gray2}>
+                구매 확정됨
+              </TwoOptionButton>
+            </TwoButtonContainer>
+          );
+      }
+    }
+  };
   return (
-    <ItemContainer itemSize={itemSize}>
-      <Image src={FirstPic} alt="상품 사진" />
-      <SuggestInfo>
-        <SuggestState itemSize={itemSize}>
-          <SuggestStateText>{description}</SuggestStateText>
-          <ProfilePic />
-        </SuggestState>
-        {itemSize === 'big' && (
-          <Option>
-            <BuyOption>
-              {purchaseOption}
-              <strong>{productCount}개</strong>
-            </BuyOption>
-            <Price>{price} 원 제시</Price>
-          </Option>
-        )}
-      </SuggestInfo>
-    </ItemContainer>
+    <Root>
+      <ItemContainer itemSize={itemSize}>
+        <Image src={FirstPic} alt="상품 사진" />
+        <SuggestInfo>
+          <SuggestState itemSize={itemSize}>
+            <SuggestStateText>{description}</SuggestStateText>
+            <ProfilePic />
+          </SuggestState>
+          {itemSize === 'big' && (
+            <Option>
+              <BuyOption>
+                {element.purchaseOption === 'BULK' ? '일괄 구매' : '일부 구매'}
+                <strong>{element.productCount}개</strong>
+              </BuyOption>
+              <Price>{element.price} 원 제시</Price>
+            </Option>
+          )}
+        </SuggestInfo>
+      </ItemContainer>
+      {renderButton()}
+    </Root>
   );
 }
+
+const Root = styled.section`
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+`;
 
 const ItemContainer = styled.article<ComponentProps>`
   display: flex;
@@ -111,4 +189,44 @@ const Price = styled.p`
   font-weight: 700;
   font-size: 1.4rem;
   line-height: 1.7rem;
+`;
+
+const TwoButtonContainer = styled.section`
+  display: flex;
+  gap: 1.2rem;
+
+  width: 100%;
+`;
+
+const TwoOptionButton = styled.button<ButtonProps>`
+  width: calc((100% - 1.2rem) / 2);
+
+  padding: 1.2rem 0;
+
+  font-size: 1.4rem;
+  line-height: 1.7rem;
+  font-weight: 700;
+
+  border-radius: 0.8rem;
+
+  background-color: ${(props) => props.backgroundColorType};
+  color: ${(props) => props.colorType};
+`;
+
+const OneButtonContainer = styled.section`
+  width: 100%;
+`;
+const OneOptionButton = styled.button<ButtonProps>`
+  width: 100%;
+
+  padding: 1.2rem 0;
+
+  font-size: 1.4rem;
+  line-height: 1.7rem;
+  font-weight: 700;
+
+  border-radius: 0.8rem;
+
+  background-color: ${(props) => props.backgroundColorType};
+  color: ${(props) => props.colorType};
 `;

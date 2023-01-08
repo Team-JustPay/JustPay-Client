@@ -21,7 +21,7 @@ export default function deliveryInfo() {
   };
 
   const checkValidDeliveryOption = () => {
-    return salesData.shippingOptions.length !== 0 ? true : false;
+    return salesData.shippingOptions?.length !== 0 ? true : false;
   };
 
   const moveToPrevPage = () => {
