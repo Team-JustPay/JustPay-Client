@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useGetSalesPostList, useGetSalesPostInfo, useSetSalesPostState } from 'apiHooks/salesPost';
+import { useGetShippingInfo } from 'apiHooks/suggests';
 
 import Header from 'components/matching/Header';
 import PriceInfo from 'components/matching/PriceInfo';
@@ -18,15 +19,18 @@ import NoItem from 'components/matching/NoItem';
 export default function matching() {
   const [isClicked, setIsClicked] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeliverInfoModalOpen, setIsDeliverInfoModalOpen] = useState(true);
   const [isMatched, setIsMatched] = useState(false);
   const [isSuggested, setIsSuggested] = useState(false);
 
   // 서버 통신 로직
+  const { data: shippingInfo } = useGetShippingInfo(2, isDeliverInfoModalOpen);
   const { data: salesPostInfo } = useGetSalesPostInfo(2);
   const { data: salesPostList } = useGetSalesPostList(2, isMatched);
   const { mutate: handleSaleCancelButton } = useSetSalesPostState(2);
   console.log(salesPostInfo);
   console.log('salesPostList: ', salesPostList);
+  console.log('shippingInfo: ', shippingInfo);
 
   // 누르면 각각 구매 중, 구매 완료 리스트 조회
   const handleOptionTab = () => {
@@ -47,6 +51,11 @@ export default function matching() {
     setTimeout(() => {
       setIsSuggested(false);
     }, 2000);
+  };
+
+  // 배송 정보 모달 컨트롤
+  const handleViewDelieverInfo = () => {
+    setIsDeliverInfoModalOpen(true);
   };
 
   return (
@@ -93,6 +102,7 @@ export default function matching() {
           buttonSecondFunction={handleSaleCancelButton}
         />
       )}
+      {isDeliverInfoModalOpen && <div>hi</div>}
     </>
   );
 }
