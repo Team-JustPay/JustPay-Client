@@ -7,33 +7,48 @@ import UserProfile from 'components/common/UserProfile';
 import MySellInfoContainer from 'components/mySell/MySellInfoContainer';
 import SuggestTab from 'components/matching/SuggestTab';
 import MySellItemContainer from 'components/mySell/MySellItemContainer';
+import GNB from 'components/common/GNB';
+import PlusCircleButton from '../../public/assets/icons/plusCircleButton.svg';
 
 export default function mySell() {
   const [isClicked, setIsClicked] = useState(true);
+  const [isGNBClicked, setIsGNBClicked] = useState(true);
 
   const handleOptionTab = () => {
     setIsClicked((prev) => !prev);
   };
 
+  const handleGNBTab = () => {
+    setIsGNBClicked((prev) => !prev);
+  };
+
   return (
-    <Root>
-      <StyledHeader>
-        <Logo />
-      </StyledHeader>
-      <UserProfile profileImage={'url'} userName={'유아 판매계'} userId={'@yoo_si_A'} />
-      <MySellInfoContainer dealCount={10} saleMoney={145000} saleCount={5} />
-      <StyledStickyContainer>
-        <SuggestTab options={['판매 중', '판매 종료']} outerFunc={handleOptionTab} isClicked={isClicked} />
-        <MySellItemContainer isSaled={false} />
-        <MySellItemContainer isSaled={true} />
-      </StyledStickyContainer>
-    </Root>
+    <>
+      {' '}
+      <Root>
+        <StyledHeader>
+          <Logo />
+        </StyledHeader>
+        <UserProfile profileImage={'url'} userName={'유아 판매계'} userId={'@yoo_si_A'} />
+        <MySellInfoContainer dealCount={10} saleMoney={145000} saleCount={5} />
+        <StyledStickyContainer>
+          <SuggestTab options={['판매 중', '판매 종료']} outerFunc={handleOptionTab} isClicked={isClicked} />
+          <MySellItemContainer isSaled={false} />
+          <MySellItemContainer isSaled={true} />
+        </StyledStickyContainer>
+      </Root>
+      <StyledPlusCircleButtonContainer>
+        <PlusCircleButton />
+      </StyledPlusCircleButtonContainer>
+      <GNB outerFunc={handleGNBTab} isClicked={isGNBClicked} />
+    </>
   );
 }
 
 const Root = styled.section`
   position: relative;
   margin-top: 6rem;
+  padding-bottom: 10rem;
 `;
 
 const StyledHeader = styled.section`
@@ -49,3 +64,14 @@ const StyledHeader = styled.section`
 `;
 
 const StyledStickyContainer = styled.section``;
+
+const StyledPlusCircleButtonContainer = styled.section`
+  display: flex;
+  justify-content: flex-end;
+  position: fixed;
+  bottom: 7.4rem;
+
+  width: 100%;
+  max-width: 43rem;
+  padding-right: 3.2rem;
+`;

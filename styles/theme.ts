@@ -2,6 +2,7 @@ const colors = {
   black: '#000000',
   gray_background: '#292929',
   grey_popup: '#1C1C1C',
+  grey_GNB: '#121212',
   gray0: '#4A4A4A',
   gray1: '#666666',
   gray2: '#999999',

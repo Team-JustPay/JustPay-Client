@@ -45,7 +45,7 @@ export default function MySellItemContainer({ isSaled }: MySellItemContainerProp
 const StyledMySellItemContainer = styled.section`
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   flex-wrap: wrap;
   gap: 1.2rem;
 
