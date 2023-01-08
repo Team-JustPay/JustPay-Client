@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Router from 'next/router';
 import { useGetSalesPostList, useGetSalesPostInfo, useSetSalesPostState } from 'apiHooks/salesPost';
 import { useGetShippingInfo } from 'apiHooks/suggests';
 
@@ -67,6 +68,21 @@ export default function matching() {
     }, 2000);
   };
 
+  // 운송장 입력 페이지로 이동
+  const handleInvoicePutButton = () => {
+    Router.push(`/suggests/${2}/invoice`);
+  };
+
+  const setButtonFunc = (isMine: boolean, status: number) => {
+    if (isMine) {
+      switch (status) {
+        case 2:
+          return [() => setIsDeliverInfoModalOpen((prev) => !prev), handleInvoicePutButton];
+      }
+    } else {
+    }
+  };
+
   return (
     <>
       <Header isMine={salesPostInfo?.data.data.isMine} modalOpenFunc={handleClickCancelButton} />
@@ -94,7 +110,7 @@ export default function matching() {
               isMine={item.isMine}
               key={item.id}
               element={item}
-              outerFunc={() => setIsDeliverInfoModalOpen((prev) => !prev)}
+              outerFunc={setButtonFunc(item.isMine, item.status)}
             />
           ))}
         </ItemContainer>

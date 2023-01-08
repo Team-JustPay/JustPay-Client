@@ -12,7 +12,7 @@ interface SuggestItemProps {
   status: number;
   isMine: boolean;
   element: any;
-  outerFunc?: () => void;
+  outerFunc?: (() => void)[];
 }
 
 interface ComponentProps {
@@ -36,10 +36,13 @@ export default function SuggestItem({ itemSize, description, status, isMine, ele
               <TwoOptionButton
                 backgroundColorType={theme.colors.main_opacity20}
                 colorType={theme.colors.main}
-                onClick={outerFunc}>
+                onClick={outerFunc?.[0]}>
                 배송정보 보기
               </TwoOptionButton>
-              <TwoOptionButton backgroundColorType={theme.colors.main} colorType={theme.colors.white}>
+              <TwoOptionButton
+                backgroundColorType={theme.colors.main}
+                colorType={theme.colors.white}
+                onClick={outerFunc?.[1]}>
                 운송장 입력하기
               </TwoOptionButton>
             </TwoButtonContainer>
