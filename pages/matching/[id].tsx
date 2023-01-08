@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useGetSalesPostList, useGetSalesPostInfo } from 'apiHooks/salesPost';
+import { useGetSalesPostList, useGetSalesPostInfo, useSetSalesPostState } from 'apiHooks/salesPost';
 
 import Header from 'components/matching/Header';
 import PriceInfo from 'components/matching/PriceInfo';
@@ -21,8 +21,10 @@ export default function matching() {
   const [isMatched, setIsMatched] = useState(false);
   const [isSuggested, setIsSuggested] = useState(false);
 
+  // 서버 통신 로직
   const { data: salesPostInfo } = useGetSalesPostInfo(2);
   const { data: salesPostList } = useGetSalesPostList(2, isMatched);
+  const { mutate: handleSaleCancelButton } = useSetSalesPostState(2);
   console.log(salesPostInfo);
   console.log('salesPostList: ', salesPostList);
 
@@ -83,11 +85,12 @@ export default function matching() {
       {isModalOpen && (
         <Modal
           title="판매를 종료하시겠어요?"
-          content="판매를 종료하면 더 이상 매칭이 불가능해요<br />
+          content="판매를 종료하면 더 이상 매칭이 불가능해요<br/>
         상품판매를 모두 마친 후에 판매를 종료해주세요"
           buttonFirstTitle="취소"
           buttonSecondTitle="확인"
           buttonFirstFunction={handleClickCloseButton}
+          buttonSecondFunction={handleSaleCancelButton}
         />
       )}
     </>

@@ -26,3 +26,9 @@ export const getSalesPostList = async (salesPostId: number, isMatched: boolean) 
 export const getSalesPostInfo = async (salesPostId: number) => {
   return await salesPostAPI.get(`/${salesPostId}`);
 };
+
+export const setSalesPostState = async (salesPostId: number) => {
+  return await salesPostAPI.patch(`/${salesPostId}/status`, {
+    status: 1,
+  });
+};
