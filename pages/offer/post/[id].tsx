@@ -14,7 +14,7 @@ export default function suggest() {
     price: 10000,
     productCount: '1',
     salesPost: {
-      priceOption: 'DESIGNATED_PRICE',
+      priceOption: 'PRICE_OFFER',
     },
   };
   return (
@@ -23,15 +23,15 @@ export default function suggest() {
       <UserProfile profileImage="gd" userName="정현욱" userId="@123123"></UserProfile>
       <StyledPriceContainer>
         <StyledPriceTitle>구매 가격</StyledPriceTitle>
-        <StyledPrice>{data.price}</StyledPrice>
+        <StyledPrice>{data.price.toLocaleString('ko-KR')}</StyledPrice>
       </StyledPriceContainer>
       <SaleInfoContainer productCount={1} priceOption={data.productCount} />
 
       <StyledImgWrapper></StyledImgWrapper>
       {data.salesPost.priceOption === 'PRICE_OFFER' && (
         <StyledButtonWrapper>
-          <LeftSmallButton text="dpqpqp" isClicked={false}></LeftSmallButton>
-          <RightSmallButton text="dpqpqpqp" isClicked={false}></RightSmallButton>
+          <LeftSmallButton text="제시 취소하기" isClicked={false}></LeftSmallButton>
+          <RightSmallButton text="가격 올리기" isClicked={false}></RightSmallButton>
         </StyledButtonWrapper>
       )}
 
