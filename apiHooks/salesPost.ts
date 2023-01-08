@@ -5,6 +5,7 @@ import {
   getSalesPostList,
   getSalesPostInfo,
   setSalesPostState,
+  getCertificationImages,
 } from 'api/salesPost';
 import { salesPostType } from 'types/recoil/salesPost';
 
@@ -42,6 +43,14 @@ export const useGetSalesPostInfo = (salesPostId: number) => {
 
 export const useSetSalesPostState = (salesPostId: number) => {
   return useMutation(() => setSalesPostState(salesPostId), {
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+};
+
+export const useGetCertificationImages = (salesPostId: number) => {
+  return useQuery(['get/certifications'], () => getCertificationImages(salesPostId), {
     onError: (error) => {
       console.error(error);
     },

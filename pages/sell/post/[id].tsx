@@ -49,7 +49,10 @@ export default function post() {
             });
           }}
           handleRightButton={() => {
-            Router.push(`/matching/${salesPostInfo?.data.data.id}`);
+            Router.push({
+              pathname: `/sell/post/${salesPostInfo?.data.data.id}/certifications`,
+              query: { id: salesPostInfo?.data.data.id },
+            });
           }}></Header>
         <UserProfile
           profileImage={salesPostInfo?.data.data.sellor.profileImageUrl}

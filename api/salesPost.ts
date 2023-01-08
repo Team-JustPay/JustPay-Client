@@ -32,3 +32,7 @@ export const setSalesPostState = async (salesPostId: number) => {
     status: 1,
   });
 };
+
+export const getCertificationImages = async (salesPostId: number) => {
+  return await salesPostAPI.get(`/${salesPostId}/certifications`);
+};
