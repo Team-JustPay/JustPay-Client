@@ -8,7 +8,7 @@ import MySellInfoContainer from 'components/mySell/MySellInfoContainer';
 import SuggestTab from 'components/matching/SuggestTab';
 import MySellItemContainer from 'components/mySell/MySellItemContainer';
 import GNB from 'components/common/GNB';
-import PlusCircleButton from '../../public/assets/icons/plusCircleButton.svg';
+import PlusCircleButtonContainer from 'components/common/PlusCircleButtonContainer';
 
 export default function mySell() {
   const [isClicked, setIsClicked] = useState(true);
@@ -37,9 +37,7 @@ export default function mySell() {
           <MySellItemContainer isSaled={true} />
         </StyledStickyContainer>
       </Root>
-      <StyledPlusCircleButtonContainer>
-        <PlusCircleButton />
-      </StyledPlusCircleButtonContainer>
+      <PlusCircleButtonContainer />
       <GNB />
     </>
   );
@@ -64,14 +62,3 @@ const StyledHeader = styled.section`
 `;
 
 const StyledStickyContainer = styled.section``;
-
-const StyledPlusCircleButtonContainer = styled.section`
-  display: flex;
-  justify-content: flex-end;
-  position: fixed;
-  bottom: 7.4rem;
-
-  width: 100%;
-  max-width: 43rem;
-  padding-right: 3.2rem;
-`;
