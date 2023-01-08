@@ -11,15 +11,20 @@ import GNB from 'components/common/GNB';
 import PlusCircleButtonContainer from 'components/common/PlusCircleButtonContainer';
 
 export default function mySell() {
+  const userData = {
+    profileImageUrl: 'url',
+    nickname: '유아 판매계',
+    socialId: '@yoo_si_A',
+  };
+  const sellData = {
+    dealCount: 10,
+    saleMoney: 145000,
+    saleCount: 5,
+  };
   const [isClicked, setIsClicked] = useState(true);
-  const [isGNBClicked, setIsGNBClicked] = useState(true);
 
   const handleOptionTab = () => {
     setIsClicked((prev) => !prev);
-  };
-
-  const handleGNBTab = () => {
-    setIsGNBClicked((prev) => !prev);
   };
 
   return (
@@ -29,8 +34,16 @@ export default function mySell() {
         <StyledHeader>
           <Logo />
         </StyledHeader>
-        <UserProfile profileImage={'url'} userName={'유아 판매계'} userId={'@yoo_si_A'} />
-        <MySellInfoContainer dealCount={10} saleMoney={145000} saleCount={5} />
+        <UserProfile
+          profileImageUrl={userData.profileImageUrl}
+          nickname={userData.nickname}
+          socialId={userData.socialId}
+        />
+        <MySellInfoContainer
+          dealCount={sellData.dealCount}
+          saleMoney={sellData.saleMoney}
+          saleCount={sellData.saleCount}
+        />
         <StyledStickyContainer>
           <SuggestTab options={['판매 중', '판매 종료']} outerFunc={handleOptionTab} isClicked={isClicked} />
           <MySellItemContainer isSaled={false} />

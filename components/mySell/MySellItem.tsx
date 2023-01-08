@@ -8,7 +8,6 @@ interface MySellItemProps {
   salesOption?: string;
   priceOption: string;
   price?: number;
-  highestPrice?: number;
 }
 
 export default function MySellItem({
@@ -18,9 +17,28 @@ export default function MySellItem({
   salesOption,
   priceOption,
   price,
-  highestPrice,
 }: MySellItemProps) {
   const priceRegex = /\B(?=(\d{3})+(?!\d))/g;
+
+  const priceOptionContent = () => {
+    if (priceOption === 'PRICE_OFFER') {
+      return '제시 가격';
+    } else {
+      // priceOption === 'DESIGNATED_PRICE'
+      if (productCount === 1) {
+        return '지정 가격';
+      } else {
+        // productCount === 2
+        if (salesOption === 'BULK') {
+          return '지정 가격';
+        } else {
+          // salesOption === 'PARTIAL'
+          return '지정 가격(일괄)';
+        }
+      }
+    }
+  };
+
   return (
     <StyledMySellItem saled={isSaled}>
       <img
@@ -34,13 +52,7 @@ export default function MySellItem({
         </StyledItemList>
         <StyledItemList>
           <h1>가격 옵션</h1>
-          {priceOption === 'PRICE_OFFER' ? (
-            <p>제시 가격</p>
-          ) : productCount === 2 ? (
-            <p>지정 가격(일괄)</p>
-          ) : (
-            <p>지정 가격</p>
-          )}
+          <p>{priceOptionContent()}</p>
         </StyledItemList>
         {productCount === 2 && (
           <StyledItemList>
@@ -56,11 +68,7 @@ export default function MySellItem({
         ) : (
           <StyledItemList>
             {priceOption === 'PRICE_OFFER' ? <h1>현재 최고가</h1> : <h1>판매 가격</h1>}
-            {priceOption === 'PRICE_OFFER' ? (
-              <p>{highestPrice?.toString().replace(priceRegex, ',')}</p>
-            ) : (
-              <p>{price?.toString().replace(priceRegex, ',')}</p>
-            )}
+            <p>{price?.toString().replace(priceRegex, ',')}</p>
           </StyledItemList>
         )}
       </StyledItemListContainer>

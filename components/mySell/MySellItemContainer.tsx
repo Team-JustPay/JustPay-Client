@@ -6,10 +6,25 @@ interface MySellItemContainerProps {
   isSaled: boolean;
 }
 export default function MySellItemContainer({ isSaled }: MySellItemContainerProps) {
+  const sellItemData = {
+    mainImageUrl: '',
+    productCount: 1,
+    salesOption: 'BULK',
+    priceOption: 'PRICE_OFFER',
+    price: 16000,
+  };
   return (
     <StyledMySellItemContainer>
-      <MySellItem isSaled={isSaled} mainImageUrl="" productCount={1} priceOption={'PRICE_OFFER'} highestPrice={16000} />
+      <MySellItem
+        isSaled={isSaled}
+        mainImageUrl={sellItemData.mainImageUrl}
+        productCount={sellItemData.productCount}
+        priceOption={sellItemData.priceOption}
+        price={sellItemData.price}
+      />
       <MySellItem isSaled={isSaled} mainImageUrl="" productCount={1} priceOption={'DESIGNATED_PRICE'} price={10000} />
+      <MySellItem mainImageUrl="" productCount={2} salesOption={'BULK'} priceOption={'PRICE_OFFER'} price={10000} />
+      <MySellItem mainImageUrl="" productCount={2} salesOption={'PARTIAL'} priceOption={'PRICE_OFFER'} price={10000} />
       <MySellItem
         mainImageUrl=""
         productCount={2}
@@ -20,23 +35,9 @@ export default function MySellItemContainer({ isSaled }: MySellItemContainerProp
       <MySellItem
         mainImageUrl=""
         productCount={2}
-        salesOption={'BULK_PARTIAL'}
+        salesOption={'PARTIAL'}
         priceOption={'DESIGNATED_PRICE'}
         price={10000}
-      />
-      <MySellItem
-        mainImageUrl=""
-        productCount={2}
-        salesOption={'BULK'}
-        priceOption={'PRICE_OFFER'}
-        highestPrice={10000}
-      />
-      <MySellItem
-        mainImageUrl=""
-        productCount={2}
-        salesOption={'BULK_PARTIAL'}
-        priceOption={'PRICE_OFFER'}
-        highestPrice={10000}
       />
     </StyledMySellItemContainer>
   );
