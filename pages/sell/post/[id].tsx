@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useGetSalesPostInfo } from 'apiHooks/salesPost';
 
 import ImageDownloadIcon from 'public/assets/icons/imageDownloadIcon.svg';
 import ShareTwitterIcon from 'public/assets/icons/shareTwitterIcon.svg';
@@ -13,6 +14,9 @@ import layout from '../layout';
 import Router from 'next/router';
 
 export default function post() {
+  const { data: salesPostInfo } = useGetSalesPostInfo(2);
+  console.log(salesPostInfo);
+
   const [isMine, setIsMine] = useState<boolean>(false);
   const [openImageDownloadModal, setOpenImageDownloadModal] = useState<boolean>(false);
   const [openCopyLinkModal, setOpenCopyLinkModal] = useState<boolean>(false);
@@ -38,14 +42,28 @@ export default function post() {
           title="판매글 상세"
           leftButtonText="제시 현황"
           rightButtonText="인증 사진"
+          handleLeftButton={() => {
+            Router.push({
+              pathname: `/matching/${salesPostInfo?.data.data.id}`,
+              query: { id: salesPostInfo?.data.data.id },
+            });
+          }}
           handleRightButton={() => {
-            Router.push(`/sell/post/${1}/certification`);
+            Router.push(`/matching/${salesPostInfo?.data.data.id}`);
           }}></Header>
-        <UserProfile profileImage="img" userName={'거래계'} userId={'@sale_poca'} />
-        <StyledSalePost>안녕하세요</StyledSalePost>
-        <SaleInfoContainer productCount={2} salesOption={'일괄 또는 일부'} priceOption={'지정 가격'} />
+        <UserProfile
+          profileImage={salesPostInfo?.data.data.sellor.profileImageUrl}
+          userName={salesPostInfo?.data.data.sellor.nickName}
+          userId={salesPostInfo?.data.data.sellor.socialId}
+        />
+        <StyledSalePost>{salesPostInfo?.data.data.description}</StyledSalePost>
+        <SaleInfoContainer
+          productCount={salesPostInfo?.data.data.productCount}
+          salesOption={'일괄 또는 일부'}
+          priceOption={'지정 가격'}
+        />
         <StyledImageContainer>
-          <img alt="판매글 대표 이미지" />
+          <img src={salesPostInfo?.data.data.mainImageUrl} alt="판매글 대표 이미지" />
           <StyledImageDownloadButton type="button" onClick={handleImageDownload}>
             <ImageDownloadIcon />
           </StyledImageDownloadButton>
