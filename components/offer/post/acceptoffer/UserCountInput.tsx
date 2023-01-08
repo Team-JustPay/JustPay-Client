@@ -11,6 +11,7 @@ interface InputProps {
 
 interface StyledInputProps {
   countOverCheck: boolean;
+  value: string;
 }
 
 interface InputTextProps {
@@ -35,7 +36,7 @@ export default function UserCountInput({
         type="text"
       />
       <InputText inputText={inputText} countOverCheck={countOverCheck}>
-        {countOverCheck ? '5일 까지 입력할 수 있어요' : inputTextGuide}
+        {countOverCheck && inputText !== '' ? '5일 까지 입력할 수 있어요' : inputTextGuide}
       </InputText>
     </InputContainer>
   );
@@ -81,8 +82,8 @@ const InputText = styled.strong<InputTextProps>`
   font-weight: 400;
   font-size: 1.6rem;
   line-height: 1.9rem;
-  ${({ countOverCheck }) =>
-    countOverCheck
+  ${({ countOverCheck, inputText }) =>
+    countOverCheck && inputText !== ''
       ? css`
           font-size: 1.2rem;
           line-height: 1.4rem;

@@ -9,15 +9,15 @@ import UserCountInput from 'components/offer/post/acceptoffer/UserCountInput';
 import { useRouter } from 'next/router';
 
 export default function () {
-  const [inputCount, setInputCount] = useState(0);
+  const [inputCount, setInputCount] = useState('');
   const router = useRouter();
   const { id } = router.query;
 
-  let countOverCheck = 5 < inputCount || inputCount === 0;
+  let countOverCheck = 5 < Number(inputCount) || Number(inputCount) === 0;
 
   const handleCountInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value.replace(/[^0-9]/g, '').replace(/^0+/, '');
-    setInputCount(Number(value));
+    setInputCount(value);
   }, []);
 
   //TODO: 페이지 합치고 라우팅 경로 수정
@@ -28,8 +28,13 @@ export default function () {
     router.push(`/`);
   };
 
+  const patchData = {
+    status: 1,
+    invoiceDeadline: Number(inputCount),
+  };
+
   const checkVaildInput = () => {
-    return inputCount <= 5 && inputCount !== 0 ? true : false;
+    return Number(inputCount) <= 5 && Number(inputCount) !== 0 ? true : false;
   };
 
   return (
