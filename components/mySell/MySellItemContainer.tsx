@@ -1,21 +1,40 @@
 import React from 'react';
-import MySellItem from 'components/mySell/MySellItem';
 import styled from 'styled-components';
+import MySellItem from './mySellItem';
+
 export default function MySellItemContainer() {
   return (
     <StyledMySellItemContainer>
-      <MySellItem mainImageUrl="" productCount={1} priceOption={1} highestPrice={16000} />
-      <MySellItem mainImageUrl="" productCount={1} priceOption={1} highestPrice={16000} />
-      <MySellItem mainImageUrl="" productCount={2} salesOption={'BULK'} priceOption={0} highestPrice={16000} />
-      <MySellItem mainImageUrl="" productCount={0} salesOption={'BULK'} priceOption={0} highestPrice={16000} />
-      <MySellItem mainImageUrl="" productCount={1} priceOption={1} highestPrice={16000} />
-      <MySellItem mainImageUrl="" productCount={1} priceOption={1} highestPrice={16000} />
-      <MySellItem mainImageUrl="" productCount={1} priceOption={1} highestPrice={16000} />
-      <MySellItem mainImageUrl="" productCount={1} priceOption={1} highestPrice={16000} />
-      <MySellItem mainImageUrl="" productCount={1} priceOption={1} highestPrice={16000} />
-      <MySellItem mainImageUrl="" productCount={1} priceOption={1} highestPrice={16000} />
-      <MySellItem mainImageUrl="" productCount={1} priceOption={1} highestPrice={16000} />
-      <MySellItem mainImageUrl="" productCount={1} priceOption={1} highestPrice={16000} />
+      <MySellItem mainImageUrl="" productCount={1} priceOption={'PRICE_OFFER'} highestPrice={16000} />
+      <MySellItem mainImageUrl="" productCount={1} priceOption={'DESIGNATED_PRICE'} price={10000} />
+      <MySellItem
+        mainImageUrl=""
+        productCount={2}
+        salesOption={'BULK'}
+        priceOption={'DESIGNATED_PRICE'}
+        price={10000}
+      />
+      <MySellItem
+        mainImageUrl=""
+        productCount={2}
+        salesOption={'BULK_PARTIAL'}
+        priceOption={'DESIGNATED_PRICE'}
+        price={10000}
+      />
+      <MySellItem
+        mainImageUrl=""
+        productCount={2}
+        salesOption={'BULK'}
+        priceOption={'PRICE_OFFER'}
+        highestPrice={10000}
+      />
+      <MySellItem
+        mainImageUrl=""
+        productCount={2}
+        salesOption={'BULK_PARTIAL'}
+        priceOption={'PRICE_OFFER'}
+        highestPrice={10000}
+      />
     </StyledMySellItemContainer>
   );
 }

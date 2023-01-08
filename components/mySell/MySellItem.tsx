@@ -5,7 +5,7 @@ interface MySellItemProps {
   mainImageUrl: string;
   productCount: number;
   salesOption?: string;
-  priceOption: number;
+  priceOption: string;
   price?: number;
   highestPrice?: number;
 }
@@ -18,6 +18,7 @@ export default function MySellItem({
   price,
   highestPrice,
 }: MySellItemProps) {
+  const priceRegex = /\B(?=(\d{3})+(?!\d))/g;
   return (
     <StyledMySellItem>
       <img
@@ -31,11 +32,27 @@ export default function MySellItem({
         </StyledItemList>
         <StyledItemList>
           <h1>가격 옵션</h1>
-          <p>1개</p>
+          {priceOption === 'PRICE_OFFER' ? (
+            <p>제시 가격</p>
+          ) : productCount === 2 ? (
+            <p>지정 가격(일괄)</p>
+          ) : (
+            <p>지정 가격</p>
+          )}
         </StyledItemList>
+        {productCount === 2 && (
+          <StyledItemList>
+            <h1>판매 유형</h1>
+            {salesOption === 'BULK' ? <p>일괄 판매만</p> : <p>일괄 또는 일부</p>}
+          </StyledItemList>
+        )}
         <StyledItemList>
-          <h1>상품 개수</h1>
-          <p>1개</p>
+          {priceOption === 'PRICE_OFFER' ? <h1>현재 최고가</h1> : <h1>판매 가격</h1>}
+          {priceOption === 'PRICE_OFFER' ? (
+            <p>{highestPrice?.toString().replace(priceRegex, ',')}</p>
+          ) : (
+            <p>{price?.toString().replace(priceRegex, ',')}</p>
+          )}
         </StyledItemList>
       </StyledItemListContainer>
     </StyledMySellItem>
@@ -56,12 +73,6 @@ const StyledMySellItem = styled.section`
 
     border-radius: 0.8rem;
   }
-
-  & :last-child {
-    p {
-      color: ${({ theme }) => theme.colors.main};
-    }
-  }
 `;
 
 const StyledItemListContainer = styled.section`
@@ -69,8 +80,11 @@ const StyledItemListContainer = styled.section`
   flex-direction: column;
   justify-content: space-between;
 
-  height: 6.2rem;
-  margin: 1.6rem 1.2rem 3.9rem 1.2rem;
+  margin: 1.6rem 1.2rem 0 1.2rem;
+
+  & article:last-child > p {
+    color: ${({ theme }) => theme.colors.main};
+  }
 `;
 const StyledItemList = styled.article`
   width: 100%;
@@ -81,6 +95,8 @@ const StyledItemList = styled.article`
     ${({ theme }) => theme.fonts.regular12pt};
   }
   p {
+    margin-bottom: 0.8rem;
+
     color: ${({ theme }) => theme.colors.gray5};
     ${({ theme }) => theme.fonts.regular12pt};
   }
