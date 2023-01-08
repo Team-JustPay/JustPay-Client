@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import Alram from '../../public/assets/icons/alram.svg';
@@ -10,24 +10,26 @@ import SellColor from '../../public/assets/icons/sell=color.svg';
 import MyInfo from '../../public/assets/icons/myInfo.svg';
 import MyInfoColor from '../../public/assets/icons/myInfo=color.svg';
 
-interface GNBProps {
-  outerFunc?: () => void;
-  isClicked?: boolean;
-}
-
-export default function GNB({ outerFunc, isClicked }: GNBProps) {
+export default function GNB() {
+  const [currentGNB, setCurrentGNB] = useState('sell');
   const handleClickGNBOption = (e: React.MouseEvent) => {
-    if (e.target instanceof HTMLDivElement) {
-      outerFunc?.();
-    }
+    setCurrentGNB(e.currentTarget.className);
   };
 
   return (
-    <Root onClick={handleClickGNBOption}>
-      <Alram />
-      <Buy />
-      <SellColor />
-      <MyInfo />
+    <Root>
+      <button type="button" className="alarm" onClick={handleClickGNBOption}>
+        {currentGNB === 'alarm' ? <AlramColor /> : <Alram />}
+      </button>
+      <button type="button" className="buy" onClick={handleClickGNBOption}>
+        {currentGNB === 'buy' ? <BuyColor /> : <Buy />}
+      </button>
+      <button type="button" className="sell" onClick={handleClickGNBOption}>
+        {currentGNB === 'sell' ? <SellColor /> : <Sell />}
+      </button>
+      <button type="button" className="myInfo" onClick={handleClickGNBOption}>
+        {currentGNB === 'myInfo' ? <MyInfoColor /> : <MyInfo />}
+      </button>
     </Root>
   );
 }

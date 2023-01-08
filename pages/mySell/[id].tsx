@@ -40,7 +40,7 @@ export default function mySell() {
       <StyledPlusCircleButtonContainer>
         <PlusCircleButton />
       </StyledPlusCircleButtonContainer>
-      <GNB outerFunc={handleGNBTab} isClicked={isGNBClicked} />
+      <GNB />
     </>
   );
 }
