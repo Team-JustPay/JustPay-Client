@@ -1,6 +1,14 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
-import { setSalesPost, getSalesPostList, getSalesPostInfo } from 'api/salesPost';
+import { getCertificationWord, setSalesPost, getSalesPostList, getSalesPostInfo } from 'api/salesPost';
 import { salesPostType } from 'types/recoil/salesPost';
+
+export const useGetCertificationWord = () => {
+  return useQuery(['get/certificationWord'], getCertificationWord, {
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+};
 
 export const useSetSalesPost = (salesPostInfo: salesPostType) => {
   return useMutation(() => setSalesPost(salesPostInfo), {

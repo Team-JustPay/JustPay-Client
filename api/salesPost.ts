@@ -1,6 +1,10 @@
 import { salesPostAPI } from './baseInstance';
 import { salesPostType } from 'types/recoil/salesPost';
 
+export const getCertificationWord = async () => {
+  return await salesPostAPI.get('/certificationWord');
+};
+
 export const setSalesPost = async (salesPostInfo: salesPostType) => {
   return await salesPostAPI.post(
     '/',

@@ -1,14 +1,22 @@
 import React from 'react';
 import Router from 'next/router';
+import styled from 'styled-components';
+import { useSetRecoilState } from 'recoil';
+import { salesPostState } from '../../recoil/salespost';
+import { useGetCertificationWord } from 'apiHooks/salesPost';
+
 import MainText from 'components/common/MainText';
 import SubText from 'components/common/SubText';
 import BigButton from 'components/common/BigButton';
-import styled from 'styled-components';
 import layout from './layout';
 import Header from 'components/common/Header';
 import ImagePostButton from 'components/common/ImagePostButton';
 export default function qcImageUpload() {
+  const { data } = useGetCertificationWord();
+  const putCertifiactionWord = useSetRecoilState(salesPostState);
+
   const handleClickNextButton = () => {
+    putCertifiactionWord((prev) => ({ ...prev, certificationWord: data?.data.data.certificationWord }));
     Router.push('/sell/selectPrice');
   };
 
@@ -27,7 +35,7 @@ export default function qcImageUpload() {
         <StyledCertigfyWordConatiner>
           <h1>인증단어</h1>
           <p>|</p>
-          <strong>검은 토끼 1214</strong>
+          <strong>{data?.data.data.certificationWord}</strong>
         </StyledCertigfyWordConatiner>
         <StyledUploadImageConatiner>
           <ImagePostButton buttonSize="small" />
