@@ -2,11 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import MySellItem from './mySellItem';
 
-export default function MySellItemContainer() {
+interface MySellItemContainerProps {
+  isSaled: boolean;
+}
+export default function MySellItemContainer({ isSaled }: MySellItemContainerProps) {
   return (
     <StyledMySellItemContainer>
-      <MySellItem mainImageUrl="" productCount={1} priceOption={'PRICE_OFFER'} highestPrice={16000} />
-      <MySellItem mainImageUrl="" productCount={1} priceOption={'DESIGNATED_PRICE'} price={10000} />
+      <MySellItem isSaled={isSaled} mainImageUrl="" productCount={1} priceOption={'PRICE_OFFER'} highestPrice={16000} />
+      <MySellItem isSaled={isSaled} mainImageUrl="" productCount={1} priceOption={'DESIGNATED_PRICE'} price={10000} />
       <MySellItem
         mainImageUrl=""
         productCount={2}

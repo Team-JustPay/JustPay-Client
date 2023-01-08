@@ -31,6 +31,7 @@ const TabContainer = styled.section`
   display: flex;
   position: sticky;
   top: 59px;
+  z-index: 10;
 
   width: 100%;
 

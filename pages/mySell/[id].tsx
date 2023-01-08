@@ -24,7 +24,8 @@ export default function mySell() {
       <MySellInfoContainer dealCount={10} saleMoney={145000} saleCount={5} />
       <StyledStickyContainer>
         <SuggestTab options={['판매 중', '판매 종료']} outerFunc={handleOptionTab} isClicked={isClicked} />
-        <MySellItemContainer />
+        <MySellItemContainer isSaled={false} />
+        <MySellItemContainer isSaled={true} />
       </StyledStickyContainer>
     </Root>
   );
@@ -39,6 +40,7 @@ const StyledHeader = styled.section`
   position: fixed;
   max-width: 43rem;
   top: 0;
+  z-index: 10;
 
   width: 100%;
   padding: 1.95rem 0;
