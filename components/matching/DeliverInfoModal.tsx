@@ -7,15 +7,20 @@ import XIcon from '../../public/assets/icons/X.svg';
 interface DeliverInfoModal {
   shippingInfo: AxiosResponse<any, any> | undefined;
   closeButtonFunc: React.Dispatch<React.SetStateAction<boolean>>;
+  scrollHeight: number;
 }
 
-export default function DeliverInfoModal({ shippingInfo, closeButtonFunc }: DeliverInfoModal) {
+interface ModalProps {
+  height: number;
+}
+
+export default function DeliverInfoModal({ shippingInfo, closeButtonFunc, scrollHeight }: DeliverInfoModal) {
   return (
-    <ModalContainer>
+    <ModalContainer height={scrollHeight}>
       <Modal>
         <ModalHeader>
           <HeaderText>배송 정보 확인</HeaderText>
-          <XIcon onClick={() => closeButtonFunc(false)} />
+          <XIcon onClick={() => closeButtonFunc((prev) => !prev)} />
         </ModalHeader>
         <InfoContainer>
           <ContentContainer>
@@ -50,12 +55,16 @@ export default function DeliverInfoModal({ shippingInfo, closeButtonFunc }: Deli
   );
 }
 
-const ModalContainer = styled.section`
+const ModalContainer = styled.section<ModalProps>`
   position: absolute;
-  top: 0;
+  top: ${(props) => props.height + 'px'};
   bottom: 0;
   left: 0;
   right: 0;
+
+  height: 100vh;
+
+  overflow: hidden;
 
   display: flex;
   justify-content: center;

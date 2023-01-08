@@ -24,7 +24,7 @@ interface ButtonProps {
   colorType: string;
 }
 
-export default function SuggestItem({ itemSize, description, status, isMine, element }: SuggestItemProps) {
+export default function SuggestItem({ itemSize, description, status, isMine, element, outerFunc }: SuggestItemProps) {
   const renderButton = () => {
     if (isMine) {
       switch (status) {
@@ -33,7 +33,10 @@ export default function SuggestItem({ itemSize, description, status, isMine, ele
         case 2:
           return (
             <TwoButtonContainer>
-              <TwoOptionButton backgroundColorType={theme.colors.main_opacity20} colorType={theme.colors.main}>
+              <TwoOptionButton
+                backgroundColorType={theme.colors.main_opacity20}
+                colorType={theme.colors.main}
+                onClick={outerFunc}>
                 배송정보 보기
               </TwoOptionButton>
               <TwoOptionButton backgroundColorType={theme.colors.main} colorType={theme.colors.white}>

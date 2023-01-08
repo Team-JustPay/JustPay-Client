@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useGetSalesPostList, useGetSalesPostInfo, useSetSalesPostState } from 'apiHooks/salesPost';
 import { useGetShippingInfo } from 'apiHooks/suggests';
 
@@ -23,6 +23,19 @@ export default function matching() {
   const [isDeliverInfoModalOpen, setIsDeliverInfoModalOpen] = useState(false);
   const [isMatched, setIsMatched] = useState(false);
   const [isSuggested, setIsSuggested] = useState(false);
+  const [scrollHeight, setScrollHeight] = useState(0);
+
+  // 스크롤 감지
+  const handleScrollHeight = () => {
+    setScrollHeight(window.scrollY);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScrollHeight);
+    return () => {
+      window.removeEventListener('scroll', handleScrollHeight);
+    };
+  }, []);
 
   // 서버 통신 로직
   const { data: shippingInfo } = useGetShippingInfo(2, isDeliverInfoModalOpen);
@@ -54,11 +67,6 @@ export default function matching() {
     }, 2000);
   };
 
-  // 배송 정보 모달 컨트롤
-  const handleViewDelieverInfo = () => {
-    setIsDeliverInfoModalOpen(true);
-  };
-
   return (
     <>
       <Header isMine={salesPostInfo?.data.data.isMine} modalOpenFunc={handleClickCancelButton} />
@@ -86,6 +94,7 @@ export default function matching() {
               isMine={item.isMine}
               key={item.id}
               element={item}
+              outerFunc={() => setIsDeliverInfoModalOpen((prev) => !prev)}
             />
           ))}
         </ItemContainer>
@@ -104,7 +113,11 @@ export default function matching() {
         />
       )}
       {isDeliverInfoModalOpen && (
-        <DeliverInfoModal shippingInfo={shippingInfo} closeButtonFunc={setIsDeliverInfoModalOpen} />
+        <DeliverInfoModal
+          shippingInfo={shippingInfo}
+          closeButtonFunc={setIsDeliverInfoModalOpen}
+          scrollHeight={scrollHeight}
+        />
       )}
     </>
   );
