@@ -3,16 +3,22 @@ import styled from 'styled-components';
 import MyInfoItem from './MyInfoItem';
 
 interface MyInfoAccountContainerProps {
+  depositorName: string;
+  bankName: string;
   accountNumber: string;
 }
-export default function MyInfoAccountContainer({ accountNumber }: MyInfoAccountContainerProps) {
+export default function MyInfoAccountContainer({
+  depositorName,
+  bankName,
+  accountNumber,
+}: MyInfoAccountContainerProps) {
   return (
     <>
       <StyledMyInfoContainer>
         <h1>안전 결제 정보</h1>
         <StyledMyInfoItemConainer>
-          <MyInfoItem title="입금자명" content="-" />
-          <MyInfoItem title="은행명" content="-" />
+          <MyInfoItem title="입금자명" content={depositorName} />
+          <MyInfoItem title="은행명" content={bankName} />
           <MyInfoItem title="계좌번호" content={accountNumber} />
         </StyledMyInfoItemConainer>
       </StyledMyInfoContainer>

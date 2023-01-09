@@ -29,7 +29,11 @@ export default function myInfo() {
         cuStoreName={myInfo?.data.data.shippingInfo.cuStoreName}
         gsStoreName={myInfo?.data.data.shippingInfo.gsStoreName}
       />
-      <MyInfoAccountContainer accountNumber={myInfo?.data.data.accountNumber} />
+      <MyInfoAccountContainer
+        depositorName={myInfo?.data.data.depositorName}
+        bankName={myInfo?.data.data.bankName}
+        accountNumber={myInfo?.data.data.accountNumber}
+      />
       <MyInfoSNSContainer
         twitterMessageUrl={myInfo?.data.data.twitterMessageUrl}
         openChatUrl={myInfo?.data.data.openChatUrl}
