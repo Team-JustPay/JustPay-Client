@@ -20,3 +20,7 @@ export const setSuggestsState = async (suggestId: number, status: number, invoic
     invoiceDeadline: invoiceDeadline,
   });
 };
+
+export const getSuggestsInfo = async (suggestId: number) => {
+  return await suggestsAPI.get(`/${suggestId}`);
+};
