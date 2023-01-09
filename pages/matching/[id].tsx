@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { useGetSalesPostList, useGetSalesPostInfo, useSetSalesPostState } from 'apiHooks/salesPost';
-import { useGetShippingInfo } from 'apiHooks/suggests';
+import { useGetShippingInfo, useSetSuggestState } from 'apiHooks/suggests';
 
 import Header from 'components/matching/Header';
 import PriceInfo from 'components/matching/PriceInfo';
@@ -19,6 +19,8 @@ import NoItem from 'components/matching/NoItem';
 import DeliverInfoModal from 'components/matching/DeliverInfoModal';
 
 export default function matching() {
+  const router = useRouter();
+  console.log(router);
   const [isClicked, setIsClicked] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeliverInfoModalOpen, setIsDeliverInfoModalOpen] = useState(false);
@@ -43,6 +45,7 @@ export default function matching() {
   const { data: salesPostInfo } = useGetSalesPostInfo(2);
   const { data: salesPostList } = useGetSalesPostList(2, isMatched);
   const { mutate: handleSaleCancelButton } = useSetSalesPostState(2);
+  const { mutate: handleClickSuggestConfirmButton } = useSetSuggestState(2, 3);
   console.log(salesPostInfo);
   console.log('salesPostList: ', salesPostList);
   console.log('shippingInfo: ', shippingInfo);
@@ -70,16 +73,39 @@ export default function matching() {
 
   // 운송장 입력 페이지로 이동
   const handleInvoicePutButton = () => {
-    Router.push(`/suggests/${2}/invoice`);
+    Router.push(`/suggests/${salesPostInfo?.data.data.id}/invoice`);
   };
 
-  const setButtonFunc = (isMine: boolean, status: number) => {
+  const setButtonFunc = (isOwner: boolean, isMine: boolean, status: number) => {
     if (isMine) {
       switch (status) {
         case 2:
-          return [() => setIsDeliverInfoModalOpen((prev) => !prev), handleInvoicePutButton];
       }
     } else {
+    }
+    if (isOwner) {
+      switch (status) {
+        case 1:
+          return;
+        case 2:
+          return [() => setIsDeliverInfoModalOpen((prev) => !prev), handleInvoicePutButton];
+        case 3:
+          return;
+      }
+    } else {
+      if (isMine) {
+        switch (status) {
+          case 1:
+            return;
+          case 2:
+            return [
+              () => Router.push(`/suggests/${shippingInfo?.data.data.id}/invoice`),
+              handleClickSuggestConfirmButton,
+            ];
+          case 3:
+            return;
+        }
+      }
     }
   };
 
@@ -107,10 +133,11 @@ export default function matching() {
               itemSize={item.purchaseOption === 'BULK' ? 'small' : 'big'}
               description={item.description}
               status={item.status}
+              isOwner={salesPostInfo?.data.data.isMine}
               isMine={item.isMine}
               key={item.id}
               element={item}
-              outerFunc={setButtonFunc(item.isMine, item.status)}
+              outerFunc={setButtonFunc(shippingInfo?.data.data.isMine, item.isMine, item.status)}
             />
           ))}
         </ItemContainer>

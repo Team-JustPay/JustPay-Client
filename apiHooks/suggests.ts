@@ -1,5 +1,5 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
-import { getShippingInfo, getInvoiceInfo, setInvoiceInfo } from 'api/suggests';
+import { getShippingInfo, getInvoiceInfo, setInvoiceInfo, setSuggestsState } from 'api/suggests';
 
 export const useGetShippingInfo = (suggestId: number, isOpenShippingInfoModal: boolean) => {
   return useQuery(['get/shippingInfo', suggestId, isOpenShippingInfoModal], () => getShippingInfo(suggestId), {
@@ -20,6 +20,14 @@ export const useGetInvoiceInfo = (suggestId: number) => {
 
 export const useSetInvoiceInfo = (suggestId: number, invoiceNum: string) => {
   return useMutation(() => setInvoiceInfo(suggestId, invoiceNum), {
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+};
+
+export const useSetSuggestState = (suggestId: number, status: number, invoiceDeadline?: number) => {
+  return useMutation(() => setSuggestsState(suggestId, status, invoiceDeadline), {
     onError: (error) => {
       console.error(error);
     },

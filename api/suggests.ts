@@ -13,3 +13,10 @@ export const setInvoiceInfo = async (suggestId: number, invoiceNum: string) => {
     invoiceNumber: invoiceNum,
   });
 };
+
+export const setSuggestsState = async (suggestId: number, status: number, invoiceDeadline?: number) => {
+  return await suggestsAPI.patch(`${suggestId}/status`, {
+    status: status,
+    invoiceDeadline: invoiceDeadline,
+  });
+};
