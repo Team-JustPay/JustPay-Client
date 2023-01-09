@@ -8,15 +8,19 @@ import MyInfoSNSContainer from 'components/myInfo/MyInfoSNSContainer';
 
 import { useGetmyInfo } from 'apiHooks/user';
 import GNB from 'components/common/GNB';
+import Router from 'next/router';
 export default function myInfo() {
   const { data: myInfo } = useGetmyInfo();
 
   console.log(myInfo?.data.data);
+  const handleMoveToMyInfoFix = () => {
+    Router.push('/myInfo/1/fix');
+  };
   return (
     <Root>
       <StyledHeader>
         <Logo />
-        수정
+        <p onClick={handleMoveToMyInfoFix}>수정</p>
       </StyledHeader>
       <MyInfoDeliveryContainer
         receiverName={myInfo?.data.data.shippingInfo.receiverName}
@@ -55,4 +59,8 @@ const StyledHeader = styled.section`
   background-color: ${({ theme }) => theme.colors.gray_background};
   color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.fonts.regular16pt};
+
+  p {
+    cursor: pointer;
+  }
 `;
