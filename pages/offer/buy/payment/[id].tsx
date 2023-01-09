@@ -1,42 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import Header from 'components/common/Header';
 import TitleText from 'components/common/TitleText';
 import MainText from 'components/common/MainText';
 import SubText from 'components/common/SubText';
-import Mockup from '/public/assets/images/mockupImage.png';
 import SaleInfoContainer from 'components/offer/buy/payment/SaleInfoContainer';
 import BigButton from 'components/common/BigButton';
 import { useRouter } from 'next/router';
+import axios, { AxiosError } from 'axios';
+import { useQuery } from '@tanstack/react-query';
 
 export default function payment() {
   const router = useRouter();
   const { id } = router.query;
-  const data = {
-    id: 3,
-    imageUrl: '<url>',
-    productCount: 1,
-    purchaseOption: 'BULK',
-    price: 1700000,
-    totalPrice: 171800,
-    description: '설명...',
-    status: 0,
-    invoiceDeadline: '2023.01.09 (월)',
-    suggester: {
-      phoneNumber: '010-2342-2342',
-      shippingInfo: {
-        receiverName: '전희선',
-        address: '서울시 고백구 행복동 23-1',
-        cuStoreName: 'CU 홍대입구점',
-        gsStoreName: 'GS 홍대입구점',
-      },
-    },
-    shippingOption: {
-      name: '반값택배',
-      price: 1600,
-    },
-  };
+
+  const { isLoading, error, data } = useQuery([id], () => axios.get(API_URL).then(({ data }) => data.data));
+
+  const API_URL = `https://api.just-pay.site/suggests/${id}/payment`;
+
+  if (isLoading) return <Root>로딩중..</Root>;
+  if (error) return <Root>에러가 발생했습니다</Root>;
+  if (!data) return null;
 
   const confirmPayment = () => {
     router.push(`/offer/buy/payment/confirm/${id}`);
@@ -60,7 +45,7 @@ export default function payment() {
         <MainText text="제시 내용" />
       </TitleText>
       <StyledImageWrapper>
-        <Image src={Mockup} />
+        <Image src={data.imageUrl} width={100} height={100} />
       </StyledImageWrapper>
       <SaleInfoContainer
         productCount={data.productCount}
@@ -75,7 +60,7 @@ export default function payment() {
       <StyledShippingInfoContainer>
         <StyledContentContainer>
           <StyledKey>전화번호</StyledKey>
-          <StyledValue>{data.suggester.phoneNumber}</StyledValue>
+          <StyledValue>{data.suggester.phoneNumber.replace(/-/g, '')}</StyledValue>
         </StyledContentContainer>
         <StyledContentContainer>
           <StyledKey>받는분</StyledKey>
@@ -108,7 +93,7 @@ export default function payment() {
         </StyledContentContainer>
         <StyledContentContainer>
           <StyledKey>총 금액</StyledKey>
-          <StyledValue>{`${(data.price + data.shippingOption.price).toLocaleString('ko-KR')} 원`}</StyledValue>
+          <StyledValue>{`${data.totalPrice.toLocaleString('ko-KR')} 원`}</StyledValue>
         </StyledContentContainer>
       </StyledCostInfoContainer>
 

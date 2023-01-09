@@ -1,33 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Header from 'components/common/Header';
 import BigButton from 'components/common/BigButton';
 import PaymentConfirm from 'public/assets/icons/paymentConfirm.svg';
+import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
 
 export default function confirmPayment() {
-  const data = {
-    id: 3,
-    imageUrl: '<url>',
-    productCount: 1,
-    purchaseOption: 'BULK',
-    price: 1700000,
-    totalPrice: 171800,
-    description: '설명...',
-    status: 0,
-    invoiceDeadline: '2023.01.09 (월)',
-    suggester: {
-      phoneNumber: '010-2342-2342',
-      shippingInfo: {
-        receiverName: '전희선',
-        address: '서울시 고백구 행복동 23-1',
-        cuStoreName: 'CU 홍대입구점',
-        gsStoreName: 'GS 홍대입구점',
-      },
-    },
-    shippingOption: {
-      name: '반값택배',
-      price: 1600,
-    },
+  const [isCopySuccess, setIsCopySuccess] = useState(false);
+  const router = useRouter();
+  const { id } = router.query;
+
+  const { isLoading, error, data } = useQuery([id], () => axios.get(API_URL).then(({ data }) => data.data));
+
+  const API_URL = `https://api.just-pay.site/suggests/${id}/payment`;
+
+  //TODO: 로딩중 뷰 완성시 교체
+  if (isLoading) return <Root>로딩중..</Root>;
+  if (error) return <Root>에러가 발생했습니다</Root>;
+  if (!data) return null;
+
+  //TODO: 이동할 페이지가 정해지면 교체
+  const moveToNextPage = () => {
+    // router.push('/')
+  };
+
+  const handleCopyButton = () => {
+    navigator.clipboard.writeText('100002382098');
+    setIsCopySuccess(true);
+    setTimeout(() => {
+      setIsCopySuccess(false);
+    }, 2000);
   };
 
   return (
@@ -41,7 +45,6 @@ export default function confirmPayment() {
             <HighlightText>{data.invoiceDeadline}까지</HighlightText>입금해주세요
           </GuideText>
         </StyledTextContainer>
-        <BigButton text="확인" isDisabled={false} />
       </StyledGuideContainer>
       <StyledAccountInfoContainer>
         <StyledContentContainer>
@@ -54,7 +57,10 @@ export default function confirmPayment() {
         </StyledContentContainer>
         <StyledContentContainer>
           <StyledKey>계좌번호</StyledKey>
-          <StyledValue>100002382098</StyledValue>
+          <StyledAccountNumber>
+            <StyledValue>100002382098</StyledValue>
+            <StyledCopyButton onClick={handleCopyButton}>복사</StyledCopyButton>
+          </StyledAccountNumber>
         </StyledContentContainer>
         <StyledContentContainer>
           <StyledKey>입금금액</StyledKey>
@@ -63,6 +69,8 @@ export default function confirmPayment() {
           ).toLocaleString()} 원`}</StyledHighlightValue>
         </StyledContentContainer>
       </StyledAccountInfoContainer>
+      <StyledCopySuccessToast isCopySuccess={isCopySuccess}>계좌번호가 복사되었어요</StyledCopySuccessToast>
+      <BigButton text="확인" isDisabled={false} onClick={moveToNextPage} />
     </Root>
   );
 }
@@ -140,4 +148,38 @@ const StyledContentContainer = styled.div`
 
   width: 100%;
   margin: 0.8rem 0;
+`;
+
+const StyledCopyButton = styled.button`
+  ${({ theme }) => theme.fonts.regular14pt};
+  color: ${({ theme }) => theme.colors.main};
+  width: 3.9rem;
+  height: 2.4rem;
+  border-radius: 0.8rem;
+  background-color: ${({ theme }) => theme.colors.main_opacity20};
+  margin-left: 0.8rem;
+`;
+
+const StyledAccountNumber = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const StyledCopySuccessToast = styled.div<{ isCopySuccess: boolean }>`
+  display: ${({ isCopySuccess }) => (isCopySuccess ? 'flex' : 'none')};
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 17.7rem;
+  height: 3.7rem;
+  color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.gray1};
+  ${({ theme }) => theme.fonts.medium14pt};
+
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.8rem; ;
 `;
