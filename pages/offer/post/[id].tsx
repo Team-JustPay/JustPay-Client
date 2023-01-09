@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useGetSuggestsInfo } from 'apiHooks/suggests';
-import { useRouter } from 'next/router';
+import { useDeleteSuggests } from 'apiHooks/suggests';
+
 import Header from 'components/common/Header';
-import { TITLE, MENU } from 'constants/headerMessage';
+import { TITLE } from 'constants/headerMessage';
 import UserProfile from 'components/common/UserProfile';
 import BigButton from 'components/offer/post/BigButton';
 import LeftSmallButton from 'components/offer/post/LeftSmallButton';
 import RightSmallButton from 'components/offer/post/RightSmallButton';
 import SaleInfoContainer from 'components/common/SaleInfoContainer';
+import Modal from 'components/common/Modal';
 
 export default function suggest() {
   const { data: suggestsInfo } = useGetSuggestsInfo(2);
+  const { mutate: handleClickCancelButton } = useDeleteSuggests(2);
+  const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
 
   return (
     <Root>
@@ -38,13 +42,27 @@ export default function suggest() {
       </StyledImgWrapper>
       {suggestsInfo?.data.data.salesPost.priceOption === 'PRICE_OFFER' && (
         <StyledButtonWrapper>
-          <LeftSmallButton text="제시 취소하기" isClicked={false}></LeftSmallButton>
-          <RightSmallButton text="가격 올리기" isClicked={false}></RightSmallButton>
+          <LeftSmallButton
+            text="제시 취소하기"
+            isClicked={false}
+            onClick={() => setIsCancelModalOpen((prev) => !prev)}
+          />
+          <RightSmallButton text="가격 올리기" isClicked={false} />
         </StyledButtonWrapper>
       )}
 
       {suggestsInfo?.data.data.salesPost.priceOption === 'DESIGNATED_PRICE' && (
         <BigButton text="제시 취소하기" isDisabled={false}></BigButton>
+      )}
+      {isCancelModalOpen && (
+        <Modal
+          title="정말 취소하시겠습니까?"
+          content="이전 화면에서 가격을 올릴 수 있어요<br/>나머지 옵션을 수정하고싶다면 취소해주세요"
+          buttonFirstTitle="닫기"
+          buttonSecondTitle="취소하기"
+          buttonFirstFunction={() => setIsCancelModalOpen((prev) => !prev)}
+          buttonSecondFunction={handleClickCancelButton}
+        />
       )}
     </Root>
   );
