@@ -63,7 +63,10 @@ export default function SuggestItem({
         case 3:
           return (
             <TwoButtonContainer>
-              <TwoOptionButton backgroundColorType={theme.colors.main_opacity20} colorType={theme.colors.main}>
+              <TwoOptionButton
+                backgroundColorType={theme.colors.main_opacity20}
+                colorType={theme.colors.main}
+                onClick={outerFunc?.[0]}>
                 배송정보 보기
               </TwoOptionButton>
               <TwoOptionButton backgroundColorType={theme.colors.gray0} colorType={theme.colors.gray2}>
@@ -103,7 +106,10 @@ export default function SuggestItem({
           case 3:
             return (
               <TwoButtonContainer>
-                <TwoOptionButton backgroundColorType={theme.colors.main_opacity20} colorType={theme.colors.main}>
+                <TwoOptionButton
+                  backgroundColorType={theme.colors.main_opacity20}
+                  colorType={theme.colors.main}
+                  onClick={outerFunc?.[0]}>
                   운송장 확인하기
                 </TwoOptionButton>
                 <TwoOptionButton backgroundColorType={theme.colors.gray0} colorType={theme.colors.gray2}>

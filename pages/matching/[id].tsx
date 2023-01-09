@@ -40,11 +40,11 @@ export default function matching() {
   }, []);
 
   // 서버 통신 로직
-  const { data: shippingInfo } = useGetShippingInfo(11, isDeliverInfoModalOpen);
-  const { data: salesPostInfo } = useGetSalesPostInfo(11);
-  const { data: salesPostList } = useGetSalesPostList(11, isMatched);
-  const { mutate: handleSaleCancelButton } = useSetSalesPostState(11);
-  const { mutate: handleClickSuggestConfirmButton } = useSetSuggestState(11, 3);
+  const { data: shippingInfo } = useGetShippingInfo(2, isDeliverInfoModalOpen);
+  const { data: salesPostInfo } = useGetSalesPostInfo(2);
+  const { data: salesPostList } = useGetSalesPostList(2, isMatched);
+  const { mutate: handleSaleCancelButton } = useSetSalesPostState(2);
+  const { mutate: handleClickSuggestConfirmButton } = useSetSuggestState(2, 3);
   console.log(salesPostInfo);
 
   // 누르면 각각 구매 중, 구매 완료 리스트 조회
@@ -89,9 +89,22 @@ export default function matching() {
           case 1:
             return;
           case 2:
-            return [() => console.log('hi'), () => setIsBuyModalConfirmOpen((prev) => !prev)];
+            return [
+              () =>
+                Router.push({
+                  pathname: `/suggests/${salesPostInfo?.data.data.id}/invoiceInfo`,
+                  query: { id: salesPostInfo?.data.data.id },
+                }),
+              () => setIsBuyModalConfirmOpen((prev) => !prev),
+            ];
           case 3:
-            return;
+            return [
+              () =>
+                Router.push({
+                  pathname: `/suggests/${salesPostInfo?.data.data.id}/invoiceInfo`,
+                  query: { id: salesPostInfo?.data.data.id },
+                }),
+            ];
         }
       }
     }
@@ -171,16 +184,3 @@ export default function matching() {
     </>
   );
 }
-
-// export async function getServerSideProps(ctx: any) {
-//   const { id } = ctx;
-//   const queryClient = new QueryClient();
-
-//   await queryClient.prefetchQuery(['get/salesposts/:salespostId', () => getSalesPostInfo(Number(id))]);
-
-//   return {
-//     props: {
-
-//     }
-//   }
-// }
