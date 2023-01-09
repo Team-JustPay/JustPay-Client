@@ -49,6 +49,7 @@ const StyledModalBackground = styled.div`
   align-items: center;
   position: fixed;
   top: 0;
+  z-index: 20;
 
   width: 100%;
   min-height: calc(var(--vh) * 100);

@@ -51,9 +51,9 @@ export default function matching() {
     <>
       <Header isMine={salesPostInfo?.data.data.isMine} modalOpenFunc={handleClickCancelButton} />
       <UserProfile
-        profileImage=""
-        userName={salesPostInfo?.data.data.sellor.nickName}
-        userId={salesPostInfo?.data.data.sellor.socialId}
+        profileImageUrl=""
+        nickname={salesPostInfo?.data.data.sellor.nickName}
+        socialId={salesPostInfo?.data.data.sellor.socialId}
       />
       <PriceInfo highestPrice={salesPostInfo?.data.data.highestPrice} />
       <SaleInfoContainer
