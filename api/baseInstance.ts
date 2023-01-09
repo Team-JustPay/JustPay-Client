@@ -20,3 +20,10 @@ export const suggestsAPI = axios.create({
     Authorization: `Bearer ${AUTH_TOKEN}`,
   },
 });
+
+export const userAPI = axios.create({
+  baseURL: 'https://api.just-pay.site/users',
+  headers: {
+    Authorization: `Bearer ${AUTH_TOKEN}`,
+  },
+});

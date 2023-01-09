@@ -134,7 +134,7 @@ export default function SelectedSaleContainer({ isLimitOrder }: { isLimitOrder: 
     <Root>
       <StyledTitleContainer>
         <MainText text="구매 희망 상품을 표시한 사진을 등록해주세요" />
-        <SubText text="일괄 구매하는 경우에는 표시하지 않아도 돼요" />
+        <SubText text="일괄 구매하는 경우에는 표시하지 않아도 돼요" isMainColor={false} />
       </StyledTitleContainer>
       <StyledImagePostWrapper>
         {imageFile ? (
@@ -176,8 +176,8 @@ export default function SelectedSaleContainer({ isLimitOrder }: { isLimitOrder: 
           <StyledInputContainer>
             <StyledTextContainer>
               <MainText text="판매자에게 제시 옵션을 한줄로 설명해주세요" />
-              <SubText text="표시한 포카 4장 구매원함, 마크 셀포 브이 1장 구매," />
-              <SubText text="핑크색머리 천러 중복 3장 등 이해하기 쉽게 설명해주세요" />
+              <SubText text="표시한 포카 4장 구매원함, 마크 셀포 브이 1장 구매," isMainColor={false} />
+              <SubText text="핑크색머리 천러 중복 3장 등 이해하기 쉽게 설명해주세요" isMainColor={false} />
             </StyledTextContainer>
             <UserInput
               placeholder="상품이름, 일괄여부, 개수, 종류, 중복 여부 등"
