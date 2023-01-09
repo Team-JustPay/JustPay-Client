@@ -4,9 +4,9 @@ import styled from 'styled-components';
 interface BuyInfoContainerProps {
   BuyCount: number;
   BuysOption?: string;
-  priceOption: string;
+  DeliveryOption: string;
 }
-export default function BuyInfoContainer({ BuyCount, BuysOption, priceOption }: BuyInfoContainerProps) {
+export default function BuyInfoContainer({ BuyCount, BuysOption, DeliveryOption }: BuyInfoContainerProps) {
   return (
     <StyledBuyOptionContainer>
       <BuyInfo BuyCount={BuyCount}>
@@ -15,13 +15,13 @@ export default function BuyInfoContainer({ BuyCount, BuysOption, priceOption }: 
       </BuyInfo>
       {BuyCount !== 1 && (
         <BuyInfo BuyCount={BuyCount}>
-          <h1>배송 옵션</h1>
+          <h1>구매 유형</h1>
           <p>{BuysOption}</p>
         </BuyInfo>
       )}
       <BuyInfo BuyCount={BuyCount}>
-        <h1>가격 옵션</h1>
-        <p>{priceOption}</p>
+        <h1>배송 옵션</h1>
+        <p>{DeliveryOption}</p>
       </BuyInfo>
     </StyledBuyOptionContainer>
   );
@@ -34,7 +34,7 @@ const StyledBuyOptionContainer = styled.section`
   height: 6.4rem;
   padding: 1.2rem;
   margin-top: 0.8rem;
-  margin-bottom: 1.2rem;
+  /* margin-bottom: 100px; */
 
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.grey_popup};
@@ -49,7 +49,7 @@ const BuyInfo = styled.section<{ BuyCount: number }>`
   flex-direction: column;
   align-items: center;
 
-  width: ${({ BuyCount }) => `calc(100% / ${3})`};
+  width: ${({ BuyCount }) => `calc(100% / ${BuyCount})`};
   border-right: 1px solid ${({ theme }) => theme.colors.gray0};
 
   h1 {

@@ -8,10 +8,28 @@ export default function improvedoffer() {
   const handleInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setInputText(e.target.value.replace(/[^0-9]/g, '').replace(/(^0+)/g, ''));
   }, []);
-
   const [inputText, setInputText] = useState('');
   const [topPrice, setTopPrice] = useState('110, 000');
   const currentHighstPrice = `현재 최고가 ${topPrice}원`;
+
+  const data = {
+    id: 3,
+    imageUrl: '<url>',
+    productCount: 2,
+    purchaseOption: 'BULK',
+    price: 10000,
+    description: '안녕하세요',
+    status: 0,
+    isMine: true,
+    suggester: {
+      id: 1,
+      profileImageUrl: '<url>',
+      socialId: 'huiseon37',
+      nickname: '써니거래계',
+    },
+    shippingOption: '반값택배',
+  };
+
   return (
     <Root>
       <Header title={'가격올리기'} isHavingBackButton rightButtonText={'취소'} />
@@ -29,8 +47,18 @@ export default function improvedoffer() {
           alt=""
         />
       </ImgWrapper>
-      <BuyInfoContainer BuyCount={10000} priceOption={'일괄 또는 일부'}></BuyInfoContainer>
-      <BigButton text={'가격 수정하기'} isDisabled></BigButton>
+      <BuyInfoContainer
+        BuyCount={data.productCount}
+        BuysOption={data.purchaseOption === 'BULK' ? '일괄 구매' : '일부 구매'}
+        DeliveryOption={data.shippingOption}></BuyInfoContainer>
+      {data.description !== '' && (
+        <SuggeterTextWrapper>
+          <SuggeterText>{data.description}</SuggeterText>
+        </SuggeterTextWrapper>
+      )}
+      <BigButtonWrapper>
+        <BigButton text={'가격 수정하기'} isDisabled={false} />
+      </BigButtonWrapper>
     </Root>
   );
 }
@@ -65,4 +93,24 @@ const ImgWrapper = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 2.4rem;
+`;
+
+const SuggeterTextWrapper = styled.div`
+  background-color: ${({ theme }) => theme.colors.grey_popup};
+  height: 4.9rem;
+  width: 100%;
+  border-radius: 8px;
+  margin-top: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const SuggeterText = styled.p`
+  color: ${({ theme }) => theme.colors.gray5};
+  ${({ theme }) => theme.fonts.regular14pt}
+`;
+
+const BigButtonWrapper = styled.div`
+  margin-top: 10rem;
 `;
