@@ -10,6 +10,7 @@ interface SuggestItemProps {
   itemSize: 'big' | 'small';
   description: string;
   status: number;
+  isOwner: boolean;
   isMine: boolean;
   element: any;
   outerFunc?: (() => void)[];
@@ -17,6 +18,9 @@ interface SuggestItemProps {
 
 interface ComponentProps {
   itemSize: 'big' | 'small';
+  isOwner?: boolean;
+  isMine?: boolean;
+  status?: number;
 }
 
 interface ButtonProps {
@@ -24,9 +28,18 @@ interface ButtonProps {
   colorType: string;
 }
 
-export default function SuggestItem({ itemSize, description, status, isMine, element, outerFunc }: SuggestItemProps) {
+export default function SuggestItem({
+  itemSize,
+  description,
+  status,
+  isOwner,
+  isMine,
+  element,
+  outerFunc,
+}: SuggestItemProps) {
+  console.log(isOwner, isMine, status);
   const renderButton = () => {
-    if (isMine) {
+    if (isOwner) {
       switch (status) {
         case 1:
           return;
@@ -60,43 +73,51 @@ export default function SuggestItem({ itemSize, description, status, isMine, ele
           );
       }
     } else {
-      switch (status) {
-        case 1:
-          return (
-            <OneButtonContainer>
-              <OneOptionButton backgroundColorType={theme.colors.gray0} colorType={theme.colors.gray2}>
-                운송장 입력 전
-              </OneOptionButton>
-            </OneButtonContainer>
-          );
-        case 2:
-          return (
-            <TwoButtonContainer>
-              <TwoOptionButton backgroundColorType={theme.colors.main_opacity20} colorType={theme.colors.main}>
-                운송장 확인하기
-              </TwoOptionButton>
-              <TwoOptionButton backgroundColorType={theme.colors.main} colorType={theme.colors.white}>
-                구매 확정하기
-              </TwoOptionButton>
-            </TwoButtonContainer>
-          );
-        case 3:
-          return (
-            <TwoButtonContainer>
-              <TwoOptionButton backgroundColorType={theme.colors.main_opacity20} colorType={theme.colors.main}>
-                운송장 확인하기
-              </TwoOptionButton>
-              <TwoOptionButton backgroundColorType={theme.colors.gray0} colorType={theme.colors.gray2}>
-                구매 확정됨
-              </TwoOptionButton>
-            </TwoButtonContainer>
-          );
+      if (isMine) {
+        switch (status) {
+          case 1:
+            return (
+              <OneButtonContainer>
+                <OneOptionButton backgroundColorType={theme.colors.gray0} colorType={theme.colors.gray2}>
+                  운송장 입력 중
+                </OneOptionButton>
+              </OneButtonContainer>
+            );
+          case 2:
+            return (
+              <TwoButtonContainer>
+                <TwoOptionButton
+                  backgroundColorType={theme.colors.main_opacity20}
+                  colorType={theme.colors.main}
+                  onClick={outerFunc?.[0]}>
+                  운송장 확인하기
+                </TwoOptionButton>
+                <TwoOptionButton
+                  backgroundColorType={theme.colors.main}
+                  colorType={theme.colors.white}
+                  onClick={outerFunc?.[1]}>
+                  구매 확정하기
+                </TwoOptionButton>
+              </TwoButtonContainer>
+            );
+          case 3:
+            return (
+              <TwoButtonContainer>
+                <TwoOptionButton backgroundColorType={theme.colors.main_opacity20} colorType={theme.colors.main}>
+                  운송장 확인하기
+                </TwoOptionButton>
+                <TwoOptionButton backgroundColorType={theme.colors.gray0} colorType={theme.colors.gray2}>
+                  구매 확정됨
+                </TwoOptionButton>
+              </TwoButtonContainer>
+            );
+        }
       }
     }
   };
   return (
     <Root>
-      <ItemContainer itemSize={itemSize}>
+      <ItemContainer itemSize={itemSize} isOwner={isOwner} isMine={isMine} status={status}>
         <Image src={FirstPic} alt="상품 사진" />
         <SuggestInfo>
           <SuggestState itemSize={itemSize}>
@@ -132,6 +153,8 @@ const ItemContainer = styled.article<ComponentProps>`
   width: 100%;
 
   border-radius: 0.8rem;
+  border: ${({ status, isOwner, isMine, theme }) => !status && !isOwner && isMine && `1px solid ${theme.colors.main}`};
+
   background-color: ${({ theme }) => theme.colors.grey_popup};
 
   ${({ itemSize }) =>
