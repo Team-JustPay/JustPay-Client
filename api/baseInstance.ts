@@ -14,6 +14,13 @@ export const salesPostAPI = axios.create({
   },
 });
 
+export const suggestsAPI = axios.create({
+  baseURL: 'https://api.just-pay.site/suggests',
+  headers: {
+    Authorization: `Bearer ${AUTH_TOKEN}`,
+  },
+});
+
 export const userAPI = axios.create({
   baseURL: 'https://api.just-pay.site/users',
   headers: {

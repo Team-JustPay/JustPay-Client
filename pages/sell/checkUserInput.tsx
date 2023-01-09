@@ -18,15 +18,11 @@ export default function checkInfomation() {
   const [isSecondCheck, setIsSecondCheck] = useState(false);
   const [isThirdCheck, setIsThirdCheck] = useState(false);
 
-  const DeliveryOptions = () => {
-    if (postData.shippingOptions !== undefined) {
-      return postData.shippingOptions
-        .reduce((acc, cur) => {
-          return (acc = acc + cur + ', ');
-        }, '')
-        .slice(0, -2);
-    }
-  };
+  const DeliveryOptions = postData.shippingOptions
+    .reduce((acc, cur) => {
+      return (acc = acc + cur + ', ');
+    }, '')
+    .slice(0, -2);
 
   const handleClickNextButton = () => {
     Router.push('/sell/write');
@@ -76,7 +72,7 @@ export default function checkInfomation() {
             infoText={postData.salesOption === 'BULK' ? '일괄 판매만' : '일괄 + 일부'}
           />
         )}
-        <CheckInfoBox infoTitle="배송 가능 옵션" infoText={DeliveryOptions()} />
+        <CheckInfoBox infoTitle="배송 가능 옵션" infoText={DeliveryOptions} />
         <CheckInfoBox
           infoTitle={
             postData.priceOption === 'DESIGNATED_PRICE'

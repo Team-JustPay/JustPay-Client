@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { callbackify } from 'util';
 
 interface SaleInfoContainerProps {
   productCount: number;
@@ -49,7 +50,7 @@ const SaleInfo = styled.section<{ productCount: number }>`
   flex-direction: column;
   align-items: center;
 
-  width: ${({ productCount }) => `calc(100% / ${productCount})`};
+  width: ${({ productCount }) => (productCount === 1 ? 'calc(100% / 3)' : 'calc(100% / 2)')};
   border-right: 1px solid ${({ theme }) => theme.colors.gray0};
 
   h1 {
