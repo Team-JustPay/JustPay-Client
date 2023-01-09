@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import MyInfoItem from './MyInfoItem';
-
+import MyInfoInput from './MyInfoInput';
 interface MyInfoSNSContainerProps {
   twitterMessageUrl: string;
   openChatUrl: string;
@@ -10,32 +9,16 @@ export default function MyInfoFixSNSContainer() {
   return (
     <>
       <StyledMyInfoContainer>
-        <h1>SNS 연락처</h1>
-        <StyledMyInfoItemConainer>SNS 수정</StyledMyInfoItemConainer>
+        트위터 쪽지 <MyInfoInput placehoderText="트위터 URL을 입력하세요" />
+      </StyledMyInfoContainer>
+      <StyledMyInfoContainer>
+        카카오톡 오픈채팅 <MyInfoInput placehoderText="카카오톡 오픈채팅 URL을 입력하세요" />
       </StyledMyInfoContainer>
     </>
   );
 }
-
 const StyledMyInfoContainer = styled.section`
   margin-bottom: 4rem;
   color: ${({ theme }) => theme.colors.white};
-  ${({ theme }) => theme.fonts.title18pt};
-`;
-
-const StyledMyInfoItemConainer = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-
-  width: 100%;
-  padding: 2rem;
-  margin-top: 2rem;
-
-  background-color: ${({ theme }) => theme.colors.grey_popup};
-  border-radius: 0.8rem;
-
-  & :last-child {
-    margin-bottom: 0;
-  }
+  ${({ theme }) => theme.fonts.title14pt};
 `;
