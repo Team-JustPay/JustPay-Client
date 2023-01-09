@@ -27,6 +27,7 @@ export default function matching() {
   const [isMatched, setIsMatched] = useState(false);
   const [isSuggested, setIsSuggested] = useState(false);
   const [scrollHeight, setScrollHeight] = useState(0);
+  const [isBuyConfirmModalOpen, setIsBuyModalConfirmOpen] = useState(false);
 
   // 스크롤 감지
   const handleScrollHeight = () => {
@@ -100,7 +101,7 @@ export default function matching() {
           case 2:
             return [
               () => Router.push(`/suggests/${shippingInfo?.data.data.id}/invoice`),
-              handleClickSuggestConfirmButton,
+              () => setIsBuyModalConfirmOpen((prev) => !prev),
             ];
           case 3:
             return;
@@ -160,6 +161,20 @@ export default function matching() {
           shippingInfo={shippingInfo}
           closeButtonFunc={setIsDeliverInfoModalOpen}
           scrollHeight={scrollHeight}
+        />
+      )}
+      {isBuyConfirmModalOpen && (
+        <Modal
+          title="구매를 확정하시겠어요?"
+          content="상품을 받으셨나요?<br/>
+        상품을 받고나서 구매를 확정해주세요"
+          buttonFirstTitle="취소"
+          buttonSecondTitle="확인"
+          buttonFirstFunction={() => setIsBuyModalConfirmOpen((prev) => !prev)}
+          buttonSecondFunction={() => {
+            handleClickSuggestConfirmButton();
+            setIsBuyModalConfirmOpen(false);
+          }}
         />
       )}
     </>
