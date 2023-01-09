@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Router from 'next/router';
 import styled from 'styled-components';
 import { useGetSuggestsInfo } from 'apiHooks/suggests';
 import { useDeleteSuggests } from 'apiHooks/suggests';
@@ -13,8 +14,8 @@ import SaleInfoContainer from 'components/common/SaleInfoContainer';
 import Modal from 'components/common/Modal';
 
 export default function suggest() {
-  const { data: suggestsInfo } = useGetSuggestsInfo(2);
-  const { mutate: handleClickCancelButton } = useDeleteSuggests(2);
+  const { data: suggestsInfo } = useGetSuggestsInfo(14);
+  const { mutate: handleClickCancelButton } = useDeleteSuggests(14);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
 
   return (
@@ -40,7 +41,7 @@ export default function suggest() {
       <StyledImgWrapper>
         <img src={suggestsInfo?.data.data.imageUrl} alt="" />
       </StyledImgWrapper>
-      {suggestsInfo?.data.data.salesPost.priceOption === 'PRICE_OFFER' && (
+      {suggestsInfo?.data.data.salesPost.priceOption && suggestsInfo.data.data.salesPost.isMine === 'PRICE_OFFER' && (
         <StyledButtonWrapper>
           <LeftSmallButton
             text="제시 취소하기"
@@ -54,6 +55,26 @@ export default function suggest() {
       {suggestsInfo?.data.data.salesPost.priceOption === 'DESIGNATED_PRICE' && (
         <BigButton text="제시 취소하기" isDisabled={false}></BigButton>
       )}
+
+      {!suggestsInfo?.data.data.isMine && (
+        <StyledButtonWrapper>
+          <LeftSmallButton
+            text="제시 거절하기"
+            isClicked={false}
+            onClick={() => setIsCancelModalOpen((prev) => !prev)}
+          />
+          <RightSmallButton
+            text="제시 수락하기"
+            isClicked={false}
+            onClick={() =>
+              Router.push({
+                pathname: `/sell/post/acceptoffer/${suggestsInfo?.data.data.id}`,
+                query: { id: suggestsInfo?.data.data.id },
+              })
+            }
+          />
+        </StyledButtonWrapper>
+      )}
       {isCancelModalOpen && (
         <Modal
           title="정말 취소하시겠습니까?"
@@ -61,7 +82,12 @@ export default function suggest() {
           buttonFirstTitle="닫기"
           buttonSecondTitle="취소하기"
           buttonFirstFunction={() => setIsCancelModalOpen((prev) => !prev)}
-          buttonSecondFunction={handleClickCancelButton}
+          buttonSecondFunction={() => {
+            Router.push({
+              pathname: `/sell/post/denyoffer/${suggestsInfo?.data.data.id}`,
+              query: { id: suggestsInfo?.data.data.id },
+            });
+          }}
         />
       )}
     </Root>
