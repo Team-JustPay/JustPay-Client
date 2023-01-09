@@ -16,7 +16,7 @@ interface TextLengthProps {
 export default function write() {
   const [salesPostInfo, setSalesPostState] = useRecoilState(salesPostState);
 
-  const { mutate: submitSalesForm, data } = useSetSalesPost(salesPostInfo);
+  const { mutate: submitSalesForm } = useSetSalesPost(salesPostInfo);
 
   console.log(salesPostInfo);
 

@@ -1,13 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { callbackify } from 'util';
 
 interface SaleInfoContainerProps {
   productCount: number;
   salesOption?: string;
-  priceOption: string;
+  shippingOption: string;
 }
-export default function SaleInfoContainer({ productCount, salesOption, priceOption }: SaleInfoContainerProps) {
+export default function SaleInfoContainer({ productCount, salesOption, shippingOption }: SaleInfoContainerProps) {
   return (
     <StyledSaleOptionContainer>
       <SaleInfo productCount={productCount}>
@@ -16,13 +15,13 @@ export default function SaleInfoContainer({ productCount, salesOption, priceOpti
       </SaleInfo>
       {productCount !== 1 && (
         <SaleInfo productCount={productCount}>
-          <h1>판매 유형</h1>
+          <h1>구매 유형</h1>
           <p>{salesOption}</p>
         </SaleInfo>
       )}
       <SaleInfo productCount={productCount}>
-        <h1>가격 옵션</h1>
-        <p>{priceOption}</p>
+        <h1>배송 옵션</h1>
+        <p>{shippingOption}</p>
       </SaleInfo>
     </StyledSaleOptionContainer>
   );
@@ -34,8 +33,7 @@ const StyledSaleOptionContainer = styled.section`
   width: 100%;
   height: 6.4rem;
   padding: 1.2rem;
-  margin-top: 2rem;
-  margin-bottom: 1.2rem;
+  margin-bottom: 0.8rem;
 
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.grey_popup};
@@ -50,7 +48,7 @@ const SaleInfo = styled.section<{ productCount: number }>`
   flex-direction: column;
   align-items: center;
 
-  width: ${({ productCount }) => (productCount === 1 ? 'calc(100% / 3)' : 'calc(100% / 2)')};
+  width: ${({ productCount }) => `calc(100% / ${productCount})`};
   border-right: 1px solid ${({ theme }) => theme.colors.gray0};
 
   h1 {

@@ -63,6 +63,7 @@ const StyledImgWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.grey_popup};
   height: 24.2rem;
   border-radius: 8px;
+
   display: flex;
   justify-content: center;
   align-items: center;

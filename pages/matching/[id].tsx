@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
-import { useGetSalesPostList, useGetSalesPostInfo } from 'apiHooks/salesPost';
+import React, { useState, useEffect } from 'react';
+import Router from 'next/router';
+import { useGetSalesPostList, useGetSalesPostInfo, useSetSalesPostState } from 'apiHooks/salesPost';
+import { useGetShippingInfo, useSetSuggestState } from 'apiHooks/suggests';
 
 import Header from 'components/matching/Header';
 import PriceInfo from 'components/matching/PriceInfo';
@@ -14,17 +16,36 @@ import BigButton from 'components/common/BigButton';
 import Modal from 'components/common/Modal';
 import ToastMessage from 'components/common/ToastMessage';
 import NoItem from 'components/matching/NoItem';
+import DeliverInfoModal from 'components/matching/DeliverInfoModal';
 
 export default function matching() {
   const [isClicked, setIsClicked] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeliverInfoModalOpen, setIsDeliverInfoModalOpen] = useState(false);
   const [isMatched, setIsMatched] = useState(false);
   const [isSuggested, setIsSuggested] = useState(false);
+  const [scrollHeight, setScrollHeight] = useState(0);
+  const [isBuyConfirmModalOpen, setIsBuyModalConfirmOpen] = useState(false);
 
-  const { data: salesPostInfo } = useGetSalesPostInfo(2);
-  const { data: salesPostList } = useGetSalesPostList(2, isMatched);
+  // 스크롤 감지
+  const handleScrollHeight = () => {
+    setScrollHeight(window.scrollY);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScrollHeight);
+    return () => {
+      window.removeEventListener('scroll', handleScrollHeight);
+    };
+  }, []);
+
+  // 서버 통신 로직
+  const { data: shippingInfo } = useGetShippingInfo(11, isDeliverInfoModalOpen);
+  const { data: salesPostInfo } = useGetSalesPostInfo(11);
+  const { data: salesPostList } = useGetSalesPostList(11, isMatched);
+  const { mutate: handleSaleCancelButton } = useSetSalesPostState(11);
+  const { mutate: handleClickSuggestConfirmButton } = useSetSuggestState(11, 3);
   console.log(salesPostInfo);
-  console.log('salesPostList: ', salesPostList);
 
   // 누르면 각각 구매 중, 구매 완료 리스트 조회
   const handleOptionTab = () => {
@@ -47,9 +68,42 @@ export default function matching() {
     }, 2000);
   };
 
+  // 운송장 입력 페이지로 이동
+  const handleInvoicePutButton = () => {
+    Router.push(`/suggests/${salesPostInfo?.data.data.id}/invoice`);
+  };
+
+  const setButtonFunc = (isOwner: boolean, isMine: boolean, status: number) => {
+    if (isOwner) {
+      switch (status) {
+        case 1:
+          return;
+        case 2:
+          return [() => setIsDeliverInfoModalOpen((prev) => !prev), handleInvoicePutButton];
+        case 3:
+          return;
+      }
+    } else {
+      if (isMine) {
+        switch (status) {
+          case 1:
+            return;
+          case 2:
+            return [() => console.log('hi'), () => setIsBuyModalConfirmOpen((prev) => !prev)];
+          case 3:
+            return;
+        }
+      }
+    }
+  };
+
   return (
     <>
-      <Header isMine={salesPostInfo?.data.data.isMine} modalOpenFunc={handleClickCancelButton} />
+      <Header
+        isMine={salesPostInfo?.data.data.isMine}
+        modalOpenFunc={handleClickCancelButton}
+        suggestId={salesPostInfo?.data.data.id}
+      />
       <UserProfile
         profileImageUrl=""
         nickname={salesPostInfo?.data.data.sellor.nickName}
@@ -71,9 +125,11 @@ export default function matching() {
               itemSize={item.purchaseOption === 'BULK' ? 'small' : 'big'}
               description={item.description}
               status={item.status}
+              isOwner={salesPostInfo?.data.data.isMine}
               isMine={item.isMine}
               key={item.id}
               element={item}
+              outerFunc={setButtonFunc(salesPostInfo?.data.data.isMine, item.isMine, item.status)}
             />
           ))}
         </ItemContainer>
@@ -83,13 +139,48 @@ export default function matching() {
       {isModalOpen && (
         <Modal
           title="판매를 종료하시겠어요?"
-          content="판매를 종료하면 더 이상 매칭이 불가능해요<br />
+          content="판매를 종료하면 더 이상 매칭이 불가능해요<br/>
         상품판매를 모두 마친 후에 판매를 종료해주세요"
           buttonFirstTitle="취소"
           buttonSecondTitle="확인"
           buttonFirstFunction={handleClickCloseButton}
+          buttonSecondFunction={handleSaleCancelButton}
+        />
+      )}
+      {isDeliverInfoModalOpen && (
+        <DeliverInfoModal
+          shippingInfo={shippingInfo}
+          closeButtonFunc={setIsDeliverInfoModalOpen}
+          scrollHeight={scrollHeight}
+        />
+      )}
+      {isBuyConfirmModalOpen && (
+        <Modal
+          title="구매를 확정하시겠어요?"
+          content="상품을 받으셨나요?<br/>
+        상품을 받고나서 구매를 확정해주세요"
+          buttonFirstTitle="취소"
+          buttonSecondTitle="확인"
+          buttonFirstFunction={() => setIsBuyModalConfirmOpen((prev) => !prev)}
+          buttonSecondFunction={() => {
+            handleClickSuggestConfirmButton();
+            setIsBuyModalConfirmOpen(false);
+          }}
         />
       )}
     </>
   );
 }
+
+// export async function getServerSideProps(ctx: any) {
+//   const { id } = ctx;
+//   const queryClient = new QueryClient();
+
+//   await queryClient.prefetchQuery(['get/salesposts/:salespostId', () => getSalesPostInfo(Number(id))]);
+
+//   return {
+//     props: {
+
+//     }
+//   }
+// }

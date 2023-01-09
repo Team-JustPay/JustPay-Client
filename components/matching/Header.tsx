@@ -1,11 +1,16 @@
 import React from 'react';
+import Router, { useRouter } from 'next/router';
 import styled from 'styled-components';
 
-import HeaderFunc from '../../public/assets/icons/HeaderFunc.svg';
+import SellListIcon from '../../public/assets/icons/SellList.svg';
+import JusyPayIcon from '../../public/assets/icons/JustPay.svg';
+import SaleFInishIcon from '../../public/assets/icons/SaleFinish.svg';
+import SaleDetailIcon from '../../public/assets/icons/SaleDetail.svg';
 import HeaderButton from '../../public/assets/icons/HeaderButton.svg';
 
 interface HeaderProps {
   isMine: boolean;
+  suggestId: number;
   modalOpenFunc: () => void;
 }
 
@@ -13,18 +18,36 @@ interface HeaderTextProps {
   isMine: boolean;
 }
 
-export default function Header({ isMine, modalOpenFunc }: HeaderProps) {
+export default function Header({ isMine, modalOpenFunc, suggestId }: HeaderProps) {
+  const { query } = useRouter();
+  const handleClickLeftButton = () => {
+    Router.push('/my/sell');
+  };
+
+  const handleClickDetailButton = () => {
+    Router.push({
+      pathname: `/sell/post/${suggestId}`,
+      query: { id: query.id },
+    });
+  };
+
+  console.log(suggestId);
+
   return (
     <HeaderContainer>
-      <HeaderFunc />
+      {isMine ? (
+        <SellListIcon onClick={handleClickLeftButton} />
+      ) : (
+        <JusyPayIcon onClick={() => Router.push('/my/buy')} />
+      )}
       <HeaderText isMine={isMine}>제시 현황</HeaderText>
       {isMine ? (
         <ButtonContainer>
-          <HeaderButton onClick={modalOpenFunc} />
-          <HeaderButton />
+          <SaleFInishIcon onClick={modalOpenFunc} />
+          <SaleDetailIcon onClick={handleClickDetailButton} />
         </ButtonContainer>
       ) : (
-        <HeaderButton />
+        <HeaderButton onClick={handleClickDetailButton} />
       )}
     </HeaderContainer>
   );

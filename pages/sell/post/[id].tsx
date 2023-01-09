@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import { useGetSalesPostInfo } from 'apiHooks/salesPost';
 
 import ImageDownloadIcon from 'public/assets/icons/imageDownloadIcon.svg';
 import ShareTwitterIcon from 'public/assets/icons/shareTwitterIcon.svg';
@@ -13,7 +15,11 @@ import layout from '../layout';
 import Router from 'next/router';
 
 export default function post() {
-  const [isMine, setIsMine] = useState<boolean>(false);
+  const router = useRouter();
+  const { id } = router.query;
+
+  const { data: salesPostInfo } = useGetSalesPostInfo(Number(id));
+
   const [openImageDownloadModal, setOpenImageDownloadModal] = useState<boolean>(false);
   const [openCopyLinkModal, setOpenCopyLinkModal] = useState<boolean>(false);
 
@@ -38,21 +44,38 @@ export default function post() {
           title="판매글 상세"
           leftButtonText="제시 현황"
           rightButtonText="인증 사진"
+          handleLeftButton={() => {
+            Router.push({
+              pathname: `/matching/${salesPostInfo?.data.data.id}`,
+              query: { id: salesPostInfo?.data.data.id },
+            });
+          }}
           handleRightButton={() => {
-            Router.push(`/sell/post/${1}/certification`);
+            Router.push({
+              pathname: `/sell/post/${salesPostInfo?.data.data.id}/certifications`,
+              query: { id: salesPostInfo?.data.data.id },
+            });
           }}></Header>
-        <UserProfile profileImageUrl="img" nickname={'거래계'} socialId={'@sale_poca'} />
-        <StyledSalePost>안녕하세요</StyledSalePost>
-        <SaleInfoContainer productCount={2} salesOption={'일괄 또는 일부'} priceOption={'지정 가격'} />
+        <UserProfile
+          profileImageUrl={salesPostInfo?.data.data.sellor.profileImageUrl}
+          nickname={salesPostInfo?.data.data.sellor.nickName}
+          socialId={salesPostInfo?.data.data.sellor.socialId}
+        />
+        <StyledSalePost>{salesPostInfo?.data.data.description}</StyledSalePost>
+        <SaleInfoContainer
+          productCount={salesPostInfo?.data.data.productCount}
+          salesOption={'일괄 또는 일부'}
+          priceOption={'지정 가격'}
+        />
         <StyledImageContainer>
-          <img alt="판매글 대표 이미지" />
+          <img src={salesPostInfo?.data.data.mainImageUrl} alt="판매글 대표 이미지" />
           <StyledImageDownloadButton type="button" onClick={handleImageDownload}>
             <ImageDownloadIcon />
           </StyledImageDownloadButton>
         </StyledImageContainer>
         <StyledExportConatiner>
           <StyledPostDate>2022.12.22 (목) 판매등록</StyledPostDate>
-          {isMine && (
+          {salesPostInfo?.data.data.isMine && (
             <NonStyledShareTwitterButton type="button">
               <ShareTwitterIcon onClick={handleCopyLink} />
             </NonStyledShareTwitterButton>
@@ -62,7 +85,7 @@ export default function post() {
       <StyledBottomConatiner>
         {openImageDownloadModal && <ToastMessage text="대표사진을 다운로드했어요" />}
         {openCopyLinkModal && <ToastMessage text="클립보드에 복사되었어요" />}
-        {isMine ? (
+        {salesPostInfo?.data.data.isMine ? (
           <BigButton text="구매 제시 현황보기" isDisabled={false} onClick={() => {}} />
         ) : (
           <StyledBuyerButtonContainer>
@@ -152,3 +175,9 @@ const StyledBuySuggestButton = styled.button`
   background: ${({ theme }) => theme.colors.main};
   color: ${({ theme }) => theme.colors.white};
 `;
+
+export async function getServerSideProps(context: any) {
+  return {
+    props: {},
+  };
+}

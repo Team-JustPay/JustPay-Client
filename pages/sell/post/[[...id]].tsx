@@ -1,5 +1,6 @@
 import Header from 'components/common/Header';
 import React, { useState } from 'react';
+import { useGetCertificationImages } from 'apiHooks/salesPost';
 import styled from 'styled-components';
 import Router from 'next/router';
 import Slider from 'react-slick';
@@ -11,6 +12,8 @@ import Modal from 'components/common/Modal';
 
 export default function certification() {
   const [openHelpModal, setOpenHelpModal] = useState<boolean>(false);
+  const { data: certifications } = useGetCertificationImages(2);
+  console.log(certifications);
 
   const handleOpenHelpModal = () => {
     setOpenHelpModal(!openHelpModal);

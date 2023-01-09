@@ -1,44 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
-import MySellItem from './mySellItem';
+import MySellItem from './MySellItem';
 
 interface MySellItemContainerProps {
   isSaled: boolean;
+  itemList: any;
 }
-export default function MySellItemContainer({ isSaled }: MySellItemContainerProps) {
-  const sellItemData = {
-    mainImageUrl: '',
-    productCount: 1,
-    salesOption: 'BULK',
-    priceOption: 'PRICE_OFFER',
-    price: 16000,
-  };
+export default function MySellItemContainer({ isSaled, itemList }: MySellItemContainerProps) {
   return (
     <StyledMySellItemContainer>
-      <MySellItem
-        isSaled={isSaled}
-        mainImageUrl={sellItemData.mainImageUrl}
-        productCount={sellItemData.productCount}
-        priceOption={sellItemData.priceOption}
-        price={sellItemData.price}
-      />
-      <MySellItem isSaled={isSaled} mainImageUrl="" productCount={1} priceOption={'DESIGNATED_PRICE'} price={10000} />
-      <MySellItem mainImageUrl="" productCount={2} salesOption={'BULK'} priceOption={'PRICE_OFFER'} price={10000} />
-      <MySellItem mainImageUrl="" productCount={2} salesOption={'PARTIAL'} priceOption={'PRICE_OFFER'} price={10000} />
-      <MySellItem
-        mainImageUrl=""
-        productCount={2}
-        salesOption={'BULK'}
-        priceOption={'DESIGNATED_PRICE'}
-        price={10000}
-      />
-      <MySellItem
-        mainImageUrl=""
-        productCount={2}
-        salesOption={'PARTIAL'}
-        priceOption={'DESIGNATED_PRICE'}
-        price={10000}
-      />
+      {itemList?.data.data.map((item: any) => (
+        <MySellItem
+          isSaled={isSaled}
+          mainImageUrl={item.mainImageUrl}
+          productCount={item.productCount}
+          priceOption={item.priceOption}
+          price={item.price}
+        />
+      ))}
     </StyledMySellItemContainer>
   );
 }
