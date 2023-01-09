@@ -7,7 +7,7 @@ import ProfilePic from '../../public/assets/icons/profile.svg';
 import theme from 'styles/theme';
 import BigButton from 'components/common/BigButton';
 import Modal from 'components/common/Modal';
-
+import Router from 'next/router';
 interface SuggestItemProps {
   itemSize: 'big' | 'small';
   description: string;
@@ -29,6 +29,9 @@ export default function SuggestItem({ itemSize, description, status, element }: 
 
   const handleOpenModal = () => {
     setOpenModal(!openModal);
+  };
+  const moveToCheckInvoice = () => {
+    Router.push('/myBuy/${1}/invoice');
   };
 
   const renderButton = () => {
@@ -52,7 +55,10 @@ export default function SuggestItem({ itemSize, description, status, element }: 
       case 2:
         return (
           <TwoButtonContainer>
-            <TwoOptionButton backgroundColorType={theme.colors.main_opacity20} colorType={theme.colors.main}>
+            <TwoOptionButton
+              backgroundColorType={theme.colors.main_opacity20}
+              colorType={theme.colors.main}
+              onClick={moveToCheckInvoice}>
               운송장 확인하기
             </TwoOptionButton>
             <TwoOptionButton backgroundColorType={theme.colors.main} colorType={theme.colors.white}>

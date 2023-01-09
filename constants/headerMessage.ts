@@ -12,6 +12,7 @@ const TITLE = Object.freeze({
   ACCEPT_OFFER: '제시 수락하기',
   LOGIN_TWITTER: '트위터 로그인하기',
   SELLER_PROFILE: '판매자 프로필',
+  CHECK_INVOICE: '운송장 확인하기',
 });
 
 const MENU = Object.freeze({
