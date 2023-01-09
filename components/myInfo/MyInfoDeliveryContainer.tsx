@@ -9,7 +9,7 @@ interface MyInfoContainerProps {
   cuStoreName: string;
   gsStoreName: string;
 }
-export default function MyInfoContainer({
+export default function MyInfoDeliveryContainer({
   receiverName,
   phoneNumber,
   address,

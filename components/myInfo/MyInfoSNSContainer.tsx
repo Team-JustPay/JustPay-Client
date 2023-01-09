@@ -6,7 +6,7 @@ interface MyInfoSNSContainerProps {
   twitterMessageUrl: string;
   openChatUrl: string;
 }
-export default function MyInfoContainer({ twitterMessageUrl, openChatUrl }: MyInfoSNSContainerProps) {
+export default function MyInfoSNSContainer({ twitterMessageUrl, openChatUrl }: MyInfoSNSContainerProps) {
   return (
     <>
       <StyledMyInfoContainer>
