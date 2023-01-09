@@ -1,5 +1,12 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
-import { getCertificationWord, setSalesPost, getSalesPostList, getSalesPostInfo } from 'api/salesPost';
+import {
+  getCertificationWord,
+  setSalesPost,
+  getSalesPostList,
+  getSalesPostInfo,
+  setSalesPostState,
+  getCertificationImages,
+} from 'api/salesPost';
 import { salesPostType } from 'types/recoil/salesPost';
 
 export const useGetCertificationWord = () => {
@@ -28,6 +35,22 @@ export const useGetSalesPostList = (salesPostId: number, isMatched: boolean) => 
 
 export const useGetSalesPostInfo = (salesPostId: number) => {
   return useQuery(['get/salesposts/:salespostId'], () => getSalesPostInfo(salesPostId), {
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+};
+
+export const useSetSalesPostState = (salesPostId: number) => {
+  return useMutation(() => setSalesPostState(salesPostId), {
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+};
+
+export const useGetCertificationImages = (salesPostId: number) => {
+  return useQuery(['get/certifications'], () => getCertificationImages(salesPostId), {
     onError: (error) => {
       console.error(error);
     },

@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import HeaderFunc from '../../public/assets/icons/HeaderFunc.svg';
+import SellListIcon from '../../public/assets/icons/SellList.svg';
+import JusyPayIcon from '../../public/assets/icons/JustPay.svg';
+import SaleFInishIcon from '../../public/assets/icons/SaleFinish.svg';
+import SaleDetailIcon from '../../public/assets/icons/SaleDetail.svg';
 import HeaderButton from '../../public/assets/icons/HeaderButton.svg';
 
 interface HeaderProps {
@@ -16,12 +19,12 @@ interface HeaderTextProps {
 export default function Header({ isMine, modalOpenFunc }: HeaderProps) {
   return (
     <HeaderContainer>
-      <HeaderFunc />
+      {isMine ? <SellListIcon /> : <JusyPayIcon />}
       <HeaderText isMine={isMine}>제시 현황</HeaderText>
       {isMine ? (
         <ButtonContainer>
-          <HeaderButton onClick={modalOpenFunc} />
-          <HeaderButton />
+          <SaleFInishIcon onClick={modalOpenFunc} />
+          <SaleDetailIcon />
         </ButtonContainer>
       ) : (
         <HeaderButton />

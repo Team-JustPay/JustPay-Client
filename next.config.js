@@ -7,4 +7,7 @@ module.exports = {
 
     return config;
   },
+  images: {
+    domains: ['justpay-bucket.s3.ap-northeast-2.amazonaws.com'],
+  },
 };
