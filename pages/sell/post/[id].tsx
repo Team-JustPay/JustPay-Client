@@ -55,9 +55,9 @@ export default function post() {
             });
           }}></Header>
         <UserProfile
-          profileImage={salesPostInfo?.data.data.sellor.profileImageUrl}
-          userName={salesPostInfo?.data.data.sellor.nickName}
-          userId={salesPostInfo?.data.data.sellor.socialId}
+          profileImageUrl={salesPostInfo?.data.data.sellor.profileImageUrl}
+          nickname={salesPostInfo?.data.data.sellor.nickName}
+          socialId={salesPostInfo?.data.data.sellor.socialId}
         />
         <StyledSalePost>{salesPostInfo?.data.data.description}</StyledSalePost>
         <SaleInfoContainer
