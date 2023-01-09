@@ -35,7 +35,11 @@ export default function Header({ isMine, modalOpenFunc, suggestId }: HeaderProps
 
   return (
     <HeaderContainer>
-      {isMine ? <SellListIcon onClick={handleClickLeftButton} /> : <JusyPayIcon />}
+      {isMine ? (
+        <SellListIcon onClick={handleClickLeftButton} />
+      ) : (
+        <JusyPayIcon onClick={() => Router.push('/my/buy')} />
+      )}
       <HeaderText isMine={isMine}>제시 현황</HeaderText>
       {isMine ? (
         <ButtonContainer>

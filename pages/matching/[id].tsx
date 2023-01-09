@@ -40,11 +40,12 @@ export default function matching() {
   }, []);
 
   // 서버 통신 로직
-  const { data: shippingInfo } = useGetShippingInfo(2, isDeliverInfoModalOpen);
-  const { data: salesPostInfo } = useGetSalesPostInfo(2);
-  const { data: salesPostList } = useGetSalesPostList(2, isMatched);
-  const { mutate: handleSaleCancelButton } = useSetSalesPostState(2);
-  const { mutate: handleClickSuggestConfirmButton } = useSetSuggestState(2, 3);
+  const { data: shippingInfo } = useGetShippingInfo(11, isDeliverInfoModalOpen);
+  const { data: salesPostInfo } = useGetSalesPostInfo(11);
+  const { data: salesPostList } = useGetSalesPostList(11, isMatched);
+  const { mutate: handleSaleCancelButton } = useSetSalesPostState(11);
+  const { mutate: handleClickSuggestConfirmButton } = useSetSuggestState(11, 3);
+  console.log(salesPostInfo);
 
   // 누르면 각각 구매 중, 구매 완료 리스트 조회
   const handleOptionTab = () => {
@@ -78,10 +79,7 @@ export default function matching() {
         case 1:
           return;
         case 2:
-          return [
-            () => setIsDeliverInfoModalOpen((prev) => !prev),
-            () => Router.push(`/suggests/${shippingInfo?.data.data.id}/invoice`),
-          ];
+          return [() => setIsDeliverInfoModalOpen((prev) => !prev), handleInvoicePutButton];
         case 3:
           return;
       }

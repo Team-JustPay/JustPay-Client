@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { useGetSalesPostInfo } from 'apiHooks/salesPost';
@@ -19,9 +19,7 @@ export default function post() {
   const { id } = router.query;
 
   const { data: salesPostInfo } = useGetSalesPostInfo(Number(id));
-  console.log(salesPostInfo);
 
-  const [isMine, setIsMine] = useState<boolean>(false);
   const [openImageDownloadModal, setOpenImageDownloadModal] = useState<boolean>(false);
   const [openCopyLinkModal, setOpenCopyLinkModal] = useState<boolean>(false);
 
