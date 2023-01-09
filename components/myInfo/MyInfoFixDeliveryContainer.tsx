@@ -1,18 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import AddressPopUp from './AddressPopUp';
 import MyInfoInput from './MyInfoInput';
 
 import type { Address } from 'react-daum-postcode';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
-
-interface MyInfoContainerProps {
-  receiverName: string;
-  phoneNumber: string;
-  address: string;
-  cuStoreName: string;
-  gsStoreName: string;
-}
 
 export default function MyInfoFixDeliveryContainer() {
   const open = useDaumPostcodePopup();
