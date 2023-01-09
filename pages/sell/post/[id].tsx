@@ -41,7 +41,7 @@ export default function post() {
           handleRightButton={() => {
             Router.push(`/sell/post/${1}/certification`);
           }}></Header>
-        <UserProfile profileImage="img" userName={'거래계'} userId={'@sale_poca'} />
+        <UserProfile profileImageUrl="img" nickname={'거래계'} socialId={'@sale_poca'} />
         <StyledSalePost>안녕하세요</StyledSalePost>
         <SaleInfoContainer productCount={2} salesOption={'일괄 또는 일부'} priceOption={'지정 가격'} />
         <StyledImageContainer>

@@ -11,7 +11,7 @@ const StyledContainer = styled.article`
   flex-direction: column;
   gap: 1.2rem;
 
-  article:last-child {
+  &:last-child {
     margin-bottom: 8rem;
   }
 `;

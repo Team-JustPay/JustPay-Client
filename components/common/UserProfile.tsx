@@ -2,17 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface UserProfile {
-  profileImage: string;
-  userName: string;
-  userId: string;
+  profileImageUrl: string;
+  nickname: string;
+  socialId: string;
 }
-export default function UserProfile({ profileImage, userName, userId }: UserProfile) {
+export default function UserProfile({ profileImageUrl, nickname, socialId }: UserProfile) {
   return (
     <StyledProfileContainer>
-      <img src="profileImage" alt="트위터 프로필"></img>
+      <img src="profileImageUrl" alt="트위터 프로필"></img>
       <StyledProfileAccount>
-        <h1>{userName}</h1>
-        <p>{userId}</p>
+        <h1>{nickname}</h1>
+        <p>{socialId}</p>
       </StyledProfileAccount>
     </StyledProfileContainer>
   );

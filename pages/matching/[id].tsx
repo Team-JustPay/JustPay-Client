@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useGetSalesPostList, useGetSalesPostInfo } from 'apiHooks/salesPost';
 
 import Header from 'components/matching/Header';
 import PriceInfo from 'components/matching/PriceInfo';
@@ -15,14 +16,20 @@ import ToastMessage from 'components/common/ToastMessage';
 import NoItem from 'components/matching/NoItem';
 
 export default function matching() {
-  const [itemNum, setItemNum] = useState(10);
   const [isClicked, setIsClicked] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isMine, setIsMine] = useState(false);
+  const [isMatched, setIsMatched] = useState(false);
   const [isSuggested, setIsSuggested] = useState(false);
 
+  const { data: salesPostInfo } = useGetSalesPostInfo(2);
+  const { data: salesPostList } = useGetSalesPostList(2, isMatched);
+  console.log(salesPostInfo);
+  console.log('salesPostList: ', salesPostList);
+
+  // 누르면 각각 구매 중, 구매 완료 리스트 조회
   const handleOptionTab = () => {
     setIsClicked((prev) => !prev);
+    setIsMatched((prev) => !prev);
   };
 
   const handleClickCancelButton = () => {
@@ -42,26 +49,37 @@ export default function matching() {
 
   return (
     <>
-      <Header isMine={isMine} modalOpenFunc={handleClickCancelButton} />
-      <PriceInfo highestPrice={100000} />
-      <UserProfile profileImage="" userName="스윙스" userId="@King_swings" />
-      <SaleInfoContainer productCount={3} salesOption="일괄 판매만" priceOption="지정가격" />
+      <Header isMine={salesPostInfo?.data.data.isMine} modalOpenFunc={handleClickCancelButton} />
+      <UserProfile
+        profileImageUrl=""
+        nickname={salesPostInfo?.data.data.sellor.nickName}
+        socialId={salesPostInfo?.data.data.sellor.socialId}
+      />
+      <PriceInfo highestPrice={salesPostInfo?.data.data.highestPrice} />
+      <SaleInfoContainer
+        productCount={salesPostInfo?.data.data.productCount}
+        salesOption={salesPostInfo?.data.data.salesOption === 'BULK' ? '일괄 판매만' : '일괄 또는 일부'}
+        priceOption={salesPostInfo?.data.data.priceOption === 'PRICE_OFFER' ? '제시가격' : '지정가격'}
+      />
       <SuggestContainer>
         <SuggestTab options={['매칭 중인 목록', '매칭 완료 목록']} outerFunc={handleOptionTab} isClicked={isClicked} />
-        <SortOption optionText="구매 희망" optionNum={7} />
+        <SortOption optionText="구매 희망" optionNum={salesPostList?.data.data.length} />
         <ItemContainer>
-          {/* {!itemNum && <NoItem />} */}
-          <SuggestItem itemSize="small" description="매칭 대기중" />
-          <SuggestItem itemSize="small" description="매칭 대기중" />
-          <SuggestItem itemSize="small" description="매칭 대기중" />
-          <SuggestItem itemSize="small" description="매칭 대기중" />
-          <SuggestItem itemSize="small" description="매칭 대기중" />
-          <SuggestItem itemSize="small" description="매칭 대기중" />
-          <SuggestItem itemSize="small" description="매칭 대기중" />
+          {!salesPostInfo?.data.data.productCount && <NoItem />}
+          {salesPostList?.data.data.map((item: any) => (
+            <SuggestItem
+              itemSize={item.purchaseOption === 'BULK' ? 'small' : 'big'}
+              description={item.description}
+              status={item.status}
+              isMine={item.isMine}
+              key={item.id}
+              element={item}
+            />
+          ))}
         </ItemContainer>
       </SuggestContainer>
       {isSuggested && <ToastMessage text="판매글에 구매를 제시했어요!" />}
-      {!isMine && <BigButton text="구매 제시하기" isDisabled={false} onClick={handleSuggetButton} />}
+      <BigButton text="구매 제시하기" isDisabled={false} onClick={handleSuggetButton} />
       {isModalOpen && (
         <Modal
           title="판매를 종료하시겠어요?"

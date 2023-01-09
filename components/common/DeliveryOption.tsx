@@ -19,19 +19,20 @@ export default function DeliveryOption({ id, name, price, contents }: DeliveryOp
   const [isSelected, setIsSelected] = useState(false);
   const [salesData, setSalesData] = useRecoilState(salesPostState);
 
-  //TODO: 서버 나온후 로직 변경해야함
   const handleDeliveryOption = (e: React.MouseEvent) => {
     setIsSelected(!isSelected);
-    console.log('선택한 데이터는:', name);
+
     if (e.target as HTMLParagraphElement) {
-      if (salesData.shippingOptions.includes(name)) {
-        setSalesData((prev) => ({
-          ...prev,
-          shippingOptions: [...prev.shippingOptions.filter((item) => item !== name)],
-        }));
-      }
-      if (!salesData.shippingOptions.includes(name)) {
-        setSalesData((prev) => ({ ...prev, shippingOptions: [...prev.shippingOptions, name] }));
+      if (salesData.shippingOptions !== undefined) {
+        if (salesData.shippingOptions.includes(name)) {
+          setSalesData((prev) => ({
+            ...prev,
+            shippingOptions: [...prev?.shippingOptions?.filter((item) => item !== name)],
+          }));
+        }
+        if (!salesData.shippingOptions.includes(name)) {
+          setSalesData((prev) => ({ ...prev, shippingOptions: [...prev.shippingOptions, name] }));
+        }
       }
     }
   };
