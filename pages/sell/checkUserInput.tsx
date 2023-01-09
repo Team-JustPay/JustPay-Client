@@ -89,17 +89,17 @@ export default function checkInfomation() {
         <CheckBoxContents
           isChecked={isFirstCheck}
           onClick={handleFirstCheckButton}
-          noticeContent="사기 방지를 위해서 판매자가 설정한 기간 내에 송장번호를 입력해야만 구매자가 미리 결제한 돈이 자동입금 됩니다"
+          noticeContent="포스트잇에 인증단어를 정확히 표기하지 않는 경우, 도용한 상품사진으로 간주되어 구매자가 구매제시를 하지 않을 수 있습니다."
         />
         <CheckBoxContents
           isChecked={isSecondCheck}
           onClick={handleSecondCheckButton}
-          noticeContent="나중에 적도록 하겠습니다. 은비 올림. 나중에 적도록 하겠습니다. 은비 올림. "
+          noticeContent="작성된 판매글은 수정이 어렵습니다.판매글을 등록하기 전에 상단의 선택옵션을 확인해주세요. "
         />
         <CheckBoxContents
           isChecked={isThirdCheck}
           onClick={handleThirdCheckButton}
-          noticeContent="나중에 적도록 하겠습니다. 은비 올림. 나중에 적도록 하겠습니다. 은비 올림. "
+          noticeContent="작성된 판매글을 수정하려면, 판매글을 삭제하고 다시 등록해주세요."
         />
       </StyledCheckboxContainer>
       <BigButtonWrapper>
