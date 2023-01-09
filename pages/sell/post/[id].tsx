@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { useGetSalesPostInfo } from 'apiHooks/salesPost';
 
@@ -14,7 +15,10 @@ import layout from '../layout';
 import Router from 'next/router';
 
 export default function post() {
-  const { data: salesPostInfo } = useGetSalesPostInfo(2);
+  const router = useRouter();
+  const { id } = router.query;
+
+  const { data: salesPostInfo } = useGetSalesPostInfo(Number(id));
   console.log(salesPostInfo);
 
   const [isMine, setIsMine] = useState<boolean>(false);
@@ -73,7 +77,7 @@ export default function post() {
         </StyledImageContainer>
         <StyledExportConatiner>
           <StyledPostDate>2022.12.22 (목) 판매등록</StyledPostDate>
-          {isMine && (
+          {salesPostInfo?.data.data.isMine && (
             <NonStyledShareTwitterButton type="button">
               <ShareTwitterIcon onClick={handleCopyLink} />
             </NonStyledShareTwitterButton>
@@ -83,7 +87,7 @@ export default function post() {
       <StyledBottomConatiner>
         {openImageDownloadModal && <ToastMessage text="대표사진을 다운로드했어요" />}
         {openCopyLinkModal && <ToastMessage text="클립보드에 복사되었어요" />}
-        {isMine ? (
+        {salesPostInfo?.data.data.isMine ? (
           <BigButton text="구매 제시 현황보기" isDisabled={false} onClick={() => {}} />
         ) : (
           <StyledBuyerButtonContainer>
@@ -173,3 +177,9 @@ const StyledBuySuggestButton = styled.button`
   background: ${({ theme }) => theme.colors.main};
   color: ${({ theme }) => theme.colors.white};
 `;
+
+export async function getServerSideProps(context: any) {
+  return {
+    props: {},
+  };
+}

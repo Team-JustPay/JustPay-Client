@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Router, { useRouter } from 'next/router';
+import Router from 'next/router';
 import { useGetSalesPostList, useGetSalesPostInfo, useSetSalesPostState } from 'apiHooks/salesPost';
 import { useGetShippingInfo, useSetSuggestState } from 'apiHooks/suggests';
 
@@ -19,8 +19,6 @@ import NoItem from 'components/matching/NoItem';
 import DeliverInfoModal from 'components/matching/DeliverInfoModal';
 
 export default function matching() {
-  const router = useRouter();
-  console.log(router);
   const [isClicked, setIsClicked] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeliverInfoModalOpen, setIsDeliverInfoModalOpen] = useState(false);
@@ -47,9 +45,6 @@ export default function matching() {
   const { data: salesPostList } = useGetSalesPostList(2, isMatched);
   const { mutate: handleSaleCancelButton } = useSetSalesPostState(2);
   const { mutate: handleClickSuggestConfirmButton } = useSetSuggestState(2, 3);
-  console.log(salesPostInfo);
-  console.log('salesPostList: ', salesPostList);
-  console.log('shippingInfo: ', shippingInfo);
 
   // 누르면 각각 구매 중, 구매 완료 리스트 조회
   const handleOptionTab = () => {
@@ -78,18 +73,15 @@ export default function matching() {
   };
 
   const setButtonFunc = (isOwner: boolean, isMine: boolean, status: number) => {
-    if (isMine) {
-      switch (status) {
-        case 2:
-      }
-    } else {
-    }
     if (isOwner) {
       switch (status) {
         case 1:
           return;
         case 2:
-          return [() => setIsDeliverInfoModalOpen((prev) => !prev), handleInvoicePutButton];
+          return [
+            () => setIsDeliverInfoModalOpen((prev) => !prev),
+            () => Router.push(`/suggests/${shippingInfo?.data.data.id}/invoice`),
+          ];
         case 3:
           return;
       }
@@ -99,10 +91,7 @@ export default function matching() {
           case 1:
             return;
           case 2:
-            return [
-              () => Router.push(`/suggests/${shippingInfo?.data.data.id}/invoice`),
-              () => setIsBuyModalConfirmOpen((prev) => !prev),
-            ];
+            return [() => console.log('hi'), () => setIsBuyModalConfirmOpen((prev) => !prev)];
           case 3:
             return;
         }
@@ -112,7 +101,11 @@ export default function matching() {
 
   return (
     <>
-      <Header isMine={salesPostInfo?.data.data.isMine} modalOpenFunc={handleClickCancelButton} />
+      <Header
+        isMine={salesPostInfo?.data.data.isMine}
+        modalOpenFunc={handleClickCancelButton}
+        suggestId={salesPostInfo?.data.data.id}
+      />
       <UserProfile
         profileImageUrl=""
         nickname={salesPostInfo?.data.data.sellor.nickName}
@@ -138,7 +131,7 @@ export default function matching() {
               isMine={item.isMine}
               key={item.id}
               element={item}
-              outerFunc={setButtonFunc(shippingInfo?.data.data.isMine, item.isMine, item.status)}
+              outerFunc={setButtonFunc(salesPostInfo?.data.data.isMine, item.isMine, item.status)}
             />
           ))}
         </ItemContainer>
@@ -180,3 +173,16 @@ export default function matching() {
     </>
   );
 }
+
+// export async function getServerSideProps(ctx: any) {
+//   const { id } = ctx;
+//   const queryClient = new QueryClient();
+
+//   await queryClient.prefetchQuery(['get/salesposts/:salespostId', () => getSalesPostInfo(Number(id))]);
+
+//   return {
+//     props: {
+
+//     }
+//   }
+// }

@@ -35,6 +35,7 @@ export const useGetSalesPostList = (salesPostId: number, isMatched: boolean) => 
 
 export const useGetSalesPostInfo = (salesPostId: number) => {
   return useQuery(['get/salesposts/:salespostId'], () => getSalesPostInfo(salesPostId), {
+    refetchOnMount: false,
     onError: (error) => {
       console.error(error);
     },
