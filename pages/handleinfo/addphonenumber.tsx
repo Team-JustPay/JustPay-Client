@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+
 import MainText from 'components/common/MainText';
 import TitleText from 'components/common/TitleText';
 import SubText from 'components/common/SubText';
@@ -7,10 +8,15 @@ import Header from 'components/common/Header';
 import CallNumberInput from 'components/handleinfo/addphonenumber/CallNumberInput';
 import NumberValidateInput from 'components/handleinfo/addphonenumber/NumberVaildateInput';
 import BigButton from 'components/common/BigButton';
+import { useSetPhoneNumber, useGetmyInfo } from 'apiHooks/user';
 
 export default function Addphonenumber() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [validateNumber, setValidateNumber] = useState('');
+
+  const { data } = useGetmyInfo();
+  const number = data?.data.data.id;
+  const { mutate: handleSetPhoneNumber } = useSetPhoneNumber(phoneNumber);
 
   const handleChangePhoneNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPhoneNumber(e.target.value);
@@ -34,7 +40,9 @@ export default function Addphonenumber() {
     return Number(phoneNumber) === Number(validateNumber);
   };
 
-  const moveToNextPage = () => {};
+  const moveToNextPage = () => {
+    handleSetPhoneNumber();
+  };
 
   return (
     <Root>
