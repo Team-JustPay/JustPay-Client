@@ -11,6 +11,7 @@ export default function MySellItemContainer({ isSaled, itemList }: MySellItemCon
     <StyledMySellItemContainer>
       {itemList?.data.data.map((item: any) => (
         <MySellItem
+          key={item.id}
           isSaled={isSaled}
           mainImageUrl={item.mainImageUrl}
           productCount={item.productCount}

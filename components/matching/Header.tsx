@@ -45,7 +45,7 @@ export default function Header({ isMine, modalOpenFunc, suggestId }: HeaderProps
           <SaleDetailIcon onClick={handleClickDetailButton} />
         </ButtonContainer>
       ) : (
-        <HeaderButton onClick={handleClickDetailButton} />
+        <SaleDetailIcon onClick={handleClickDetailButton} />
       )}
     </HeaderContainer>
   );

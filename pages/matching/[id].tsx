@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Router from 'next/router';
 import { useGetSalesPostList, useGetSalesPostInfo, useSetSalesPostState } from 'apiHooks/salesPost';
-import { useGetShippingInfo, useSetSuggestState } from 'apiHooks/suggests';
+import { useSetSuggestState } from 'apiHooks/suggests';
 
 import Header from 'components/matching/Header';
 import PriceInfo from 'components/matching/PriceInfo';
@@ -40,7 +40,7 @@ export default function matching() {
   }, []);
 
   // 서버 통신 로직
-  const { data: shippingInfo } = useGetShippingInfo(2, isDeliverInfoModalOpen);
+  // const { data: shippingInfo } = useGetShippingInfo(13, isDeliverInfoModalOpen);
   const { data: salesPostInfo } = useGetSalesPostInfo(2);
   const { data: salesPostList } = useGetSalesPostList(2, isMatched);
   const { mutate: handleSaleCancelButton } = useSetSalesPostState(2);
@@ -68,19 +68,22 @@ export default function matching() {
   };
 
   // 운송장 입력 페이지로 이동
-  const handleInvoicePutButton = () => {
-    Router.push(`/suggests/${salesPostInfo?.data.data.id}/invoice`);
+  const handleInvoicePutButton = (id: number) => {
+    Router.push({
+      pathname: `/suggests/${id}/invoice`,
+      query: { suggestId: id },
+    });
   };
 
-  const setButtonFunc = (isOwner: boolean, isMine: boolean, status: number) => {
+  const setButtonFunc = (isOwner: boolean, isMine: boolean, status: number, id: number) => {
     if (isOwner) {
       switch (status) {
         case 1:
           return;
         case 2:
-          return [() => setIsDeliverInfoModalOpen((prev) => !prev), handleInvoicePutButton];
+          return [() => setIsDeliverInfoModalOpen((prev) => !prev), () => handleInvoicePutButton(id)];
         case 3:
-          return;
+          return [() => setIsDeliverInfoModalOpen((prev) => !prev)];
       }
     } else {
       if (isMine) {
@@ -91,8 +94,8 @@ export default function matching() {
             return [
               () =>
                 Router.push({
-                  pathname: `/suggests/${salesPostInfo?.data.data.id}/invoiceInfo`,
-                  query: { id: salesPostInfo?.data.data.id },
+                  pathname: `/suggests/${id}/invoiceInfo`,
+                  query: { id: id },
                 }),
               () => setIsBuyModalConfirmOpen((prev) => !prev),
             ];
@@ -100,8 +103,8 @@ export default function matching() {
             return [
               () =>
                 Router.push({
-                  pathname: `/suggests/${salesPostInfo?.data.data.id}/invoiceInfo`,
-                  query: { id: salesPostInfo?.data.data.id },
+                  pathname: `/suggests/${id}/invoiceInfo`,
+                  query: { id: id },
                 }),
             ];
         }
@@ -133,21 +136,33 @@ export default function matching() {
         <ItemContainer>
           {!salesPostInfo?.data.data.productCount && <NoItem />}
           {salesPostList?.data.data.map((item: any) => (
-            <SuggestItem
-              itemSize={item.purchaseOption === 'BULK' ? 'small' : 'big'}
-              description={item.description}
-              status={item.status}
-              isOwner={salesPostInfo?.data.data.isMine}
-              isMine={item.isMine}
-              key={item.id}
-              element={item}
-              outerFunc={setButtonFunc(salesPostInfo?.data.data.isMine, item.isMine, item.status)}
-            />
+            <>
+              <SuggestItem
+                itemSize={item.purchaseOption === 'BULK' ? 'small' : 'big'}
+                description={item.description}
+                status={item.status}
+                isOwner={salesPostInfo?.data.data.isMine}
+                isMine={item.isMine}
+                key={item.id}
+                element={item}
+                outerFunc={setButtonFunc(salesPostInfo?.data.data.isMine, item.isMine, item.status, item.id)}
+              />
+              {isDeliverInfoModalOpen && (
+                <DeliverInfoModal
+                  closeButtonFunc={setIsDeliverInfoModalOpen}
+                  scrollHeight={scrollHeight}
+                  suggestId={item.id}
+                  isDeliverInfoModalOpen={isDeliverInfoModalOpen}
+                />
+              )}
+            </>
           ))}
         </ItemContainer>
       </SuggestContainer>
       {isSuggested && <ToastMessage text="판매글에 구매를 제시했어요!" />}
-      <BigButton text="구매 제시하기" isDisabled={false} onClick={handleSuggetButton} />
+      {!salesPostInfo?.data.data.isMine && (
+        <BigButton text="구매 제시하기" isDisabled={false} onClick={handleSuggetButton} />
+      )}
       {isModalOpen && (
         <Modal
           title="판매를 종료하시겠어요?"
@@ -159,18 +174,25 @@ export default function matching() {
           buttonSecondFunction={handleSaleCancelButton}
         />
       )}
-      {isDeliverInfoModalOpen && (
-        <DeliverInfoModal
-          shippingInfo={shippingInfo}
-          closeButtonFunc={setIsDeliverInfoModalOpen}
-          scrollHeight={scrollHeight}
+      {isBuyConfirmModalOpen && (
+        <Modal
+          title="구매를 확정하시겠어요?"
+          content="상품을 받으셨나요?<br/>
+        상품을 받고나서 구매를 확정해주세요"
+          buttonFirstTitle="취소"
+          buttonSecondTitle="확인"
+          buttonFirstFunction={() => setIsBuyModalConfirmOpen((prev) => !prev)}
+          buttonSecondFunction={() => {
+            handleClickSuggestConfirmButton();
+            setIsBuyModalConfirmOpen(false);
+          }}
         />
       )}
       {isBuyConfirmModalOpen && (
         <Modal
           title="구매를 확정하시겠어요?"
           content="상품을 받으셨나요?<br/>
-        상품을 받고나서 구매를 확정해주세요"
+                            상품을 받고나서 구매를 확정해주세요"
           buttonFirstTitle="취소"
           buttonSecondTitle="확인"
           buttonFirstFunction={() => setIsBuyModalConfirmOpen((prev) => !prev)}

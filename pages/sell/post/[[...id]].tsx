@@ -1,8 +1,9 @@
-import Header from 'components/common/Header';
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { useGetCertificationImages } from 'apiHooks/salesPost';
 import styled from 'styled-components';
 import Router from 'next/router';
+import Header from 'components/common/Header';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -38,7 +39,12 @@ export default function certification() {
         <h1>인증 단어</h1>|<p>맑은 토끼 1214</p>
       </StyledCertificationWord>
       <StyledSlider {...settings}>
-        <StyledCertificationImageContainer>
+        {certifications?.data.data.imagesUrls.map((item: string) => (
+          <StyledCertificationImageContainer key={item}>
+            <Image src={item} alt="인증사진" layout="fill" />
+          </StyledCertificationImageContainer>
+        ))}
+        {/* <StyledCertificationImageContainer>
           <h1>111</h1>
         </StyledCertificationImageContainer>
         <StyledCertificationImageContainer>
@@ -46,7 +52,7 @@ export default function certification() {
         </StyledCertificationImageContainer>
         <StyledCertificationImageContainer>
           <h1>333</h1>
-        </StyledCertificationImageContainer>
+        </StyledCertificationImageContainer> */}
       </StyledSlider>
       {openHelpModal && (
         <Modal

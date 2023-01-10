@@ -1,20 +1,28 @@
 import { AxiosResponse } from 'axios';
 import React from 'react';
 import styled from 'styled-components';
+import { useGetShippingInfo } from 'apiHooks/suggests';
 
 import XIcon from '../../public/assets/icons/X.svg';
 
 interface DeliverInfoModal {
-  shippingInfo: AxiosResponse<any, any> | undefined;
   closeButtonFunc: React.Dispatch<React.SetStateAction<boolean>>;
   scrollHeight: number;
+  suggestId: number;
+  isDeliverInfoModalOpen: boolean;
 }
 
 interface ModalProps {
   height: number;
 }
 
-export default function DeliverInfoModal({ shippingInfo, closeButtonFunc, scrollHeight }: DeliverInfoModal) {
+export default function DeliverInfoModal({
+  closeButtonFunc,
+  scrollHeight,
+  suggestId,
+  isDeliverInfoModalOpen,
+}: DeliverInfoModal) {
+  const { data: deliveryInfo } = useGetShippingInfo(suggestId, isDeliverInfoModalOpen);
   return (
     <ModalContainer height={scrollHeight}>
       <Modal>
@@ -25,29 +33,29 @@ export default function DeliverInfoModal({ shippingInfo, closeButtonFunc, scroll
         <InfoContainer>
           <ContentContainer>
             <ContentProperty>배송 옵션</ContentProperty>
-            <ContentText>{shippingInfo?.data.data.shippingOption.name}</ContentText>
+            <ContentText>{deliveryInfo?.data.data.shippingOption.name}</ContentText>
           </ContentContainer>
           <ContentContainer>
             <ContentProperty>배송 금액</ContentProperty>
-            <ContentText>{shippingInfo?.data.data.shippingOption.price} 원</ContentText>
+            <ContentText>{deliveryInfo?.data.data.shippingOption.price} 원</ContentText>
           </ContentContainer>
           <ContentContainer>
             <ContentProperty>총 금액</ContentProperty>
-            <ContentText>{shippingInfo?.data.data.totalPrice} 원</ContentText>
+            <ContentText>{deliveryInfo?.data.data.totalPrice} 원</ContentText>
           </ContentContainer>
         </InfoContainer>
         <InfoContainer>
           <ContentContainer>
             <ContentProperty>받는 분</ContentProperty>
-            <ContentText>{shippingInfo?.data.data.suggester.shippingInfo.receiverName}</ContentText>
+            <ContentText>{deliveryInfo?.data.data.suggester.shippingInfo.receiverName}</ContentText>
           </ContentContainer>
           <ContentContainer>
             <ContentProperty>전화번호</ContentProperty>
-            <ContentText>{shippingInfo?.data.data.suggester.phoneNumber}</ContentText>
+            <ContentText>{deliveryInfo?.data.data.suggester.phoneNumber}</ContentText>
           </ContentContainer>
           <ContentContainer>
             <ContentProperty>택배주소</ContentProperty>
-            <ContentText>{shippingInfo?.data.data.suggester.shippingInfo.cuStoreName}</ContentText>
+            <ContentText>{deliveryInfo?.data.data.suggester.shippingInfo.cuStoreName}</ContentText>
           </ContentContainer>
         </InfoContainer>
       </Modal>

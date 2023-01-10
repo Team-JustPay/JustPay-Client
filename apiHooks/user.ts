@@ -2,7 +2,6 @@ import { useQuery, useMutation } from '@tanstack/react-query';
 import { getmyBuy, getmyInfo, putmyInfo, getMySellInfo } from 'api/user';
 import { MyInfoType } from 'types/recoil/myInfo';
 
-
 export const useGetmyBuy = (isPurchased: boolean) => {
   return useQuery(['get/my/suggests/', isPurchased], () => getmyBuy(isPurchased), {
     onError: (error) => {

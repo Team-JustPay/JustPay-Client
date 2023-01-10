@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useGetMySellInfo } from 'apiHooks/user';
+import { useGetMySellInfo, useGetmyInfo } from 'apiHooks/user';
 
 import Logo from '../../public/assets/icons/justpay_symbol_logo.svg';
 
@@ -13,7 +13,10 @@ import PlusCircleButtonContainer from 'components/common/PlusCircleButtonContain
 
 export default function mySell() {
   const [isSaled, setIsSaled] = useState(false);
+  const { data: myInfo } = useGetmyInfo(false);
   const { data: mySellInfo } = useGetMySellInfo(isSaled);
+
+  console.log(myInfo);
 
   const userData = {
     profileImageUrl: 'url',
@@ -43,9 +46,9 @@ export default function mySell() {
           socialId={userData.socialId}
         />
         <MySellInfoContainer
-          dealCount={sellData.dealCount}
-          saleMoney={sellData.saleMoney}
-          saleCount={sellData.saleCount}
+          dealCount={myInfo?.data.data.dealCount}
+          saleMoney={myInfo?.data.data.saleMoney}
+          saleCount={myInfo?.data.data.saleCount}
         />
         <StyledStickyContainer>
           <SuggestTab options={['판매 중', '판매 종료']} outerFunc={handleOptionTab} isClicked={!isSaled} />
