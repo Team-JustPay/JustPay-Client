@@ -6,8 +6,6 @@ import Router from 'next/router';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import SlickPrev from '../../../public/assets/icons/slickPrev.png';
-import SlickNext from '../../../public/assets/icons/slickNext.png';
 import Modal from 'components/common/Modal';
 
 export default function certification() {

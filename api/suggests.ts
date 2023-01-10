@@ -28,3 +28,9 @@ export const getSuggestsInfo = async (suggestId: number) => {
 export const deleteSuggests = async (suggestsId: number) => {
   return await suggestsAPI.delete(`/${suggestsId}`);
 };
+
+export const setRaisePrice = async (suggestsId: number, price: number) => {
+  return await suggestsAPI.patch(`/${suggestsId}/price`, {
+    price: price,
+  });
+};

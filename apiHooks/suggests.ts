@@ -6,6 +6,7 @@ import {
   setSuggestsState,
   getSuggestsInfo,
   deleteSuggests,
+  setRaisePrice,
 } from 'api/suggests';
 
 export const useGetShippingInfo = (suggestId: number, isOpenShippingInfoModal: boolean) => {
@@ -51,6 +52,14 @@ export const useGetSuggestsInfo = (suggestId: number) => {
 
 export const useDeleteSuggests = (suggestsId: number) => {
   return useMutation(() => deleteSuggests(suggestsId), {
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+};
+
+export const useSetRaisePrice = (suggestsId: number, price: number) => {
+  return useMutation(() => setRaisePrice(suggestsId, price), {
     onError: (error) => {
       console.error(error);
     },
