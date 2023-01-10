@@ -25,7 +25,7 @@ export default function buy() {
 
   useEffect(() => {
     if (salesPost?.data.data.salesOption === 'BULK') {
-      setIsBulkSale(true);
+      setIsBulkSale(false);
     }
     if (salesPost?.data.data.salesOption === 'BULK_PARTIAL') {
       setIsBulkSale(false);
@@ -42,7 +42,7 @@ export default function buy() {
         ...prev,
         purchaseOption: 'BULK',
         productCount: salesPost?.data.data.productCount,
-        image: salesPost?.data.data.mainImageUrl,
+        image: null,
       }));
     }
     if (isLimitOrder) {
@@ -81,8 +81,20 @@ export default function buy() {
   const checkDeliveryOption = () => {
     return postData.shippingOption.length !== 0 ? true : false;
   };
+
+  const checkImageUpload = () => {
+    if (isBulkSale) return true;
+    return postData.image !== null ? true : false;
+  };
+
   const approveNextStep = () => {
-    return checkDeliveryOption() && checkPurchaseOption() && checkIsValidCount() && checkIsValidPrice() ? true : false;
+    return checkImageUpload() &&
+      checkDeliveryOption() &&
+      checkPurchaseOption() &&
+      checkIsValidCount() &&
+      checkIsValidPrice()
+      ? true
+      : false;
   };
 
   const handleNextStep = () => {
@@ -119,6 +131,7 @@ export default function buy() {
             salesPost.data.data.highestPrice === null ? salesPost.data.data.price : salesPost.data.data.highestPrice
           }
           limitOrderPrice={salesPost.data.data.price}
+          src={salesPost.data.data.mainImageUrl}
         />
       )}
       <DeliveryChoice shippingOptions={salesPost.data.data.ShippingOptions} />

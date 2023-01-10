@@ -8,6 +8,8 @@ import SubText from 'components/common/SubText';
 import SmallButton from 'components/offer/buy/common/SmallButton';
 import UserCountInput from 'components/offer/buy/common/UserCountInput';
 import UserOfferNumberInput from 'components/offer/buy/common/UserOfferNumberInput';
+import CancelButton from 'public/assets/icons/imageUploadCancel.svg';
+
 import { getLocalNumber } from 'utils/price';
 import { useRecoilState } from 'recoil';
 import { buyoffer } from '../../../recoil/buyoffer';
@@ -23,6 +25,7 @@ interface SelectedSaleContainerProps {
   maximumPrice: number;
   maxCount: number;
   limitOrderPrice: number;
+  src?: string;
 }
 
 export default function SelectedSaleContainer({
@@ -30,6 +33,7 @@ export default function SelectedSaleContainer({
   maxCount,
   limitOrderPrice,
   maximumPrice,
+  src,
 }: SelectedSaleContainerProps) {
   const [offerData, setOfferData] = useRecoilState(buyoffer);
   const [selectedButton, setSelectedButton] = useState('');
@@ -39,8 +43,8 @@ export default function SelectedSaleContainer({
   const [inputDescription, setInputDescription] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // TODO: 서버에서 받은 데이터가 최고가격의 상수로 들어갈 예정
-  // TODO: 서버 데이터로 교체
+  const formData = new FormData();
+
   const priceRegex = /\B(?=(\d{3})+(?!\d))/g;
   let countOverCheck = maxCount < Number(inputCount);
 
@@ -116,6 +120,7 @@ export default function SelectedSaleContainer({
     const length = fileList?.length;
     if (fileList && fileList[0]) {
       const url = URL.createObjectURL(fileList[0]);
+      fileList && formData.append('image', fileList[0]);
 
       setImageFile({
         file: fileList[0],
@@ -123,19 +128,32 @@ export default function SelectedSaleContainer({
         type: fileList[0].type.slice(0, 5),
       });
 
-      setOfferData((prev) => ({ ...prev, image: url }));
+      setOfferData((prev) => ({ ...prev, image: formData }));
     }
   };
 
   const handleDeleteImage = () => {
-    setImageFile(null);
+    if (imageFile !== null) {
+      setImageFile(null);
+      formData.delete('image');
+      setOfferData((prev) => ({ ...prev, image: null }));
+    }
   };
+
+  console.log(offerData);
 
   const showImage = useMemo(() => {
     if (!imageFile && imageFile == null) {
       return <img src="hi" alt="blankImage" />;
     }
-    return <ShowFileImage src={imageFile.thumbnail} onClick={handleDeleteImage}></ShowFileImage>;
+    return (
+      <>
+        <ShowFileImage src={imageFile.thumbnail} />;
+        <StyledImageDeleteButton onClick={handleDeleteImage}>
+          <CancelButton />
+        </StyledImageDeleteButton>
+      </>
+    );
   }, [imageFile]);
 
   return (
@@ -171,7 +189,7 @@ export default function SelectedSaleContainer({
         <>
           <StyledInputContainer>
             <StyledTextContainer>
-              <MainText text="구매 희망 상품의 개수를 입력하세요"></MainText>
+              <MainText text="구매 희망 상품의 개수를 입력하세요" />
             </StyledTextContainer>
             <UserCountInput
               placeholder="정확한 상품의 갯수를 입력해주세요"
@@ -262,11 +280,13 @@ const StyledTitleContainer = styled.div`
 `;
 
 const StyledImagePostWrapper = styled.div`
+  position: relative;
+
   margin-bottom: 2rem;
   width: 100%;
   height: 24.2rem;
 
-  background-color: ${({ theme }) => theme.colors.gray_background};
+  background-color: ${({ theme }) => theme.colors.grey_popup};
   border-radius: 0.8rem;
 `;
 
@@ -293,4 +313,11 @@ const ShowFileImage = styled.img`
   object-fit: fill;
 `;
 
-const StyledImageDeleteButton = styled.button``;
+const StyledImageDeleteButton = styled.button`
+  position: absolute;
+  top: 0rem;
+  right: 0.8rem;
+
+  width: 3.6rem;
+  height: 3.6rem;
+`;
