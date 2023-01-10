@@ -38,12 +38,11 @@ export const getCertificationImages = async (salesPostId: number) => {
   return await salesPostAPI.get(`/${salesPostId}/certifications`);
 };
 
-export const setSalesSuggest = async (salesPostID: number) => {
+export const setSalesSuggest = async (salesPostID: number, formData: FormData) => {
   return await salesPostAPI.post(
     `/${salesPostID}/suggest`,
-    {
-      ...buyoffer,
-    },
+
+    formData,
     {
       headers: {
         'Content-type': 'multipart/form-data',

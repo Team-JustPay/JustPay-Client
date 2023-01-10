@@ -128,19 +128,16 @@ export default function SelectedSaleContainer({
         type: fileList[0].type.slice(0, 5),
       });
 
-      setOfferData((prev) => ({ ...prev, image: formData }));
+      setOfferData((prev) => ({ ...prev, image: fileList[0] }));
     }
   };
 
   const handleDeleteImage = () => {
     if (imageFile !== null) {
       setImageFile(null);
-      formData.delete('image');
       setOfferData((prev) => ({ ...prev, image: null }));
     }
   };
-
-  console.log(offerData);
 
   const showImage = useMemo(() => {
     if (!imageFile && imageFile == null) {

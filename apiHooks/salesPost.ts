@@ -68,8 +68,8 @@ export const useGetSalesSuggestPostInfo = (salesPostId: number) => {
   });
 };
 
-export const useGetSalesSuggestPost = (salesPostId: number) => {
-  return useMutation(() => setSalesSuggest(salesPostId), {
+export const useSetSalesSuggestPost = (salesPostId: number, formData: FormData) => {
+  return useMutation(() => setSalesSuggest(salesPostId, formData), {
     onError: (error) => {
       console.error(error);
     },

@@ -8,12 +8,25 @@ import ToolTip from 'public/assets/images/offer/tooltip.svg';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 import { buyoffer } from '../../../../recoil/buyoffer';
 import { useGetMyInfo } from 'apiHooks/user';
+import { useSetSalesSuggestPost } from 'apiHooks/salesPost';
 
 export default function confirm() {
   const reset = useResetRecoilState(buyoffer);
   const postData = useRecoilValue(buyoffer);
   const router = useRouter();
   const { id } = router.query;
+
+  console.log(postData);
+
+  const formData = new FormData();
+  formData.append('price', postData.price + '');
+  formData.append('purchaseOption', postData.purchaseOption);
+  formData.append('description', postData.description);
+  formData.append('shippingOption', postData.shippingOption);
+  formData.append('productCount', postData.productCount + '');
+  formData.append('image', postData.image);
+
+  const { mutate: submitSuggestForm } = useSetSalesSuggestPost(2, formData);
 
   const { data, isLoading, error } = useGetMyInfo();
 
@@ -49,18 +62,22 @@ export default function confirm() {
   };
 
   const cost = [
-    { name: '상품금액', value: `${postData.price?.toLocaleString()}원` },
+    { name: '상품금액', value: `${postData.price?.toLocaleString()} 원` },
     { name: '배송 옵션', value: `${postData.shippingOption}` },
-    { name: '배송 금액', value: `${getDeliveryCost()}` },
+    { name: '배송 금액', value: `${getDeliveryCost().toLocaleString()}원` },
     {
       name: '총 금액',
       value: `${postData.price && (postData.price + getDeliveryCost()).toLocaleString()}원`,
     },
   ];
-  // TODO:추후 뒤로가기 이동과 동시에 전역 데이터 객체에 빈값 넣는 동작 추가
+
   const MoveToPrevPage = () => {
     reset();
     router.back();
+  };
+
+  const postSuggestData = () => {
+    submitSuggestForm();
   };
 
   return (
@@ -96,7 +113,7 @@ export default function confirm() {
       <StyledImageWrapper>
         <ToolTip />
       </StyledImageWrapper>
-      <BigButton text="확인" isDisabled={false} />
+      <BigButton text="확인" isDisabled={false} onClick={postSuggestData} />
     </Root>
   );
 }
