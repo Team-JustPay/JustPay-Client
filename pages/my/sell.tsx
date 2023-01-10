@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useGetMySellInfo } from 'apiHooks/user';
 
 import Logo from '../../public/assets/icons/justpay_symbol_logo.svg';
 
@@ -11,6 +12,9 @@ import GNB from 'components/common/GNB';
 import PlusCircleButtonContainer from 'components/common/PlusCircleButtonContainer';
 
 export default function mySell() {
+  const [isSaled, setIsSaled] = useState(false);
+  const { data: mySellInfo } = useGetMySellInfo(isSaled);
+
   const userData = {
     profileImageUrl: 'url',
     nickname: '유아 판매계',
@@ -21,10 +25,9 @@ export default function mySell() {
     saleMoney: 145000,
     saleCount: 5,
   };
-  const [isClicked, setIsClicked] = useState(true);
 
   const handleOptionTab = () => {
-    setIsClicked((prev) => !prev);
+    setIsSaled((prev) => !prev);
   };
 
   return (
@@ -45,9 +48,8 @@ export default function mySell() {
           saleCount={sellData.saleCount}
         />
         <StyledStickyContainer>
-          <SuggestTab options={['판매 중', '판매 종료']} outerFunc={handleOptionTab} isClicked={isClicked} />
-          <MySellItemContainer isSaled={false} />
-          <MySellItemContainer isSaled={true} />
+          <SuggestTab options={['판매 중', '판매 종료']} outerFunc={handleOptionTab} isClicked={!isSaled} />
+          <MySellItemContainer isSaled={isSaled} itemList={mySellInfo} />
         </StyledStickyContainer>
       </Root>
       <PlusCircleButtonContainer />

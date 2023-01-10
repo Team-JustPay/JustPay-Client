@@ -13,4 +13,8 @@ export const putmyInfo = async (myInfo: MyInfoType) => {
   return await userAPI.put('/my/info', {
     ...myInfo,
   });
+
+export const getMySellInfo = async (isSaled: boolean) => {
+  return await userAPI.get(`/my/salesposts/?isSaled=${isSaled}`);
+
 };
