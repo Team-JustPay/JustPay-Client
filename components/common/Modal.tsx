@@ -4,9 +4,9 @@ import styled from 'styled-components';
 interface ModalBackgroundProps {
   title: string;
   content: string;
-  buttonFirstTitle: string;
+  buttonFirstTitle?: string;
   buttonSecondTitle?: string;
-  buttonFirstFunction: () => void;
+  buttonFirstFunction?: () => void;
   buttonSecondFunction?: () => void;
 }
 export default function Modal({
@@ -30,9 +30,11 @@ export default function Modal({
           );
         })}
         <StyledModalButtonContainer>
-          <button type="button" onClick={buttonFirstFunction}>
-            {buttonFirstTitle}
-          </button>
+          {buttonFirstTitle && (
+            <button type="button" onClick={buttonFirstFunction}>
+              {buttonFirstTitle}
+            </button>
+          )}
           {buttonSecondTitle && (
             <button type="button" onClick={buttonSecondFunction}>
               {buttonSecondTitle}
@@ -51,7 +53,7 @@ const StyledModalBackground = styled.div`
   top: 0;
   z-index: 20;
 
-  width: 100%;
+  width: 43rem;
   min-height: calc(var(--vh) * 100);
 
   padding: 0 1.6rem 3.2rem;

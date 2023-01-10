@@ -12,6 +12,7 @@
     "axios": "^1.2.1",
     "next": "12",
     "react": "^18.2.0",
+    "react-daum-postcode": "^3.1.1",
     "react-dom": "^18.2.0",
     "react-is": "^18.2.0",
     "react-slick": "^0.29.0",
