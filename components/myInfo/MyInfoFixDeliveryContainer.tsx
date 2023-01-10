@@ -45,11 +45,19 @@ export default function MyInfoFixDeliveryContainer({ myfixedInfo, setMyfixedInfo
     }));
   };
 
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleShoppingInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
     setMyfixedInfo((prev) => ({
       ...prev,
       shippingInfo: { ...prev.shippingInfo, [name]: value },
+    }));
+  };
+
+  const handlePhoneNumberInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setMyfixedInfo((prev) => ({
+      ...prev,
+      phoneNumber: value,
     }));
   };
 
@@ -59,7 +67,7 @@ export default function MyInfoFixDeliveryContainer({ myfixedInfo, setMyfixedInfo
         받는 사람 <strong>*</strong>{' '}
         <MyInfoInput
           name="receiverName"
-          onChangeFunc={handleInput}
+          onChangeFunc={handleShoppingInput}
           text={myfixedInfo?.shippingInfo.receiverName}
           placehoderText="받는 사람 이름을 입력하세요"
         />
@@ -68,7 +76,7 @@ export default function MyInfoFixDeliveryContainer({ myfixedInfo, setMyfixedInfo
         전화번호 <strong>*</strong>{' '}
         <MyInfoInput
           name="phoneNumber"
-          onChangeFunc={handleInput}
+          onChangeFunc={handlePhoneNumberInput}
           text={myfixedInfo?.phoneNumber}
           placehoderText="전화번호를 입력하세요 (- 제외)"
         />
@@ -85,7 +93,7 @@ export default function MyInfoFixDeliveryContainer({ myfixedInfo, setMyfixedInfo
         </div>
         <MyInfoInput
           name="detailAddress"
-          onChangeFunc={handleInput}
+          onChangeFunc={handleShoppingInput}
           placehoderText="상세 주소를 입력하세요"
           text={myfixedInfo?.shippingInfo.detailAddress}
         />
@@ -94,7 +102,7 @@ export default function MyInfoFixDeliveryContainer({ myfixedInfo, setMyfixedInfo
         CU편의점 점포명
         <MyInfoInput
           name="cuStoreName"
-          onChangeFunc={handleInput}
+          onChangeFunc={handleShoppingInput}
           text={myfixedInfo?.shippingInfo.cuStoreName}
           placehoderText="CU편의점 점포명을 입력하세요 (ex. 판교역점)"
         />
@@ -103,7 +111,7 @@ export default function MyInfoFixDeliveryContainer({ myfixedInfo, setMyfixedInfo
         GS편의점 점포명
         <MyInfoInput
           name="gsStoreName"
-          onChangeFunc={handleInput}
+          onChangeFunc={handleShoppingInput}
           text={myfixedInfo?.shippingInfo.gsStoreName}
           placehoderText="GS편의점 점포명을 입력하세요 (ex. 판교역점)"
         />
