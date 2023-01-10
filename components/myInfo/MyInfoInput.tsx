@@ -2,14 +2,25 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface MyInfoInputProps {
+  name?: string;
   placehoderText: string;
   searchButton?: boolean;
   text?: string | number;
+  value?: string;
+  onChangeFunc?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
-export default function MyInfoInput({ placehoderText, searchButton, text }: MyInfoInputProps) {
+
+export default function MyInfoInput({
+  name,
+  placehoderText,
+  value,
+  searchButton,
+  text,
+  onChangeFunc,
+}: MyInfoInputProps) {
   return (
     <InputContainer>
-      <StyledInput placeholder={placehoderText} value={text} />
+      <StyledInput name={name} placeholder={placehoderText} value={value} defaultValue={text} onChange={onChangeFunc} />
       {searchButton && <SearchButton> 검색</SearchButton>}
     </InputContainer>
   );

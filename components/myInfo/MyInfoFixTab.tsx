@@ -1,18 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, Dispatch, SetStateAction } from 'react';
 import styled, { css } from 'styled-components';
 import MyInfoFixDeliveryContainer from './MyInfoFixDeliveryContainer';
 import MyInfoFixAccountContainer from './MyInfoFixAccountContainer';
 import MyInfoFixSNSContainer from './MyInfoFixSNSContainer';
 
+import { useGetmyInfo } from 'apiHooks/user';
+import { usePutmyInfo } from 'apiHooks/user';
+
+import Router from 'next/';
+
+interface MyInfoFixTabProps {
+  myfixedInfo: any;
+  setMyfixedInfo: Dispatch<SetStateAction<any>>;
+}
 interface OptionProps {
   isClicked: boolean;
 }
-
-export default function MyInfoFixTab() {
+export default function MyInfoFixTab({ myfixedInfo, setMyfixedInfo }: MyInfoFixTabProps) {
   const [currentTab, setCurrentTab] = useState('delivery');
   const handleClickGNBOption = (e: React.MouseEvent) => {
     setCurrentTab(e.currentTarget.id);
   };
+
   return (
     <>
       <TabContainer>
@@ -26,9 +35,13 @@ export default function MyInfoFixTab() {
           SNS 연락처
         </Option>
       </TabContainer>
-      {currentTab === 'delivery' && <MyInfoFixDeliveryContainer />}
-      {currentTab === 'account' && <MyInfoFixAccountContainer />}
-      {currentTab === 'sns' && <MyInfoFixSNSContainer />}
+      {currentTab === 'delivery' && (
+        <MyInfoFixDeliveryContainer myfixedInfo={myfixedInfo} setMyfixedInfo={setMyfixedInfo} />
+      )}
+      {currentTab === 'account' && (
+        <MyInfoFixAccountContainer myfixedInfo={myfixedInfo} setMyfixedInfo={setMyfixedInfo} />
+      )}
+      {currentTab === 'sns' && <MyInfoFixSNSContainer myfixedInfo={myfixedInfo} setMyfixedInfo={setMyfixedInfo} />}
     </>
   );
 }
@@ -51,6 +64,7 @@ const Option = styled.div<OptionProps>`
   font-weight: 700;
 
   text-align: center;
+  cursor: pointer;
 
   ${({ isClicked }) =>
     isClicked

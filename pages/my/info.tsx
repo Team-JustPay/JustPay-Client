@@ -10,11 +10,11 @@ import { useGetmyInfo } from 'apiHooks/user';
 import GNB from 'components/common/GNB';
 import Router from 'next/router';
 export default function myInfo() {
-  const { data: myInfo } = useGetmyInfo();
+  const { data: myInfo } = useGetmyInfo(false);
 
   console.log(myInfo?.data.data);
   const handleMoveToMyInfoFix = () => {
-    Router.push('/myInfo/1/fix');
+    Router.push('/my/infoFix');
   };
   return (
     <Root>
