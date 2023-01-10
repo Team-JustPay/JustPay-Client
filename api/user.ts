@@ -10,7 +10,7 @@ export const getmyInfo = async (addressSplit: boolean) => {
 };
 
 export const putmyInfo = async (myInfo: MyInfoType) => {
-  return await userAPI.put('/', {
+  return await userAPI.put('/my/info', {
     ...myInfo,
   });
 };

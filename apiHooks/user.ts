@@ -19,7 +19,7 @@ export const useGetmyInfo = (addressSplit: boolean) => {
 };
 
 export const usePutmyInfo = (myInfo: MyInfoType) => {
-  return useMutation(['put/my/info'], () => putmyInfo(myInfo), {
+  return useMutation(() => putmyInfo(myInfo), {
     onError: (error) => {
       console.error(error);
     },

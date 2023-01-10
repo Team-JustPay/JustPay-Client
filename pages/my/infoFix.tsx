@@ -12,11 +12,11 @@ import { usePutmyInfo } from 'apiHooks/user';
 
 export default function myInfoFix() {
   const { data: myInfo, error, isLoading } = useGetmyInfo(true);
-  const [myfixedInfo, setMyfixedInfo] = useState(myInfo);
+  const [myfixedInfo, setMyfixedInfo] = useState(myInfo?.data.data);
   const [openModal, setOpenModal] = useState(false);
 
   const handleMoveToMyInfo = () => {
-    console.log('제출되는 수정정보', myfixedInfo);
+    console.log('최종 제출', myfixedInfo);
     if (
       myfixedInfo?.shippingInfo.receiverName !== '' &&
       myfixedInfo?.phoneNumber !== '' &&
@@ -27,7 +27,7 @@ export default function myInfoFix() {
       myfixedInfo?.bankName !== '' &&
       myfixedInfo?.accountNumber !== ''
     ) {
-      alert('제출완료');
+      // alert('제출완료');
       // Router.push('/my/info');
       // usePutmyInfo(myfixedInfo);
     } else {
@@ -42,6 +42,10 @@ export default function myInfoFix() {
   useEffect(() => {
     setMyfixedInfo(myInfo?.data.data);
   }, [myInfo]);
+
+  useEffect(() => {
+    console.log('변경', myfixedInfo);
+  }, [myfixedInfo]);
 
   if (isLoading) return <div>로딩중...</div>;
   if (error) return <div>에러발생</div>;
