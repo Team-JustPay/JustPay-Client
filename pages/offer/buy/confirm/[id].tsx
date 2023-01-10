@@ -5,11 +5,12 @@ import theme from 'styles/theme';
 import Header from 'components/common/Header';
 import BigButton from 'components/common/BigButton';
 import ToolTip from 'public/assets/images/offer/tooltip.svg';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
 import { buyoffer } from '../../../../recoil/buyoffer';
 import { useGetMyInfo } from 'apiHooks/user';
 
 export default function confirm() {
+  const reset = useResetRecoilState(buyoffer);
   const postData = useRecoilValue(buyoffer);
   const router = useRouter();
   const { id } = router.query;
@@ -19,8 +20,6 @@ export default function confirm() {
   if (isLoading) return <Root>로딩중..</Root>;
   if (error) return <Root>에러가 발생했습니다</Root>;
   if (!data) return null;
-
-  console.log(data.data.data);
 
   const deliveryInfo = [
     { name: '전화번호', value: `${data.data.data.phoneNumber.replace(/-/g, '')}` },
@@ -60,12 +59,12 @@ export default function confirm() {
   ];
   // TODO:추후 뒤로가기 이동과 동시에 전역 데이터 객체에 빈값 넣는 동작 추가
   const MoveToPrevPage = () => {
-    router.push(`/offer/buy/${id}`);
+    reset();
+    router.back();
   };
 
   return (
     <Root>
-      {/* TODO:추후 서버, 리코일 데이터로 변경하기 */}
       <HeaderWrapper>
         <Header title="구매 제시하기" rightButtonText="취소" isHavingBackButton handleLeftButton={MoveToPrevPage} />
       </HeaderWrapper>

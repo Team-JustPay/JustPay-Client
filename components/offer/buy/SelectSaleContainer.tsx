@@ -55,7 +55,7 @@ export default function SelectedSaleContainer({
 
   useEffect(() => {
     if (selectedButton === ButtonName.ALL) {
-      setOfferData((prev) => ({ ...prev, productCount: maxCount }));
+      setOfferData((prev) => ({ ...prev, productCount: maxCount, description: '' }));
     }
     if (selectedButton === ButtonName.INDIVIDUAL) {
       setOfferData((prev) => ({ ...prev, productCount: null }));
