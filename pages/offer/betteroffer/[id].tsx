@@ -17,7 +17,6 @@ export default function improvedoffer() {
 
   const { data: salesPostInfo } = useGetSalesPostInfo(Number(salesPostId));
   const { mutate: handleRaisePriceButton } = useSetRaisePrice(Number(suggestId), Number(inputText));
-  console.log(salesPostInfo);
   const currentHighstPrice = `현재 최고가 ${salesPostInfo?.data.data.highestPrice}원`;
 
   const handleInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {

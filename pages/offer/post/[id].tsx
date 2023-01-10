@@ -14,10 +14,9 @@ import SaleInfoContainer from 'components/common/SaleInfoContainer';
 import Modal from 'components/common/Modal';
 
 export default function suggest() {
-  const { data: suggestsInfo } = useGetSuggestsInfo(1);
-  const { mutate: handleClickCancelButton } = useDeleteSuggests(1);
+  const { data: suggestsInfo } = useGetSuggestsInfo(22);
+  const { mutate: handleClickCancelButton } = useDeleteSuggests(22);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
-  console.log(suggestsInfo);
 
   const handleClickRaisePriceButton = () => {
     Router.push({
