@@ -7,18 +7,27 @@ import BigButton from 'components/common/BigButton';
 import ToolTip from 'public/assets/images/offer/tooltip.svg';
 import { useRecoilValue } from 'recoil';
 import { buyoffer } from '../../../../recoil/buyoffer';
+import { useGetMyInfo } from 'apiHooks/user';
 
 export default function confirm() {
   const postData = useRecoilValue(buyoffer);
   const router = useRouter();
   const { id } = router.query;
 
+  const { data, isLoading, error } = useGetMyInfo();
+
+  if (isLoading) return <Root>로딩중..</Root>;
+  if (error) return <Root>에러가 발생했습니다</Root>;
+  if (!data) return null;
+
+  console.log(data.data.data);
+
   const deliveryInfo = [
-    { name: '전화번호', value: '01045807180' },
-    { name: '주소', value: '서울시 강남구' },
-    { name: 'GS편의점 점포명', value: 'GS S9 고속터미널역점' },
-    { name: 'CU편의점 점포명', value: 'CU 서초그린점' },
-    { name: '자택 주소', value: '서울 서초구 신반포로' },
+    { name: '전화번호', value: `${data.data.data.phoneNumber.replace(/-/g, '')}` },
+    { name: '받는분', value: `${data.data.data.shippingInfo.receiverName}` },
+    { name: 'GS편의점 점포명', value: `${data.data.data.shippingInfo.gsStoreName}` },
+    { name: 'CU편의점 점포명', value: `${data.data.data.shippingInfo.cuStoreName}` },
+    { name: '자택 주소', value: `${data.data.data.shippingInfo.address}` },
   ];
 
   const getDeliveryCost = () => {
