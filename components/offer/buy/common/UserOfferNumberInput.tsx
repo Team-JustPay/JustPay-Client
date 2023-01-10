@@ -9,6 +9,7 @@ interface InputProps {
   isLimitOrder: boolean;
   isofferAllItems?: boolean;
   maximumPrice: number;
+  highestPrice?: number;
 }
 
 interface StyledInputProps {
@@ -33,6 +34,7 @@ export default function UserOfferNumberInput({
   isLimitOrder,
   isofferAllItems,
   maximumPrice,
+  highestPrice,
 }: InputProps) {
   const priceCondition = !!(Number(inputText) % 500);
   const priceRegex = /\B(?=(\d{3})+(?!\d))/g;

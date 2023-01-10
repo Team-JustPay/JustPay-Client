@@ -9,36 +9,62 @@ import DeliveryChoice from 'components/offer/buy/DeliveryChoice';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import { buyoffer } from '../../../recoil/buyoffer';
+import { useGetSalesSuggestPostInfo } from 'apiHooks/salesPost';
 
 export default function buy() {
   const [postData, setPostData] = useRecoilState(buyoffer);
+  const [isBulkSale, setIsBulkSale] = useState(false);
+  const [isLimitOrder, setIsLimitOrder] = useState(false);
+
   const router = useRouter();
   const { id } = router.query;
-  const [isBulkSale, setIsBulkSale] = useState(false);
-  const [isLimitOrder, setIsLimitOrder] = useState(true);
-  const [isValidOffer, setIsVaildOffer] = useState(true);
 
-  const maximumPrice = 100000;
-  const originItemCount = 20;
+  //TODO: 로딩중 뷰 완성시 교체
 
-  const data = {
-    price: 100000,
-  };
+  const { isLoading, error, data: salesPost } = useGetSalesSuggestPostInfo(Number(id));
 
   useEffect(() => {
+    if (salesPost?.data.data.salesOption === 'BULK') {
+      setIsBulkSale(true);
+    }
+    if (salesPost?.data.data.salesOption === 'BULK_PARTIAL') {
+      setIsBulkSale(false);
+    }
+    if (salesPost?.data.data.priceOption === 'DESIGNATED_PRICE') {
+      setIsLimitOrder(true);
+    }
+    if (salesPost?.data.data.priceOption === 'PRICE_OFFER') {
+      setIsLimitOrder(false);
+    }
+
     if (isBulkSale) {
-      setPostData((prev) => ({ ...prev, productCount: originItemCount }));
-      setPostData((prev) => ({ ...prev, purchaseOption: 'BULK' }));
+      setPostData((prev) => ({
+        ...prev,
+        purchaseOption: 'BULK',
+        productCount: salesPost?.data.data.productCount,
+        image: salesPost?.data.data.mainImageUrl,
+      }));
     }
     if (isLimitOrder) {
-      setPostData((prev) => ({ ...prev, price: data.price }));
+      setPostData((prev) => ({ ...prev, price: salesPost?.data.data.price }));
     }
-  }, []);
+  }, [salesPost]);
+
+  if (isLoading) return <Root>로딩중..</Root>;
+  if (error) return <Root>에러가 발생했습니다</Root>;
+  if (!salesPost) return null;
 
   const checkIsValidPrice = () => {
     if (postData.purchaseOption === 'BULK') {
       if (isLimitOrder) true;
-      return postData.price && postData.price >= maximumPrice && postData.price % 500 === 0 ? true : false;
+      if (salesPost.data.data.highestPrice === null) {
+        return postData.price && postData.price >= salesPost.data.data.price && postData.price % 500 === 0
+          ? true
+          : false;
+      }
+      return postData.price && postData.price >= salesPost.data.data.highestPrice && postData.price % 500 === 0
+        ? true
+        : false;
     }
     if (postData.purchaseOption === 'PARTIAL') {
       if (isLimitOrder) true;
@@ -46,7 +72,7 @@ export default function buy() {
     }
   };
   const checkIsValidCount = () => {
-    return postData.productCount && postData.productCount <= originItemCount ? true : false;
+    return postData.productCount && postData.productCount <= salesPost?.data.data.productCount ? true : false;
   };
   const checkPurchaseOption = () => {
     return postData.purchaseOption.length !== 0 ? true : false;
@@ -59,10 +85,8 @@ export default function buy() {
     return checkDeliveryOption() && checkPurchaseOption() && checkIsValidCount() && checkIsValidPrice() ? true : false;
   };
 
-  console.log(postData);
-
   const handleNextStep = () => {
-    if (isValidOffer) {
+    if (approveNextStep()) {
       router.push(`/offer/buy/confirm/${id}`);
     }
   };
@@ -80,15 +104,36 @@ export default function buy() {
         handleLeftButton={moveToGuidePage}
       />
       {isBulkSale ? (
-        <BulkSaleContainer isLimitOrder={isLimitOrder} />
+        <BulkSaleContainer
+          isLimitOrder={isLimitOrder}
+          highestPrice={
+            salesPost.data.data.highestPrice === null ? salesPost.data.data.price : salesPost.data.data.highestPrice
+          }
+          src={salesPost.data.data.mainImageUrl}
+        />
       ) : (
-        <SelectSaleContainer isLimitOrder={isLimitOrder} />
+        <SelectSaleContainer
+          isLimitOrder={isLimitOrder}
+          maxCount={salesPost?.data.data.productCount}
+          maximumPrice={
+            salesPost.data.data.highestPrice === null ? salesPost.data.data.price : salesPost.data.data.highestPrice
+          }
+          limitOrderPrice={salesPost.data.data.price}
+        />
       )}
-      <DeliveryChoice />
+      <DeliveryChoice shippingOptions={salesPost.data.data.ShippingOptions} />
       {/* //TODO: 해당 버튼 온클릭시 리코일 전역 상태에 데이터 전달 */}
       <BigButton text="다음" isDisabled={!approveNextStep()} onClick={handleNextStep} />
     </Root>
   );
+}
+
+export async function getServerSideProps({ query: { id } }: { query: { id: string } }) {
+  return {
+    props: {
+      id,
+    },
+  };
 }
 
 const Root = styled.div`

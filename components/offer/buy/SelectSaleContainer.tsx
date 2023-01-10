@@ -11,7 +11,6 @@ import UserOfferNumberInput from 'components/offer/buy/common/UserOfferNumberInp
 import { getLocalNumber } from 'utils/price';
 import { useRecoilState } from 'recoil';
 import { buyoffer } from '../../../recoil/buyoffer';
-import axios from 'axios';
 
 type UploadImage = {
   file: File | null;
@@ -19,7 +18,19 @@ type UploadImage = {
   type: string;
 };
 
-export default function SelectedSaleContainer({ isLimitOrder }: { isLimitOrder: boolean }) {
+interface SelectedSaleContainerProps {
+  isLimitOrder: boolean;
+  maximumPrice: number;
+  maxCount: number;
+  limitOrderPrice: number;
+}
+
+export default function SelectedSaleContainer({
+  isLimitOrder,
+  maxCount,
+  limitOrderPrice,
+  maximumPrice,
+}: SelectedSaleContainerProps) {
   const [offerData, setOfferData] = useRecoilState(buyoffer);
   const [selectedButton, setSelectedButton] = useState('');
   const [inputNumber, setInputNumber] = useState('');
@@ -30,9 +41,6 @@ export default function SelectedSaleContainer({ isLimitOrder }: { isLimitOrder: 
 
   // TODO: 서버에서 받은 데이터가 최고가격의 상수로 들어갈 예정
   // TODO: 서버 데이터로 교체
-  const limitOrderPrice = 100000;
-  const maxCount = 20;
-  const maximumPrice = 100000;
   const priceRegex = /\B(?=(\d{3})+(?!\d))/g;
   let countOverCheck = maxCount < Number(inputCount);
 
