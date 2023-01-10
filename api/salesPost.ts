@@ -1,5 +1,6 @@
 import { salesPostAPI } from './baseInstance';
 import { salesPostType } from 'types/recoil/salesPost';
+import { buyoffer } from '../recoil/buyoffer';
 
 export const getCertificationWord = async () => {
   return await salesPostAPI.get('/certificationWord');
@@ -35,4 +36,18 @@ export const setSalesPostState = async (salesPostId: number) => {
 
 export const getCertificationImages = async (salesPostId: number) => {
   return await salesPostAPI.get(`/${salesPostId}/certifications`);
+};
+
+export const setSalesSuggest = async (salesPostID: number) => {
+  return await salesPostAPI.post(
+    `/${salesPostID}/suggest`,
+    {
+      ...buyoffer,
+    },
+    {
+      headers: {
+        'Content-type': 'multipart/form-data',
+      },
+    },
+  );
 };
