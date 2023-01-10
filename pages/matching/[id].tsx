@@ -45,7 +45,6 @@ export default function matching() {
   const { data: salesPostList } = useGetSalesPostList(2, isMatched);
   const { mutate: handleSaleCancelButton } = useSetSalesPostState(2);
   const { mutate: handleClickSuggestConfirmButton } = useSetSuggestState(2, 3);
-  console.log(salesPostInfo);
 
   // 누르면 각각 구매 중, 구매 완료 리스트 조회
   const handleOptionTab = () => {

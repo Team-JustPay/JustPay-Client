@@ -31,8 +31,6 @@ export default function Header({ isMine, modalOpenFunc, suggestId }: HeaderProps
     });
   };
 
-  console.log(suggestId);
-
   return (
     <HeaderContainer>
       {isMine ? (

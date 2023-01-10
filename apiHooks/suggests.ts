@@ -1,5 +1,13 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
-import { getShippingInfo, getInvoiceInfo, setInvoiceInfo, setSuggestsState } from 'api/suggests';
+import {
+  getShippingInfo,
+  getInvoiceInfo,
+  setInvoiceInfo,
+  setSuggestsState,
+  getSuggestsInfo,
+  deleteSuggests,
+  setRaisePrice,
+} from 'api/suggests';
 
 export const useGetShippingInfo = (suggestId: number, isOpenShippingInfoModal: boolean) => {
   return useQuery(['get/shippingInfo', suggestId, isOpenShippingInfoModal], () => getShippingInfo(suggestId), {
@@ -28,6 +36,30 @@ export const useSetInvoiceInfo = (suggestId: number, invoiceNum: string) => {
 
 export const useSetSuggestState = (suggestId: number, status: number, invoiceDeadline?: number) => {
   return useMutation(() => setSuggestsState(suggestId, status, invoiceDeadline), {
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+};
+
+export const useGetSuggestsInfo = (suggestId: number) => {
+  return useQuery(['get/suggests', suggestId], () => getSuggestsInfo(suggestId), {
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+};
+
+export const useDeleteSuggests = (suggestsId: number) => {
+  return useMutation(() => deleteSuggests(suggestsId), {
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+};
+
+export const useSetRaisePrice = (suggestsId: number, price: number) => {
+  return useMutation(() => setRaisePrice(suggestsId, price), {
     onError: (error) => {
       console.error(error);
     },
