@@ -21,8 +21,8 @@ export const setSuggestsState = async (suggestsId: number, status: number, invoi
   });
 };
 
-export const getSuggestsInfo = async (suggestsId: number) => {
-  return await suggestsAPI.get(`/${suggestsId}`);
+export const getSuggestsInfo = async (suggestId: number) => {
+  return await suggestsAPI.get(`/${suggestId}`);
 };
 
 export const deleteSuggests = async (suggestsId: number) => {

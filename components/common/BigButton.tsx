@@ -1,5 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import type { UseMutateFunction } from '@tanstack/react-query';
+import { AxiosResponse } from 'axios';
 
 interface ButtonProps {
   text: string;

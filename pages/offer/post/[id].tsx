@@ -14,9 +14,10 @@ import SaleInfoContainer from 'components/common/SaleInfoContainer';
 import Modal from 'components/common/Modal';
 
 export default function suggest() {
-  const { data: suggestsInfo } = useGetSuggestsInfo(14);
-  const { mutate: handleClickCancelButton } = useDeleteSuggests(14);
+  const { data: suggestsInfo } = useGetSuggestsInfo(20);
+  const { mutate: handleClickCancelButton } = useDeleteSuggests(20);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
+  console.log(suggestsInfo);
 
   return (
     <Root>
@@ -61,7 +62,12 @@ export default function suggest() {
           <LeftSmallButton
             text="제시 거절하기"
             isClicked={false}
-            onClick={() => setIsCancelModalOpen((prev) => !prev)}
+            onClick={() => {
+              Router.push({
+                pathname: `/sell/post/denyoffer/${suggestsInfo?.data.data.id}`,
+                query: { id: suggestsInfo?.data.data.id },
+              });
+            }}
           />
           <RightSmallButton
             text="제시 수락하기"
