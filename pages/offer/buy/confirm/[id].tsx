@@ -16,8 +16,6 @@ export default function confirm() {
   const router = useRouter();
   const { id } = router.query;
 
-  console.log(postData);
-
   const formData = new FormData();
   formData.append('price', postData.price + '');
   formData.append('purchaseOption', postData.purchaseOption);
@@ -26,7 +24,7 @@ export default function confirm() {
   formData.append('productCount', postData.productCount + '');
   formData.append('image', postData.image);
 
-  const { mutate: submitSuggestForm } = useSetSalesSuggestPost(2, formData);
+  const { mutate: submitSuggestForm } = useSetSalesSuggestPost(Number(id), formData);
 
   const { data, isLoading, error } = useGetMyInfo();
 
