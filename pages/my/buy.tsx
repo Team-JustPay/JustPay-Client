@@ -70,7 +70,7 @@ export default function myBuy() {
         </ItemContainer>
       </Root>
       <PlusCircleButtonContainer />
-      <GNB />
+      <GNB currentGNB={'buy'} />
     </>
   );
 }

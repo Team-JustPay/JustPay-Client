@@ -53,7 +53,7 @@ export default function mySell() {
         </StyledStickyContainer>
       </Root>
       <PlusCircleButtonContainer />
-      <GNB />
+      <GNB currentGNB={'sell'} />
     </>
   );
 }
