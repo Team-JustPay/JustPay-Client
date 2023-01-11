@@ -17,19 +17,6 @@ export default function mySell() {
   const { data: myInfo } = useGetmyInfo(false);
   const { data: mySellInfo } = useGetMySellInfo(isSaled);
 
-  console.log(myInfo);
-
-  const userData = {
-    profileImageUrl: 'url',
-    nickname: '유아 판매계',
-    socialId: '@yoo_si_A',
-  };
-  const sellData = {
-    dealCount: 10,
-    saleMoney: 145000,
-    saleCount: 5,
-  };
-
   const handleOptionTab = () => {
     setIsSaled((prev) => !prev);
   };
