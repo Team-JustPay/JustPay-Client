@@ -7,12 +7,21 @@ import MyInfoInput from 'components/myInfo/MyInfoInput';
 import type { Address } from 'react-daum-postcode';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 import BigButton from 'components/common/BigButton';
+import { useRouter } from 'next/router';
 
-export default function submitDelivery() {
-  const [myfixedInfo, setMyfixedInfo] = useState();
+import { useGetmyInfo, usePutmyInfo } from 'apiHooks/user';
+import Router from 'next/router';
+
+export default function adddelivery() {
+  const { data: myInfo } = useGetmyInfo(true);
+  const [myfixedInfo, setMyfixedInfo] = useState(null);
+  const { mutate: handleHandInfo } = usePutmyInfo(myfixedInfo);
+
   const open = useDaumPostcodePopup();
-  const [zipcode, setZipCode] = useState('');
+  const [zipcode, setZipcode] = useState('');
   const [mainAddress, setMainAddress] = useState('');
+
+  const phoneNumberRouter = useRouter();
 
   const onOpenAddress = (e: React.MouseEvent<HTMLDivElement>) => {
     e && e.preventDefault();
@@ -25,8 +34,7 @@ export default function submitDelivery() {
   };
 
   const onCompleteAddress = (data: Address) => {
-    setZipCode(data.zonecode);
-    setMainAddress(data.address);
+    let address = data.address;
     let extraAddress = '';
 
     if (data.addressType === 'R') {
@@ -37,36 +45,63 @@ export default function submitDelivery() {
         extraAddress += extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
       }
       if (extraAddress) {
-        setMainAddress((mainAddress) => (mainAddress += ` (${extraAddress})`));
+        address += ` (${extraAddress})`;
       }
     }
+
     setMyfixedInfo((prev) => ({
       ...prev,
-      shippingInfo: { zipCode: zipcode, address: mainAddress },
+      shippingInfo: { ...prev.shippingInfo, zipCode: data.zonecode, address: address },
     }));
+    setZipcode(data.zonecode);
+    setMainAddress(address);
   };
 
   const handleShoppingInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
     setMyfixedInfo((prev) => ({
       ...prev,
-      shippingInfo: { [name]: value },
+      shippingInfo: { ...prev.shippingInfo, [name]: value },
     }));
   };
 
+  const moveToPrevPage = () => {
+    Router.push('/handleinfo/addphonenumber');
+  };
+
   useEffect(() => {
-    console.log(myfixedInfo);
-  }, [myfixedInfo]);
+    setMyfixedInfo(myInfo?.data.data);
+    setMyfixedInfo((prev) => ({
+      ...prev,
+      phoneNumber: phoneNumberRouter?.query?.phone,
+    }));
+  }, [myInfo]);
+
+  const handleHandInfoButton = () => {
+    console.log('제출되는 정보', myfixedInfo);
+    if (
+      myfixedInfo?.shippingInfo.receiverName !== '' &&
+      myfixedInfo?.shippingInfo.zipCode !== '' &&
+      myfixedInfo?.shippingInfo.mainAddress !== '' &&
+      myfixedInfo?.shippingInfo.detailAddress !== ''
+    ) {
+      alert('제출');
+      handleHandInfo();
+    } else {
+      alert('제출안됨');
+    }
+  };
+
+  if (myInfo === undefined) return null;
   return (
     <Root>
       {' '}
-      <Header handleLeftButton={() => {}} isHavingBackButton title={'배송지 등록'} />
+      <Header handleLeftButton={moveToPrevPage} isHavingBackButton title={'배송지 등록'} />
       <p>
         판매자가 구매제시를 수락하고 결제가 완료되면 <br /> 판매자가 확인할 배송지 정보에요
       </p>
       <StyledMyInfoContainer>
-        전화번호
-        <StlyedPhoneNumber>01050312685</StlyedPhoneNumber>
+        <StlyedPhoneNumber>{phoneNumberRouter?.query?.phone}</StlyedPhoneNumber>
       </StyledMyInfoContainer>
       <StyledMyInfoContainer>
         받는 사람
@@ -79,8 +114,15 @@ export default function submitDelivery() {
       <StyledMyInfoContainer>
         집 주소
         <div onClick={onOpenAddress}>
-          <MyInfoInput placehoderText="우편번호를 검색하세요" searchButton={true} value={zipcode} />
-          <MyInfoInput placehoderText="주소를 검색하세요" value={mainAddress} />
+          <MyInfoInput
+            placehoderText="우편번호를 검색하세요"
+            searchButton={true}
+            value={zipcode === '' ? myInfo.data.data.shippingInfo.zipCode : zipcode}
+          />
+          <MyInfoInput
+            placehoderText="주소를 검색하세요"
+            value={mainAddress === '' ? myInfo.data.data.shippingInfo.address : mainAddress}
+          />
         </div>
         <MyInfoInput name="detailAddress" onChangeFunc={handleShoppingInput} placehoderText="상세 주소를 입력하세요" />
       </StyledMyInfoContainer>
@@ -100,7 +142,7 @@ export default function submitDelivery() {
           placehoderText="GS편의점 점포명을 입력하세요 (ex. 판교역점)"
         />
       </StyledMyInfoContainer>
-      <BigButton text={'완료'} isDisabled={false} />
+      <BigButton text={'완료'} isDisabled={false} onClick={handleHandInfoButton} />
     </Root>
   );
 }
