@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useCallback, useRef, useMemo } from 'react';
 import styled from 'styled-components';
 
 import Alram from '../../public/assets/icons/alram.svg';
@@ -9,17 +9,22 @@ import Sell from '../../public/assets/icons/sell.svg';
 import SellColor from '../../public/assets/icons/sell=color.svg';
 import MyInfo from '../../public/assets/icons/myInfo.svg';
 import MyInfoColor from '../../public/assets/icons/myInfo=color.svg';
+import Router from 'next/router';
 
-export default function GNB() {
-  const [currentGNB, setCurrentGNB] = useState('sell');
+interface GNBProps{
+  currentGNB : string;
+}
+export default function GNB({currentGNB} :GNBProps ) {
+
   const handleClickGNBOption = (e: React.MouseEvent) => {
-    setCurrentGNB(e.currentTarget.className);
+    Router.push(`/my/${e.currentTarget.className}`);
   };
+
 
   return (
     <Root>
-      <button type="button" className="alarm" onClick={handleClickGNBOption}>
-        {currentGNB === 'alarm' ? <AlramColor /> : <Alram />}
+      <button type="button" className="alram" onClick={handleClickGNBOption}>
+        {currentGNB === 'alram' ? <AlramColor /> : <Alram />}
       </button>
       <button type="button" className="buy" onClick={handleClickGNBOption}>
         {currentGNB === 'buy' ? <BuyColor /> : <Buy />}
@@ -27,8 +32,8 @@ export default function GNB() {
       <button type="button" className="sell" onClick={handleClickGNBOption}>
         {currentGNB === 'sell' ? <SellColor /> : <Sell />}
       </button>
-      <button type="button" className="myInfo" onClick={handleClickGNBOption}>
-        {currentGNB === 'myInfo' ? <MyInfoColor /> : <MyInfo />}
+      <button type="button" className="info" onClick={handleClickGNBOption}>
+        {currentGNB === 'info' ? <MyInfoColor /> : <MyInfo />}
       </button>
     </Root>
   );
