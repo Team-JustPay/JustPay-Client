@@ -7,5 +7,5 @@ export interface salesPostType {
   certificationWord: string;
   description: string;
   shippingOptions: string[];
-  certifications: (Blob | FormData | null)[];
+  certifications: (Blob | string)[];
 }

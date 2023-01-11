@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
 import { salesPostState } from '../../recoil/salespost';
 import styled from 'styled-components';
 import Header from 'components/common/Header';
@@ -7,7 +6,7 @@ import BigButton from 'components/common/BigButton';
 import layout from './layout';
 import Router from 'next/router';
 import { useSetSalesPost } from 'apiHooks/salesPost';
-import { useRecoilState, useResetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 interface TextLengthProps {
   currentTextLength: number;
@@ -16,19 +15,33 @@ interface TextLengthProps {
 export default function write() {
   const [salesPostInfo, setSalesPostState] = useRecoilState(salesPostState);
   const [imageUrl, setImageUrl] = useState('');
-  const { mutate: submitSalesForm } = useSetSalesPost(salesPostInfo);
-
-  console.log(salesPostInfo);
 
   const [currentTextLength, setCurrentTextLength] = useState(0);
   const [isEmptyTextArea, setIsEmptyTextArea] = useState(true);
+
+  const formData = new FormData();
+
+  formData.append('mainImage', salesPostInfo.mainImage);
+  formData.append('productCount', salesPostInfo.productCount + '');
+  formData.append('salesOption', salesPostInfo.salesOption);
+  formData.append('priceopiton', salesPostInfo.priceOption);
+  formData.append('price', salesPostInfo.price + '');
+  formData.append('certificationWord', salesPostInfo.certificationWord);
+  formData.append('description', salesPostInfo.description);
+  salesPostInfo.certifications.forEach((element) => {
+    formData.append('certifications', element);
+  });
+  salesPostInfo.shippingOptions.forEach((element) => {
+    formData.append('shippingOptions', element);
+  });
+  const { mutate: submitSalesForm } = useSetSalesPost(formData);
+
   const handlecurrentTextLength = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setCurrentTextLength(e.target.value.length);
     setSalesPostState((prev) => ({ ...prev, description: e.target.value }));
   };
   const handleClickPostWritingButton = () => {
     submitSalesForm();
-    Router.push('/sell/postWrite');
   };
 
   const moveToPrevPage = () => {

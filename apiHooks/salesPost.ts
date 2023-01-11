@@ -9,6 +9,7 @@ import {
   setSalesSuggest,
 } from 'api/salesPost';
 import { salesPostType } from 'types/recoil/salesPost';
+import { useRouter } from 'next/router';
 
 export const useGetCertificationWord = () => {
   return useQuery(['get/certificationWord'], getCertificationWord, {
@@ -19,10 +20,13 @@ export const useGetCertificationWord = () => {
   });
 };
 
-export const useSetSalesPost = (salesPostInfo: salesPostType) => {
+export const useSetSalesPost = (salesPostInfo: FormData) => {
   return useMutation(() => setSalesPost(salesPostInfo), {
     onError: (error) => {
       console.error(error);
+    },
+    onSuccess: () => {
+      console.log('서버 전송 성공');
     },
   });
 };
