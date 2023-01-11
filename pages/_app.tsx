@@ -14,7 +14,13 @@ type Props = AppProps & {
 };
 
 export default function MyApp({ Component, pageProps }: Props) {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: 0,
+      },
+    },
+  });
   const Layout = Component.Layout || AppLayout;
 
   function setScreenSize() {
