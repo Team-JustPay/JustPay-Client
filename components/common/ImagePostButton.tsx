@@ -6,11 +6,13 @@ import SmallPlusLogo from '../../public/assets/icons/plus=small.svg';
 
 interface ButtonProps {
   buttonSize: 'big' | 'small';
+  htmlFor?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function ImagePostButton({ buttonSize }: ButtonProps) {
+export default function ImagePostButton({ buttonSize, htmlFor, onChange }: ButtonProps) {
   return (
-    <StyledButton buttonSize={buttonSize}>
+    <StyledButton buttonSize={buttonSize} htmlFor={htmlFor}>
       <ButtonContent>
         {buttonSize === 'big' ? <BigPlusLogo /> : <SmallPlusLogo />}
         <ButtonText>사진 등록하기</ButtonText>
@@ -19,7 +21,7 @@ export default function ImagePostButton({ buttonSize }: ButtonProps) {
   );
 }
 
-const StyledButton = styled.button<ButtonProps>`
+const StyledButton = styled.label<ButtonProps>`
   display: flex;
   justify-content: center;
   align-items: center;
