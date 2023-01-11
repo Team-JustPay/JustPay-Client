@@ -27,3 +27,7 @@ export const userAPI = axios.create({
     Authorization: `Bearer ${AUTH_TOKEN}`,
   },
 });
+
+export const authAPI = axios.create({
+  baseURL: 'https://api.just-pay.site/auth',
+});
