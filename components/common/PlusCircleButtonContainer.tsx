@@ -3,15 +3,18 @@ import styled from 'styled-components';
 
 import PlusCircleButton from '../../public/assets/icons/plusCircleButton.svg';
 
-export default function PlusCircleButtonContainer() {
+interface PlusCircleButtonContainerProps {
+  onClick: () => void;
+}
+export default function PlusCircleButtonContainer({ onClick }: PlusCircleButtonContainerProps) {
   return (
-    <StyledPlusCircleButtonContainer>
+    <StyledPlusCircleButtonContainer onClick={onClick}>
       <PlusCircleButton />
     </StyledPlusCircleButtonContainer>
   );
 }
 
-const StyledPlusCircleButtonContainer = styled.section`
+const StyledPlusCircleButtonContainer = styled.button`
   display: flex;
   justify-content: flex-end;
   position: fixed;
@@ -20,4 +23,6 @@ const StyledPlusCircleButtonContainer = styled.section`
   width: 100%;
   max-width: 43rem;
   padding-right: 3.2rem;
+
+  cursor: pointer;
 `;
