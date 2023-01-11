@@ -24,7 +24,7 @@ export default function write() {
   formData.append('mainImage', salesPostInfo.mainImage);
   formData.append('productCount', salesPostInfo.productCount + '');
   formData.append('salesOption', salesPostInfo.salesOption);
-  formData.append('priceopiton', salesPostInfo.priceOption);
+  formData.append('priceOption', salesPostInfo.priceOption);
   formData.append('price', salesPostInfo.price + '');
   formData.append('certificationWord', salesPostInfo.certificationWord);
   formData.append('description', salesPostInfo.description);

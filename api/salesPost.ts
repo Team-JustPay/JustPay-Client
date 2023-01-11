@@ -6,12 +6,17 @@ export const getCertificationWord = async () => {
   return await salesPostAPI.get('/certificationWord');
 };
 
-export const setSalesPost = async (formdata: FormData) => {
-  return await salesPostAPI.post('', formdata, {
-    headers: {
-      'Content-type': 'multipart/form-data',
+export const setSalesPost = async (salesPostInfo: FormData) => {
+  return await salesPostAPI.post(
+    '/',
+
+    salesPostInfo,
+    {
+      headers: {
+        'Content-type': 'multipart/form-data',
+      },
     },
-  });
+  );
 };
 
 export const getSalesPostList = async (salesPostId: number, isMatched: boolean) => {

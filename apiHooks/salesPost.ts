@@ -26,7 +26,7 @@ export const useSetSalesPost = (salesPostInfo: FormData) => {
       console.error(error);
     },
     onSuccess: () => {
-      console.log('서버 전송 성공');
+      console.log('성공');
     },
   });
 };

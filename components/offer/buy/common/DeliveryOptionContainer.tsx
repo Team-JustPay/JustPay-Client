@@ -8,8 +8,8 @@ interface ShippingOptionsProps {
 
 export default function DeliveryOptionContainer({ shippingOptions }: ShippingOptionsProps) {
   const [deliveryOptions, setDeliveryOptions] = useState([
-    { id: 1, name: '반값택배', price: 1600, contents: ['3-5일 소요', 'GS25 택배'] },
-    { id: 2, name: '끼리택배', price: 1600, contents: ['4-6일 소요', 'CU 택배'] },
+    { id: 1, name: 'GS택배', price: 1600, contents: ['3-5일 소요', 'GS25 택배'] },
+    { id: 2, name: 'CU택배', price: 1600, contents: ['4-6일 소요', 'CU 택배'] },
     { id: 3, name: '일반우편', price: 600, contents: ['3-4일 소요', '분실위험'] },
     { id: 4, name: '준등기', price: 1800, contents: ['2-3일 소요'] },
     { id: 5, name: '우체국택배', price: 4000, contents: ['다음날 배송', '등기소포'] },
