@@ -15,6 +15,7 @@ export const useGetCertificationWord = () => {
     onError: (error) => {
       console.error(error);
     },
+    refetchOnWindowFocus: false,
   });
 };
 

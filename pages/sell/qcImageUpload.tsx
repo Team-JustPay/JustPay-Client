@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useMemo, useState } from 'react';
 import Router from 'next/router';
 import styled from 'styled-components';
 import { useSetRecoilState } from 'recoil';
@@ -11,9 +11,65 @@ import BigButton from 'components/common/BigButton';
 import layout from './layout';
 import Header from 'components/common/Header';
 import ImagePostButton from 'components/common/ImagePostButton';
+import CancelButton from 'public/assets/icons/imageUploadCancel.svg';
+import CertificationView from 'components/sell/qcImageUpload/CertificationWordView';
+
+type UploadImage = {
+  file: File | null;
+  thumbnail: string;
+  type: string;
+};
 export default function qcImageUpload() {
+  const setSalesPostState = useSetRecoilState(salesPostState);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [imageFile, setImageFile] = useState<UploadImage | null>(null);
+
+  const formData = new FormData();
+
   const { data } = useGetCertificationWord();
   const putCertifiactionWord = useSetRecoilState(salesPostState);
+
+  const handleCheckfileInput = () => {
+    fileInputRef.current?.click();
+  };
+
+  const uploadProfile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const fileList = e.target.files;
+    const length = fileList?.length;
+    if (fileList && fileList[0]) {
+      const url = URL.createObjectURL(fileList[0]);
+      fileList && formData.append('image', fileList[0]);
+
+      setImageFile({
+        file: fileList[0],
+        thumbnail: url,
+        type: fileList[0].type.slice(0, 5),
+      });
+
+      setSalesPostState((prev) => ({ ...prev, image: fileList[0] }));
+    }
+  };
+
+  const handleDeleteImage = () => {
+    if (imageFile !== null) {
+      setImageFile(null);
+      setSalesPostState((prev) => ({ ...prev, image: null }));
+    }
+  };
+
+  const showImage = useMemo(() => {
+    if (!imageFile && imageFile == null) {
+      return <img src="hi" alt="blankImage" />;
+    }
+    return (
+      <ImageWrapper>
+        <ShowFileImage src={imageFile.thumbnail} />
+        <StyledImageDeleteButton onClick={handleDeleteImage}>
+          <CancelButton />
+        </StyledImageDeleteButton>
+      </ImageWrapper>
+    );
+  }, [imageFile]);
 
   const handleClickNextButton = () => {
     putCertifiactionWord((prev) => ({ ...prev, certificationWord: data?.data.data.certificationWord }));
@@ -32,17 +88,24 @@ export default function qcImageUpload() {
             isMainColor={false}
           />
         </StyledCertigfyInfoConatiner>
-        <StyledCertigfyWordConatiner>
-          <h1>인증단어</h1>
-          <p>|</p>
-          <strong>{data?.data.data.certificationWord}</strong>
-        </StyledCertigfyWordConatiner>
+        <CertificationView />
         <StyledUploadImageConatiner>
-          <ImagePostButton buttonSize="small" />
-          <StyledUploadImage></StyledUploadImage>
-          <StyledUploadImage></StyledUploadImage>
-          <StyledUploadImage></StyledUploadImage>
-          <StyledUploadImage></StyledUploadImage>
+          <StyledImagePostWrapper>
+            <ImagePostButton buttonSize="small" htmlFor="file" onChange={handleCheckfileInput} />
+            <ImageUploadInput
+              style={{ display: 'none' }}
+              type="file"
+              id="file"
+              accept="image/*"
+              ref={fileInputRef}
+              onChange={uploadProfile}
+            />
+          </StyledImagePostWrapper>
+          {imageFile && showImage}
+          {imageFile && showImage}
+          {imageFile && showImage}
+          {imageFile && showImage}
+          {imageFile && showImage}
         </StyledUploadImageConatiner>
       </div>
       <BigButton text="다음" isDisabled={false} onClick={handleClickNextButton} />
@@ -90,10 +153,35 @@ const StyledUploadImageConatiner = styled.section`
   gap: 1.2rem;
 `;
 
-const StyledUploadImage = styled.article`
+const ShowFileImage = styled.img`
+  position: relative;
+
+  width: 11rem;
+  height: 11rem;
+  border-radius: 0.8rem;
+  object-fit: fill;
+`;
+
+const StyledImageDeleteButton = styled.button`
+  position: absolute;
+  top: 0rem;
+  right: 0.8rem;
+
+  width: 4.2rem;
+  height: 4.2rem;
+`;
+
+const ImageUploadInput = styled.input``;
+
+const StyledImagePostWrapper = styled.div`
+  margin-bottom: 2rem;
   width: 11rem;
   height: 11rem;
 
   background-color: ${({ theme }) => theme.colors.grey_popup};
   border-radius: 0.8rem;
+`;
+
+const ImageWrapper = styled.div`
+  position: relative;
 `;
