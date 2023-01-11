@@ -12,7 +12,6 @@ import Router from 'next/router';
 export default function myInfo() {
   const { data: myInfo } = useGetmyInfo(false);
 
-  console.log(myInfo?.data.data);
   const handleMoveToMyInfoFix = () => {
     Router.push('/my/infoFix');
   };
