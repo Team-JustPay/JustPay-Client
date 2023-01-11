@@ -1,17 +1,21 @@
-import Header from 'components/common/Header';
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+import Image from 'next/image';
 import { useGetCertificationImages } from 'apiHooks/salesPost';
 import styled from 'styled-components';
 import Router from 'next/router';
+import Header from 'components/common/Header';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Modal from 'components/common/Modal';
 
 export default function certification() {
+  const router = useRouter();
+  const { salesPostId } = router.query;
+  console.log(router);
   const [openHelpModal, setOpenHelpModal] = useState<boolean>(false);
   const { data: certifications } = useGetCertificationImages(2);
-  console.log(certifications);
 
   const handleOpenHelpModal = () => {
     setOpenHelpModal(!openHelpModal);
@@ -32,21 +36,17 @@ export default function certification() {
         title="인증 사진"
         leftButtonText="닫기"
         rightButtonText="도움"
-        handleLeftButton={() => Router.push(`/sell/post/${1}`)}
+        handleLeftButton={() => Router.push(`/sell/post/${salesPostId}`)}
         handleRightButton={handleOpenHelpModal}></Header>
       <StyledCertificationWord>
-        <h1>인증 단어</h1>|<p>맑은 토끼 1214</p>
+        <h1>인증 단어</h1>|<p>{certifications?.data.data.certificationWord}</p>
       </StyledCertificationWord>
       <StyledSlider {...settings}>
-        <StyledCertificationImageContainer>
-          <h1>111</h1>
-        </StyledCertificationImageContainer>
-        <StyledCertificationImageContainer>
-          <h1>222</h1>
-        </StyledCertificationImageContainer>
-        <StyledCertificationImageContainer>
-          <h1>333</h1>
-        </StyledCertificationImageContainer>
+        {certifications?.data.data.imagesUrls.map((item: string) => (
+          <StyledCertificationImageContainer key={item}>
+            <Image src={item} alt="인증사진" layout="fill" />
+          </StyledCertificationImageContainer>
+        ))}
       </StyledSlider>
       {openHelpModal && (
         <Modal
@@ -60,6 +60,12 @@ export default function certification() {
       )}
     </>
   );
+}
+
+export async function getServerSideProps(context: any) {
+  return {
+    props: {},
+  };
 }
 
 const StyledCertificationWord = styled.section`

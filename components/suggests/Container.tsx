@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { useGetInvoiceInfo, useSetInvoiceInfo } from 'apiHooks/suggests';
 
@@ -9,13 +10,16 @@ import { TextBlock } from './SuggestItem';
 import BigButton from 'components/common/BigButton';
 
 export default function Container() {
+  const router = useRouter();
+  const { query } = router;
+  console.log(query);
   const [invoiceNum, setInvoiceNum] = useState('');
 
   const handleInvoiceInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInvoiceNum(e.target.value);
   };
-  const { data: invoiceInfo } = useGetInvoiceInfo(2);
-  const { mutate: handleCompleteButton } = useSetInvoiceInfo(2, invoiceNum);
+  const { data: invoiceInfo } = useGetInvoiceInfo(Number(query.suggestId));
+  const { mutate: handleCompleteButton } = useSetInvoiceInfo(Number(query.suggestId), invoiceNum);
   console.log(invoiceInfo);
   return (
     <>
