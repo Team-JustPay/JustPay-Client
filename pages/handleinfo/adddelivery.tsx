@@ -78,17 +78,13 @@ export default function adddelivery() {
   }, [myInfo]);
 
   const handleHandInfoButton = () => {
-    console.log('제출되는 정보', myfixedInfo);
     if (
       myfixedInfo?.shippingInfo.receiverName !== '' &&
       myfixedInfo?.shippingInfo.zipCode !== '' &&
       myfixedInfo?.shippingInfo.mainAddress !== '' &&
       myfixedInfo?.shippingInfo.detailAddress !== ''
     ) {
-      alert('제출');
       handleHandInfo();
-    } else {
-      alert('제출안됨');
     }
   };
 
