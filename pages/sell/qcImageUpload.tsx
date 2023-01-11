@@ -1,9 +1,8 @@
-import React, { useRef, useMemo, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Router from 'next/router';
 import styled from 'styled-components';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { salesPostState } from '../../recoil/salespost';
-import { useGetCertificationWord } from 'apiHooks/salesPost';
 
 import MainText from 'components/common/MainText';
 import SubText from 'components/common/SubText';
@@ -14,20 +13,10 @@ import ImagePostButton from 'components/common/ImagePostButton';
 import CancelButton from 'public/assets/icons/imageUploadCancel.svg';
 import CertificationView from 'components/sell/qcImageUpload/CertificationWordView';
 
-type UploadImage = {
-  file: File | null;
-  thumbnail: string;
-  type: string;
-};
 export default function qcImageUpload() {
-  const setSalesPostState = useSetRecoilState(salesPostState);
+  const [salesPost, setSalesPostState] = useRecoilState(salesPostState);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [imageFile, setImageFile] = useState<UploadImage | null>(null);
-
-  const formData = new FormData();
-
-  const { data } = useGetCertificationWord();
-  const putCertifiactionWord = useSetRecoilState(salesPostState);
+  const [imageFile, setImageFile] = useState<string[]>([]);
 
   const handleCheckfileInput = () => {
     fileInputRef.current?.click();
@@ -35,62 +24,61 @@ export default function qcImageUpload() {
 
   const uploadProfile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files;
-    const length = fileList?.length;
-    if (fileList && fileList[0]) {
-      const url = URL.createObjectURL(fileList[0]);
-      fileList && formData.append('image', fileList[0]);
+    let imageUrlLists = [...imageFile];
 
-      setImageFile({
-        file: fileList[0],
-        thumbnail: url,
-        type: fileList[0].type.slice(0, 5),
-      });
-
-      setSalesPostState((prev) => ({ ...prev, image: fileList[0] }));
+    if (fileList === null) {
+      return;
     }
+
+    for (let i = 0; i < fileList.length; i++) {
+      const currentImageUrl = URL.createObjectURL(fileList[i]);
+      imageUrlLists.push(currentImageUrl);
+
+      const formData = new FormData();
+      formData.append('certifications', fileList[i]);
+      setSalesPostState((prev) => ({ ...prev, certifications: [...prev.certifications, formData] }));
+    }
+
+    if (imageUrlLists.length > 5) {
+      imageUrlLists = imageUrlLists.slice(0, 5);
+      setSalesPostState((prev) => ({ ...prev, certifications: [...prev.certifications.slice(0, 5)] }));
+    }
+
+    setImageFile(imageUrlLists);
   };
 
-  const handleDeleteImage = () => {
+  const handleDeleteImage = (id: number) => {
     if (imageFile !== null) {
-      setImageFile(null);
-      setSalesPostState((prev) => ({ ...prev, image: null }));
+      setImageFile(imageFile.filter((_, index) => index !== id));
+      setSalesPostState((prev) => ({
+        ...prev,
+        certifications: [...prev.certifications.filter((_, index) => index !== id)],
+      }));
     }
   };
-
-  const showImage = useMemo(() => {
-    if (!imageFile && imageFile == null) {
-      return <img src="hi" alt="blankImage" />;
-    }
-    return (
-      <ImageWrapper>
-        <ShowFileImage src={imageFile.thumbnail} />
-        <StyledImageDeleteButton onClick={handleDeleteImage}>
-          <CancelButton />
-        </StyledImageDeleteButton>
-      </ImageWrapper>
-    );
-  }, [imageFile]);
 
   const handleClickNextButton = () => {
-    putCertifiactionWord((prev) => ({ ...prev, certificationWord: data?.data.data.certificationWord }));
+    // putCertifiactionWord((prev) => ({ ...prev, certificationWord: data?.data.data.certificationWord }));
     Router.push('/sell/selectPrice');
   };
 
+  console.log(salesPost);
+
   return (
     <>
-      <div>
-        <Header title="판매글 작성하기" isHavingBackButton={true} rightButtonText="취소" />
-        <StyledCertigfyInfoConatiner>
-          <MainText text="인증 전용 사진을 추가로 등록해주세요" />
-          <SubText
-            text="포스트잇에 계정 아이디와 인증단어를 적어주세요
+      <Header title="판매글 작성하기" isHavingBackButton={true} rightButtonText="취소" />
+      <StyledCertigfyInfoConatiner>
+        <MainText text="인증 전용 사진을 추가로 등록해주세요" />
+        <SubText
+          text="포스트잇에 계정 아이디와 인증단어를 적어주세요
   사진은 5장까지 등록할 수 있어요"
-            isMainColor={false}
-          />
-        </StyledCertigfyInfoConatiner>
-        <CertificationView />
-        <StyledUploadImageConatiner>
-          <StyledImagePostWrapper>
+          isMainColor={false}
+        />
+      </StyledCertigfyInfoConatiner>
+      <CertificationView />
+      <StyledUploadImageConatiner>
+        {imageFile.length < 5 && (
+          <>
             <ImagePostButton buttonSize="small" htmlFor="file" onChange={handleCheckfileInput} />
             <ImageUploadInput
               style={{ display: 'none' }}
@@ -99,15 +87,19 @@ export default function qcImageUpload() {
               accept="image/*"
               ref={fileInputRef}
               onChange={uploadProfile}
+              multiple
             />
-          </StyledImagePostWrapper>
-          {imageFile && showImage}
-          {imageFile && showImage}
-          {imageFile && showImage}
-          {imageFile && showImage}
-          {imageFile && showImage}
-        </StyledUploadImageConatiner>
-      </div>
+          </>
+        )}
+        {imageFile.map((image, id) => (
+          <ImageWrapper>
+            <ShowFileImage src={image} alt="인증" key={id} />
+            <StyledImageDeleteButton onClick={() => handleDeleteImage(id)}>
+              <CancelButton />
+            </StyledImageDeleteButton>
+          </ImageWrapper>
+        ))}
+      </StyledUploadImageConatiner>
       <BigButton text="다음" isDisabled={false} onClick={handleClickNextButton} />
     </>
   );
@@ -126,28 +118,8 @@ const StyledCertigfyInfoConatiner = styled.section`
     margin-bottom: 1.6rem;
   }
 `;
-const StyledCertigfyWordConatiner = styled.section`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
 
-  margin-bottom: 2.4rem;
-
-  color: ${({ theme }) => theme.colors.gray4};
-  ${({ theme }) => theme.fonts.medium14pt};
-  h1 {
-    margin-right: 0.8rem;
-  }
-  p {
-    margin-right: 0.8rem;
-  }
-  strong {
-    color: ${({ theme }) => theme.colors.sub1};
-    ${({ theme }) => theme.fonts.title16pt};
-  }
-`;
-
-const StyledUploadImageConatiner = styled.section`
+const StyledUploadImageConatiner = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 1.2rem;
@@ -172,15 +144,6 @@ const StyledImageDeleteButton = styled.button`
 `;
 
 const ImageUploadInput = styled.input``;
-
-const StyledImagePostWrapper = styled.div`
-  margin-bottom: 2rem;
-  width: 11rem;
-  height: 11rem;
-
-  background-color: ${({ theme }) => theme.colors.grey_popup};
-  border-radius: 0.8rem;
-`;
 
 const ImageWrapper = styled.div`
   position: relative;
