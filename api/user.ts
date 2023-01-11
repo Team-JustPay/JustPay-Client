@@ -18,3 +18,7 @@ export const putmyInfo = async (myInfo: MyInfoType) => {
 export const getMySellInfo = async (isSaled: boolean) => {
   return await userAPI.get(`/my/salesposts/?isSaled=${isSaled}`);
 };
+
+export const getMyInfo = async () => {
+  return await userAPI.get(`/my/info?addressSplit=true`);
+};

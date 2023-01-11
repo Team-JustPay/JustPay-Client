@@ -14,6 +14,7 @@ import NoItem from 'components/myBuy/NoItem';
 import SuggestItem from 'components/myBuy/SuggestItem';
 
 import ItemContainer from 'components/matching/ItemContainer';
+import Router from 'next/router';
 
 export default function myBuy() {
   const userData = {
@@ -37,6 +38,9 @@ export default function myBuy() {
     setIsPurchased((prev) => !prev);
   };
 
+  const handlePlustCircleButton = () => {
+    Router.push('/sell/guide');
+  };
   return (
     <>
       <Root>
@@ -69,8 +73,8 @@ export default function myBuy() {
           ))}
         </ItemContainer>
       </Root>
-      <PlusCircleButtonContainer />
-      <GNB />
+      <PlusCircleButtonContainer onClick={handlePlustCircleButton} />
+      <GNB currentGNB={'buy'} />
     </>
   );
 }

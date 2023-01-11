@@ -11,6 +11,7 @@ import MySellItemContainer from 'components/mySell/MySellItemContainer';
 import GNB from 'components/common/GNB';
 import PlusCircleButtonContainer from 'components/common/PlusCircleButtonContainer';
 
+import Router from 'next/router';
 export default function mySell() {
   const [isSaled, setIsSaled] = useState(false);
   const { data: myInfo } = useGetmyInfo(false);
@@ -31,6 +32,10 @@ export default function mySell() {
 
   const handleOptionTab = () => {
     setIsSaled((prev) => !prev);
+  };
+
+  const handlePlustCircleButton = () => {
+    Router.push('/sell/guide');
   };
 
   return (
@@ -55,8 +60,8 @@ export default function mySell() {
           <MySellItemContainer isSaled={isSaled} itemList={mySellInfo} />
         </StyledStickyContainer>
       </Root>
-      <PlusCircleButtonContainer />
-      <GNB />
+      <PlusCircleButtonContainer onClick={handlePlustCircleButton} />
+      <GNB currentGNB={'sell'} />
     </>
   );
 }
