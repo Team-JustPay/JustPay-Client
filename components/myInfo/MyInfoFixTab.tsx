@@ -13,6 +13,10 @@ interface OptionProps {
   isClicked: boolean;
 }
 
+interface StyledCurrentTabProps {
+  isCurrentTab: boolean;
+}
+
 export default function MyInfoFixTab({ myfixedInfo, setMyfixedInfo }: MyInfoFixTabProps) {
   const [currentTab, setCurrentTab] = useState('delivery');
   const handleClickGNBOption = (e: React.MouseEvent) => {
@@ -49,7 +53,7 @@ export default function MyInfoFixTab({ myfixedInfo, setMyfixedInfo }: MyInfoFixT
       }
     }
 
-    setMyfixedInfo((prev) => ({
+    setMyfixedInfo((prev: { shippingInfo: object }) => ({
       ...prev,
       shippingInfo: { ...prev.shippingInfo, zipCode: data.zonecode, address: address },
     }));
@@ -59,7 +63,7 @@ export default function MyInfoFixTab({ myfixedInfo, setMyfixedInfo }: MyInfoFixT
 
   const handleShoppingInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
-    setMyfixedInfo((prev) => ({
+    setMyfixedInfo((prev: { shippingInfo: object }) => ({
       ...prev,
       shippingInfo: { ...prev.shippingInfo, [name]: value },
     }));
@@ -67,7 +71,7 @@ export default function MyInfoFixTab({ myfixedInfo, setMyfixedInfo }: MyInfoFixT
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
-    setMyfixedInfo((prev) => ({
+    setMyfixedInfo((prev: object) => ({
       ...prev,
       [name]: value,
     }));
@@ -225,10 +229,6 @@ const Option = styled.div<OptionProps>`
           border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray0};
         `}
 `;
-
-interface StyledCurrentTabProps {
-  isCurrentTab: string;
-}
 
 const StyledCurrentTab = styled.section<StyledCurrentTabProps>`
   display: ${({ isCurrentTab }) => !isCurrentTab && 'none'};
