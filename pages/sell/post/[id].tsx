@@ -68,7 +68,7 @@ export default function post() {
           priceOption={'지정 가격'}
         />
         <StyledImageContainer>
-          <img src={salesPostInfo?.data.data.mainImageUrl} alt="판매글 대표 이미지" />
+          <ItemImage src={salesPostInfo?.data.data.mainImageUrl} alt="판매글 대표 이미지" />
           <StyledImageDownloadButton type="button" onClick={handleImageDownload}>
             <ImageDownloadIcon />
           </StyledImageDownloadButton>
@@ -124,6 +124,7 @@ const StyledImageContainer = styled.section`
   background-color: ${({ theme }) => theme.colors.grey_popup};
 
   text-align: center;
+  object-fit: fill;
 `;
 
 const StyledImageDownloadButton = styled.button`
@@ -187,3 +188,9 @@ export async function getServerSideProps(context: any) {
     props: {},
   };
 }
+
+const ItemImage = styled.img`
+  object-fit: fill;
+  height: 24.2rem;
+  border-radius: 0.8rem;
+`;
