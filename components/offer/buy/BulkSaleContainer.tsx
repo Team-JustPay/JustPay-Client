@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import MainText from 'components/common/MainText';
 import theme from 'styles/theme';
@@ -6,17 +6,24 @@ import UserOfferNumberInput from 'components/offer/buy/common/UserOfferNumberInp
 import { useRecoilState } from 'recoil';
 import { buyoffer } from '../../../recoil/buyoffer';
 import { getLocalNumber } from '../../../utils/price';
+import Image from 'next/image';
 
 interface BulkContainerProps {
   isLimitOrder: boolean;
+  highestPrice: number;
+  src: string;
 }
 
-export default function BulkSaleContainer({ isLimitOrder }: BulkContainerProps) {
+export default function BulkSaleContainer({ isLimitOrder, highestPrice, src }: BulkContainerProps) {
   const [offerData, setOfferData] = useRecoilState(buyoffer);
   const [inputNumber, setInputNumber] = useState('');
-  const maximumPrice = 100000;
+  const [maximumPrice, setMaximumPrice] = useState(0);
 
   const priceRegex = /\B(?=(\d{3})+(?!\d))/g;
+
+  useEffect(() => {
+    setMaximumPrice(highestPrice);
+  }, [highestPrice]);
 
   const CheckCorrectPrice = (number: number) => {
     if (number > maximumPrice && number % 500 === 0) {
@@ -35,7 +42,9 @@ export default function BulkSaleContainer({ isLimitOrder }: BulkContainerProps) 
 
   return (
     <Root>
-      <StyledImageWrapper />
+      <StyledImageWrapper>
+        <Image src={src} width={100} height={100} />
+      </StyledImageWrapper>
       <StyledTextContainer>
         <MainText text="구매하는 가격을 확인하세요" />
       </StyledTextContainer>
@@ -48,6 +57,7 @@ export default function BulkSaleContainer({ isLimitOrder }: BulkContainerProps) 
           isLimitOrder={isLimitOrder}
           maximumPrice={maximumPrice}
           onChangeFunc={handleNumberInput}
+          highestPrice={maximumPrice}
           isofferAllItems
         />
         <SubtitleContainer>
@@ -72,7 +82,7 @@ const StyledImageWrapper = styled.div`
   height: 24.2rem;
   margin: 1.8rem 0 4rem 0;
 
-  background-color: ${theme.colors.black};
+  background-color: ${theme.colors.grey_popup};
   border-radius: 0.8rem;
 `;
 

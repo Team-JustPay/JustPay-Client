@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { callbackify } from 'util';
 
 interface SaleInfoContainerProps {
   productCount: number;

@@ -1,7 +1,5 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import type { UseMutateFunction } from '@tanstack/react-query';
-import { AxiosResponse } from 'axios';
 
 interface ButtonProps {
   text: string;
@@ -46,8 +44,8 @@ const GlobalStyledButton = styled.button`
           color: ${({ theme }) => theme.colors.gray2};
         `
       : css`
-          background-color: ${({ theme }) => theme.colors.main};
-          color: ${({ theme }) => theme.colors.white};
+          background-color: #2c4d43;
+          color: #36ddab;
         `}
   font-weight: 700;
   font-size: 1.6rem;

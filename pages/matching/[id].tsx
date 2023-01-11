@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Router from 'next/router';
 import { useGetSalesPostList, useGetSalesPostInfo, useSetSalesPostState } from 'apiHooks/salesPost';
-import { useGetShippingInfo } from 'apiHooks/suggests';
+import { useGetShippingInfo, useSetSuggestState } from 'apiHooks/suggests';
 
 import Header from 'components/matching/Header';
 import PriceInfo from 'components/matching/PriceInfo';
@@ -25,6 +25,7 @@ export default function matching() {
   const [isMatched, setIsMatched] = useState(false);
   const [isSuggested, setIsSuggested] = useState(false);
   const [scrollHeight, setScrollHeight] = useState(0);
+  const [isBuyConfirmModalOpen, setIsBuyModalConfirmOpen] = useState(false);
 
   // 스크롤 감지
   const handleScrollHeight = () => {
@@ -43,9 +44,7 @@ export default function matching() {
   const { data: salesPostInfo } = useGetSalesPostInfo(2);
   const { data: salesPostList } = useGetSalesPostList(2, isMatched);
   const { mutate: handleSaleCancelButton } = useSetSalesPostState(2);
-  console.log(salesPostInfo);
-  console.log('salesPostList: ', salesPostList);
-  console.log('shippingInfo: ', shippingInfo);
+  const { mutate: handleClickSuggestConfirmButton } = useSetSuggestState(2, 3);
 
   // 누르면 각각 구매 중, 구매 완료 리스트 조회
   const handleOptionTab = () => {
@@ -70,22 +69,53 @@ export default function matching() {
 
   // 운송장 입력 페이지로 이동
   const handleInvoicePutButton = () => {
-    Router.push(`/suggests/${2}/invoice`);
+    Router.push(`/suggests/${salesPostInfo?.data.data.id}/invoice`);
   };
 
-  const setButtonFunc = (isMine: boolean, status: number) => {
-    if (isMine) {
+  const setButtonFunc = (isOwner: boolean, isMine: boolean, status: number) => {
+    if (isOwner) {
       switch (status) {
+        case 1:
+          return;
         case 2:
           return [() => setIsDeliverInfoModalOpen((prev) => !prev), handleInvoicePutButton];
+        case 3:
+          return;
       }
     } else {
+      if (isMine) {
+        switch (status) {
+          case 1:
+            return;
+          case 2:
+            return [
+              () =>
+                Router.push({
+                  pathname: `/suggests/${salesPostInfo?.data.data.id}/invoiceInfo`,
+                  query: { id: salesPostInfo?.data.data.id },
+                }),
+              () => setIsBuyModalConfirmOpen((prev) => !prev),
+            ];
+          case 3:
+            return [
+              () =>
+                Router.push({
+                  pathname: `/suggests/${salesPostInfo?.data.data.id}/invoiceInfo`,
+                  query: { id: salesPostInfo?.data.data.id },
+                }),
+            ];
+        }
+      }
     }
   };
 
   return (
     <>
-      <Header isMine={salesPostInfo?.data.data.isMine} modalOpenFunc={handleClickCancelButton} />
+      <Header
+        isMine={salesPostInfo?.data.data.isMine}
+        modalOpenFunc={handleClickCancelButton}
+        suggestId={salesPostInfo?.data.data.id}
+      />
       <UserProfile
         profileImageUrl=""
         nickname={salesPostInfo?.data.data.sellor.nickName}
@@ -107,10 +137,11 @@ export default function matching() {
               itemSize={item.purchaseOption === 'BULK' ? 'small' : 'big'}
               description={item.description}
               status={item.status}
+              isOwner={salesPostInfo?.data.data.isMine}
               isMine={item.isMine}
               key={item.id}
               element={item}
-              outerFunc={setButtonFunc(item.isMine, item.status)}
+              outerFunc={setButtonFunc(salesPostInfo?.data.data.isMine, item.isMine, item.status)}
             />
           ))}
         </ItemContainer>
@@ -133,6 +164,20 @@ export default function matching() {
           shippingInfo={shippingInfo}
           closeButtonFunc={setIsDeliverInfoModalOpen}
           scrollHeight={scrollHeight}
+        />
+      )}
+      {isBuyConfirmModalOpen && (
+        <Modal
+          title="구매를 확정하시겠어요?"
+          content="상품을 받으셨나요?<br/>
+        상품을 받고나서 구매를 확정해주세요"
+          buttonFirstTitle="취소"
+          buttonSecondTitle="확인"
+          buttonFirstFunction={() => setIsBuyModalConfirmOpen((prev) => !prev)}
+          buttonSecondFunction={() => {
+            handleClickSuggestConfirmButton();
+            setIsBuyModalConfirmOpen(false);
+          }}
         />
       )}
     </>

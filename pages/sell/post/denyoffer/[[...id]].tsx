@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Header from 'components/common/Header';
 import { useRouter } from 'next/router';
+import { useDeleteSuggests } from 'apiHooks/suggests';
+
+import Header from 'components/common/Header';
 import TitleText from 'components/common/TitleText';
 import MainText from 'components/common/MainText';
 import SubText from 'components/common/SubText';
@@ -12,6 +14,7 @@ import UserInput from 'components/offer/buy/common/UserDescriptionInput';
 export default function denyoffer() {
   const router = useRouter();
   const { id } = router.query;
+  const { mutate: handleClickCancelButton } = useDeleteSuggests(Number(id));
   const [currentUserChoice, setCurrentUserChoice] = useState('');
 
   const [button, setButton] = useState([
@@ -30,16 +33,18 @@ export default function denyoffer() {
   ]);
 
   const moveToPrevPage = () => {
-    router.push(`/`);
-  };
-
-  const handleClick = () => {
-    console.log(currentUserChoice);
+    router.back();
   };
 
   return (
     <Root>
-      <Header isHavingBackButton title="제시 거절하기" rightButtonText="취소" handleLeftButton={moveToPrevPage} />
+      <Header
+        isHavingBackButton
+        title="제시 거절하기"
+        rightButtonText="취소"
+        handleLeftButton={moveToPrevPage}
+        handleRightButton={moveToPrevPage}
+      />
       <TitleText>
         <MainText text="거절 사유를 알려주세요" />
         <SubText text="상품이 모두 판매되었을 경우, 판매 종료하기를 누르면" isMainColor={false} />
@@ -70,7 +75,14 @@ export default function denyoffer() {
           />
         </>
       )}
-      <BigButton text="제시 거절하기" onClick={handleClick} isDisabled={currentUserChoice === '' ? true : false} />
+      <BigButton
+        text="제시 거절하기"
+        onClick={() => {
+          handleClickCancelButton();
+          router.push(`/matching/${Number(id)}`);
+        }}
+        isDisabled={currentUserChoice === '' ? true : false}
+      />
     </Root>
   );
 }

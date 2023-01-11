@@ -6,6 +6,7 @@ import {
   getSalesPostInfo,
   setSalesPostState,
   getCertificationImages,
+  setSalesSuggest,
 } from 'api/salesPost';
 import { salesPostType } from 'types/recoil/salesPost';
 
@@ -35,6 +36,7 @@ export const useGetSalesPostList = (salesPostId: number, isMatched: boolean) => 
 
 export const useGetSalesPostInfo = (salesPostId: number) => {
   return useQuery(['get/salesposts/:salespostId'], () => getSalesPostInfo(salesPostId), {
+    refetchOnMount: false,
     onError: (error) => {
       console.error(error);
     },
@@ -51,6 +53,23 @@ export const useSetSalesPostState = (salesPostId: number) => {
 
 export const useGetCertificationImages = (salesPostId: number) => {
   return useQuery(['get/certifications'], () => getCertificationImages(salesPostId), {
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+};
+
+export const useGetSalesSuggestPostInfo = (salesPostId: number) => {
+  return useQuery(['get/salesposts/:salespostId'], () => getSalesPostInfo(salesPostId), {
+    refetchOnMount: false,
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+};
+
+export const useSetSalesSuggestPost = (salesPostId: number, formData: FormData) => {
+  return useMutation(() => setSalesSuggest(salesPostId, formData), {
     onError: (error) => {
       console.error(error);
     },

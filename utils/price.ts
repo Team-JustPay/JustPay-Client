@@ -1,5 +1,7 @@
 const getLocalNumber = (number: number) => {
-  return number.toLocaleString('ko-KR');
+  if (number !== null) {
+    return number.toLocaleString('ko-KR');
+  }
 };
 
 export { getLocalNumber };

@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import Logo from '../../public/assets/icons/justpay_symbol_logo.svg';
+import { useGetSalesPostList, useGetSalesPostInfo } from 'apiHooks/salesPost';
+import { useGetmyBuy } from 'apiHooks/user';
 
+import Logo from '../../public/assets/icons/justpay_symbol_logo.svg';
 import UserProfile from 'components/common/UserProfile';
 import MySellInfoContainer from 'components/mySell/MySellInfoContainer';
 import SuggestTab from 'components/matching/SuggestTab';
-import MySellItemContainer from 'components/mySell/MySellItemContainer';
 import GNB from 'components/common/GNB';
 import PlusCircleButtonContainer from 'components/common/PlusCircleButtonContainer';
+import NoItem from 'components/myBuy/NoItem';
+import SuggestItem from 'components/myBuy/SuggestItem';
 
-export default function mySell() {
+import ItemContainer from 'components/matching/ItemContainer';
+import Router from 'next/router';
+
+export default function myBuy() {
   const userData = {
     profileImageUrl: 'url',
     nickname: '유아 판매계',
@@ -21,15 +27,22 @@ export default function mySell() {
     saleMoney: 145000,
     saleCount: 5,
   };
+
   const [isClicked, setIsClicked] = useState(true);
+  const [isPurchased, setIsPurchased] = useState(false);
+  const { data: salesPostInfo } = useGetSalesPostInfo(2);
+  const { data: myBuyPurchasedList } = useGetmyBuy(isPurchased);
 
   const handleOptionTab = () => {
     setIsClicked((prev) => !prev);
+    setIsPurchased((prev) => !prev);
   };
 
+  const handlePlustCircleButton = () => {
+    Router.push('/sell/guide');
+  };
   return (
     <>
-      {' '}
       <Root>
         <StyledHeader>
           <Logo />
@@ -45,13 +58,23 @@ export default function mySell() {
           saleCount={sellData.saleCount}
         />
         <StyledStickyContainer>
-          <SuggestTab options={['판매 중', '판매 종료']} outerFunc={handleOptionTab} isClicked={isClicked} />
-          <MySellItemContainer isSaled={false} />
-          <MySellItemContainer isSaled={true} />
+          <SuggestTab options={['구매 제시 내역', '구매 확정']} outerFunc={handleOptionTab} isClicked={isClicked} />
         </StyledStickyContainer>
+        <ItemContainer>
+          {!salesPostInfo?.data.data.productCount && <NoItem />}
+          {myBuyPurchasedList?.data.data.map((item: any) => (
+            <SuggestItem
+              itemSize={item.purchaseOption === 'BULK' ? 'small' : 'big'}
+              description={item.description}
+              status={item.status}
+              key={item.id}
+              element={item}
+            />
+          ))}
+        </ItemContainer>
       </Root>
-      <PlusCircleButtonContainer />
-      <GNB />
+      <PlusCircleButtonContainer onClick={handlePlustCircleButton} />
+      <GNB currentGNB={'buy'} />
     </>
   );
 }

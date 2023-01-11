@@ -2355,6 +2355,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "npm:18.2.0"\
       ],\
       [\
+        "react-daum-postcode",\
+        "virtual:935a7a25b700a38019c3af32212805aa1365027a8f450e6c747d224a0624dcacc1f5ca64f5feda8e8fa84bc26f41e916c9f19b16c565c7651dd9f1f2d29e56d3#npm:3.1.1"\
+      ],\
+      [\
         "react-dom",\
         "virtual:935a7a25b700a38019c3af32212805aa1365027a8f450e6c747d224a0624dcacc1f5ca64f5feda8e8fa84bc26f41e916c9f19b16c565c7651dd9f1f2d29e56d3#npm:18.2.0"\
       ],\
@@ -2866,6 +2870,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["next", "virtual:935a7a25b700a38019c3af32212805aa1365027a8f450e6c747d224a0624dcacc1f5ca64f5feda8e8fa84bc26f41e916c9f19b16c565c7651dd9f1f2d29e56d3#npm:12.3.4"],\
             ["prettier", "npm:2.8.1"],\
             ["react", "npm:18.2.0"],\
+            ["react-daum-postcode", "virtual:935a7a25b700a38019c3af32212805aa1365027a8f450e6c747d224a0624dcacc1f5ca64f5feda8e8fa84bc26f41e916c9f19b16c565c7651dd9f1f2d29e56d3#npm:3.1.1"],\
             ["react-dom", "virtual:935a7a25b700a38019c3af32212805aa1365027a8f450e6c747d224a0624dcacc1f5ca64f5feda8e8fa84bc26f41e916c9f19b16c565c7651dd9f1f2d29e56d3#npm:18.2.0"],\
             ["react-is", "npm:18.2.0"],\
             ["react-slick", "virtual:935a7a25b700a38019c3af32212805aa1365027a8f450e6c747d224a0624dcacc1f5ca64f5feda8e8fa84bc26f41e916c9f19b16c565c7651dd9f1f2d29e56d3#npm:0.29.0"],\
@@ -11152,6 +11157,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["next", "virtual:935a7a25b700a38019c3af32212805aa1365027a8f450e6c747d224a0624dcacc1f5ca64f5feda8e8fa84bc26f41e916c9f19b16c565c7651dd9f1f2d29e56d3#npm:12.3.4"],\
             ["prettier", "npm:2.8.1"],\
             ["react", "npm:18.2.0"],\
+            ["react-daum-postcode", "virtual:935a7a25b700a38019c3af32212805aa1365027a8f450e6c747d224a0624dcacc1f5ca64f5feda8e8fa84bc26f41e916c9f19b16c565c7651dd9f1f2d29e56d3#npm:3.1.1"],\
             ["react-dom", "virtual:935a7a25b700a38019c3af32212805aa1365027a8f450e6c747d224a0624dcacc1f5ca64f5feda8e8fa84bc26f41e916c9f19b16c565c7651dd9f1f2d29e56d3#npm:18.2.0"],\
             ["react-is", "npm:18.2.0"],\
             ["react-slick", "virtual:935a7a25b700a38019c3af32212805aa1365027a8f450e6c747d224a0624dcacc1f5ca64f5feda8e8fa84bc26f41e916c9f19b16c565c7651dd9f1f2d29e56d3#npm:0.29.0"],\
@@ -11335,6 +11341,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["react", "npm:18.2.0"],\
             ["loose-envify", "npm:1.4.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["react-daum-postcode", [\
+        ["npm:3.1.1", {\
+          "packageLocation": "./.yarn/cache/react-daum-postcode-npm-3.1.1-ab829b46dc-a7097f7b57.zip/node_modules/react-daum-postcode/",\
+          "packageDependencies": [\
+            ["react-daum-postcode", "npm:3.1.1"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:935a7a25b700a38019c3af32212805aa1365027a8f450e6c747d224a0624dcacc1f5ca64f5feda8e8fa84bc26f41e916c9f19b16c565c7651dd9f1f2d29e56d3#npm:3.1.1", {\
+          "packageLocation": "./.yarn/__virtual__/react-daum-postcode-virtual-c0f7d6ddbd/0/cache/react-daum-postcode-npm-3.1.1-ab829b46dc-a7097f7b57.zip/node_modules/react-daum-postcode/",\
+          "packageDependencies": [\
+            ["react-daum-postcode", "virtual:935a7a25b700a38019c3af32212805aa1365027a8f450e6c747d224a0624dcacc1f5ca64f5feda8e8fa84bc26f41e916c9f19b16c565c7651dd9f1f2d29e56d3#npm:3.1.1"],\
+            ["@types/react", "npm:18.0.26"],\
+            ["react", "npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
+            "react"\
           ],\
           "linkType": "HARD"\
         }]\
