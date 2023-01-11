@@ -1,5 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import styled, { css } from 'styled-components';
+import { useSetSuggestState } from 'apiHooks/suggests';
+
 import Header from '../../../../components/common/Header';
 import BigButton from 'components/common/BigButton';
 import TitleText from 'components/common/TitleText';
@@ -13,6 +15,8 @@ export default function () {
   const router = useRouter();
   const { id } = router.query;
 
+  const { mutate: handleClickAcceptButton } = useSetSuggestState(Number(id), 1, Number(inputCount));
+
   let countOverCheck = 5 < Number(inputCount) || Number(inputCount) === 0;
 
   const handleCountInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,15 +26,11 @@ export default function () {
 
   //TODO: 페이지 합치고 라우팅 경로 수정
   const acceptOffer = () => {
-    router.push(`/`);
+    handleClickAcceptButton();
+    router.push(`/matching/${Number(id)}`);
   };
   const moveToPrevPage = () => {
-    router.push(`/`);
-  };
-
-  const patchData = {
-    status: 1,
-    invoiceDeadline: Number(inputCount),
+    router.push(`/offer/post/${Number(id)}`);
   };
 
   const checkVaildInput = () => {

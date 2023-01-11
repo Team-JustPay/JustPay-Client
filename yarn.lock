@@ -6164,6 +6164,7 @@ __metadata:
     next: 12
     prettier: ^2.8.1
     react: ^18.2.0
+    react-daum-postcode: ^3.1.1
     react-dom: ^18.2.0
     react-is: ^18.2.0
     react-slick: ^0.29.0
@@ -6305,6 +6306,15 @@ __metadata:
   version: 5.1.1
   resolution: "quick-lru@npm:5.1.1"
   checksum: a516faa25574be7947969883e6068dbe4aa19e8ef8e8e0fd96cddd6d36485e9106d85c0041a27153286b0770b381328f4072aa40d3b18a19f5f7d2b78b94b5ed
+  languageName: node
+  linkType: hard
+
+"react-daum-postcode@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "react-daum-postcode@npm:3.1.1"
+  peerDependencies:
+    react: ">=16.8.0"
+  checksum: a7097f7b57d4d4f7e5e96215c041986b6f2e1daa3fd413e7dae9877c726fe0991e3f4fbff44091e77ac461cf7bd8204db99534702cd7d8f1e52c002d144d1ae8
   languageName: node
   linkType: hard
 

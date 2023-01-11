@@ -37,7 +37,6 @@ export default function SuggestItem({
   element,
   outerFunc,
 }: SuggestItemProps) {
-  console.log(isOwner, isMine, status);
   const renderButton = () => {
     if (isOwner) {
       switch (status) {
