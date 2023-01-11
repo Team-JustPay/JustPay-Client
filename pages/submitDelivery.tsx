@@ -54,14 +54,6 @@ export default function submitDelivery() {
     }));
   };
 
-  const handlePhoneNumberInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setMyfixedInfo((prev) => ({
-      ...prev,
-      phoneNumber: value,
-    }));
-  };
-
   useEffect(() => {
     console.log(myfixedInfo);
   }, [myfixedInfo]);
@@ -82,14 +74,6 @@ export default function submitDelivery() {
           name="receiverName"
           onChangeFunc={handleShoppingInput}
           placehoderText="받는 사람 이름을 입력하세요"
-        />
-      </StyledMyInfoContainer>
-      <StyledMyInfoContainer>
-        전화번호
-        <MyInfoInput
-          name="phoneNumber"
-          onChangeFunc={handlePhoneNumberInput}
-          placehoderText="전화번호를 입력하세요 (- 제외)"
         />
       </StyledMyInfoContainer>
       <StyledMyInfoContainer>
