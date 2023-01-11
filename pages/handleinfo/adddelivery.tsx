@@ -14,7 +14,7 @@ import Router from 'next/router';
 
 export default function adddelivery() {
   const { data: myInfo } = useGetmyInfo(true);
-  const [myfixedInfo, setMyfixedInfo] = useState(null);
+  const [myfixedInfo, setMyfixedInfo] = useState(myInfo?.data.data);
   const { mutate: handleHandInfo } = usePutmyInfo(myfixedInfo);
 
   const open = useDaumPostcodePopup();
@@ -49,7 +49,7 @@ export default function adddelivery() {
       }
     }
 
-    setMyfixedInfo((prev) => ({
+    setMyfixedInfo((prev: { shippingInfo: object }) => ({
       ...prev,
       shippingInfo: { ...prev.shippingInfo, zipCode: data.zonecode, address: address },
     }));
@@ -59,7 +59,7 @@ export default function adddelivery() {
 
   const handleShoppingInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
-    setMyfixedInfo((prev) => ({
+    setMyfixedInfo((prev: { shippingInfo: object }) => ({
       ...prev,
       shippingInfo: { ...prev.shippingInfo, [name]: value },
     }));
@@ -71,7 +71,7 @@ export default function adddelivery() {
 
   useEffect(() => {
     setMyfixedInfo(myInfo?.data.data);
-    setMyfixedInfo((prev) => ({
+    setMyfixedInfo((prev: object) => ({
       ...prev,
       phoneNumber: phoneNumberRouter?.query?.phone,
     }));
