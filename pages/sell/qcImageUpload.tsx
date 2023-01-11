@@ -34,9 +34,7 @@ export default function qcImageUpload() {
       const currentImageUrl = URL.createObjectURL(fileList[i]);
       imageUrlLists.push(currentImageUrl);
 
-      const formData = new FormData();
-      formData.append('certifications', fileList[i]);
-      setSalesPostState((prev) => ({ ...prev, certifications: [...prev.certifications, formData] }));
+      setSalesPostState((prev) => ({ ...prev, certifications: [...prev.certifications, fileList[i]] }));
     }
 
     if (imageUrlLists.length > 5) {
@@ -46,6 +44,8 @@ export default function qcImageUpload() {
 
     setImageFile(imageUrlLists);
   };
+
+  console.log(salesPost.certifications);
 
   const handleDeleteImage = (id: number) => {
     if (imageFile !== null) {
@@ -61,8 +61,6 @@ export default function qcImageUpload() {
     // putCertifiactionWord((prev) => ({ ...prev, certificationWord: data?.data.data.certificationWord }));
     Router.push('/sell/selectPrice');
   };
-
-  console.log(salesPost);
 
   return (
     <>

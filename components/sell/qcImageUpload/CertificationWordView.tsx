@@ -2,9 +2,22 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { useGetCertificationWord } from 'apiHooks/salesPost';
+import { useSetRecoilState } from 'recoil';
+import { salesPostState } from '../../../recoil/salespost';
 
 export default function CertificationWordView() {
-  const { data } = useGetCertificationWord();
+  const putCertifiactionWord = useSetRecoilState(salesPostState);
+  const { data, isLoading, error } = useGetCertificationWord();
+
+  React.useEffect(() => {
+    if (data) {
+      putCertifiactionWord((prev) => ({ ...prev, certificationWord: data?.data.data.certificationWord }));
+    }
+  }, [data]);
+
+  if (isLoading) return <>로딩중..</>;
+  if (error) return <>에러가 발생했습니다</>;
+  if (!data) return null;
 
   return (
     <>

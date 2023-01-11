@@ -7,7 +7,7 @@ import BigButton from 'components/common/BigButton';
 import layout from './layout';
 import Router from 'next/router';
 import { useSetSalesPost } from 'apiHooks/salesPost';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 
 interface TextLengthProps {
   currentTextLength: number;
@@ -15,7 +15,7 @@ interface TextLengthProps {
 
 export default function write() {
   const [salesPostInfo, setSalesPostState] = useRecoilState(salesPostState);
-
+  const [imageUrl, setImageUrl] = useState('');
   const { mutate: submitSalesForm } = useSetSalesPost(salesPostInfo);
 
   console.log(salesPostInfo);
@@ -36,8 +36,16 @@ export default function write() {
   };
 
   useEffect(() => {
+    const blob = new Blob([salesPostInfo.mainImage]);
+
+    const image = URL.createObjectURL(blob);
+    setImageUrl(image);
+  }, []);
+
+  useEffect(() => {
     currentTextLength !== 0 ? setIsEmptyTextArea(false) : setIsEmptyTextArea(true);
   }, [currentTextLength]);
+
   return (
     <>
       <div>
@@ -48,7 +56,7 @@ export default function write() {
           handleLeftButton={moveToPrevPage}
         />
         <StyledImagePopUpConatiner>
-          <img alt="판매사진" />
+          <img src={imageUrl} alt="판매사진" />
         </StyledImagePopUpConatiner>
         <StyledWriteContainer
           placeholder="판매하는 상품에 대해서 설명해주세요 자세한 설명을 통해 빠르게 매칭될 수 있어요"

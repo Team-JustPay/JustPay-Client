@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useRef, useMemo } from 'react';
 import Router from 'next/router';
 import styled from 'styled-components';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { salesPostState } from '../../recoil/salespost';
 
 import layout from './layout';
@@ -25,7 +25,7 @@ export default function option() {
   const [isPosted, setIsPosted] = useState(true);
   const [isOptionClicked, setIsOptionClicked] = useState(false);
   const [inputText, setInputText] = useState('');
-  const setSalesPostState = useSetRecoilState(salesPostState);
+  const [salesPost, setSalesPostState] = useRecoilState(salesPostState);
 
   const [imageFile, setImageFile] = useState<UploadImage | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -38,18 +38,19 @@ export default function option() {
   const inputHandler = (e: React.FormEvent) => {
     if ((e.target as HTMLInputElement).value === '1' || !(e.target as HTMLInputElement).value) {
       setIsOptionClicked(false);
+      setSalesPostState((prev) => ({ ...prev, salesOption: 'BULK' }));
     }
     setSalesPostState((prev) => ({ ...prev, productCount: Number((e.target as HTMLInputElement).value) }));
   };
 
   const optionHandler = (e: React.MouseEvent) => {
-    // console.log(e.target);
     if (e.target instanceof HTMLButtonElement) {
       setIsOptionClicked(true);
       if (e.target.innerText === '일괄 판매만') {
-        setSalesPostState((prev) => ({ ...prev, salesOption: 'BULK_SALE' }));
-      } else {
-        setSalesPostState((prev) => ({ ...prev, salesOption: 'BULK_PARTIAL_SALE' }));
+        setSalesPostState((prev) => ({ ...prev, salesOption: 'BULK' }));
+      }
+      if (e.target.innerText === '일괄 + 일부') {
+        setSalesPostState((prev) => ({ ...prev, salesOption: 'BULK_PARTIAL' }));
       }
     }
   };

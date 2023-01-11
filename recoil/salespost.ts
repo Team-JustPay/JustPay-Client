@@ -11,7 +11,6 @@ export const salesPostState = atom<salesPostType>({
     price: null,
     certificationWord: '',
     description: '',
-    status: null,
     shippingOptions: [],
     certifications: [],
   },
