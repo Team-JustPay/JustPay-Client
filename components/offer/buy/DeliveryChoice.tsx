@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import MainText from 'components/common/MainText';
 import DeliveryOptionContainer from 'components/offer/buy/common/DeliveryOptionContainer';
 
-export default function DeliveryChoice() {
+interface ShippingOptionsProps {
+  shippingOptions: [];
+}
+
+export default function DeliveryChoice({ shippingOptions }: ShippingOptionsProps) {
   return (
     <Root>
       <StyledTextContainer>
         <MainText text="배송가능 옵션을 1가지만 선택하세요" />
       </StyledTextContainer>
-      <DeliveryOptionContainer />
+      <DeliveryOptionContainer shippingOptions={shippingOptions} />
     </Root>
   );
 }
