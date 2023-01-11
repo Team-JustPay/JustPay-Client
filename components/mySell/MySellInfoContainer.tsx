@@ -10,11 +10,6 @@ interface MySellInfoContainerProps {
   saleMoney: number;
 }
 
-interface MySellInfoListProps {
-  icon: string;
-  title: string;
-  content: number;
-}
 export default function MySellInfoContainer({ dealCount, saleCount, saleMoney }: MySellInfoContainerProps) {
   return (
     <Root>

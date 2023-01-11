@@ -1,4 +1,3 @@
-import { AxiosResponse } from 'axios';
 import React from 'react';
 import styled from 'styled-components';
 import { useGetShippingInfo } from 'apiHooks/suggests';
@@ -81,6 +80,8 @@ const ModalContainer = styled.section<ModalProps>`
   padding: 0 1.6rem;
 
   background-color: rgba(0, 0, 0, 0.7);
+
+  z-index: 20;
 `;
 const Modal = styled.article`
   width: 100%;

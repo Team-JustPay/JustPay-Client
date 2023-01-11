@@ -41,9 +41,9 @@ export default function mySell() {
           <Logo />
         </StyledHeader>
         <UserProfile
-          profileImageUrl={userData.profileImageUrl}
-          nickname={userData.nickname}
-          socialId={userData.socialId}
+          profileImageUrl={myInfo?.data.data.profileImageUrl}
+          nickname={myInfo?.data.data.nickName}
+          socialId={myInfo?.data.data.socialId}
         />
         <MySellInfoContainer
           dealCount={myInfo?.data.data.dealCount}

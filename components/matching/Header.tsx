@@ -6,7 +6,6 @@ import SellListIcon from '../../public/assets/icons/SellList.svg';
 import JusyPayIcon from '../../public/assets/icons/JustPay.svg';
 import SaleFInishIcon from '../../public/assets/icons/SaleFinish.svg';
 import SaleDetailIcon from '../../public/assets/icons/SaleDetail.svg';
-import HeaderButton from '../../public/assets/icons/HeaderButton.svg';
 
 interface HeaderProps {
   isMine: boolean;
@@ -55,7 +54,15 @@ const HeaderContainer = styled.article`
   display: flex;
   justify-content: space-between;
 
-  padding: 1.5rem 2rem 1.5rem 2.4rem;
+  padding: 1.5rem 2rem 1.5rem 0.8rem;
+
+  position: fixed;
+  max-width: 43rem;
+  top: 0;
+  z-index: 10;
+
+  width: 100%;
+  background-color: ${({ theme }) => theme.colors.gray_background};
 `;
 
 const HeaderText = styled.h1<HeaderTextProps>`

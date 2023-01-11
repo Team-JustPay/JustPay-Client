@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 import Router from 'next/router';
 import { useGetSalesPostList, useGetSalesPostInfo, useSetSalesPostState } from 'apiHooks/salesPost';
 import { useSetSuggestState } from 'apiHooks/suggests';
@@ -113,7 +114,7 @@ export default function matching() {
   };
 
   return (
-    <>
+    <Root>
       <Header
         isMine={salesPostInfo?.data.data.isMine}
         modalOpenFunc={handleClickCancelButton}
@@ -157,6 +158,7 @@ export default function matching() {
               )}
             </>
           ))}
+          <div style={{ height: '500px' }}></div>
         </ItemContainer>
       </SuggestContainer>
       {isSuggested && <ToastMessage text="판매글에 구매를 제시했어요!" />}
@@ -202,6 +204,11 @@ export default function matching() {
           }}
         />
       )}
-    </>
+    </Root>
   );
 }
+
+const Root = styled.section`
+  position: relative;
+  margin-top: 6rem;
+`;
