@@ -59,7 +59,7 @@ export default function myInfoFix() {
         <p onClick={handleMoveToMyInfo}>완료</p>
       </StyledHeader>
       <MyInfoFixTab myfixedInfo={myInfo.data.data} setMyfixedInfo={setMyfixedInfo} />
-      <GNB />
+      <GNB currentGNB="fix" />
       {openModal && (
         <Modal
           title={'필수 정보를 입력해 주세요!'}

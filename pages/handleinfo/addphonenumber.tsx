@@ -8,6 +8,7 @@ import Header from 'components/common/Header';
 import CallNumberInput from 'components/handleinfo/addphonenumber/CallNumberInput';
 import NumberValidateInput from 'components/handleinfo/addphonenumber/NumberVaildateInput';
 import BigButton from 'components/common/BigButton';
+import Router from 'next/router';
 
 export default function Addphonenumber() {
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -35,7 +36,11 @@ export default function Addphonenumber() {
     return Number(phoneNumber) === Number(validateNumber);
   };
 
-  const moveToNextPage = () => {};
+  const query = { phone: String(phoneNumber) };
+
+  const moveToNextPage = () => {
+    Router.push({ pathname: '/handleinfo/adddelivery', query });
+  };
 
   return (
     <Root>
