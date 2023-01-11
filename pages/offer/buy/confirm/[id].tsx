@@ -5,20 +5,39 @@ import theme from 'styles/theme';
 import Header from 'components/common/Header';
 import BigButton from 'components/common/BigButton';
 import ToolTip from 'public/assets/images/offer/tooltip.svg';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
 import { buyoffer } from '../../../../recoil/buyoffer';
+import { useGetMyInfo } from 'apiHooks/user';
+import { useSetSalesSuggestPost } from 'apiHooks/salesPost';
 
 export default function confirm() {
+  const reset = useResetRecoilState(buyoffer);
   const postData = useRecoilValue(buyoffer);
   const router = useRouter();
   const { id } = router.query;
 
+  const formData = new FormData();
+  formData.append('price', postData.price + '');
+  formData.append('purchaseOption', postData.purchaseOption);
+  formData.append('description', postData.description);
+  formData.append('shippingOption', postData.shippingOption);
+  formData.append('productCount', postData.productCount + '');
+  formData.append('image', postData.image);
+
+  const { mutate: submitSuggestForm } = useSetSalesSuggestPost(Number(id), formData);
+
+  const { data, isLoading, error } = useGetMyInfo();
+
+  if (isLoading) return <Root>로딩중..</Root>;
+  if (error) return <Root>에러가 발생했습니다</Root>;
+  if (!data) return null;
+
   const deliveryInfo = [
-    { name: '전화번호', value: '01045807180' },
-    { name: '주소', value: '서울시 강남구' },
-    { name: 'GS편의점 점포명', value: 'GS S9 고속터미널역점' },
-    { name: 'CU편의점 점포명', value: 'CU 서초그린점' },
-    { name: '자택 주소', value: '서울 서초구 신반포로' },
+    { name: '전화번호', value: `${data.data.data.phoneNumber.replace(/-/g, '')}` },
+    { name: '받는분', value: `${data.data.data.shippingInfo.receiverName}` },
+    { name: 'GS편의점 점포명', value: `${data.data.data.shippingInfo.gsStoreName}` },
+    { name: 'CU편의점 점포명', value: `${data.data.data.shippingInfo.cuStoreName}` },
+    { name: '자택 주소', value: `${data.data.data.shippingInfo.address}` },
   ];
 
   const getDeliveryCost = () => {
@@ -41,22 +60,26 @@ export default function confirm() {
   };
 
   const cost = [
-    { name: '상품금액', value: `${postData.price?.toLocaleString()}원` },
+    { name: '상품금액', value: `${postData.price?.toLocaleString()} 원` },
     { name: '배송 옵션', value: `${postData.shippingOption}` },
-    { name: '배송 금액', value: `${getDeliveryCost()}` },
+    { name: '배송 금액', value: `${getDeliveryCost().toLocaleString()}원` },
     {
       name: '총 금액',
       value: `${postData.price && (postData.price + getDeliveryCost()).toLocaleString()}원`,
     },
   ];
-  // TODO:추후 뒤로가기 이동과 동시에 전역 데이터 객체에 빈값 넣는 동작 추가
+
   const MoveToPrevPage = () => {
-    router.push(`/offer/buy/${id}`);
+    reset();
+    router.back();
+  };
+
+  const postSuggestData = () => {
+    submitSuggestForm();
   };
 
   return (
     <Root>
-      {/* TODO:추후 서버, 리코일 데이터로 변경하기 */}
       <HeaderWrapper>
         <Header title="구매 제시하기" rightButtonText="취소" isHavingBackButton handleLeftButton={MoveToPrevPage} />
       </HeaderWrapper>
@@ -88,7 +111,7 @@ export default function confirm() {
       <StyledImageWrapper>
         <ToolTip />
       </StyledImageWrapper>
-      <BigButton text="확인" isDisabled={false} />
+      <BigButton text="확인" isDisabled={false} onClick={postSuggestData} />
     </Root>
   );
 }

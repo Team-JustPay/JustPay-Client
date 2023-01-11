@@ -38,7 +38,7 @@ export default function myInfo() {
         twitterMessageUrl={myInfo?.data.data.twitterMessageUrl}
         openChatUrl={myInfo?.data.data.openChatUrl}
       />
-      <GNB />
+      <GNB currentGNB={'info'} />
     </Root>
   );
 }

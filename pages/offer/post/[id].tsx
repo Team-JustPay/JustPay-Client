@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Router from 'next/router';
+import Image from 'next/image';
 import styled from 'styled-components';
 import { useGetSuggestsInfo } from 'apiHooks/suggests';
 import { useDeleteSuggests } from 'apiHooks/suggests';
@@ -14,8 +15,8 @@ import SaleInfoContainer from 'components/common/SaleInfoContainer';
 import Modal from 'components/common/Modal';
 
 export default function suggest() {
-  const { data: suggestsInfo } = useGetSuggestsInfo(22);
-  const { mutate: handleClickCancelButton } = useDeleteSuggests(22);
+  const { data: suggestsInfo } = useGetSuggestsInfo(35);
+  const { mutate: handleClickCancelButton } = useDeleteSuggests(35);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
 
   const handleClickRaisePriceButton = () => {
@@ -27,7 +28,7 @@ export default function suggest() {
 
   return (
     <Root>
-      <Header isHavingBackButton title={TITLE.VIEWOFFER}></Header>
+      <Header isHavingBackButton title={TITLE.VIEWOFFER} />
       <UserProfile
         profileImageUrl={suggestsInfo?.data.data.suggester.profileImageUrl}
         nickname={suggestsInfo?.data.data.suggester.nickName}
@@ -46,7 +47,7 @@ export default function suggest() {
       />
 
       <StyledImgWrapper>
-        <img src={suggestsInfo?.data.data.imageUrl} alt="" />
+        <Image layout="fill" src={suggestsInfo?.data.data.imageUrl} alt="구매 제시 사진" />
       </StyledImgWrapper>
       {suggestsInfo?.data.data.salesPost.priceOption === 'PRICE_OFFER' && suggestsInfo.data.data.isMine && (
         <StyledButtonWrapper>
@@ -122,10 +123,13 @@ const StyledImgWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.grey_popup};
   height: 24.2rem;
   border-radius: 8px;
+  overflow: hidden;
 
   display: flex;
   justify-content: center;
   align-items: center;
+
+  position: relative;
 `;
 const StyledButtonWrapper = styled.div`
   display: flex;

@@ -27,6 +27,13 @@ const OptionContainer = styled.section`
   width: 100%;
 
   padding: 2rem 0 1.2rem;
+
+  display: flex;
+  position: sticky;
+  top: 94px;
+  z-index: 10;
+
+  background-color: ${({ theme }) => theme.colors.gray_background};
 `;
 
 const OptionNumText = styled.p`

@@ -10,11 +10,6 @@ interface MySellInfoContainerProps {
   saleMoney: number;
 }
 
-interface MySellInfoListProps {
-  icon: string;
-  title: string;
-  content: number;
-}
 export default function MySellInfoContainer({ dealCount, saleCount, saleMoney }: MySellInfoContainerProps) {
   return (
     <Root>
@@ -28,7 +23,7 @@ export default function MySellInfoContainer({ dealCount, saleCount, saleMoney }:
       <StyledBar></StyledBar>
       <StyledSellInfo>
         <SaleMoney />
-        <p>{saleMoney.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</p>
+        <p>{saleMoney?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</p>
         <h1>
           저스트페이로
           <br /> 판매했어요

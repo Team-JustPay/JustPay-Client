@@ -47,13 +47,13 @@ export default function post() {
           handleLeftButton={() => {
             Router.push({
               pathname: `/matching/${salesPostInfo?.data.data.id}`,
-              query: { id: salesPostInfo?.data.data.id },
+              query: { salesPostId: salesPostInfo?.data.data.id },
             });
           }}
           handleRightButton={() => {
             Router.push({
               pathname: `/sell/post/${salesPostInfo?.data.data.id}/certifications`,
-              query: { id: salesPostInfo?.data.data.id },
+              query: { salesPostId: salesPostInfo?.data.data.id },
             });
           }}></Header>
         <UserProfile
@@ -86,7 +86,13 @@ export default function post() {
         {openImageDownloadModal && <ToastMessage text="대표사진을 다운로드했어요" />}
         {openCopyLinkModal && <ToastMessage text="클립보드에 복사되었어요" />}
         {salesPostInfo?.data.data.isMine ? (
-          <BigButton text="구매 제시 현황보기" isDisabled={false} onClick={() => {}} />
+          <BigButton
+            text="구매 제시 현황보기"
+            isDisabled={false}
+            onClick={() => {
+              Router.push(`/matching/${salesPostInfo?.data.data.id}`);
+            }}
+          />
         ) : (
           <StyledBuyerButtonContainer>
             <StyledShowBuyerListButton type="button">구매 제시 현황보기</StyledShowBuyerListButton>

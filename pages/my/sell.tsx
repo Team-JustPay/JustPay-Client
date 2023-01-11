@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useGetMySellInfo } from 'apiHooks/user';
+import { useGetMySellInfo, useGetmyInfo } from 'apiHooks/user';
 
 import Logo from '../../public/assets/icons/justpay_symbol_logo.svg';
 
@@ -11,9 +11,13 @@ import MySellItemContainer from 'components/mySell/MySellItemContainer';
 import GNB from 'components/common/GNB';
 import PlusCircleButtonContainer from 'components/common/PlusCircleButtonContainer';
 
+import Router from 'next/router';
 export default function mySell() {
   const [isSaled, setIsSaled] = useState(false);
+  const { data: myInfo } = useGetmyInfo(false);
   const { data: mySellInfo } = useGetMySellInfo(isSaled);
+
+  console.log(myInfo);
 
   const userData = {
     profileImageUrl: 'url',
@@ -30,6 +34,10 @@ export default function mySell() {
     setIsSaled((prev) => !prev);
   };
 
+  const handlePlustCircleButton = () => {
+    Router.push('/sell/guide');
+  };
+
   return (
     <>
       {' '}
@@ -38,22 +46,22 @@ export default function mySell() {
           <Logo />
         </StyledHeader>
         <UserProfile
-          profileImageUrl={userData.profileImageUrl}
-          nickname={userData.nickname}
-          socialId={userData.socialId}
+          profileImageUrl={myInfo?.data.data.profileImageUrl}
+          nickname={myInfo?.data.data.nickName}
+          socialId={myInfo?.data.data.socialId}
         />
         <MySellInfoContainer
-          dealCount={sellData.dealCount}
-          saleMoney={sellData.saleMoney}
-          saleCount={sellData.saleCount}
+          dealCount={myInfo?.data.data.dealCount}
+          saleMoney={myInfo?.data.data.saleMoney}
+          saleCount={myInfo?.data.data.saleCount}
         />
         <StyledStickyContainer>
           <SuggestTab options={['판매 중', '판매 종료']} outerFunc={handleOptionTab} isClicked={!isSaled} />
           <MySellItemContainer isSaled={isSaled} itemList={mySellInfo} />
         </StyledStickyContainer>
       </Root>
-      <PlusCircleButtonContainer />
-      <GNB />
+      <PlusCircleButtonContainer onClick={handlePlustCircleButton} />
+      <GNB currentGNB={'sell'} />
     </>
   );
 }
