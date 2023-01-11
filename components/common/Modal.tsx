@@ -106,11 +106,12 @@ const StyledModalButtonContainer = styled.section`
   }
 
   & :first-child {
+    margin-right: 1.2rem;
     background: ${({ theme }) => theme.colors.gray2};
   }
 
   & :last-child {
-    margin-left: 1.2rem;
+    margin-right: 0;
     background: ${({ theme }) => theme.colors.main};
   }
 `;
