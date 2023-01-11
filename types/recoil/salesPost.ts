@@ -1,5 +1,5 @@
 export interface salesPostType {
-  mainImage: string;
+  mainImage: File | null | Blob;
   productCount: null | number;
   salesOption: string;
   priceOption: string;
