@@ -30,5 +30,6 @@ const StyledMySellItemContainer = styled.section`
   flex-wrap: wrap;
   gap: 1.2rem;
 
+  width: 100%;
   margin-top: 2rem;
 `;
