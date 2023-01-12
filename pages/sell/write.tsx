@@ -60,7 +60,7 @@ export default function write() {
   }, [currentTextLength]);
 
   return (
-    <>
+    <Root>
       <Header
         title="판매글 작성하기"
         isHavingBackButton={true}
@@ -79,9 +79,13 @@ export default function write() {
         /500
       </StyledTextLength>
       <BigButton text="등록하기" isDisabled={isEmptyTextArea} onClick={handleClickPostWritingButton} />
-    </>
+    </Root>
   );
 }
+
+const Root = styled.div`
+  padding-bottom: 15rem;
+`;
 
 const StyledImagePopUpConatiner = styled.section`
   display: flex;
@@ -112,7 +116,6 @@ const StyledWriteContainer = styled.textarea`
 `;
 
 const StyledTextLength = styled.section<TextLengthProps>`
-  margin-top: 10rem;
   margin-bottom: 1.6rem;
 
   color: ${({ theme }) => theme.colors.gray3};
