@@ -175,6 +175,7 @@ const StyledPriceInputnContainer = styled.section`
 `;
 
 const StyledCheckBox = styled.section`
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
