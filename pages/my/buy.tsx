@@ -87,4 +87,11 @@ const StyledHeader = styled.section`
   background-color: ${({ theme }) => theme.colors.gray_background};
 `;
 
-const StyledStickyContainer = styled.section``;
+const StyledStickyContainer = styled.section`
+  position: sticky;
+  top: 56px;
+  z-index: 10;
+
+  width: 100%;
+  background-color: #292929;
+`;

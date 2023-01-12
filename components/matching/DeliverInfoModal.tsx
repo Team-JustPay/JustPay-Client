@@ -141,7 +141,9 @@ const ContentProperty = styled.p`
 `;
 
 const ContentText = styled.p`
-  color: ${({ theme }) => theme.colors.gray3};
-
+  width: 22rem;
+  word-break: break-all;
   text-align: right;
+
+  color: ${({ theme }) => theme.colors.gray3};
 `;
