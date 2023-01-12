@@ -20,6 +20,7 @@ export default function CheckRadio({ isChecked, onClick }: ButtonProps) {
 }
 
 const CheckButton = styled.button<ButtonProps>`
+  position: relative;
   width: 2.4rem;
   height: 2.4rem;
 
@@ -38,6 +39,9 @@ const CheckButton = styled.button<ButtonProps>`
   background-position: center;
 
   svg {
-    margin-left: -0.1rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 `;
