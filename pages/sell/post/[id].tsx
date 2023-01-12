@@ -18,10 +18,6 @@ export default function post() {
   const router = useRouter();
   const { salesPostId } = router.query;
 
-  useEffect(() => {
-    if (!router.isReady) return;
-  }, [router.isReady]);
-
   const { data: salesPostInfo } = useGetSalesPostInfo(Number(salesPostId));
 
   const [openImageDownloadModal, setOpenImageDownloadModal] = useState<boolean>(false);
