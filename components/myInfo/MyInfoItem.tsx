@@ -27,6 +27,10 @@ const Root = styled.section`
   ${({ theme }) => theme.fonts.title14pt};
 
   P {
+    width: 22rem;
+    word-break: break-all;
+    text-align: right;
+
     ${({ theme }) => theme.fonts.title16pt};
   }
 `;

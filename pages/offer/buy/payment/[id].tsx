@@ -156,6 +156,10 @@ const StyledKey = styled.p`
 `;
 
 const StyledValue = styled.p`
+  width: 22rem;
+  word-break: break-all;
+  text-align: right;
+
   ${({ theme }) => theme.fonts.title16pt};
   color: ${({ theme }) => theme.colors.grey3};
 `;
