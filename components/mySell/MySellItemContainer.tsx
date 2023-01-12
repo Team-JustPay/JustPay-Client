@@ -9,7 +9,7 @@ interface MySellItemContainerProps {
 export default function MySellItemContainer({ isSaled, itemList }: MySellItemContainerProps) {
   return (
     <StyledMySellItemContainer>
-      {itemList?.data.data.map((item: any) => (
+      {itemList?.map((item: any) => (
         <MySellItem
           key={item.id}
           isSaled={isSaled}

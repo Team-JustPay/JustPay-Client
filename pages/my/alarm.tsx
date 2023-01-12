@@ -9,15 +9,6 @@ import { useGetAlarm } from 'apiHooks/user';
 export default function alram() {
   const { data: myAlarm } = useGetAlarm();
 
-  console.log(myAlarm);
-  const data = [
-    {
-      notificationType: '판매 알림',
-      message: '이런저런 메시지',
-      create: '2022.12.20 15:40',
-    },
-  ];
-
   return (
     <Root>
       <LogoWrapper>
@@ -45,6 +36,7 @@ export default function alram() {
 const Root = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 4rem;
 `;
 
 const LogoWrapper = styled.div`

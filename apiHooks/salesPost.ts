@@ -26,7 +26,7 @@ export const useSetSalesPost = (salesPostInfo: FormData) => {
     },
     onSuccess: (data) => {
       Router.push({
-        pathname: `/sell/post/${data.data.data.id}`,
+        pathname: `/sell/postWrite`,
         query: { salesPostId: data.data.data.id },
       });
     },

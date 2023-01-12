@@ -45,12 +45,18 @@ export default function mySell() {
         <StyledStickyContainer>
           <SuggestTab options={['판매 중', '판매 종료']} outerFunc={handleOptionTab} isClicked={!isSaled} />
         </StyledStickyContainer>
-        <MySellItemContainer isSaled={isSaled} itemList={mySellInfo} />
+        <MySellItemContainer isSaled={isSaled} itemList={mySellInfo?.data.data} />
       </Root>
       <PlusCircleButtonContainer onClick={handlePlustCircleButton} />
       <GNB currentGNB={'sell'} />
     </>
   );
+}
+
+export async function getServerSideProps(context: any) {
+  return {
+    props: {},
+  };
 }
 
 const Root = styled.section`

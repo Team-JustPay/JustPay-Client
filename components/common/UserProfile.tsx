@@ -9,7 +9,7 @@ interface UserProfile {
 export default function UserProfile({ profileImageUrl, nickname, socialId }: UserProfile) {
   return (
     <StyledProfileContainer>
-      <img src="profileImageUrl" alt="트위터 프로필"></img>
+      <img src={profileImageUrl} alt="트위터 프로필"></img>
       <StyledProfileAccount>
         <h1>{nickname}</h1>
         <p>{socialId}</p>

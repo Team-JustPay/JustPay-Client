@@ -50,6 +50,7 @@ const Root = styled.section`
   width: 100%;
   height: 16.3rem;
   padding: 2.6rem 2.1rem;
+  margin-bottom: 4rem;
 
   background: rgba(28, 28, 28, 0.3);
   border-radius: 0.8rem;
