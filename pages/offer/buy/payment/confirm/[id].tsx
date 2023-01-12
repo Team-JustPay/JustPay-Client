@@ -1,25 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Header from 'components/common/Header';
 import BigButton from 'components/common/BigButton';
 import PaymentConfirm from 'public/assets/icons/paymentConfirm.svg';
-import axios from 'axios';
-import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
+import { useGetPaymentInfo } from 'apiHooks/suggests';
 
 export default function confirmPayment() {
   const [isCopySuccess, setIsCopySuccess] = useState(false);
   const router = useRouter();
   const { id } = router.query;
 
-  const { isLoading, error, data } = useQuery([id], () => axios.get(API_URL).then(({ data }) => data.data));
+  useEffect(() => {
+    if (!router.isReady) return;
+  }, [router.isReady]);
 
-  const API_URL = `https://api.just-pay.site/suggests/${id}/payment`;
+  const { isLoading, error, data } = useGetPaymentInfo(Number(id));
 
   //TODO: 로딩중 뷰 완성시 교체
+  if (!data) return null;
   if (isLoading) return <Root>로딩중..</Root>;
   if (error) return <Root>에러가 발생했습니다</Root>;
-  if (!data) return null;
 
   //TODO: 이동할 페이지가 정해지면 교체
   const moveToNextPage = () => {
@@ -42,7 +43,7 @@ export default function confirmPayment() {
         <StyledTextContainer>
           <GuideText>아래 계좌로 입금하면 최종 결제가 확정됩니다.</GuideText>
           <GuideText>
-            <HighlightText>{data.invoiceDeadline}까지</HighlightText>입금해주세요
+            <HighlightText>{data.data.data.invoiceDeadline}까지</HighlightText>입금해주세요
           </GuideText>
         </StyledTextContainer>
       </StyledGuideContainer>
@@ -65,7 +66,7 @@ export default function confirmPayment() {
         <StyledContentContainer>
           <StyledKey>입금금액</StyledKey>
           <StyledHighlightValue>{`${(
-            data.price + data.shippingOption.price
+            data.data.data.price + data.data.data.shippingOption.price
           ).toLocaleString()} 원`}</StyledHighlightValue>
         </StyledContentContainer>
       </StyledAccountInfoContainer>

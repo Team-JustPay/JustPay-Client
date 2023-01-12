@@ -7,6 +7,7 @@ import {
   getSuggestsInfo,
   deleteSuggests,
   setRaisePrice,
+  getPaymentInfo,
 } from 'api/suggests';
 
 export const useGetShippingInfo = (suggestId: number, isOpenShippingInfoModal: boolean) => {
@@ -64,4 +65,8 @@ export const useSetRaisePrice = (suggestsId: number, price: number) => {
       console.error(error);
     },
   });
+};
+
+export const useGetPaymentInfo = (suggestsId: number) => {
+  return useQuery(['get/suggests', suggestsId], () => getPaymentInfo(suggestsId));
 };

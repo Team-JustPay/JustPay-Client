@@ -35,19 +35,15 @@ export default function offerGuide() {
         <StyledContentTitle>2.&nbsp;선택한 옵션에 대해 설명을 남겨주세요</StyledContentTitle>
         <StyledSecondImage>
           <Second />
-          <StyledGuideContainer>
-            <StyledGuideContent> 구매를 원하는 상품이 4개인 경우에는, </StyledGuideContent>
-            <StyledGuideContent> `표시한 포카 4장 구매하고 싶어요`라고 남겨주세요</StyledGuideContent>
-          </StyledGuideContainer>
         </StyledSecondImage>
       </StyledContentContainer>
-      <StyledContentContainer>
-        <StyledContentTitle>3.&nbsp;사진 편집은 이렇게하면 돼요! </StyledContentTitle>
-        <StyledThirdWrapper>
-          <Third />
-        </StyledThirdWrapper>
+      <StyledContentTitle>3.&nbsp;사진 편집은 이렇게하면 돼요! </StyledContentTitle>
+      <StyledThirdImage>
+        <Third />
+      </StyledThirdImage>
+      <StyledFourthImage>
         <Fourth />
-      </StyledContentContainer>
+      </StyledFourthImage>
 
       <BigButton text="다음" isDisabled={false} onClick={() => router.push(`/offer/buy/${id}`)} />
     </Root>
@@ -103,8 +99,13 @@ const StyledFirstImage = styled(StyledImageContainer)`
   height: 22.6rem;
   padding-top: 2rem;
 `;
-const StyledSecondImage = styled(StyledImageContainer)`
-  height: 16.1rem;
+const StyledSecondImage = styled(StyledImageContainer)``;
+
+const StyledThirdImage = styled(StyledImageContainer)`
+  margin-bottom: 2.7rem;
+`;
+const StyledFourthImage = styled(StyledImageContainer)`
+  margin-bottom: 5rem;
 `;
 
 const StyledGuideContainer = styled.div`
