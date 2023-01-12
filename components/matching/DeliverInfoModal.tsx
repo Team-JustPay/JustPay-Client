@@ -84,7 +84,7 @@ const ModalContainer = styled.section<ModalProps>`
   z-index: 20;
 `;
 const Modal = styled.article`
-  width: 100%;
+  width: calc(100% - 3.2rem);
 
   padding: 3.2rem 2rem 0;
 

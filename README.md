@@ -1,7 +1,11 @@
 # JustPay-Client
 
 ![just pay](https://user-images.githubusercontent.com/69416561/209988175-dc826038-033a-433f-8254-618a5a839754.png)
+
 > 돈많네. 돈만 내!
+
+### 트위터 DM 없는 아이돌굿즈 최고가 매칭 서비스
+
 ```
 더이상 트위터 DM으로 거래하지 마세요.
 
@@ -11,9 +15,8 @@
 저스트페이에선 대화없이 결제확인만 하세요.
 ```
 
-
-
 ## 🙌 JustPay FE Team
+
 <table align="center">
     <tr align="center">
         <td style="min-width: 150px;">
@@ -64,7 +67,6 @@
         </td>
     </tr>
 </table>
-
 
 ## ⚙️ Tech Stack
 
@@ -216,16 +218,13 @@
 </tr>
 </table>
 
-
-
-
-
 ## 📁 Directory Structure
+
 ```
 📦JustPay-Client
 ┣ 📂.github //이슈,PR 템플릿 등 깃허브 관련 파일 관리
-┣ 📂.next 
-┣ 📂.vscode 
+┣ 📂.next
+┣ 📂.vscode
 ┣ 📂.yarn
 ┣ 📂api //axios 라이브러리 기반으로 비동기 통신하는 함수들, axios instance 파일로 구성
 ┣ 📂apiHooks //api의 함수들을 이용하여 react-query를 반환하는 함수들로 구성
@@ -260,8 +259,9 @@
 ```
 
 ## 🤝 Dependencies
+
 ```json
-"dependencies": {
+  "dependencies": {
     "@tanstack/react-query": "^4.20.4",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
@@ -269,22 +269,28 @@
     "@types/jest": "^29.2.4",
     "@types/react-dom": "^18.0.9",
     "axios": "^1.2.1",
-    "msw": "^0.49.2",
     "next": "12",
     "react": "^18.2.0",
+    "react-daum-postcode": "^3.1.1",
     "react-dom": "^18.2.0",
     "react-is": "^18.2.0",
+    "react-slick": "^0.29.0",
     "recoil": "^0.7.6",
+    "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.6",
     "styled-reset": "^4.4.4",
+    "supports-color": "^9.3.1",
     "typescript": "^4.9.4",
     "web-vitals": "^2.1.0"
   },
-    "devDependencies": {
+  "devDependencies": {
+    "@svgr/webpack": "^6.5.1",
     "@types/eslint": "^8",
     "@types/node": "^18.11.17",
     "@types/prettier": "^2",
     "@types/react": "^18",
+    "@types/react-slick": "^0.23.10",
+    "@types/slick-carousel": "^1",
     "@types/styled-components": "^5.1.26",
     "@typescript-eslint/eslint-plugin": "^5.47.0",
     "@typescript-eslint/parser": "^5.47.0",
@@ -297,14 +303,18 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.11",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "msw": "^0.49.2",
     "prettier": "^2.8.1"
   }
 ```
 
+## ⭐️ 서비스 핵심 기능
+
+- [서비스 핵심 기능](https://eunbigombi.notion.site/6e0b1cc72333452c89500eb8b62e8943)
+
 ## 📄 Docs
 
 - ⛓️ [Conventions](https://www.notion.so/eunbigombi/a6a709ccd0a84b7aaa4e0cf999084592)
-- 🔜 [Prototype, Proposal(will be added)]() 
+- 🔜 [Prototype, Proposal(will be added)]()
 - 🔜 [API Docs(will be added)]()
 - 🧾 [Meeting Log](https://www.notion.so/eunbigombi/503f9e06e9ff4f62a158e2ebda313636?v=765b51a388b448f5816fc0223968c290)
-
