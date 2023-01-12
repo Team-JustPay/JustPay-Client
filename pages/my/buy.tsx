@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import { useGetSalesPostList, useGetSalesPostInfo } from 'apiHooks/salesPost';
-import { useGetmyBuy } from 'apiHooks/user';
+import { useGetSalesPostInfo } from 'apiHooks/salesPost';
+import { useGetmyBuy, useGetmyInfo } from 'apiHooks/user';
 
 import Logo from '../../public/assets/icons/justpay_symbol_logo.svg';
 import UserProfile from 'components/common/UserProfile';
@@ -17,19 +17,9 @@ import ItemContainer from 'components/matching/ItemContainer';
 import Router from 'next/router';
 
 export default function myBuy() {
-  const userData = {
-    profileImageUrl: 'url',
-    nickname: '유아 판매계',
-    socialId: '@yoo_si_A',
-  };
-  const sellData = {
-    dealCount: 10,
-    saleMoney: 145000,
-    saleCount: 5,
-  };
-
   const [isClicked, setIsClicked] = useState(true);
   const [isPurchased, setIsPurchased] = useState(false);
+  const { data: myInfo } = useGetmyInfo(true);
   const { data: salesPostInfo } = useGetSalesPostInfo(2);
   const { data: myBuyPurchasedList } = useGetmyBuy(isPurchased);
 
@@ -48,14 +38,14 @@ export default function myBuy() {
           <Logo />
         </StyledHeader>
         <UserProfile
-          profileImageUrl={userData.profileImageUrl}
-          nickname={userData.nickname}
-          socialId={userData.socialId}
+          profileImageUrl={myInfo?.data.data.profileImageUrl}
+          nickname={myInfo?.data.data.nickName}
+          socialId={myInfo?.data.data.socialId}
         />
         <MySellInfoContainer
-          dealCount={sellData.dealCount}
-          saleMoney={sellData.saleMoney}
-          saleCount={sellData.saleCount}
+          dealCount={myInfo?.data.data.dealCount}
+          saleMoney={myInfo?.data.data.saleMoney}
+          saleCount={myInfo?.data.data.saleCount}
         />
         <StyledStickyContainer>
           <SuggestTab options={['구매 제시 내역', '구매 확정']} outerFunc={handleOptionTab} isClicked={isClicked} />
@@ -97,4 +87,11 @@ const StyledHeader = styled.section`
   background-color: ${({ theme }) => theme.colors.gray_background};
 `;
 
-const StyledStickyContainer = styled.section``;
+const StyledStickyContainer = styled.section`
+  position: sticky;
+  top: 56px;
+  z-index: 10;
+
+  width: 100%;
+  background-color: #292929;
+`;

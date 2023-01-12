@@ -15,8 +15,9 @@ export default function myInfoFix() {
   const [myfixedInfo, setMyfixedInfo] = useState(myInfo?.data.data);
   const [openModal, setOpenModal] = useState(false);
 
+  const { mutate: handleHandInfo } = usePutmyInfo(myfixedInfo);
+
   const handleMoveToMyInfo = () => {
-    console.log('최종 제출', myfixedInfo);
     if (
       myfixedInfo?.shippingInfo.receiverName !== '' &&
       myfixedInfo?.phoneNumber !== '' &&
@@ -27,9 +28,8 @@ export default function myInfoFix() {
       myfixedInfo?.bankName !== '' &&
       myfixedInfo?.accountNumber !== ''
     ) {
-      // alert('제출완료');
-      // Router.push('/my/info');
-      // usePutmyInfo(myfixedInfo);
+      Router.push('/my/info');
+      handleHandInfo();
     } else {
       setOpenModal(true);
     }
@@ -43,10 +43,6 @@ export default function myInfoFix() {
     setMyfixedInfo(myInfo?.data.data);
   }, [myInfo]);
 
-  useEffect(() => {
-    console.log('변경', myfixedInfo);
-  }, [myfixedInfo]);
-
   if (isLoading) return <div>로딩중...</div>;
   if (error) return <div>에러발생</div>;
   if (!myInfo) return null;
@@ -59,7 +55,7 @@ export default function myInfoFix() {
         <p onClick={handleMoveToMyInfo}>완료</p>
       </StyledHeader>
       <MyInfoFixTab myfixedInfo={myInfo.data.data} setMyfixedInfo={setMyfixedInfo} />
-      <GNB />
+      <GNB currentGNB="fix" />
       {openModal && (
         <Modal
           title={'필수 정보를 입력해 주세요!'}

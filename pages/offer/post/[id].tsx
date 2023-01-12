@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import Image from 'next/image';
 import styled from 'styled-components';
 import { useGetSuggestsInfo } from 'apiHooks/suggests';
@@ -15,8 +15,10 @@ import SaleInfoContainer from 'components/common/SaleInfoContainer';
 import Modal from 'components/common/Modal';
 
 export default function suggest() {
-  const { data: suggestsInfo } = useGetSuggestsInfo(35);
-  const { mutate: handleClickCancelButton } = useDeleteSuggests(35);
+  const router = useRouter();
+  const { salesPostId } = router.query;
+  const { data: suggestsInfo } = useGetSuggestsInfo(Number(salesPostId));
+  const { mutate: handleClickCancelButton } = useDeleteSuggests(Number(salesPostId));
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
 
   const handleClickRaisePriceButton = () => {

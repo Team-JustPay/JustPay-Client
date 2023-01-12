@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
 import { salesPostState } from '../../recoil/salespost';
 import styled from 'styled-components';
 import Header from 'components/common/Header';
@@ -15,20 +14,34 @@ interface TextLengthProps {
 
 export default function write() {
   const [salesPostInfo, setSalesPostState] = useRecoilState(salesPostState);
-
-  const { mutate: submitSalesForm } = useSetSalesPost(salesPostInfo);
-
-  console.log(salesPostInfo);
+  const [imageUrl, setImageUrl] = useState('');
 
   const [currentTextLength, setCurrentTextLength] = useState(0);
   const [isEmptyTextArea, setIsEmptyTextArea] = useState(true);
+
+  const formData = new FormData();
+
+  formData.append('mainImage', salesPostInfo.mainImage);
+  formData.append('productCount', salesPostInfo.productCount + '');
+  formData.append('salesOption', salesPostInfo.salesOption);
+  formData.append('priceOption', salesPostInfo.priceOption);
+  formData.append('price', salesPostInfo.price + '');
+  formData.append('certificationWord', salesPostInfo.certificationWord);
+  formData.append('description', salesPostInfo.description);
+  salesPostInfo.certifications.forEach((element) => {
+    formData.append('certifications', element);
+  });
+  salesPostInfo.shippingOptions.forEach((element) => {
+    formData.append('shippingOptions', element);
+  });
+  const { mutate: submitSalesForm } = useSetSalesPost(formData);
+
   const handlecurrentTextLength = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setCurrentTextLength(e.target.value.length);
     setSalesPostState((prev) => ({ ...prev, description: e.target.value }));
   };
   const handleClickPostWritingButton = () => {
     submitSalesForm();
-    Router.push('/sell/postWrite');
   };
 
   const moveToPrevPage = () => {
@@ -36,8 +49,16 @@ export default function write() {
   };
 
   useEffect(() => {
+    const blob = new Blob([salesPostInfo.mainImage]);
+
+    const image = URL.createObjectURL(blob);
+    setImageUrl(image);
+  }, []);
+
+  useEffect(() => {
     currentTextLength !== 0 ? setIsEmptyTextArea(false) : setIsEmptyTextArea(true);
   }, [currentTextLength]);
+
   return (
     <>
       <div>
@@ -48,7 +69,7 @@ export default function write() {
           handleLeftButton={moveToPrevPage}
         />
         <StyledImagePopUpConatiner>
-          <img alt="판매사진" />
+          <img src={imageUrl} alt="판매사진" />
         </StyledImagePopUpConatiner>
         <StyledWriteContainer
           placeholder="판매하는 상품에 대해서 설명해주세요 자세한 설명을 통해 빠르게 매칭될 수 있어요"

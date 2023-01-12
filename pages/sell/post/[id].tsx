@@ -16,9 +16,9 @@ import Router from 'next/router';
 
 export default function post() {
   const router = useRouter();
-  const { id } = router.query;
+  const { salesPostId } = router.query;
 
-  const { data: salesPostInfo } = useGetSalesPostInfo(Number(id));
+  const { data: salesPostInfo } = useGetSalesPostInfo(Number(salesPostId));
 
   const [openImageDownloadModal, setOpenImageDownloadModal] = useState<boolean>(false);
   const [openCopyLinkModal, setOpenCopyLinkModal] = useState<boolean>(false);
@@ -68,7 +68,7 @@ export default function post() {
           priceOption={'지정 가격'}
         />
         <StyledImageContainer>
-          <img src={salesPostInfo?.data.data.mainImageUrl} alt="판매글 대표 이미지" />
+          <ItemImage src={salesPostInfo?.data.data.mainImageUrl} alt="판매글 대표 이미지" />
           <StyledImageDownloadButton type="button" onClick={handleImageDownload}>
             <ImageDownloadIcon />
           </StyledImageDownloadButton>
@@ -90,7 +90,10 @@ export default function post() {
             text="구매 제시 현황보기"
             isDisabled={false}
             onClick={() => {
-              Router.push(`/matching/${salesPostInfo?.data.data.id}`);
+              Router.push({
+                pathname: `/matching/${salesPostInfo?.data.data.id}`,
+                query: { salesPostId: salesPostInfo.data.data.id },
+              });
             }}
           />
         ) : (
@@ -124,6 +127,7 @@ const StyledImageContainer = styled.section`
   background-color: ${({ theme }) => theme.colors.grey_popup};
 
   text-align: center;
+  object-fit: fill;
 `;
 
 const StyledImageDownloadButton = styled.button`
@@ -180,6 +184,12 @@ const StyledShowBuyerListButton = styled.button`
 const StyledBuySuggestButton = styled.button`
   background: ${({ theme }) => theme.colors.main};
   color: ${({ theme }) => theme.colors.white};
+`;
+
+const ItemImage = styled.img`
+  object-fit: fill;
+  height: 24.2rem;
+  border-radius: 0.8rem;
 `;
 
 export async function getServerSideProps(context: any) {

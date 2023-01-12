@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import Router from 'next/router';
 import { useGetSalesPostList, useGetSalesPostInfo, useSetSalesPostState } from 'apiHooks/salesPost';
@@ -20,6 +21,8 @@ import NoItem from 'components/matching/NoItem';
 import DeliverInfoModal from 'components/matching/DeliverInfoModal';
 
 export default function matching() {
+  const router = useRouter();
+  const { salesPostId } = router.query;
   const [isClicked, setIsClicked] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeliverInfoModalOpen, setIsDeliverInfoModalOpen] = useState(false);
@@ -42,10 +45,10 @@ export default function matching() {
 
   // 서버 통신 로직
   // const { data: shippingInfo } = useGetShippingInfo(13, isDeliverInfoModalOpen);
-  const { data: salesPostInfo } = useGetSalesPostInfo(2);
-  const { data: salesPostList } = useGetSalesPostList(2, isMatched);
-  const { mutate: handleSaleCancelButton } = useSetSalesPostState(2);
-  const { mutate: handleClickSuggestConfirmButton } = useSetSuggestState(2, 3);
+  const { data: salesPostInfo } = useGetSalesPostInfo(Number(salesPostId));
+  const { data: salesPostList } = useGetSalesPostList(Number(salesPostId), isMatched);
+  const { mutate: handleSaleCancelButton } = useSetSalesPostState(Number(salesPostId));
+  const { mutate: handleClickSuggestConfirmButton } = useSetSuggestState(Number(salesPostId), 3);
 
   // 누르면 각각 구매 중, 구매 완료 리스트 조회
   const handleOptionTab = () => {
@@ -158,7 +161,6 @@ export default function matching() {
               )}
             </>
           ))}
-          <div style={{ height: '500px' }}></div>
         </ItemContainer>
       </SuggestContainer>
       {isSuggested && <ToastMessage text="판매글에 구매를 제시했어요!" />}
@@ -206,6 +208,12 @@ export default function matching() {
       )}
     </Root>
   );
+}
+
+export async function getServerSideProps(context: any) {
+  return {
+    props: {},
+  };
 }
 
 const Root = styled.section`

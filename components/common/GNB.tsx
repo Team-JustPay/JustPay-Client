@@ -12,7 +12,7 @@ import MyInfoColor from '../../public/assets/icons/myInfo=color.svg';
 import Router from 'next/router';
 
 interface GNBProps {
-  currentGNB: string;
+  currentGNB?: string;
 }
 export default function GNB({ currentGNB }: GNBProps) {
   const handleClickGNBOption = (e: React.MouseEvent) => {

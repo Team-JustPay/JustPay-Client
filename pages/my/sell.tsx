@@ -17,19 +17,6 @@ export default function mySell() {
   const { data: myInfo } = useGetmyInfo(false);
   const { data: mySellInfo } = useGetMySellInfo(isSaled);
 
-  console.log(myInfo);
-
-  const userData = {
-    profileImageUrl: 'url',
-    nickname: '유아 판매계',
-    socialId: '@yoo_si_A',
-  };
-  const sellData = {
-    dealCount: 10,
-    saleMoney: 145000,
-    saleCount: 5,
-  };
-
   const handleOptionTab = () => {
     setIsSaled((prev) => !prev);
   };
@@ -57,8 +44,8 @@ export default function mySell() {
         />
         <StyledStickyContainer>
           <SuggestTab options={['판매 중', '판매 종료']} outerFunc={handleOptionTab} isClicked={!isSaled} />
-          <MySellItemContainer isSaled={isSaled} itemList={mySellInfo} />
         </StyledStickyContainer>
+        <MySellItemContainer isSaled={isSaled} itemList={mySellInfo} />
       </Root>
       <PlusCircleButtonContainer onClick={handlePlustCircleButton} />
       <GNB currentGNB={'sell'} />
@@ -84,4 +71,11 @@ const StyledHeader = styled.section`
   background-color: ${({ theme }) => theme.colors.gray_background};
 `;
 
-const StyledStickyContainer = styled.section``;
+const StyledStickyContainer = styled.section`
+  position: sticky;
+  top: 56px;
+  z-index: 10;
+
+  width: 100%;
+  background-color: #292929;
+`;

@@ -49,7 +49,7 @@ const SaleInfo = styled.section<{ productCount: number }>`
   flex-direction: column;
   align-items: center;
 
-  width: ${({ productCount }) => (productCount === 1 ? 'calc(100% / 3)' : 'calc(100% / 2)')};
+  width: ${({ productCount }) => (productCount === 1 ? 'calc(100% / 2)' : 'calc(100% / 3)')};
   border-right: 1px solid ${({ theme }) => theme.colors.gray0};
 
   h1 {

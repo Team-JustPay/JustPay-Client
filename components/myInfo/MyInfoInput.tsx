@@ -61,5 +61,6 @@ const SearchButton = styled.div`
 
   color: ${({ theme }) => theme.colors.main};
   background-color: ${({ theme }) => theme.colors.main_opacity20};
+  ${({ theme }) => theme.fonts.regular12pt};
   border-radius: 0.3rem;
 `;

@@ -81,7 +81,7 @@ interface StyledMySellItemProps {
 }
 
 const StyledMySellItem = styled.section<StyledMySellItemProps>`
-  width: 17.3rem;
+  width: calc((96% -12px) / 2);
   height: 24.4rem;
 
   border-radius: 0.8rem;

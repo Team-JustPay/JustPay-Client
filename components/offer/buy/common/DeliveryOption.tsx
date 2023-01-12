@@ -44,9 +44,9 @@ export default function DeliveryOption({
 
   const Icon = () => {
     switch (name) {
-      case '반값택배':
+      case 'GS택배':
         return <Gspost />;
-      case '끼리택배':
+      case 'CU택배':
         return <Cupost />;
       case '일반우편':
         return <Mail />;
@@ -68,7 +68,7 @@ export default function DeliveryOption({
           <StyledSubtitle>|&nbsp;{`${price.toLocaleString()}원`}</StyledSubtitle>
         </StyledTitleContainer>
         <StyledDescriptionContainer>
-          {contents.map((content) => (
+          {contents?.map((content) => (
             <StyledContent>· &nbsp;{content}</StyledContent>
           ))}
         </StyledDescriptionContainer>

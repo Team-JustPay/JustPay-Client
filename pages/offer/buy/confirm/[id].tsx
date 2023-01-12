@@ -44,9 +44,9 @@ export default function confirm() {
     if (postData.shippingOption !== undefined) {
     }
     switch (postData.shippingOption) {
-      case '반값택배':
+      case 'GS택배':
         return 1600;
-      case '끼리택배':
+      case 'CU택배':
         return 1600;
       case '일반우편':
         return 600;
@@ -161,6 +161,10 @@ const StyledKey = styled.p`
 `;
 
 const StyledValue = styled.p`
+  width: 22rem;
+  word-break: break-all;
+  text-align: right;
+
   ${theme.fonts.title16pt};
   color: ${theme.colors.gray3};
 `;

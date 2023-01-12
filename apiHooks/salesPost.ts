@@ -8,20 +8,27 @@ import {
   getCertificationImages,
   setSalesSuggest,
 } from 'api/salesPost';
-import { salesPostType } from 'types/recoil/salesPost';
+import Router from 'next/router';
 
 export const useGetCertificationWord = () => {
   return useQuery(['get/certificationWord'], getCertificationWord, {
     onError: (error) => {
       console.error(error);
     },
+    refetchOnWindowFocus: false,
   });
 };
 
-export const useSetSalesPost = (salesPostInfo: salesPostType) => {
+export const useSetSalesPost = (salesPostInfo: FormData) => {
   return useMutation(() => setSalesPost(salesPostInfo), {
     onError: (error) => {
       console.error(error);
+    },
+    onSuccess: (data) => {
+      Router.push({
+        pathname: `/sell/post/${data.data.data.id}`,
+        query: { salesPostId: data.data.data.id },
+      });
     },
   });
 };

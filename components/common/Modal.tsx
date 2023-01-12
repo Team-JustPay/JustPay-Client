@@ -53,10 +53,9 @@ const StyledModalBackground = styled.div`
   top: 0;
   z-index: 20;
 
-  width: 43rem;
+  width: 100%;
   min-height: calc(var(--vh) * 100);
 
-  padding: 0 1.6rem 3.2rem;
   margin-left: -16px;
 
   background: rgba(0, 0, 0, 0.7);
@@ -70,7 +69,6 @@ const StyledModal = styled.section`
 
   width: 100%;
   height: 24rem;
-  padding: 3.2rem 4rem;
 
   border-radius: 0.8rem;
   background: ${({ theme }) => theme.colors.grey_popup};
@@ -108,11 +106,12 @@ const StyledModalButtonContainer = styled.section`
   }
 
   & :first-child {
+    margin-right: 1.2rem;
     background: ${({ theme }) => theme.colors.gray2};
   }
 
   & :last-child {
-    margin-left: 1.2rem;
+    margin-right: 0;
     background: ${({ theme }) => theme.colors.main};
   }
 `;
