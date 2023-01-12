@@ -55,6 +55,7 @@ const HeaderContainer = styled.article`
   justify-content: space-between;
 
   padding: 1.5rem 2rem 1.5rem 0.8rem;
+  margin-left: -8px;
 
   position: fixed;
   max-width: 43rem;
