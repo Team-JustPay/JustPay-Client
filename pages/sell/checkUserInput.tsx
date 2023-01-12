@@ -123,7 +123,7 @@ const StyledUserChoiceContainer = styled.div`
   justify-content: space-between;
 
   width: 100%;
-  margin-bottom: 6.8rem;
+  margin-bottom: 1.5rem;
 `;
 
 const StyledCheckboxContainer = styled.div`
