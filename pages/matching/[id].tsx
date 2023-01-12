@@ -71,6 +71,8 @@ export default function matching() {
     }, 2000);
   };
 
+  console.log(salesPostList);
+
   // 운송장 입력 페이지로 이동
   const handleInvoicePutButton = (id: number) => {
     Router.push({
@@ -138,7 +140,7 @@ export default function matching() {
         <SuggestTab options={['매칭 중인 목록', '매칭 완료 목록']} outerFunc={handleOptionTab} isClicked={isClicked} />
         <SortOption optionText="구매 희망" optionNum={salesPostList?.data.data.length} />
         <ItemContainer>
-          {!salesPostInfo?.data.data.length && <NoItem />}
+          {!salesPostList?.data.data.length && <NoItem />}
           {salesPostList?.data.data.map((item: any) => (
             <>
               <SuggestItem
