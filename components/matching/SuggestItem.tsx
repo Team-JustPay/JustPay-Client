@@ -2,8 +2,6 @@ import React from 'react';
 import Image from 'next/image';
 import styled, { css } from 'styled-components';
 
-import FirstPic from '../../public/assets/images/suggestItem.png';
-import ProfilePic from '../../public/assets/icons/profile.svg';
 import theme from 'styles/theme';
 
 interface SuggestItemProps {
@@ -26,6 +24,10 @@ interface ComponentProps {
 interface ButtonProps {
   backgroundColorType: string;
   colorType: string;
+}
+
+interface ImageContainerProps {
+  itemSize: 'big' | 'small';
 }
 
 export default function SuggestItem({
@@ -123,11 +125,15 @@ export default function SuggestItem({
   return (
     <Root>
       <ItemContainer itemSize={itemSize} isOwner={isOwner} isMine={isMine} status={status}>
-        <Image src={FirstPic} alt="상품 사진" />
+        <ImageContainer itemSize={itemSize}>
+          <Image src={element.imageUrl} alt="상품 사진" layout="fill" />
+        </ImageContainer>
         <SuggestInfo>
           <SuggestState itemSize={itemSize}>
-            <SuggestStateText>{description}</SuggestStateText>
-            <ProfilePic />
+            <SuggestStateText>{element.description}</SuggestStateText>
+            <ProfileImageContainer>
+              <Image src={element.suggester.profileImageUrl} layout="fill" />
+            </ProfileImageContainer>
           </SuggestState>
           {itemSize === 'big' && (
             <Option>
@@ -176,6 +182,26 @@ const ItemContainer = styled.article<ComponentProps>`
             width: 16rem !important;
           }
         `}
+`;
+
+const ImageContainer = styled.section<ImageContainerProps>`
+  position: relative;
+  ${({ itemSize }) =>
+    itemSize === 'small'
+      ? css`
+          width: 6.4rem;
+          height: 6.4rem;
+        `
+      : css`
+          width: 16rem;
+          height: 12.2rem;
+        `}
+`;
+
+const ProfileImageContainer = styled.section`
+  position: relative;
+  width: 2.4rem;
+  height: 2.4rem;
 `;
 
 const SuggestInfo = styled.article`

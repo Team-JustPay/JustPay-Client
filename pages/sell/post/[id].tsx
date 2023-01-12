@@ -31,6 +31,20 @@ export default function post() {
     return window.location.assign(salesPostInfo?.data.data.mainImageUr);
   };
 
+  const handleClickSalesPostInfoButton = () => {
+    Router.push({
+      pathname: `/matching/${salesPostInfo?.data.data.id}`,
+      query: { salesPostId: salesPostInfo?.data.data.id },
+    });
+  };
+
+  const handleClickSuggestButton = () => {
+    Router.push({
+      pathname: `/offer/buy/${salesPostInfo?.data.data.id}`,
+      query: { salesPostId: salesPostInfo?.data.data.id },
+    });
+  };
+
   const handleCopyLink = () => {
     setOpenCopyLinkModal(true);
     setTimeout(() => {
@@ -99,8 +113,12 @@ export default function post() {
           />
         ) : (
           <StyledBuyerButtonContainer>
-            <StyledShowBuyerListButton type="button">구매 제시 현황보기</StyledShowBuyerListButton>
-            <StyledBuySuggestButton type="button">구매 제시하기</StyledBuySuggestButton>
+            <StyledShowBuyerListButton type="button" onClick={handleClickSalesPostInfoButton}>
+              구매 제시 현황보기
+            </StyledShowBuyerListButton>
+            <StyledBuySuggestButton type="button" onClick={handleClickSuggestButton}>
+              구매 제시하기
+            </StyledBuySuggestButton>
           </StyledBuyerButtonContainer>
         )}
       </StyledBottomConatiner>

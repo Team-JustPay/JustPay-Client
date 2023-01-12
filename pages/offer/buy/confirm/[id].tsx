@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import styled from 'styled-components';
 import theme from 'styles/theme';
 import Header from 'components/common/Header';
@@ -76,6 +76,10 @@ export default function confirm() {
 
   const postSuggestData = () => {
     submitSuggestForm();
+    Router.push({
+      pathname: `/matching/${id}`,
+      query: { salesPostId: id },
+    });
   };
 
   return (
