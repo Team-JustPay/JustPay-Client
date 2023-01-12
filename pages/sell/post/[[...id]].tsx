@@ -15,7 +15,7 @@ export default function certification() {
   const { salesPostId } = router.query;
   console.log(router);
   const [openHelpModal, setOpenHelpModal] = useState<boolean>(false);
-  const { data: certifications } = useGetCertificationImages(2);
+  const { data: certifications } = useGetCertificationImages(Number(salesPostId));
 
   const handleOpenHelpModal = () => {
     setOpenHelpModal(!openHelpModal);
@@ -36,7 +36,7 @@ export default function certification() {
         title="인증 사진"
         leftButtonText="닫기"
         rightButtonText="도움"
-        handleLeftButton={() => Router.push(`/sell/post/${salesPostId}`)}
+        handleLeftButton={() => Router.back()}
         handleRightButton={handleOpenHelpModal}></Header>
       <StyledCertificationWord>
         <h1>인증 단어</h1>|<p>{certifications?.data.data.certificationWord}</p>

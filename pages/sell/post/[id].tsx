@@ -16,9 +16,9 @@ import Router from 'next/router';
 
 export default function post() {
   const router = useRouter();
-  const { id } = router.query;
+  const { salesPostId } = router.query;
 
-  const { data: salesPostInfo } = useGetSalesPostInfo(Number(id));
+  const { data: salesPostInfo } = useGetSalesPostInfo(Number(salesPostId));
 
   const [openImageDownloadModal, setOpenImageDownloadModal] = useState<boolean>(false);
   const [openCopyLinkModal, setOpenCopyLinkModal] = useState<boolean>(false);
@@ -90,7 +90,10 @@ export default function post() {
             text="구매 제시 현황보기"
             isDisabled={false}
             onClick={() => {
-              Router.push(`/matching/${salesPostInfo?.data.data.id}`);
+              Router.push({
+                pathname: `/matching/${salesPostInfo?.data.data.id}`,
+                query: { salesPostId: salesPostInfo.data.data.id },
+              });
             }}
           />
         ) : (
@@ -183,14 +186,14 @@ const StyledBuySuggestButton = styled.button`
   color: ${({ theme }) => theme.colors.white};
 `;
 
-export async function getServerSideProps(context: any) {
-  return {
-    props: {},
-  };
-}
-
 const ItemImage = styled.img`
   object-fit: fill;
   height: 24.2rem;
   border-radius: 0.8rem;
 `;
+
+export async function getServerSideProps(context: any) {
+  return {
+    props: {},
+  };
+}

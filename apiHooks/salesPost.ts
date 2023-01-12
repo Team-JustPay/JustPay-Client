@@ -8,8 +8,7 @@ import {
   getCertificationImages,
   setSalesSuggest,
 } from 'api/salesPost';
-import { salesPostType } from 'types/recoil/salesPost';
-import { useRouter } from 'next/router';
+import Router from 'next/router';
 
 export const useGetCertificationWord = () => {
   return useQuery(['get/certificationWord'], getCertificationWord, {
@@ -25,8 +24,11 @@ export const useSetSalesPost = (salesPostInfo: FormData) => {
     onError: (error) => {
       console.error(error);
     },
-    onSuccess: () => {
-      console.log('성공');
+    onSuccess: (data) => {
+      Router.push({
+        pathname: `/sell/post/${data.data.data.id}`,
+        query: { salesPostId: data.data.data.id },
+      });
     },
   });
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import Router, { useRouter } from 'next/router';
+import Router from 'next/router';
 import styled from 'styled-components';
 
 import SellListIcon from '../../public/assets/icons/SellList.svg';
@@ -18,7 +18,6 @@ interface HeaderTextProps {
 }
 
 export default function Header({ isMine, modalOpenFunc, suggestId }: HeaderProps) {
-  const { query } = useRouter();
   const handleClickLeftButton = () => {
     Router.push('/my/sell');
   };
@@ -26,7 +25,7 @@ export default function Header({ isMine, modalOpenFunc, suggestId }: HeaderProps
   const handleClickDetailButton = () => {
     Router.push({
       pathname: `/sell/post/${suggestId}`,
-      query: { id: query.id },
+      query: { salesPostId: suggestId },
     });
   };
 
