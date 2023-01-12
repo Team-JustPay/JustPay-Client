@@ -100,7 +100,11 @@ export default function selectPrice() {
       <div>
         <Header title={TITLE.ADD_SELLPOST} rightButtonText={MENU.BACK} isHavingBackButton />
         <TitleText>
-          <SubText text="n개의 상품을 판매하시는군요!" isMainColor={false}></SubText>
+          <SubText
+            text={`${
+              salesPostRecoil.productCount === null ? 0 : salesPostRecoil.productCount
+            }개의 상품을 판매하시는군요!`}
+            isMainColor={false}></SubText>
           <MainText text={mainTextContent}></MainText>
         </TitleText>
         <div onClick={handleOption}>
