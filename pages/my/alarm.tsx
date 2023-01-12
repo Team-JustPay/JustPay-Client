@@ -4,31 +4,41 @@ import MainLogo from 'public/assets/icons/justpay_symbol_logo.svg';
 import BuyIcon from 'public/assets/icons/notification_buy.svg';
 import SellIcon from 'public/assets/icons/notification_sell.svg';
 import React from 'react';
+import { useGetAlarm } from 'apiHooks/user';
 
 export default function alram() {
-  const data = {
-    notificationType: '판매 알림',
-    message: '이런저런 메시지',
-    create: '2022.12.20 15:40',
-  };
+  const { data: myAlarm } = useGetAlarm();
+
+  console.log(myAlarm);
+  const data = [
+    {
+      notificationType: '판매 알림',
+      message: '이런저런 메시지',
+      create: '2022.12.20 15:40',
+    },
+  ];
+
   return (
     <Root>
       <LogoWrapper>
         <MainLogo />
       </LogoWrapper>
       <TradeAlramText>중요한 거래 알림을 확인하세요!</TradeAlramText>
-      <Notificontent>
-        <NotificationHeader>
-          <NotificationText>
-            {data.notificationType === '구매 알림' ? <BuyIcon /> : <SellIcon />}
-            {data.notificationType}
-          </NotificationText>
-          <NotificationRight>{data.create}</NotificationRight>
-        </NotificationHeader>
-        <NotificationMessage>{data.message}</NotificationMessage>
-      </Notificontent>
 
-      <GNB currentGNB={'alram'} />
+      {myAlarm?.data.data.map((item: { notificationType: string; createdAt: string; message: string }) => (
+        <Notificontent>
+          <NotificationHeader>
+            <NotificationText>
+              {item.notificationType === '구매 알림' ? <BuyIcon /> : <SellIcon />}
+              {item.notificationType}
+            </NotificationText>
+            <NotificationRight>{item.createdAt}</NotificationRight>
+          </NotificationHeader>
+          <NotificationMessage>{item.message}</NotificationMessage>
+        </Notificontent>
+      ))}
+
+      <GNB currentGNB={'alarm'} />
     </Root>
   );
 }

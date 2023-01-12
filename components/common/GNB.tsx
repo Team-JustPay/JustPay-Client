@@ -21,7 +21,7 @@ export default function GNB({ currentGNB }: GNBProps) {
 
   return (
     <Root>
-      <button type="button" className="alram" onClick={handleClickGNBOption}>
+      <button type="button" className="alarm" onClick={handleClickGNBOption}>
         {currentGNB === 'alram' ? <AlramColor /> : <Alram />}
       </button>
       <button type="button" className="buy" onClick={handleClickGNBOption}>
