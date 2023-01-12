@@ -120,7 +120,7 @@ const StyledCertigfyInfoConatiner = styled.section`
 const StyledUploadImageConatiner = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 1.2rem;
+  gap: 0.5rem;
 `;
 
 const ShowFileImage = styled.img`
