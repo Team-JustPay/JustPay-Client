@@ -43,7 +43,7 @@ export default function post() {
   };
 
   return (
-    <>
+    <Root>
       <div>
         <Header
           title="판매글 상세"
@@ -108,11 +108,15 @@ export default function post() {
           </StyledBuyerButtonContainer>
         )}
       </StyledBottomConatiner>
-    </>
+    </Root>
   );
 }
 
 post.Layout = layout;
+
+const Root = styled.div`
+  padding-bottom: 13rem;
+`;
 
 const StyledSalePost = styled.span`
   color: ${({ theme }) => theme.colors.gray3};
