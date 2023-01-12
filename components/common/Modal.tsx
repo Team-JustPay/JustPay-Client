@@ -54,6 +54,7 @@ const StyledModalBackground = styled.div`
   z-index: 20;
 
   width: 100%;
+  max-width: 43rem;
   min-height: calc(var(--vh) * 100);
 
   margin-left: -16px;
@@ -67,8 +68,10 @@ const StyledModal = styled.section`
   justify-content: center;
   align-items: center;
 
-  width: 100%;
+  width: calc(100% - 3.2rem);
   height: 24rem;
+
+  margin: 0 auto;
 
   border-radius: 0.8rem;
   background: ${({ theme }) => theme.colors.grey_popup};
