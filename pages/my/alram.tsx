@@ -11,23 +11,6 @@ export default function alram() {
     message: '이런저런 메시지',
     create: '2022.12.20 15:40',
   };
-  //   const data = [
-  //     {
-  //       notificationType: '구매 알림',
-  //       message: '이런저런 메시지',
-  //       createdAt: '2022.12.20 15:40',
-  //     },
-  //     {
-  //       notificationType: '판매 알림',
-  //       message: '이런저런 메시지',
-  //       createdAt: '2022.12.20 15:40',
-  //     },
-  //     {
-  //       notificationType: '구매 알림',
-  //       message: '이런저런 메시지',
-  //       createdAt: '2022.12.20 15:40',
-  //     },
-  //   ];
   return (
     <Root>
       <LogoWrapper>
