@@ -11,19 +11,17 @@ import MyInfo from '../../public/assets/icons/myInfo.svg';
 import MyInfoColor from '../../public/assets/icons/myInfo=color.svg';
 import Router from 'next/router';
 
-interface GNBProps{
-  currentGNB : string;
+interface GNBProps {
+  currentGNB: string;
 }
-export default function GNB({currentGNB} :GNBProps ) {
-
+export default function GNB({ currentGNB }: GNBProps) {
   const handleClickGNBOption = (e: React.MouseEvent) => {
     Router.push(`/my/${e.currentTarget.className}`);
   };
 
-
   return (
     <Root>
-      <button type="button" className="alram" onClick={handleClickGNBOption}>
+      <button type="button" className="alarm" onClick={handleClickGNBOption}>
         {currentGNB === 'alram' ? <AlramColor /> : <Alram />}
       </button>
       <button type="button" className="buy" onClick={handleClickGNBOption}>
