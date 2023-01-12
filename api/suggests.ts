@@ -34,3 +34,7 @@ export const setRaisePrice = async (suggestsId: number, price: number) => {
     price: price,
   });
 };
+
+export const getPaymentInfo = async (suggestsId: number) => {
+  return await suggestsAPI.get(`/${suggestsId}/payment`);
+};

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { useGetSalesPostInfo } from 'apiHooks/salesPost';
@@ -17,6 +17,10 @@ import Router from 'next/router';
 export default function post() {
   const router = useRouter();
   const { salesPostId } = router.query;
+
+  useEffect(() => {
+    if (!router.isReady) return;
+  }, [router.isReady]);
 
   const { data: salesPostInfo } = useGetSalesPostInfo(Number(salesPostId));
 
@@ -70,7 +74,7 @@ export default function post() {
         />
         <StyledImageContainer>
           <ItemImage src={salesPostInfo?.data.data.mainImageUrl} alt="판매글 대표 이미지" />
-          <StyledImageDownloadButton type="button" onClick={handleImageDownload}>
+          <StyledImageDownloadButton href={salesPostInfo?.data.data.mainImageUrl} download>
             <ImageDownloadIcon />
           </StyledImageDownloadButton>
         </StyledImageContainer>
@@ -131,7 +135,7 @@ const StyledImageContainer = styled.section`
   object-fit: fill;
 `;
 
-const StyledImageDownloadButton = styled.button`
+const StyledImageDownloadButton = styled.a`
   position: absolute;
   top: 8px;
   right: 8px;
