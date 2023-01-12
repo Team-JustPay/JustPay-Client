@@ -145,6 +145,6 @@ const StyledCertificationImageContainer = styled.section`
   height: 52rem;
   width: 100%;
 
-  background-color: ${({ theme }) => theme.colors.main};
+  background-color: ${({ theme }) => theme.colors.gray_background};
   color: white;
 `;

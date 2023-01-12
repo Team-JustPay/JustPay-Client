@@ -23,7 +23,6 @@ type UploadImage = {
 
 export default function option() {
   const [isPosted, setIsPosted] = useState(true);
-  const [isOptionClicked, setIsOptionClicked] = useState(false);
   const [inputText, setInputText] = useState('');
   const [salesPost, setSalesPostState] = useRecoilState(salesPostState);
 
@@ -37,15 +36,16 @@ export default function option() {
 
   const inputHandler = (e: React.FormEvent) => {
     if ((e.target as HTMLInputElement).value === '1' || !(e.target as HTMLInputElement).value) {
-      setIsOptionClicked(false);
       setSalesPostState((prev) => ({ ...prev, salesOption: 'BULK' }));
+    }
+    if ((e.target as HTMLInputElement).value !== '1') {
+      setSalesPostState((prev) => ({ ...prev, salesOption: '' }));
     }
     setSalesPostState((prev) => ({ ...prev, productCount: Number((e.target as HTMLInputElement).value) }));
   };
 
   const optionHandler = (e: React.MouseEvent) => {
     if (e.target instanceof HTMLButtonElement) {
-      setIsOptionClicked(true);
       if (e.target.innerText === '일괄 판매만') {
         setSalesPostState((prev) => ({ ...prev, salesOption: 'BULK' }));
       }
@@ -101,6 +101,22 @@ export default function option() {
     Router.push('/sell/qcGuide');
   };
 
+  const checkImageUpload = () => {
+    return salesPost.mainImage === null ? false : true;
+  };
+
+  const checkProductCount = () => {
+    return salesPost.productCount === null ? false : true;
+  };
+
+  const checkSalesOption = () => {
+    return salesPost.salesOption === '' ? false : true;
+  };
+
+  const checkValidOption = () => {
+    return checkImageUpload() && checkProductCount() && checkSalesOption() ? true : false;
+  };
+
   return (
     <>
       <>
@@ -150,7 +166,7 @@ export default function option() {
           </OptionContainer>
         )}
       </>
-      <BigButton text="다음" isDisabled={inputText !== '1' && !isOptionClicked} onClick={handleClickNextButton} />
+      <BigButton text="다음" isDisabled={!checkValidOption()} onClick={handleClickNextButton} />
     </>
   );
 }
