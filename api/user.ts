@@ -22,3 +22,7 @@ export const getMySellInfo = async (isSaled: boolean) => {
 export const getMyInfo = async () => {
   return await userAPI.get(`/my/info?addressSplit=true`);
 };
+
+export const getAlarm = async () => {
+  return await userAPI.get(`my/notifications`);
+};

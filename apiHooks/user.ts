@@ -1,5 +1,5 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
-import { getmyBuy, getmyInfo, putmyInfo, getMySellInfo, getMyInfo } from 'api/user';
+import { getmyBuy, getmyInfo, putmyInfo, getMySellInfo, getMyInfo, getAlarm } from 'api/user';
 import { MyInfoType } from 'types/recoil/myInfo';
 
 export const useGetmyBuy = (isPurchased: boolean) => {
@@ -38,6 +38,14 @@ export const useGetMyInfo = () => {
   return useQuery(['get/my/info?addressSplit=true'], () => getMyInfo(), {
     onError: (error) => {
       console.error(error);
+    },
+  });
+};
+
+export const useGetAlarm = () => {
+  return useQuery(['get/my/notifications'], () => getAlarm(), {
+    onError: (error) => {
+      console.log(error);
     },
   });
 };
