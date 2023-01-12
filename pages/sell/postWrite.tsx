@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import MainText from 'components/common/MainText';
 import SubText from 'components/common/SubText';
 import BigButton from 'components/common/BigButton';
@@ -13,6 +14,8 @@ import CompletePostWrite from '../../public/assets/icons/completePostWrite.svg';
 import Router from 'next/router';
 
 export default function postWrite() {
+  const router = useRouter();
+  const { salesPostId } = router.query;
   const [openCopyLinkModal, setOpenCopyLinkModal] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const handleCopyLink = () => {
@@ -26,7 +29,10 @@ export default function postWrite() {
   const uploadOnTwitter = () => {};
 
   const handleShowPostDetail = () => {
-    Router.push(`/sell/post/${1}`);
+    Router.push({
+      pathname: `/sell/post/${salesPostId}`,
+      query: { salesPostId: salesPostId },
+    });
   };
   return (
     <>

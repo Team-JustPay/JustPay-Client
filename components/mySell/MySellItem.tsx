@@ -41,10 +41,7 @@ export default function MySellItem({
 
   return (
     <StyledMySellItem saled={isSaled}>
-      <img
-        alt="판매글 대표 이미지"
-        src="https://user-images.githubusercontent.com/62867581/211127784-8ece7c52-57dc-4468-8e66-cb2a12697f81.png"
-      />
+      <img alt="판매글 대표 이미지" src={mainImageUrl} />
       <StyledItemListContainer>
         <StyledItemList>
           <h1>상품 개수</h1>
