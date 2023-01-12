@@ -22,7 +22,7 @@ export default function GNB({ currentGNB }: GNBProps) {
   return (
     <Root>
       <button type="button" className="alarm" onClick={handleClickGNBOption}>
-        {currentGNB === 'alram' ? <AlramColor /> : <Alram />}
+        {currentGNB === 'alarm' ? <AlramColor /> : <Alram />}
       </button>
       <button type="button" className="buy" onClick={handleClickGNBOption}>
         {currentGNB === 'buy' ? <BuyColor /> : <Buy />}
