@@ -42,8 +42,9 @@ export default function certification() {
         <h1>인증 단어</h1>|<p>{certifications?.data.data.certificationWord}</p>
       </StyledCertificationWord>
       <StyledSlider {...settings}>
-        {certifications?.data.data.imagesUrls.map((item: string) => (
+        {certifications?.data.data.imagesUrls.map((item: string, index: number) => (
           <StyledCertificationImageContainer key={item}>
+            {index}
             <Image src={item} alt="인증사진" layout="fill" />
           </StyledCertificationImageContainer>
         ))}
@@ -140,7 +141,9 @@ const StyledSlider = styled(Slider)`
 `;
 
 const StyledCertificationImageContainer = styled.section`
+  position: relative;
   height: 52rem;
+  width: 100%;
 
   background-color: ${({ theme }) => theme.colors.main};
   color: white;
