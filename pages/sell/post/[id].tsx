@@ -28,6 +28,7 @@ export default function post() {
     setTimeout(() => {
       setOpenImageDownloadModal(false);
     }, 2000);
+    return window.location.assign(salesPostInfo?.data.data.mainImageUr);
   };
 
   const handleCopyLink = () => {
@@ -74,7 +75,7 @@ export default function post() {
           </StyledImageDownloadButton>
         </StyledImageContainer>
         <StyledExportConatiner>
-          <StyledPostDate>2022.12.22 (목) 판매등록</StyledPostDate>
+          <StyledPostDate>{salesPostInfo?.data.data.createdAt}</StyledPostDate>
           {salesPostInfo?.data.data.isMine && (
             <NonStyledShareTwitterButton type="button">
               <ShareTwitterIcon onClick={handleCopyLink} />
@@ -159,15 +160,19 @@ const StyledBottomConatiner = styled.div`
 const StyledBuyerButtonContainer = styled.section`
   display: flex;
   flex-direction: row;
+  position: fixed;
+  bottom: 0;
+
+  background-color: ${({ theme }) => theme.colors.gray_background};
 
   width: 100%;
-  height: 4.8rem;
+  max-width: 43rem;
 
-  margin: 0 1.6rem 1.2rem 1.6rem;
+  padding: 0 1.6rem 1.2rem 1.6rem;
 
   button {
     width: 100%;
-
+    padding: 1.45rem 0;
     border-radius: 0.8rem;
 
     ${({ theme }) => theme.fonts.title16pt};

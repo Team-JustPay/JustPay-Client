@@ -61,25 +61,23 @@ export default function write() {
 
   return (
     <>
-      <div>
-        <Header
-          title="판매글 작성하기"
-          isHavingBackButton={true}
-          rightButtonText="취소"
-          handleLeftButton={moveToPrevPage}
-        />
-        <StyledImagePopUpConatiner>
-          <img src={imageUrl} alt="판매사진" />
-        </StyledImagePopUpConatiner>
-        <StyledWriteContainer
-          placeholder="판매하는 상품에 대해서 설명해주세요 자세한 설명을 통해 빠르게 매칭될 수 있어요"
-          maxLength={500}
-          onChange={handlecurrentTextLength}></StyledWriteContainer>
-        <StyledTextLength currentTextLength={currentTextLength}>
-          <strong>{currentTextLength}</strong>
-          /500
-        </StyledTextLength>
-      </div>
+      <Header
+        title="판매글 작성하기"
+        isHavingBackButton={true}
+        rightButtonText="취소"
+        handleLeftButton={moveToPrevPage}
+      />
+      <StyledImagePopUpConatiner>
+        <img src={imageUrl} alt="판매사진" />
+      </StyledImagePopUpConatiner>
+      <StyledWriteContainer
+        placeholder="판매하는 상품에 대해서 설명해주세요 자세한 설명을 통해 빠르게 매칭될 수 있어요"
+        maxLength={500}
+        onChange={handlecurrentTextLength}></StyledWriteContainer>
+      <StyledTextLength currentTextLength={currentTextLength}>
+        <strong>{currentTextLength}</strong>
+        /500
+      </StyledTextLength>
       <BigButton text="등록하기" isDisabled={isEmptyTextArea} onClick={handleClickPostWritingButton} />
     </>
   );
@@ -114,7 +112,7 @@ const StyledWriteContainer = styled.textarea`
 `;
 
 const StyledTextLength = styled.section<TextLengthProps>`
-  margin-top: 2rem;
+  margin-top: 10rem;
   margin-bottom: 1.6rem;
 
   color: ${({ theme }) => theme.colors.gray3};
