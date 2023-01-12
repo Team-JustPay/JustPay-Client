@@ -115,9 +115,12 @@ export default function MyInfoFixTab({ myfixedInfo, setMyfixedInfo }: MyInfoFixT
             <MyInfoInput
               placehoderText="우편번호를 검색하세요"
               searchButton={true}
-              value={myfixedInfo?.shippingInfo.zipCode}
+              value={zipcode === '' ? myfixedInfo?.shippingInfo.zipCode : zipcode}
             />
-            <MyInfoInput placehoderText="주소를 검색하세요" value={myfixedInfo?.shippingInfo.address} />
+            <MyInfoInput
+              placehoderText="주소를 검색하세요"
+              value={mainAddress === '' ? myfixedInfo?.shippingInfo.address : mainAddress}
+            />
           </div>
           <MyInfoInput
             name="detailAddress"
