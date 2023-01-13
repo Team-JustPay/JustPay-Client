@@ -15,6 +15,7 @@ export const useGetmyInfo = (addressSplit: boolean) => {
     onError: (error) => {
       console.error(error);
     },
+    refetchOnWindowFocus: false,
   });
 };
 

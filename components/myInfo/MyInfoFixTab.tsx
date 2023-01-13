@@ -23,6 +23,7 @@ export default function MyInfoFixTab({ myfixedInfo, setMyfixedInfo }: MyInfoFixT
   const handleClickGNBOption = (e: React.MouseEvent) => {
     setCurrentTab(e.currentTarget.id);
   };
+  const [phoneNumber, setPhoneNumber] = useState('');
 
   const open = useDaumPostcodePopup();
   const [zipcode, setZipcode] = useState('');
@@ -54,12 +55,12 @@ export default function MyInfoFixTab({ myfixedInfo, setMyfixedInfo }: MyInfoFixT
       }
     }
 
+    setZipcode(data.zonecode);
+    setMainAddress(address);
     setMyfixedInfo((prev: { shippingInfo: object }) => ({
       ...prev,
       shippingInfo: { ...prev.shippingInfo, zipCode: data.zonecode, address: address },
     }));
-    setZipcode(data.zonecode);
-    setMainAddress(address);
   };
 
   const handleShoppingInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,14 +73,11 @@ export default function MyInfoFixTab({ myfixedInfo, setMyfixedInfo }: MyInfoFixT
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
+    name === 'phoneNumber' && setPhoneNumber(value);
     setMyfixedInfo((prev: object) => ({
       ...prev,
       [name]: value,
     }));
-  };
-
-  const checkValidForm = () => {
-    return /^(010|011|016|017|018|019)[0-9]{3,4}[0-9]{4}$/.test(myfixedInfo?.phoneNumber);
   };
 
   return (
@@ -112,7 +110,7 @@ export default function MyInfoFixTab({ myfixedInfo, setMyfixedInfo }: MyInfoFixT
             onChangeFunc={handleInput}
             text={myfixedInfo?.phoneNumber}
             placeholder="전화번호를 입력하세요 (- 제외)"
-            phoneNumber={myfixedInfo?.phoneNumber}
+            phoneNumber={phoneNumber}
           />
         </StyledMyInfoContainer>
         <StyledMyInfoContainer>
