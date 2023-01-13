@@ -9,13 +9,13 @@ import MainText from 'components/common/MainText';
 import SubText from 'components/common/SubText';
 import DeliveryOptionContainer from 'components/common/DeliveryOptionContainer';
 import Router from 'next/router';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { salesPostState } from '../../recoil/salespost';
 import { useRouter } from 'next/router';
 
 export default function deliveryInfo() {
   const router = useRouter();
-  const salesData = useRecoilValue(salesPostState);
+  const [salesData, setSalesData] = useRecoilState(salesPostState);
   const handleClickNextButton = () => {
     Router.push('/sell/checkUserInput');
   };
@@ -25,7 +25,8 @@ export default function deliveryInfo() {
   };
 
   const moveToPrevPage = () => {
-    router.push('/sell/selectPrice');
+    setSalesData((prev) => ({ ...prev, shippingOptions: [] }));
+    router.push(`/sell/selectPrice`);
   };
 
   return (
