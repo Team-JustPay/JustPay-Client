@@ -31,7 +31,6 @@ export default function matching() {
   const [scrollHeight, setScrollHeight] = useState(0);
   const [isBuyConfirmModalOpen, setIsBuyModalConfirmOpen] = useState(false);
 
-  // 스크롤 감지
   const handleScrollHeight = () => {
     setScrollHeight(window.scrollY);
   };
@@ -43,14 +42,11 @@ export default function matching() {
     };
   }, []);
 
-  // 서버 통신 로직
-  // const { data: shippingInfo } = useGetShippingInfo(13, isDeliverInfoModalOpen);
   const { data: salesPostInfo } = useGetSalesPostInfo(Number(salesPostId));
   const { data: salesPostList } = useGetSalesPostList(Number(salesPostId), isMatched);
   const { mutate: handleSaleCancelButton } = useSetSalesPostState(Number(salesPostId));
   const { mutate: handleClickSuggestConfirmButton } = useSetSuggestState(Number(salesPostId), 3);
 
-  // 누르면 각각 구매 중, 구매 완료 리스트 조회
   const handleOptionTab = () => {
     setIsClicked((prev) => !prev);
     setIsMatched((prev) => !prev);
@@ -126,6 +122,8 @@ export default function matching() {
     }
   };
 
+  console.log(salesPostInfo);
+
   return (
     <Root>
       <Header
@@ -138,7 +136,13 @@ export default function matching() {
         nickname={salesPostInfo?.data.data.sellor.nickName}
         socialId={salesPostInfo?.data.data.sellor.socialId}
       />
-      <PriceInfo highestPrice={salesPostInfo?.data.data.highestPrice.toLocaleString()} />
+      <PriceInfo
+        highestPrice={
+          salesPostInfo?.data.data.highestPrice === null
+            ? salesPostInfo?.data.data.price.toLocaleString()
+            : salesPostInfo?.data.data.highestPrice.toLocaleString()
+        }
+      />
       <SaleInfoContainer
         productCount={salesPostInfo?.data.data.productCount}
         salesOption={salesPostInfo?.data.data.salesOption === 'BULK' ? '일괄 판매만' : '일괄 또는 일부'}
