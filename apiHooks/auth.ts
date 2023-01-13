@@ -7,8 +7,13 @@ export const useSetUserLogin = () => {
     onError: (error) => {
       console.error(error);
     },
-    onSuccess: () => {
-      Router.push('/login/check');
+    onSuccess: (data) => {
+      data.data.id === 4
+        ? Router.push('/login/check')
+        : Router.push({
+            pathname: '/sell/post/142',
+            query: { salesPostId: 142 },
+          });
     },
   });
 };
