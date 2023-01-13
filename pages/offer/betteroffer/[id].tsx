@@ -25,7 +25,10 @@ export default function improvedoffer() {
 
   const handleClickRaisePriceButton = () => {
     handleRaisePriceButton();
-    router.push(`/matching/${Number(salesPostId)}`);
+    router.push({
+      pathname: `/matching/${salesPostInfo?.data.data.id}`,
+      query: { salesPostId: salesPostInfo?.data.data.id },
+    });
   };
 
   return (
