@@ -1,4 +1,5 @@
 import React from 'react';
+import Router from 'next/router';
 import styled from 'styled-components';
 import theme from 'styles/theme';
 import Back from 'public/assets/icons/back.svg';
@@ -18,8 +19,12 @@ export default function Header({
   isHavingBackButton,
   leftButtonText,
   handleLeftButton,
-  handleRightButton,
 }: TitleBoxProps) {
+  const handleRightButton = () => {
+    if (rightButtonText === '취소') {
+      Router.push('/my/sell');
+    }
+  };
   return (
     <Root>
       {isHavingBackButton ? (

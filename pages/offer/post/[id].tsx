@@ -30,7 +30,7 @@ export default function suggest() {
 
   return (
     <Root>
-      <Header isHavingBackButton title={TITLE.VIEWOFFER} />
+      <Header isHavingBackButton title={TITLE.VIEWOFFER} handleLeftButton={() => Router.back()} />
       <UserProfile
         profileImageUrl={suggestsInfo?.data.data.suggester.profileImageUrl}
         nickname={suggestsInfo?.data.data.suggester.nickName}
