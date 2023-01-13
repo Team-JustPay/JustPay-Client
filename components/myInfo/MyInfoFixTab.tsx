@@ -4,6 +4,7 @@ import MyInfoInput from './MyInfoInput';
 
 import type { Address } from 'react-daum-postcode';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
+import CallNumberInput from 'components/handleinfo/addphonenumber/CallNumberInput';
 
 interface MyInfoFixTabProps {
   myfixedInfo: any;
@@ -77,6 +78,10 @@ export default function MyInfoFixTab({ myfixedInfo, setMyfixedInfo }: MyInfoFixT
     }));
   };
 
+  const checkValidForm = () => {
+    return /^(010|011|016|017|018|019)[0-9]{3,4}[0-9]{4}$/.test(myfixedInfo?.phoneNumber);
+  };
+
   return (
     <>
       <TabContainer>
@@ -102,11 +107,12 @@ export default function MyInfoFixTab({ myfixedInfo, setMyfixedInfo }: MyInfoFixT
         </StyledMyInfoContainer>
         <StyledMyInfoContainer>
           전화번호 <strong>*</strong>{' '}
-          <MyInfoInput
+          <CallNumberInput
             name="phoneNumber"
             onChangeFunc={handleInput}
             text={myfixedInfo?.phoneNumber}
-            placehoderText="전화번호를 입력하세요 (- 제외)"
+            placeholder="전화번호를 입력하세요 (- 제외)"
+            phoneNumber={myfixedInfo?.phoneNumber}
           />
         </StyledMyInfoContainer>
         <StyledMyInfoContainer>

@@ -2,11 +2,13 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 interface InputProps {
+  name?: string;
   placeholder: string;
-  inputTextGuide: string;
+  inputTextGuide?: string;
   onChangeFunc: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  inputText: string;
+  inputText?: string;
   phoneNumber: string;
+  text?: string;
 }
 
 interface InputTextProps {
@@ -16,11 +18,13 @@ interface InputTextProps {
 }
 
 export default function CallNumberInput({
+  name,
   placeholder,
   inputTextGuide,
   onChangeFunc,
   inputText,
   phoneNumber,
+  text,
 }: InputProps) {
   const regex = /^(010)[0-9]{4}[0-9]{4}$/;
   const isValidForm = regex.test(phoneNumber) || phoneNumber.length === 0;
@@ -28,12 +32,14 @@ export default function CallNumberInput({
   return (
     <InputContainer>
       <GlobalStyledInput
+        name={name}
         placeholder={placeholder}
         onChange={onChangeFunc}
         value={inputText}
         type="number"
         phoneNumber={phoneNumber}
         isValidForm={isValidForm}
+        defaultValue={text}
       />
       <InputText inputText={inputText} phoneNumber={phoneNumber} isValidForm={isValidForm}>
         {isValidForm ? inputTextGuide : '형식에 맞게 입력해주세요'}
