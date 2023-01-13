@@ -10,6 +10,7 @@ import SuggestTab from 'components/matching/SuggestTab';
 import MySellItemContainer from 'components/mySell/MySellItemContainer';
 import GNB from 'components/common/GNB';
 import PlusCircleButtonContainer from 'components/common/PlusCircleButtonContainer';
+import NoItem from 'components/mySell/NoItem';
 
 import Router from 'next/router';
 export default function mySell() {
@@ -45,6 +46,7 @@ export default function mySell() {
         <StyledStickyContainer>
           <SuggestTab options={['판매 중', '판매 종료']} outerFunc={handleOptionTab} isClicked={!isSaled} />
         </StyledStickyContainer>
+        {!mySellInfo?.data.data && <NoItem />}
         <MySellItemContainer isSaled={isSaled} itemList={mySellInfo?.data.data} />
       </Root>
       <PlusCircleButtonContainer onClick={handlePlustCircleButton} />

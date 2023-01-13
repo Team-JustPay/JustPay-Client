@@ -51,7 +51,7 @@ export default function myBuy() {
           <SuggestTab options={['구매 제시 내역', '구매 확정']} outerFunc={handleOptionTab} isClicked={isClicked} />
         </StyledStickyContainer>
         <ItemContainer>
-          {!salesPostInfo?.data.data.productCount && <NoItem />}
+          {!salesPostInfo?.data.data && <NoItem />}
           {myBuyPurchasedList?.data.data.map((item: any) => (
             <SuggestItem
               itemSize={item.purchaseOption === 'BULK' ? 'small' : 'big'}
