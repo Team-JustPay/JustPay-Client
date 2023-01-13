@@ -39,6 +39,7 @@ export default function SuggestItem({
   isMine,
   element,
   outerFunc,
+  description,
 }: SuggestItemProps) {
   const renderButton = () => {
     if (isOwner) {
@@ -135,7 +136,7 @@ export default function SuggestItem({
               <SuggestStateText>{`${element.price.toLocaleString('ko-KR')}원 제시`}</SuggestStateText>
             ) : (
               <SuggestStateHighlight>
-                {element.description.length > 10 ? element.description.substring(0, 10) + '...' : element.description}
+                {description.length > 10 ? description.substring(0, 10) + '...' : description}
               </SuggestStateHighlight>
             )}
             <ProfileImageContainer>

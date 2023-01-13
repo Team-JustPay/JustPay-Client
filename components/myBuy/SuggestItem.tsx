@@ -78,7 +78,7 @@ export default function SuggestItem({ itemSize, description, status, element, im
         <SuggestInfo>
           <SuggestState itemSize={itemSize}>
             {itemSize === 'small' ? (
-              <SuggestStateText>{`${element.price.toLocaleString('ko-KR')}원 제시`}</SuggestStateText>
+              <SuggestStateText>{`${element.price}원 제시`}</SuggestStateText>
             ) : (
               <SuggestStateHighlight>
                 {description.length > 10 ? description.substring(0, 10) + '...' : description}
