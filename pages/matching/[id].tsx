@@ -71,7 +71,8 @@ export default function matching() {
     }, 2000);
   };
 
-  console.log(salesPostList);
+  if (salesPostInfo === undefined) return null;
+  if (salesPostList === undefined) return null;
 
   // 운송장 입력 페이지로 이동
   const handleInvoicePutButton = (id: number) => {
