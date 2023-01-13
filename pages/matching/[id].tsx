@@ -190,7 +190,10 @@ export default function matching() {
           buttonFirstTitle="취소"
           buttonSecondTitle="확인"
           buttonFirstFunction={handleClickCloseButton}
-          buttonSecondFunction={handleSaleCancelButton}
+          buttonSecondFunction={() => {
+            handleSaleCancelButton();
+            Router.push('/my/sell');
+          }}
         />
       )}
       {isBuyConfirmModalOpen && (
