@@ -51,6 +51,12 @@ export default function buy() {
     }
   }, [salesPost]);
 
+  useEffect(() => {
+    return () => {
+      resetOfferData();
+    };
+  }, []);
+
   if (isLoading) return <Root>로딩중..</Root>;
   if (error) return <Root>에러가 발생했습니다</Root>;
   if (!salesPost) return null;
@@ -110,6 +116,7 @@ export default function buy() {
   };
 
   console.log(postData);
+  console.log(salesPost);
   return (
     <Root>
       <Header
