@@ -12,6 +12,7 @@ interface InputProps {
 }
 
 interface InputTextProps {
+  name: string | undefined;
   inputText?: string;
   phoneNumber: string;
   isValidForm: boolean;
@@ -41,7 +42,7 @@ export default function CallNumberInput({
         isValidForm={isValidForm}
         defaultValue={text}
       />
-      <InputText inputText={inputText} phoneNumber={phoneNumber} isValidForm={isValidForm}>
+      <InputText name={name} inputText={inputText} phoneNumber={phoneNumber} isValidForm={isValidForm}>
         {isValidForm ? inputTextGuide : '형식에 맞게 입력해주세요'}
       </InputText>
     </InputContainer>
@@ -64,6 +65,7 @@ const GlobalStyledInput = styled.input<InputTextProps>`
   font-weight: 700;
   font-size: 1.6rem;
   line-height: 1.9rem;
+  margin-top: ${({ name }) => name === 'phoneNumber' && ' 1.2rem'};
 
   &:focus {
     border-color: ${({ theme, isValidForm }) => (isValidForm ? theme.colors.main : theme.colors.sub2)};
@@ -79,7 +81,8 @@ const GlobalStyledInput = styled.input<InputTextProps>`
 
 const InputText = styled.strong<InputTextProps>`
   position: absolute;
-  top: 2rem;
+  top: ${({ name }) => (name === 'phoneNumber' ? '3rem' : '2rem')};
+
   right: 2rem;
 
   color: ${({ inputText }) => (inputText ? ({ theme }) => theme.colors.main : ({ theme }) => theme.colors.gray1)};
@@ -98,6 +101,6 @@ const InputText = styled.strong<InputTextProps>`
           font-size: 1.2rem;
           line-height: 1.4rem;
           margin-top: 0.4rem;
-          color: ${({ theme }) => theme.colors.sub2};
+          color: ${({ theme }) => theme.colors.sub2} !important;
         `}
 `;
