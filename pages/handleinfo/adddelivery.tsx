@@ -78,13 +78,19 @@ export default function adddelivery() {
   }, [myInfo]);
 
   const handleHandInfoButton = () => {
+    handleHandInfo();
+  };
+
+  const checkValidation = () => {
     if (
       myfixedInfo?.shippingInfo.receiverName !== '' &&
       myfixedInfo?.shippingInfo.zipCode !== '' &&
       myfixedInfo?.shippingInfo.mainAddress !== '' &&
       myfixedInfo?.shippingInfo.detailAddress !== ''
     ) {
-      handleHandInfo();
+      return true;
+    } else {
+      return false;
     }
   };
 
@@ -138,7 +144,7 @@ export default function adddelivery() {
           placehoderText="GS편의점 점포명을 입력하세요 (ex. 판교역점)"
         />
       </StyledMyInfoContainer>
-      <BigButton text={'완료'} isDisabled={false} onClick={handleHandInfoButton} />
+      <BigButton text={'완료'} isDisabled={!checkValidation()} onClick={handleHandInfoButton} />
     </Root>
   );
 }
