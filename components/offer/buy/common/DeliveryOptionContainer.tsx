@@ -19,7 +19,7 @@ export default function DeliveryOptionContainer({ shippingOptions }: ShippingOpt
     setDeliveryOptions(shippingOptions);
   }, [shippingOptions]);
 
-  const [currentUserChoice, setCurrentUserChoice] = useState(0);
+  const [currentUserChoice, setCurrentUserChoice] = useState('');
 
   //TODO: 판매글 정보 조회 API에서 배송옵션 받아서 가공해야함
 
@@ -32,7 +32,7 @@ export default function DeliveryOptionContainer({ shippingOptions }: ShippingOpt
       key={option.id}
       contents={option.contents}
       currentUserChoice={currentUserChoice}
-      onClick={() => setCurrentUserChoice(option.id)}
+      onClick={() => setCurrentUserChoice(option.name)}
     />
   ));
 
