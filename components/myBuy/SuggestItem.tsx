@@ -79,7 +79,9 @@ export default function SuggestItem({ itemSize, description, status, element, im
             {itemSize === 'small' ? (
               <SuggestStateText>{`${element.price.toLocaleString('ko-KR')}원 제시`}</SuggestStateText>
             ) : (
-              <SuggestStateHighlight>{description}</SuggestStateHighlight>
+              <SuggestStateHighlight>
+                {description.length > 10 ? description.substring(0, 10) + '...' : description}
+              </SuggestStateHighlight>
             )}
             <ProfilePic />
           </SuggestState>
