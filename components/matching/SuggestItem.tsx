@@ -130,7 +130,13 @@ export default function SuggestItem({
         </ImageContainer>
         <SuggestInfo>
           <SuggestState itemSize={itemSize}>
-            <SuggestStateText>{element.description}</SuggestStateText>
+            {itemSize === 'small' ? (
+              <SuggestStateText>{`${element.price.toLocaleString('ko-KR')}원 제시`}</SuggestStateText>
+            ) : (
+              <SuggestStateHighlight>
+                {description.length > 10 ? description.substring(0, 10) + '...' : description}
+              </SuggestStateHighlight>
+            )}
             <ProfileImageContainer>
               <Image src={element.suggester.profileImageUrl} layout="fill" />
             </ProfileImageContainer>
@@ -141,7 +147,7 @@ export default function SuggestItem({
                 {element.purchaseOption === 'BULK' ? '일괄 구매' : '일부 구매'}
                 <strong>{element.productCount}개</strong>
               </BuyOption>
-              <Price>{element.price} 원 제시</Price>
+              <Price>{element.price.toLocaleString()} 원 제시</Price>
             </Option>
           )}
         </SuggestInfo>
@@ -152,20 +158,18 @@ export default function SuggestItem({
 }
 
 const Root = styled.section`
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
+  border-radius: 0.8rem;
 `;
 
 const ItemContainer = styled.article<ComponentProps>`
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   width: 100%;
+  margin-top: 1.2rem;
 
   border-radius: 0.8rem;
-  border: ${({ status, isOwner, isMine, theme }) => !status && !isOwner && isMine && `1px solid ${theme.colors.main}`};
-
   background-color: ${({ theme }) => theme.colors.grey_popup};
 
   ${({ itemSize }) =>
@@ -184,30 +188,29 @@ const ItemContainer = styled.article<ComponentProps>`
         `}
 `;
 
-const ImageContainer = styled.section<ImageContainerProps>`
+const ImageContainer = styled.div<ImageContainerProps>`
   position: relative;
-  ${({ itemSize }) =>
-    itemSize === 'small'
-      ? css`
-          width: 6.4rem;
-          height: 6.4rem;
-        `
-      : css`
-          width: 16rem;
-          height: 12.2rem;
-        `}
+  width: ${({ itemSize }) => (itemSize === 'small' ? '6.2rem' : '12.4rem')};
+  height: ${({ itemSize }) => (itemSize === 'small' ? '6.4rem' : '12.1rem')};
+
+  border-radius: 0.8rem;
+  overflow: hidden;
 `;
 
 const ProfileImageContainer = styled.section`
   position: relative;
   width: 2.4rem;
   height: 2.4rem;
+
+  overflow: hidden;
+  border-radius: 50%;
 `;
 
 const SuggestInfo = styled.article`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: flex-end;
 
   padding: 20px 20px 20px 0;
 
@@ -225,6 +228,11 @@ const SuggestStateText = styled.p`
   font-size: 1.4rem;
   line-height: 2.4rem;
   color: ${({ theme }) => theme.colors.white};
+`;
+
+const SuggestStateHighlight = styled(SuggestStateText)`
+  font-weight: bold;
+  margin-bottom: 2.1rem;
 `;
 
 const Option = styled.section`

@@ -130,7 +130,7 @@ export default function matching() {
         nickname={salesPostInfo?.data.data.sellor.nickName}
         socialId={salesPostInfo?.data.data.sellor.socialId}
       />
-      <PriceInfo highestPrice={salesPostInfo?.data.data.highestPrice} />
+      <PriceInfo highestPrice={salesPostInfo?.data.data.highestPrice.toLocaleString()} />
       <SaleInfoContainer
         productCount={salesPostInfo?.data.data.productCount}
         salesOption={salesPostInfo?.data.data.salesOption === 'BULK' ? '일괄 판매만' : '일괄 또는 일부'}
