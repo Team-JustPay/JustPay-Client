@@ -126,7 +126,7 @@ export default function matching() {
         suggestId={salesPostInfo?.data.data.id}
       />
       <UserProfile
-        profileImageUrl=""
+        profileImageUrl={salesPostInfo?.data.data.imageUrl}
         nickname={salesPostInfo?.data.data.sellor.nickName}
         socialId={salesPostInfo?.data.data.sellor.socialId}
       />
