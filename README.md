@@ -239,12 +239,12 @@
 ┃ ┣ 📂offer // 가격 제시 및 구매 페이지에서 사용하는 컴포넌트
 ┃ ┣ 📂profile // 유저 정보를 불러오는 컴포넌트
 ┃ ┣ 📂sell // 판매글 관련 페이지에서 사용하는 컴포넌트 
-┃ ┣ 📂suggests // 
+┃ ┣ 📂suggests // 구매 제안 목록 페이지에서 사용하는 컴포넌트  
 ┃ ┗ 📜index.d.ts // .git export를 위한 파일
-┣ 📂constants //환경변수 및 상수 파일을 저장하는 폴더
-┣ 📂hooks //리액트를 기반으로 자주 사용되는 커스텀 훅들로 구성
-┣ 📂mocks //msw라이브러리를 통한 서버 모킹을 위한 파일들로 구성
-┣ 📂pages //페이지 컴포넌트들로 구성
+┣ 📂constants // 환경변수 및 상수 파일을 저장하는 폴더
+┣ 📂hooks // 리액트를 기반으로 자주 사용되는 커스텀 훅들로 구성
+┣ 📂mocks // msw라이브러리를 통한 서버 모킹을 위한 파일들로 구성
+┣ 📂pages // 페이지 컴포넌트들로 구성
 ┃ ┣ 📂handleinfo
 ┃ ┃ ┣ 📜adddelivery.tsx // 전화번호 최초등록
 ┃ ┃ ┗ 📜addphonenumber.tsx // 배송지 최초등록
@@ -252,32 +252,32 @@
 ┃ ┃ ┣ 📜check.tsx // 로그인 성공 페이지
 ┃ ┃ ┗ 📜index.tsx // 로그인 요청 페이지
 ┃ ┣ 📂matching
-┃ ┃ ┗ 📜[id].tsx //
+┃ ┃ ┗ 📜[id].tsx // '매칭 중인 목록','매칭 완료 목록 페이지
 ┃ ┣ 📂my // GNB 페이지
 ┃ ┃ ┣ 📜alarm.tsx // 내알람 페이지
 ┃ ┃ ┣ 📜buy.tsx // 내구매 페이지
 ┃ ┃ ┣ 📜info.tsx // 내정보 페이지
 ┃ ┃ ┣ 📜infoFix.tsx // 내정보 수정 페이지
 ┃ ┃ ┗ 📜sell.tsx // 내판매 페이지
-┃ ┣ 📂offer //  
-┃ ┣ 📂profile // 
-┃ ┣ 📂sell // 
-┃ ┣ 📂suggests // 
+┃ ┣ 📂offer //  가격 제시 페이지
+┃ ┣ 📂profile // 유저 정보 페이지
+┃ ┣ 📂sell // 판매글 관련 페이지
+┃ ┣ 📂suggests // 구매 제안 목록 페이지
 ┃ ┣ 📜_app.tsx
 ┃ ┣ 📜_document.tsx
 ┃ ┗ 📜index.tsx
-┣ 📂public //정적 이미지 에셋들을 저장하는 폴더
-┣ 📂recoil //recoil로 관리할 상태로 구성
-┣ 📂styles //전역 스타일 및 여러 컴포넌트에서 공유하는 스타일 파일을 저장하는 폴더
+┣ 📂public // 정적 이미지 에셋들을 저장하는 폴더
+┣ 📂recoil // recoil로 관리할 상태로 구성
+┣ 📂styles // 전역 스타일 및 여러 컴포넌트에서 공유하는 스타일 파일을 저장하는 폴더
 ┃ ┣ 📜globalStyle.ts
 ┃ ┗ 📜theme.ts
-┣ 📂types //여러 컴포넌트에서 공통적으로 사용되는 타입들로 구성
-┃ ┣ 📂axios //정적 이미지 에셋들을 저장하는 폴더
-┃ ┣ 📂recoil //recoil로 관리할 상태로 구성
-┃ ┣ 📜container.ts //
-┃ ┗ 📜page.d.ts // 
+┣ 📂types // 여러 컴포넌트에서 공통적으로 사용되는 타입들로 구성
+┃ ┣ 📂axios // 정적 이미지 에셋들을 저장하는 폴더
+┃ ┣ 📂recoil // recoil로 관리할 상태로 구성
+┃ ┣ 📜container.ts // children interface 타입 지정
+┃ ┗ 📜page.d.ts // AppLayout 타입 지정
 ┣ 📂utils //여러 컴포넌트에서 사용되는 유틸함수들로 구성
-┃ ┗ 📜price.ts // 가격에 1000단위마다 , 찍히도록하는 유틸함수
+┃ ┗ 📜price.ts // 가격에 1000단위마다 ,(콤마) 찍히도록하는 유틸함수
 ┣ 📜.babelrc
 ┣ 📜.eslintrc.json
 ┣ 📜.gitignore
