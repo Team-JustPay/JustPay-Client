@@ -45,7 +45,7 @@ export default function payment() {
         <MainText text="제시 내용" />
       </TitleText>
       <StyledImageWrapper>
-        <Image src={data.imageUrl} width={100} height={100} />
+        <Image src={data.imageUrl} layout="fill" />
       </StyledImageWrapper>
       <SaleInfoContainer
         productCount={data.productCount}
@@ -109,9 +109,12 @@ export default function payment() {
 const Root = styled.div``;
 
 const StyledImageWrapper = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  overflow: hidden;
 
   margin-bottom: 0.8rem;
   width: 100%;
