@@ -43,13 +43,16 @@ export default function myInfoFix() {
     setMyfixedInfo(myInfo?.data.data);
   }, [myInfo]);
 
+  useEffect(() => {
+    console.log(myfixedInfo);
+  }, [myfixedInfo]);
+
   if (isLoading) return <div>로딩중...</div>;
   if (error) return <div>에러발생</div>;
   if (!myInfo) return null;
 
   return (
     <Root>
-      {' '}
       <StyledHeader>
         <Logo />
         <p onClick={handleMoveToMyInfo}>완료</p>

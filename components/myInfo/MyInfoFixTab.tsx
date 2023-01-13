@@ -55,12 +55,12 @@ export default function MyInfoFixTab({ myfixedInfo, setMyfixedInfo }: MyInfoFixT
       }
     }
 
+    setZipcode(data.zonecode);
+    setMainAddress(address);
     setMyfixedInfo((prev: { shippingInfo: object }) => ({
       ...prev,
       shippingInfo: { ...prev.shippingInfo, zipCode: data.zonecode, address: address },
     }));
-    setZipcode(data.zonecode);
-    setMainAddress(address);
   };
 
   const handleShoppingInput = (e: React.ChangeEvent<HTMLInputElement>) => {
