@@ -44,7 +44,6 @@ export default function certification() {
       <StyledSlider {...settings}>
         {certifications?.data.data.imagesUrls.map((item: string, index: number) => (
           <StyledCertificationImageContainer key={item}>
-            {index}
             <Image src={item} alt="인증사진" layout="fill" />
           </StyledCertificationImageContainer>
         ))}
