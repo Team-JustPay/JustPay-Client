@@ -48,7 +48,7 @@ const SaleInfo = styled.section<{ productCount: number }>`
   flex-direction: column;
   align-items: center;
 
-  width: ${({ productCount }) => `calc(100% / ${productCount})`};
+  width: calc(100% / 3);
   border-right: 1px solid ${({ theme }) => theme.colors.gray0};
 
   h1 {

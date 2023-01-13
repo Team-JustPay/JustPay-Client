@@ -1,6 +1,7 @@
 # JustPay-Client
 
-![just pay](https://user-images.githubusercontent.com/69416561/209988175-dc826038-033a-433f-8254-618a5a839754.png)
+![Slide 16_9 - 5](https://user-images.githubusercontent.com/62867581/212339901-454164c1-53f0-489b-b257-eacfdff14b4f.png)
+
 
 > 돈많네. 돈만 내!
 
@@ -14,6 +15,13 @@
 
 저스트페이에선 대화없이 결제확인만 하세요.
 ```
+
+## 서비스 소개
+![Slide 16_9 - 18](https://user-images.githubusercontent.com/62867581/212340062-deb68545-59e0-4511-a710-a428038fed31.png)
+
+![Slide 16_9 - 20](https://user-images.githubusercontent.com/62867581/212339942-93d99527-65be-483b-9fa8-24f4c51f64fe.png)
+![Slide 16_9 - 21](https://user-images.githubusercontent.com/62867581/212339994-f64ec721-3e21-4956-9696-4575d34c5cc1.png)
+![Slide 16_9 - 22](https://user-images.githubusercontent.com/62867581/212340005-dead339f-917d-4905-803e-30f1ec9272ed.png)
 
 ## 🙌 JustPay FE Team
 
@@ -229,20 +237,55 @@
 ┣ 📂api //axios 라이브러리 기반으로 비동기 통신하는 함수들, axios instance 파일로 구성
 ┣ 📂apiHooks //api의 함수들을 이용하여 react-query를 반환하는 함수들로 구성
 ┣ 📂components //페이지를 구성하는 컴포넌트들로 구성
-┣ 📂constants //환경변수 및 상수 파일을 저장하는 폴더
-┣ 📂hooks //리액트를 기반으로 자주 사용되는 커스텀 훅들로 구성
-┣ 📂mocks //msw라이브러리를 통한 서버 모킹을 위한 파일들로 구성
-┣ 📂pages //페이지 컴포넌트들로 구성
+┃ ┣ 📂common // 공통적으로 사용하는 컴포넌트
+┃ ┣ 📂handleinfo // 전화번호, 배송지 최초등록 페이지에서 사용하는 컴포넌트 
+┃ ┣ 📂layout // app.tsx에서 사용하는 레이아웃 컴포넌트
+┃ ┣ 📂matching // 매칭중/매칭완료 페이지에서 사용하는 컴포넌트
+┃ ┣ 📂myBuy // 내판매 페이지에서 사용하는 컴포넌트 
+┃ ┣ 📂myInfo // 내정보 페이지에서 사용하는 컴포넌트 
+┃ ┣ 📂mySell // 내구매 페이지에서 사용하는 컴포넌트 
+┃ ┣ 📂offer // 가격 제시 및 구매 페이지에서 사용하는 컴포넌트
+┃ ┣ 📂profile // 유저 정보를 불러오는 컴포넌트
+┃ ┣ 📂sell // 판매글 관련 페이지에서 사용하는 컴포넌트 
+┃ ┣ 📂suggests // 구매 제안 목록 페이지에서 사용하는 컴포넌트  
+┃ ┗ 📜index.d.ts // .git export를 위한 파일
+┣ 📂constants // 환경변수 및 상수 파일을 저장하는 폴더
+┣ 📂hooks // 리액트를 기반으로 자주 사용되는 커스텀 훅들로 구성
+┣ 📂mocks // msw라이브러리를 통한 서버 모킹을 위한 파일들로 구성
+┣ 📂pages // 페이지 컴포넌트들로 구성
+┃ ┣ 📂handleinfo
+┃ ┃ ┣ 📜adddelivery.tsx // 전화번호 최초등록
+┃ ┃ ┗ 📜addphonenumber.tsx // 배송지 최초등록
+┃ ┣ 📂login
+┃ ┃ ┣ 📜check.tsx // 로그인 성공 페이지
+┃ ┃ ┗ 📜index.tsx // 로그인 요청 페이지
+┃ ┣ 📂matching
+┃ ┃ ┗ 📜[id].tsx // '매칭 중인 목록','매칭 완료 목록 페이지
+┃ ┣ 📂my // GNB 페이지
+┃ ┃ ┣ 📜alarm.tsx // 내알람 페이지
+┃ ┃ ┣ 📜buy.tsx // 내구매 페이지
+┃ ┃ ┣ 📜info.tsx // 내정보 페이지
+┃ ┃ ┣ 📜infoFix.tsx // 내정보 수정 페이지
+┃ ┃ ┗ 📜sell.tsx // 내판매 페이지
+┃ ┣ 📂offer //  가격 제시 페이지
+┃ ┣ 📂profile // 유저 정보 페이지
+┃ ┣ 📂sell // 판매글 관련 페이지
+┃ ┣ 📂suggests // 구매 제안 목록 페이지
 ┃ ┣ 📜_app.tsx
 ┃ ┣ 📜_document.tsx
 ┃ ┗ 📜index.tsx
-┣ 📂public //정적 이미지 에셋들을 저장하는 폴더
-┣ 📂recoil //recoil로 관리할 상태로 구성
-┣ 📂styles //전역 스타일 및 여러 컴포넌트에서 공유하는 스타일 파일을 저장하는 폴더
+┣ 📂public // 정적 이미지 에셋들을 저장하는 폴더
+┣ 📂recoil // recoil로 관리할 상태로 구성
+┣ 📂styles // 전역 스타일 및 여러 컴포넌트에서 공유하는 스타일 파일을 저장하는 폴더
 ┃ ┣ 📜globalStyle.ts
 ┃ ┗ 📜theme.ts
-┣ 📂types //여러 컴포넌트에서 공통적으로 사용되는 타입들로 구성
+┣ 📂types // 여러 컴포넌트에서 공통적으로 사용되는 타입들로 구성
+┃ ┣ 📂axios // 정적 이미지 에셋들을 저장하는 폴더
+┃ ┣ 📂recoil // recoil로 관리할 상태로 구성
+┃ ┣ 📜container.ts // children interface 타입 지정
+┃ ┗ 📜page.d.ts // AppLayout 타입 지정
 ┣ 📂utils //여러 컴포넌트에서 사용되는 유틸함수들로 구성
+┃ ┗ 📜price.ts // 가격에 1000단위마다 ,(콤마) 찍히도록하는 유틸함수
 ┣ 📜.babelrc
 ┣ 📜.eslintrc.json
 ┣ 📜.gitignore
@@ -284,7 +327,7 @@
     "web-vitals": "^2.1.0"
   },
   "devDependencies": {
-    "@svgr/webpack": "^6.5.1",
+   "@svgr/webpack": "^6.5.1",
     "@types/eslint": "^8",
     "@types/node": "^18.11.17",
     "@types/prettier": "^2",
@@ -303,7 +346,6 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.11",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "msw": "^0.49.2",
     "prettier": "^2.8.1"
   }
 ```

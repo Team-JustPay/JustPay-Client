@@ -2,18 +2,18 @@ import { useMutation } from '@tanstack/react-query';
 import { setUserLogin } from 'api/auth';
 import Router from 'next/router';
 
-export const useSetUserLogin = () => {
-  return useMutation(setUserLogin, {
+export const useSetUserLogin = (userId: number) => {
+  return useMutation(() => setUserLogin(userId), {
     onError: (error) => {
       console.error(error);
     },
-    onSuccess: (data) => {
-      data.data.id === 4
-        ? Router.push('/login/check')
-        : Router.push({
-            pathname: '/sell/post/142',
-            query: { salesPostId: 142 },
-          });
+    onSuccess: () => {
+      if (localStorage.getItem('accessToken')) {
+        Router.push({
+          pathname: '/sell/post/111',
+          query: { salesPostId: 111 },
+        });
+      }
     },
   });
 };

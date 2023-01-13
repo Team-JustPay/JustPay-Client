@@ -43,7 +43,7 @@ export default function BulkSaleContainer({ isLimitOrder, highestPrice, src }: B
   return (
     <Root>
       <StyledImageWrapper>
-        <Image src={src} width={100} height={100} />
+        <Image src={src} layout="fill" />
       </StyledImageWrapper>
       <StyledTextContainer>
         <MainText text="구매하는 가격을 확인하세요" />
@@ -74,6 +74,7 @@ const Root = styled.div`
 `;
 
 const StyledImageWrapper = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;

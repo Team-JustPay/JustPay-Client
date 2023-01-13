@@ -5,7 +5,6 @@ import styled, { css } from 'styled-components';
 import FirstPic from '../../public/assets/images/suggestItem.png';
 import ProfilePic from '../../public/assets/icons/profile.svg';
 import theme from 'styles/theme';
-import BigButton from 'components/common/BigButton';
 import Modal from 'components/common/Modal';
 import Router from 'next/router';
 interface SuggestItemProps {
@@ -13,6 +12,7 @@ interface SuggestItemProps {
   description: string;
   status: number;
   element: any;
+  imageUrl: string;
 }
 
 interface ComponentProps {
@@ -24,7 +24,7 @@ interface ButtonProps {
   colorType: string;
 }
 
-export default function SuggestItem({ itemSize, description, status, element }: SuggestItemProps) {
+export default function SuggestItem({ itemSize, description, status, element, imageUrl }: SuggestItemProps) {
   const [openModal, setOpenModal] = useState<boolean>(false);
 
   const handleOpenModal = () => {
@@ -71,10 +71,18 @@ export default function SuggestItem({ itemSize, description, status, element }: 
   return (
     <Root>
       <ItemContainer itemSize={itemSize}>
-        <Image src={FirstPic} alt="상품 사진" />
+        <ImageWrapper itemSize={itemSize}>
+          <Image src={imageUrl} alt="상품 사진" layout="fill" />
+        </ImageWrapper>
         <SuggestInfo>
           <SuggestState itemSize={itemSize}>
-            <SuggestStateText>{description}</SuggestStateText>
+            {itemSize === 'small' ? (
+              <SuggestStateText>{`${element.price.toLocaleString('ko-KR')}원 제시`}</SuggestStateText>
+            ) : (
+              <SuggestStateHighlight>
+                {description.length > 10 ? description.substring(0, 10) + '...' : description}
+              </SuggestStateHighlight>
+            )}
             <ProfilePic />
           </SuggestState>
           {itemSize === 'big' && (
@@ -83,7 +91,7 @@ export default function SuggestItem({ itemSize, description, status, element }: 
                 {element.purchaseOption === 'BULK' ? '일괄 구매' : '일부 구매'}
                 <strong>{element.productCount}개</strong>
               </BuyOption>
-              <Price>{element.price} 원 제시</Price>
+              <Price>{`${element.price.toLocaleString('ko-KR')}원 제시`}</Price>
             </Option>
           )}
         </SuggestInfo>
@@ -112,6 +120,7 @@ const Root = styled.section`
 const ItemContainer = styled.article<ComponentProps>`
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   width: 100%;
   margin-top: 1.2rem;
@@ -135,6 +144,15 @@ const ItemContainer = styled.article<ComponentProps>`
         `}
 `;
 
+const ImageWrapper = styled.div<ComponentProps>`
+  position: relative;
+  width: ${({ itemSize }) => (itemSize === 'small' ? '6.2rem' : '12.4rem')};
+  height: ${({ itemSize }) => (itemSize === 'small' ? '6.2rem' : '12.1rem')};
+
+  border-radius: 0.8rem;
+  overflow: hidden;
+`;
+
 const SuggestInfo = styled.article`
   display: flex;
   flex-direction: column;
@@ -147,15 +165,23 @@ const SuggestInfo = styled.article`
 
 const SuggestState = styled.section<ComponentProps>`
   display: flex;
+  justify-content: flex-end;
   gap: 1.2rem;
 
   font-weight: ${({ itemSize }) => (itemSize === 'small' ? '400' : '700')};
 `;
 
 const SuggestStateText = styled.p`
-  font-size: 1.4rem;
-  line-height: 2.4rem;
+  ${({ theme }) => theme.fonts.regular14pt}
   color: ${({ theme }) => theme.colors.white};
+  font-size: 1.4rem;
+  font-weight: bold;
+  line-height: 2.4rem;
+`;
+
+const SuggestStateHighlight = styled(SuggestStateText)`
+  font-weight: bold;
+  margin-bottom: 2.1rem;
 `;
 
 const Option = styled.section`

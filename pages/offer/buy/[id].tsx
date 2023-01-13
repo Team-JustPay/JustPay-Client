@@ -7,12 +7,13 @@ import BulkSaleContainer from 'components/offer/buy/BulkSaleContainer';
 import SelectSaleContainer from 'components/offer/buy/SelectSaleContainer';
 import DeliveryChoice from 'components/offer/buy/DeliveryChoice';
 import { useRouter } from 'next/router';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import { buyoffer } from '../../../recoil/buyoffer';
 import { useGetSalesSuggestPostInfo } from 'apiHooks/salesPost';
 
 export default function buy() {
   const [postData, setPostData] = useRecoilState(buyoffer);
+  const resetOfferData = useResetRecoilState(buyoffer);
   const [isBulkSale, setIsBulkSale] = useState(false);
   const [isLimitOrder, setIsLimitOrder] = useState(false);
 
@@ -25,7 +26,7 @@ export default function buy() {
 
   useEffect(() => {
     if (salesPost?.data.data.salesOption === 'BULK') {
-      setIsBulkSale(false);
+      setIsBulkSale(true);
     }
     if (salesPost?.data.data.salesOption === 'BULK_PARTIAL') {
       setIsBulkSale(false);
@@ -104,9 +105,11 @@ export default function buy() {
   };
 
   const moveToGuidePage = () => {
+    resetOfferData();
     router.push(`/offer/buy/guide/${id}`);
   };
 
+  console.log(postData);
   return (
     <Root>
       <Header

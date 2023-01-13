@@ -71,12 +71,20 @@ export default function matching() {
     }, 2000);
   };
 
-  console.log(salesPostList);
+  if (salesPostInfo === undefined) return null;
+  if (salesPostList === undefined) return null;
 
   // 운송장 입력 페이지로 이동
   const handleInvoicePutButton = (id: number) => {
     Router.push({
       pathname: `/suggests/${id}/invoice`,
+      query: { suggestId: id },
+    });
+  };
+
+  const handleSuggestDetail = (id: number) => {
+    Router.push({
+      pathname: `/offer/post/${id}`,
       query: { suggestId: id },
     });
   };
@@ -126,11 +134,11 @@ export default function matching() {
         suggestId={salesPostInfo?.data.data.id}
       />
       <UserProfile
-        profileImageUrl=""
+        profileImageUrl={salesPostInfo?.data.data.imageUrl}
         nickname={salesPostInfo?.data.data.sellor.nickName}
         socialId={salesPostInfo?.data.data.sellor.socialId}
       />
-      <PriceInfo highestPrice={salesPostInfo?.data.data.highestPrice} />
+      <PriceInfo highestPrice={salesPostInfo?.data.data.highestPrice.toLocaleString()} />
       <SaleInfoContainer
         productCount={salesPostInfo?.data.data.productCount}
         salesOption={salesPostInfo?.data.data.salesOption === 'BULK' ? '일괄 판매만' : '일괄 또는 일부'}
@@ -152,6 +160,7 @@ export default function matching() {
                 key={item.id}
                 element={item}
                 outerFunc={setButtonFunc(salesPostInfo?.data.data.isMine, item.isMine, item.status, item.id)}
+                onClick={() => handleSuggestDetail(item.id)}
               />
               {isDeliverInfoModalOpen && (
                 <DeliverInfoModal

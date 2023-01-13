@@ -100,14 +100,15 @@ const ImgWrapper = styled.div`
 `;
 
 const SuggeterTextWrapper = styled.div`
-  background-color: ${({ theme }) => theme.colors.grey_popup};
-  height: 4.9rem;
-  width: 100%;
-  border-radius: 8px;
-  margin-top: 0.8rem;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  width: 100%;
+  border-radius: 8px;
+  margin-top: 0.8rem;
+  padding: 1.6rem 2.7rem;
+  background-color: ${({ theme }) => theme.colors.grey_popup};
 `;
 
 const SuggeterText = styled.p`

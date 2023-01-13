@@ -20,7 +20,7 @@ export default function myBuy() {
   const [isClicked, setIsClicked] = useState(true);
   const [isPurchased, setIsPurchased] = useState(false);
   const { data: myInfo } = useGetmyInfo(true);
-  const { data: salesPostInfo } = useGetSalesPostInfo(2);
+  const { data: salesPostInfo } = useGetSalesPostInfo(142);
   const { data: myBuyPurchasedList } = useGetmyBuy(isPurchased);
 
   const handleOptionTab = () => {
@@ -51,16 +51,20 @@ export default function myBuy() {
           <SuggestTab options={['구매 제시 내역', '구매 확정']} outerFunc={handleOptionTab} isClicked={isClicked} />
         </StyledStickyContainer>
         <ItemContainer>
-          {!salesPostInfo?.data.data && <NoItem />}
-          {myBuyPurchasedList?.data.data.map((item: any) => (
-            <SuggestItem
-              itemSize={item.purchaseOption === 'BULK' ? 'small' : 'big'}
-              description={item.description}
-              status={item.status}
-              key={item.id}
-              element={item}
-            />
-          ))}
+          {!salesPostInfo?.data.data ? (
+            <NoItem />
+          ) : (
+            myBuyPurchasedList?.data.data.map((item: any) => (
+              <SuggestItem
+                itemSize={item.purchaseOption === 'BULK' ? 'small' : 'big'}
+                description={item.description}
+                status={item.status}
+                key={item.id}
+                element={item}
+                imageUrl={item.imageUrl}
+              />
+            ))
+          )}
         </ItemContainer>
       </Root>
       <PlusCircleButtonContainer onClick={handlePlustCircleButton} />

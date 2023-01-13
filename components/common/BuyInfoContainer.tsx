@@ -49,7 +49,7 @@ const BuyInfo = styled.section<{ BuyCount: number }>`
   flex-direction: column;
   align-items: center;
 
-  width: ${({ BuyCount }) => `calc(100% / ${BuyCount})`};
+  width: calc(100% / 3);
   border-right: 1px solid ${({ theme }) => theme.colors.gray0};
 
   h1 {
