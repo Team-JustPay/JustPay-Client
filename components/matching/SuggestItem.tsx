@@ -11,6 +11,7 @@ interface SuggestItemProps {
   isOwner: boolean;
   isMine: boolean;
   element: any;
+  onClick: () => void;
   outerFunc?: (() => void)[];
 }
 
@@ -32,7 +33,7 @@ interface ImageContainerProps {
 
 export default function SuggestItem({
   itemSize,
-  description,
+  onClick,
   status,
   isOwner,
   isMine,
@@ -123,7 +124,7 @@ export default function SuggestItem({
     }
   };
   return (
-    <Root>
+    <Root onClick={onClick}>
       <ItemContainer itemSize={itemSize} isOwner={isOwner} isMine={isMine} status={status}>
         <ImageContainer itemSize={itemSize}>
           <Image src={element.imageUrl} alt="상품 사진" layout="fill" />
