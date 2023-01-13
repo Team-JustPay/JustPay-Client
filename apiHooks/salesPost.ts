@@ -68,7 +68,6 @@ export const useGetCertificationImages = (salesPostId: number) => {
 
 export const useGetSalesSuggestPostInfo = (salesPostId: number) => {
   return useQuery(['get/salesposts/:salespostId'], () => getSalesPostInfo(salesPostId), {
-    refetchOnMount: false,
     onError: (error) => {
       console.error(error);
     },

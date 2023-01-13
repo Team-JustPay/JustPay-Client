@@ -37,7 +37,9 @@ export default function buy() {
     if (salesPost?.data.data.priceOption === 'PRICE_OFFER') {
       setIsLimitOrder(false);
     }
+  }, [salesPost]);
 
+  useEffect(() => {
     if (isBulkSale) {
       setPostData((prev) => ({
         ...prev,
@@ -49,13 +51,7 @@ export default function buy() {
     if (isLimitOrder) {
       setPostData((prev) => ({ ...prev, price: salesPost?.data.data.price }));
     }
-  }, [salesPost]);
-
-  useEffect(() => {
-    return () => {
-      resetOfferData();
-    };
-  }, []);
+  }, [postData.shippingOption]);
 
   if (isLoading) return <Root>로딩중..</Root>;
   if (error) return <Root>에러가 발생했습니다</Root>;
@@ -112,9 +108,11 @@ export default function buy() {
 
   const moveToGuidePage = () => {
     resetOfferData();
-    router.push(`/offer/buy/guide/${id}`);
+    router.back();
   };
 
+  console.log(isBulkSale);
+  console.log(isLimitOrder);
   console.log(postData);
   console.log(salesPost);
   return (
