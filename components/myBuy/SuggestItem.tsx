@@ -13,6 +13,7 @@ interface SuggestItemProps {
   status: number;
   element: any;
   imageUrl: string;
+  onClick: () => void;
 }
 
 interface ComponentProps {
@@ -24,7 +25,7 @@ interface ButtonProps {
   colorType: string;
 }
 
-export default function SuggestItem({ itemSize, description, status, element, imageUrl }: SuggestItemProps) {
+export default function SuggestItem({ itemSize, description, status, element, imageUrl, onClick }: SuggestItemProps) {
   const [openModal, setOpenModal] = useState<boolean>(false);
 
   const handleOpenModal = () => {
@@ -69,7 +70,7 @@ export default function SuggestItem({ itemSize, description, status, element, im
     }
   };
   return (
-    <Root>
+    <Root onClick={onClick}>
       <ItemContainer itemSize={itemSize}>
         <ImageWrapper itemSize={itemSize}>
           <Image src={imageUrl} alt="상품 사진" layout="fill" />
