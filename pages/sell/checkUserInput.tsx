@@ -6,14 +6,14 @@ import { TITLE, MENU } from '../../constants/headerMessage';
 import CheckInfoBox from '../../components/sell/sellInfo/CheckInfoBox';
 import CheckBoxContents from '../../components/sell/sellInfo/CheckBoxContents';
 import Router from 'next/router';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { salesPostState } from '../../recoil/salespost';
 import { useRouter } from 'next/router';
 
 export default function checkInfomation() {
   const router = useRouter();
 
-  const postData = useRecoilValue(salesPostState);
+  const [postData, setPostData] = useRecoilState(salesPostState);
   const [isFirstCheck, setIsFirstCheck] = useState(false);
   const [isSecondCheck, setIsSecondCheck] = useState(false);
   const [isThirdCheck, setIsThirdCheck] = useState(false);
@@ -46,7 +46,8 @@ export default function checkInfomation() {
   };
 
   const moveToPrevPage = () => {
-    router.push('/sell/deliveryInfo');
+    setPostData((prev) => ({ ...prev, shippingOptions: [] }));
+    router.push(`/sell/deliveryInfo`);
   };
 
   return (

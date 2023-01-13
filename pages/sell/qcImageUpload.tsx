@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Router from 'next/router';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
@@ -57,14 +57,36 @@ export default function qcImageUpload() {
     }
   };
 
+  useEffect(() => {
+    if (salesPost.certifications.length > 5) {
+      setSalesPostState((prev) => ({
+        ...prev,
+        certifications: [...prev.certifications.slice(0, 5)],
+      }));
+    }
+  }, []);
+
   const handleClickNextButton = () => {
-    // putCertifiactionWord((prev) => ({ ...prev, certificationWord: data?.data.data.certificationWord }));
     Router.push('/sell/selectPrice');
+  };
+
+  const moveToPrevPage = () => {
+    setSalesPostState((prev) => ({ ...prev, certifications: [] }));
+    Router.push('/sell/qcGuide');
+  };
+
+  const isValidUpload = () => {
+    return salesPost.certifications.length > 0 && salesPost.certifications.length <= 5 ? true : false;
   };
 
   return (
     <>
-      <Header title="판매글 작성하기" isHavingBackButton={true} rightButtonText="취소" />
+      <Header
+        title="판매글 작성하기"
+        isHavingBackButton={true}
+        rightButtonText="취소"
+        handleLeftButton={moveToPrevPage}
+      />
       <StyledCertigfyInfoConatiner>
         <MainText text="인증 전용 사진을 추가로 등록해주세요" />
         <SubText
@@ -98,7 +120,7 @@ export default function qcImageUpload() {
           </ImageWrapper>
         ))}
       </StyledUploadImageConatiner>
-      <BigButton text="다음" isDisabled={false} onClick={handleClickNextButton} />
+      <BigButton text="다음" isDisabled={!isValidUpload()} onClick={handleClickNextButton} />
     </>
   );
 }

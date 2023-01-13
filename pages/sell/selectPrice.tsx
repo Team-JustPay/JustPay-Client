@@ -95,10 +95,20 @@ export default function selectPrice() {
     }
   }, []);
 
+  const moveToPrevPage = () => {
+    setSalesPostState((prev) => ({ ...prev, price: null, priceOption: '' }));
+    Router.push('/sell/qcImageUpload');
+  };
+
   return (
     <>
       <div>
-        <Header title={TITLE.ADD_SELLPOST} rightButtonText={MENU.BACK} isHavingBackButton />
+        <Header
+          title={TITLE.ADD_SELLPOST}
+          rightButtonText={MENU.BACK}
+          isHavingBackButton
+          handleLeftButton={moveToPrevPage}
+        />
         <TitleText>
           <SubText
             text={`${

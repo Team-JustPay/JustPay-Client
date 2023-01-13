@@ -54,10 +54,19 @@ export default function qcGuide() {
     }
   };
 
+  const moveToPrevPage = () => {
+    Router.push(`sell/option`);
+  };
+
   return (
     <>
       <div>
-        <Header title={TITLE.ADD_SELLPOST} rightButtonText={MENU.CANCEL} isHavingBackButton />
+        <Header
+          title={TITLE.ADD_SELLPOST}
+          rightButtonText={MENU.CANCEL}
+          isHavingBackButton
+          handleLeftButton={moveToPrevPage}
+        />
         <TitleText>
           <MainText text="인증 전용 사진을 추가로 등록해주세요"></MainText>
           <SubText text="매칭된 구매자에게만 보일 인증 사진을 등록해주세요" isMainColor={false}></SubText>
