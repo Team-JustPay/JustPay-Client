@@ -79,7 +79,7 @@ export default function denyoffer() {
         text="제시 거절하기"
         onClick={() => {
           handleClickCancelButton();
-          router.push(`/matching/${Number(id)}`);
+          router.push(`/my/sell`);
         }}
         isDisabled={currentUserChoice === '' ? true : false}
       />

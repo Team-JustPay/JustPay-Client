@@ -3,11 +3,11 @@ import styled from 'styled-components';
 
 import NoItemIcon from '../../public/assets/icons/Notice.svg';
 
-export default function NoItem() {
+export default function NoItem({ text }: { text: string }) {
   return (
     <NoItemContainer>
       <NoItemIcon />
-      <NoItemText>아직 구매 제시한 내역이 없어요</NoItemText>
+      <NoItemText>{text}</NoItemText>
     </NoItemContainer>
   );
 }

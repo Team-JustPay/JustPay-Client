@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import Router from 'next/router';
 
 interface MySellItemProps {
+  id: number;
   isSaled?: boolean;
   mainImageUrl: string;
   productCount: number;
@@ -11,6 +13,7 @@ interface MySellItemProps {
 }
 
 export default function MySellItem({
+  id,
   isSaled,
   mainImageUrl,
   productCount,
@@ -40,7 +43,14 @@ export default function MySellItem({
   };
 
   return (
-    <StyledMySellItem saled={isSaled}>
+    <StyledMySellItem
+      saled={isSaled}
+      onClick={() => {
+        Router.push({
+          pathname: `/sell/post/${id}`,
+          query: { salesPostId: id },
+        });
+      }}>
       <img alt="판매글 대표 이미지" src={mainImageUrl} />
       <StyledItemListContainer>
         <StyledItemList>

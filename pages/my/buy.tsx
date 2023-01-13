@@ -56,8 +56,12 @@ export default function myBuy() {
           <SuggestTab options={['구매 제시 내역', '구매 확정']} outerFunc={handleOptionTab} isClicked={isClicked} />
         </StyledStickyContainer>
         <ItemContainer>
-          {!myBuyPurchasedList?.data.data ? (
-            <NoItem />
+          {myBuyPurchasedList?.data.data.length === 0 ? (
+            !isPurchased ? (
+              <NoItem text="아직 구매 제시한 내역이 없어요" />
+            ) : (
+              <NoItem text="아직 구매 확정된 내역이 없어요" />
+            )
           ) : (
             myBuyPurchasedList?.data.data.map((item: any) => (
               <SuggestItem
