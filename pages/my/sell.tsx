@@ -28,38 +28,35 @@ export default function mySell() {
 
   console.log(mySellInfo?.data.data.productCount);
   return (
-    <>
-      {' '}
-      <Root>
-        <StyledHeader>
-          <Logo />
-        </StyledHeader>
-        <UserProfile
-          profileImageUrl={myInfo?.data.data.profileImageUrl}
-          nickname={myInfo?.data.data.nickName}
-          socialId={myInfo?.data.data.socialId}
-        />
-        <MySellInfoContainer
-          dealCount={myInfo?.data.data.dealCount}
-          saleMoney={myInfo?.data.data.saleMoney}
-          saleCount={myInfo?.data.data.saleCount}
-        />
-        <StyledStickyContainer>
-          <SuggestTab options={['판매 중', '판매 종료']} outerFunc={handleOptionTab} isClicked={!isSaled} />
-        </StyledStickyContainer>
-        {mySellInfo?.data.data.length === 0 ? (
-          isSaled ? (
-            <NoItem text="아직 판매 종료한 내역이 없어요" />
-          ) : (
-            <NoItem text="아직 판매중인 내역이 없어요" />
-          )
+    <Root>
+      <StyledHeader>
+        <Logo />
+      </StyledHeader>
+      <UserProfile
+        profileImageUrl={myInfo?.data.data.profileImageUrl}
+        nickname={myInfo?.data.data.nickName}
+        socialId={myInfo?.data.data.socialId}
+      />
+      <MySellInfoContainer
+        dealCount={myInfo?.data.data.dealCount}
+        saleMoney={myInfo?.data.data.saleMoney}
+        saleCount={myInfo?.data.data.saleCount}
+      />
+      <StyledStickyContainer>
+        <SuggestTab options={['판매 중', '판매 종료']} outerFunc={handleOptionTab} isClicked={!isSaled} />
+      </StyledStickyContainer>
+      {mySellInfo?.data.data.length === 0 ? (
+        isSaled ? (
+          <NoItem text="아직 판매 종료한 내역이 없어요" />
         ) : (
-          <MySellItemContainer isSaled={isSaled} itemList={mySellInfo?.data.data} />
-        )}
-      </Root>
+          <NoItem text="아직 판매중인 내역이 없어요" />
+        )
+      ) : (
+        <MySellItemContainer isSaled={isSaled} itemList={mySellInfo?.data.data} />
+      )}
       <PlusCircleButtonContainer onClick={handlePlustCircleButton} />
       <GNB currentGNB={'sell'} />
-    </>
+    </Root>
   );
 }
 

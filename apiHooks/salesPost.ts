@@ -72,6 +72,7 @@ export const useGetSalesSuggestPostInfo = (salesPostId: number) => {
     onError: (error) => {
       console.error(error);
     },
+    refetchOnWindowFocus: true,
   });
 };
 

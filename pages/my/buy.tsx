@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import { useGetSalesPostInfo } from 'apiHooks/salesPost';
 import { useGetmyBuy, useGetmyInfo } from 'apiHooks/user';
 
 import Logo from '../../public/assets/icons/justpay_symbol_logo.svg';
@@ -20,7 +19,6 @@ export default function myBuy() {
   const [isClicked, setIsClicked] = useState(true);
   const [isPurchased, setIsPurchased] = useState(false);
   const { data: myInfo } = useGetmyInfo(true);
-  const { data: salesPostInfo } = useGetSalesPostInfo(142);
   const { data: myBuyPurchasedList } = useGetmyBuy(isPurchased);
 
   const handleOptionTab = () => {
@@ -30,6 +28,13 @@ export default function myBuy() {
 
   const handlePlustCircleButton = () => {
     Router.push('/sell/guide');
+  };
+
+  const handleClickSalesPostDetail = (id: string) => {
+    Router.push({
+      pathname: `/offer/post/${id}`,
+      query: { suggestId: id },
+    });
   };
   return (
     <>
@@ -66,6 +71,7 @@ export default function myBuy() {
                 key={item.id}
                 element={item}
                 imageUrl={item.imageUrl}
+                onClick={() => handleClickSalesPostDetail(item.id)}
               />
             ))
           )}
