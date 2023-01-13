@@ -16,9 +16,9 @@ import Modal from 'components/common/Modal';
 
 export default function suggest() {
   const router = useRouter();
-  const { salesPostId } = router.query;
-  const { data: suggestsInfo } = useGetSuggestsInfo(Number(salesPostId));
-  const { mutate: handleClickCancelButton } = useDeleteSuggests(Number(salesPostId));
+  const { suggestId } = router.query;
+  const { data: suggestsInfo } = useGetSuggestsInfo(Number(suggestId));
+  const { mutate: handleClickCancelButton } = useDeleteSuggests(Number(suggestId));
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
 
   const handleClickRaisePriceButton = () => {
@@ -62,8 +62,9 @@ export default function suggest() {
         </StyledButtonWrapper>
       )}
 
-      {suggestsInfo?.data.data.salesPost.priceOption === 'DESIGNATED_PRICE' &&
-        suggestsInfo.data.data.isMine(<BigButton text="제시 취소하기" isDisabled={false}></BigButton>)}
+      {suggestsInfo?.data.data.salesPost.priceOption === 'DESIGNATED_PRICE' && suggestsInfo.data.data.isMine && (
+        <BigButton text="제시 취소하기" isDisabled={false}></BigButton>
+      )}
 
       {!suggestsInfo?.data.data.isMine && (
         <StyledButtonWrapper>

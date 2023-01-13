@@ -81,6 +81,13 @@ export default function matching() {
     });
   };
 
+  const handleSuggestDetail = (id: number) => {
+    Router.push({
+      pathname: `/offer/post/${id}`,
+      query: { suggestId: id },
+    });
+  };
+
   const setButtonFunc = (isOwner: boolean, isMine: boolean, status: number, id: number) => {
     if (isOwner) {
       switch (status) {
@@ -152,6 +159,7 @@ export default function matching() {
                 key={item.id}
                 element={item}
                 outerFunc={setButtonFunc(salesPostInfo?.data.data.isMine, item.isMine, item.status, item.id)}
+                onClick={() => handleSuggestDetail(item.id)}
               />
               {isDeliverInfoModalOpen && (
                 <DeliverInfoModal
