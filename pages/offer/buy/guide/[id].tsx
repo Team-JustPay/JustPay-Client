@@ -3,10 +3,6 @@ import styled from 'styled-components';
 import theme from 'styles/theme';
 import Header from 'components/common/Header';
 import BigButton from 'components/common/BigButton';
-import First from 'public/assets/images/offer/guide/first.svg';
-import Second from 'public/assets/images/offer/guide/second.svg';
-import Third from 'public/assets/images/offer/guide/third.svg';
-import Fourth from 'public/assets/images/offer/guide/fourth.svg';
 import { useRouter } from 'next/router';
 
 export default function offerGuide() {
@@ -14,7 +10,6 @@ export default function offerGuide() {
   const { id } = router.query;
 
   return (
-    // TODO: 디자인한테 이미지 에셋으로 만들어달라고 부탁하기
     <Root>
       <Header isHavingBackButton title="구매 제시하기" rightButtonText="취소" />
       <StyledNoticeContainer>
@@ -24,25 +19,21 @@ export default function offerGuide() {
       <StyledContentContainer>
         <StyledContentTitle>1.&nbsp;일괄+일부 판매일경우</StyledContentTitle>
         <StyledFirstImage>
-          <First />
-          <StyledGuideContainer>
-            <StyledGuideContent> 대표사진을 다운받아 편집하여</StyledGuideContent>
-            <StyledGuideContent> 구매를 원하는 상품만 표시해주세요</StyledGuideContent>
-          </StyledGuideContainer>
+          <img src="/assets/images/offer/guide/first.png" />
         </StyledFirstImage>
       </StyledContentContainer>
       <StyledContentContainer>
         <StyledContentTitle>2.&nbsp;선택한 옵션에 대해 설명을 남겨주세요</StyledContentTitle>
         <StyledSecondImage>
-          <Second />
+          <img src="/assets/images/offer/guide/second.png" />
         </StyledSecondImage>
       </StyledContentContainer>
       <StyledContentTitle>3.&nbsp;사진 편집은 이렇게하면 돼요! </StyledContentTitle>
       <StyledThirdImage>
-        <Third />
+        <img src="/assets/images/offer/guide/third.png" />
       </StyledThirdImage>
       <StyledFourthImage>
-        <Fourth />
+        <img src="/assets/images/offer/guide/fourth.png" />
       </StyledFourthImage>
 
       <BigButton text="다음" isDisabled={false} onClick={() => router.push(`/offer/buy/${id}`)} />
@@ -106,21 +97,4 @@ const StyledThirdImage = styled(StyledImageContainer)`
 `;
 const StyledFourthImage = styled(StyledImageContainer)`
   margin-bottom: 5rem;
-`;
-
-const StyledGuideContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  width: 100%;
-
-  margin-top: 2.56rem;
-`;
-
-const StyledGuideContent = styled.p`
-  ${theme.fonts.regular12pt}
-  color: ${theme.colors.gray3};
-  margin-bottom: 0.7rem;
 `;
