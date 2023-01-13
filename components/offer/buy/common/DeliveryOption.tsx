@@ -15,7 +15,7 @@ interface DeliveryOptionProps {
   contents: string[];
   isAllowedSinglePick?: boolean;
   isPicked?: boolean;
-  currentUserChoice: number;
+  currentUserChoice: string;
   onClick: () => void;
 }
 
@@ -61,7 +61,7 @@ export default function DeliveryOption({
   };
 
   return (
-    <Root isSelected={isSelected} currentUserChoice={currentUserChoice} Id={id} onClick={handleDeliveryOption}>
+    <Root isSelected={isSelected} currentUserChoice={currentUserChoice} name={name} onClick={handleDeliveryOption}>
       <NonStyledContentContainer>
         <StyledTitleContainer>
           <StyledOptionTitle>{name}&nbsp;</StyledOptionTitle>
@@ -72,7 +72,7 @@ export default function DeliveryOption({
             <StyledContent>· &nbsp;{content}</StyledContent>
           ))}
         </StyledDescriptionContainer>
-        <StyledIconContainer isSelected={isSelected} currentUserChoice={currentUserChoice} Id={id}>
+        <StyledIconContainer isSelected={isSelected} currentUserChoice={currentUserChoice} name={name}>
           {Icon()}
         </StyledIconContainer>
       </NonStyledContentContainer>
@@ -80,7 +80,7 @@ export default function DeliveryOption({
   );
 }
 
-const Root = styled.div<{ isSelected: boolean; currentUserChoice: number; Id: number }>`
+const Root = styled.div<{ isSelected: boolean; currentUserChoice: string; name: string }>`
   position: relative;
 
   width: calc(50% - 0.6rem);
@@ -91,8 +91,8 @@ const Root = styled.div<{ isSelected: boolean; currentUserChoice: number; Id: nu
 
   cursor: pointer;
 
-  ${({ isSelected, currentUserChoice, Id }) =>
-    Id === currentUserChoice && isSelected
+  ${({ isSelected, currentUserChoice, name }) =>
+    name === currentUserChoice && isSelected
       ? css`
           border: 0.2rem solid;
           border-color: ${({ theme }) => theme.colors.main};
@@ -137,11 +137,11 @@ const StyledContent = styled.p`
   margin-bottom: 0.5rem;
 `;
 
-const StyledIconContainer = styled.div<{ isSelected: boolean; currentUserChoice: number; Id: number }>`
+const StyledIconContainer = styled.div<{ isSelected: boolean; currentUserChoice: string; name: string }>`
   position: absolute;
 
-  ${({ isSelected, currentUserChoice, Id }) =>
-    Id === currentUserChoice && isSelected
+  ${({ isSelected, currentUserChoice, name }) =>
+    name === currentUserChoice && isSelected
       ? css`
           bottom: 0.66rem;
           right: 0.66rem;

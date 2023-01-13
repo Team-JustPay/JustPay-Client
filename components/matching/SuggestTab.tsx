@@ -27,6 +27,7 @@ export default function SuggestTab({ options, outerFunc, isClicked }: TabProps) 
 }
 
 const TabContainer = styled.section`
+  padding-top: 2rem;
   display: flex;
   position: sticky;
   top: 56px;

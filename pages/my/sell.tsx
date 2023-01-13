@@ -26,6 +26,7 @@ export default function mySell() {
     Router.push('/sell/guide');
   };
 
+  console.log(mySellInfo?.data.data.productCount);
   return (
     <>
       {' '}
@@ -46,8 +47,15 @@ export default function mySell() {
         <StyledStickyContainer>
           <SuggestTab options={['판매 중', '판매 종료']} outerFunc={handleOptionTab} isClicked={!isSaled} />
         </StyledStickyContainer>
-        {!mySellInfo?.data.data && <NoItem />}
-        <MySellItemContainer isSaled={isSaled} itemList={mySellInfo?.data.data} />
+        {mySellInfo?.data.data.length === 0 ? (
+          isSaled ? (
+            <NoItem text="아직 판매 종료한 내역이 없어요" />
+          ) : (
+            <NoItem text="아직 판매중인 내역이 없어요" />
+          )
+        ) : (
+          <MySellItemContainer isSaled={isSaled} itemList={mySellInfo?.data.data} />
+        )}
       </Root>
       <PlusCircleButtonContainer onClick={handlePlustCircleButton} />
       <GNB currentGNB={'sell'} />
