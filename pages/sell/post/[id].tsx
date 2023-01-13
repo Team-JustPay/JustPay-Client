@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { useGetSalesPostInfo } from 'apiHooks/salesPost';
@@ -220,7 +220,10 @@ const ItemImage = styled.img`
 `;
 
 export async function getServerSideProps(context: any) {
+  const accessToken = typeof window !== 'undefined' && localStorage.getItem('accessToken');
   return {
-    props: {},
+    props: {
+      data: accessToken,
+    },
   };
 }
