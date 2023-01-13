@@ -134,7 +134,7 @@ export default function SuggestItem({
               <SuggestStateText>{`${element.price.toLocaleString('ko-KR')}원 제시`}</SuggestStateText>
             ) : (
               <SuggestStateHighlight>
-                {description.length > 10 ? description.substring(0, 10) + '...' : description}
+                {description?.length > 10 ? description?.substring(0, 10) + '...' : description}
               </SuggestStateHighlight>
             )}
             <ProfileImageContainer>
