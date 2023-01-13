@@ -1,8 +1,8 @@
 import { authAPI } from './baseInstance';
 
-export const setUserLogin = async () => {
+export const setUserLogin = async (userId: number) => {
   const res = await authAPI.post('/login', {
-    oauthToken: 10,
+    oauthToken: userId,
     oauthTokenSecret: '상준쨩',
   });
   localStorage.setItem('accessToken', res.data.data.accessToken);

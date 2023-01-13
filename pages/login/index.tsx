@@ -1,17 +1,13 @@
 import React from 'react';
+import Router from 'next/router';
 import Image from 'next/image';
 import styled from 'styled-components';
-import { useSetUserLogin } from 'apiHooks/auth';
 
 import JusyPayLogo from '../../public/assets/icons/justpay_symbol_logo.svg';
 import BigButton from 'components/common/BigButton';
 import LoginGIF from '../../public/assets/icons/loginneed2.gif';
 
 export default function login() {
-  const { mutate } = useSetUserLogin();
-  const handleClickLoginButton = () => {
-    mutate();
-  };
   return (
     <>
       <StyledHeader>
@@ -23,7 +19,7 @@ export default function login() {
           <GuideText>로그인이 필요해요</GuideText>
         </GIFContainer>
       </ContentsContainer>
-      <BigButton text="로그인하기" isDisabled={false} onClick={() => handleClickLoginButton()} />
+      <BigButton text="로그인하기" isDisabled={false} onClick={() => Router.push('/login/option')} />
     </>
   );
 }
