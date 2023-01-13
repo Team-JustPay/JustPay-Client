@@ -319,7 +319,7 @@
     "web-vitals": "^2.1.0"
   },
   "devDependencies": {
-    "@svgr/webpack": "^6.5.1",
+   "@svgr/webpack": "^6.5.1",
     "@types/eslint": "^8",
     "@types/node": "^18.11.17",
     "@types/prettier": "^2",
@@ -338,7 +338,6 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.11",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "msw": "^0.49.2",
     "prettier": "^2.8.1"
   }
 ```
