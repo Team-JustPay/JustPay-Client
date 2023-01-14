@@ -169,10 +169,12 @@ const ItemContainer = styled.article<ComponentProps>`
   align-items: center;
 
   width: 100%;
-  margin-top: 1.2rem;
+  gap: 1.2rem;
 
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.grey_popup};
+
+  border: ${({ isMine, theme }) => isMine && `1px solid ${theme.colors.main}`};
 
   ${({ itemSize }) =>
     itemSize === 'small'
