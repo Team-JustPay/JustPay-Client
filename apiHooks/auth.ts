@@ -10,8 +10,8 @@ export const useSetUserLogin = (userId: number) => {
     onSuccess: () => {
       if (localStorage.getItem('accessToken')) {
         Router.push({
-          pathname: '/sell/post/176',
-          query: { salesPostId: 176 },
+          pathname: '/sell/post/118',
+          query: { salesPostId: 118 },
         });
       }
     },
