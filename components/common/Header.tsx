@@ -19,8 +19,9 @@ export default function Header({
   isHavingBackButton,
   leftButtonText,
   handleLeftButton,
+  handleRightButton,
 }: TitleBoxProps) {
-  const handleRightButton = () => {
+  const handleCancelButton = () => {
     if (rightButtonText === '취소') {
       Router.push('/my/sell');
     }
@@ -38,7 +39,7 @@ export default function Header({
       )}
 
       <StyledTitle>{title}</StyledTitle>
-      <StyledRightButton type="button" onClick={handleRightButton}>
+      <StyledRightButton type="button" onClick={handleRightButton || handleCancelButton}>
         {rightButtonText}
       </StyledRightButton>
     </Root>

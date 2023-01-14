@@ -52,6 +52,13 @@ export default function post() {
     }, 2000);
   };
 
+  const handleRightButton = () => {
+    Router.push({
+      pathname: `/sell/post/${salesPostInfo?.data.data.id}/certifications`,
+      query: { salesPostId: salesPostInfo?.data.data.id },
+    });
+  };
+
   return (
     <Root>
       <div>
@@ -65,12 +72,7 @@ export default function post() {
               query: { salesPostId: salesPostInfo?.data.data.id },
             });
           }}
-          handleRightButton={() => {
-            Router.push({
-              pathname: `/sell/post/${salesPostInfo?.data.data.id}/certifications`,
-              query: { salesPostId: salesPostInfo?.data.data.id },
-            });
-          }}></Header>
+          handleRightButton={handleRightButton}></Header>
         <UserProfile
           profileImageUrl={salesPostInfo?.data.data.sellor.profileImageUrl}
           nickname={salesPostInfo?.data.data.sellor.nickName}
