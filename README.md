@@ -42,8 +42,8 @@
             </a>
         </td>
         <td style="min-width: 150px;">
-            <a href="https://github.com/wooyoung0830">
-              <img src="https://github.com/wooyoung0830.png" width="100">
+            <a href="https://github.com/f0rever0">
+              <img src="https://github.com/f0rever0.png" width="100">
               <br />
               <b>송우영 (wooyoung0830)</b>
             </a> 
