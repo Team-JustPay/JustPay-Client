@@ -45,7 +45,7 @@
             <a href="https://github.com/f0rever0">
               <img src="https://github.com/f0rever0.png" width="100">
               <br />
-              <b>송우영 (wooyoung0830)</b>
+              <b>송우영 (f0rever0)</b>
             </a> 
         </td>
         <td style="min-width: 150px;">
